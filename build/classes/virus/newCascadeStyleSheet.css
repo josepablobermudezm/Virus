@@ -1,0 +1,194 @@
+#Titulo{
+    -fx-text-fill: gray;
+    -fx-font-size : 35pt;
+    -jfx-focus-color: -fx-secondary;
+}
+.Label{
+    -fx-font-family: "Decker";
+    /*-fx-font-family: "Arial Rounded MT Bold";*/
+    -fx-text-fill: #384294;
+    /*-fx-font-family: url("../fonts/SourceSansPro-Bold.ttf");*/
+    -fx-font-size: 25pt;
+}
+.lbl{
+    -fx-font-family: "Decker";
+    -fx-text-fill: gray;
+    /*-fx-font-family: url("../fonts/SourceSansPro-Bold.ttf");*/
+    -fx-font-size: 25pt;
+}
+
+.lbl:hover{
+    -fx-font-family: "Decker";
+    -fx-font-size : 27pt;
+    -fx-text-fill : white;
+}
+#lblSelected{
+    -fx-font-family: "Decker";
+    -fx-text-fill: white;
+    /*-fx-font-family: url("../fonts/SourceSansPro-Bold.ttf");*/
+    -fx-font-size: 27pt;
+}
+
+#lblSelected:hover{
+    -fx-font-family: "Decker";
+    -fx-font-size : 27pt;
+    -fx-text-fill : white;
+}
+.lblSmall{
+    -fx-font-family: "Decker";
+    -fx-text-fill: white;
+    /*-fx-font-family: url("../fonts/SourceSansPro-Bold.ttf");*/
+    -fx-font-size: 11pt;
+}
+.lbl4{
+    -fx-font-family: "Decker";
+    -fx-text-fill: #4955ba;
+    /*-fx-font-family: url("../fonts/SourceSansPro-Bold.ttf");*/
+    -fx-font-size: 25pt;
+}
+.lbl4:hover{
+    -fx-font-family: "Decker";
+    -fx-font-size : 25pt;
+    -fx-text-fill : white;
+}
+.anchorp{
+    -fx-border-color: #4955ba;
+    -fx-border-width: 5;
+}
+.anchorp:hover{
+    -fx-border-color: white;
+    -fx-border-width: 5;
+}
+.lbl3{
+    -fx-font-family: "Decker";
+    -fx-text-fill : white;
+    /*-fx-font-family: url("../fonts/SourceSansPro-Bold.ttf");*/
+    -fx-font-size: 25pt;
+}
+.lbl3:hover{
+    -fx-font-family: "Decker";
+    -fx-font-size : 27pt;
+    -fx-text-fill : white;
+}
+#root{
+    -fx-background-color: black;
+}
+#puntos{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : white;
+    -fx-font-size : 25pt;
+}
+/*game over*/
+.lblPac1{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : white;
+    -fx-font-size : 25pt;
+}
+.lblPac{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : white;
+    -fx-font-size : 25pt;
+}
+.lblPac:hover{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : #4955ba;
+    -fx-font-size : 25pt;
+}
+.lblIconLevel1{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : GREEN;
+    -fx-font-size : 45pt;
+}
+.lblIconLevel4{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : #3B80B8;
+    -fx-font-size : 45pt;
+}
+.lblIconLevel6{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : #02235D;
+    -fx-font-size : 45pt;
+}
+.lblIconLevel5{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : #0CF25C;
+    -fx-font-size : 45pt;
+}
+.lblIconLevel2{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : YELLOW;
+    -fx-font-size : 45pt;
+}
+.lblIconLevel3{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : #efb810;
+    -fx-font-size : 45pt;
+}
+.lblIconLevel7{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : #F22836;
+    -fx-font-size : 45pt;
+}
+.lblIconLevel8{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : #CABD5D;
+    -fx-font-size : 45pt;
+}
+.lblIconLevel9{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : #c42014;
+    -fx-font-size : 45pt;
+}
+.lblIconLevel10{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : #ffffff;
+    -fx-font-size : 45pt;
+}
+.gameover{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : RED;
+    -fx-font-size : 60pt;
+}
+
+.custom-jfx-radio-button-white{
+    -fx-text-fill: black;
+    -jfx-selected-color: #0d54d1;
+}
+
+.button{
+    -fx-background-color:#042a6b;
+    -jfx-button-type: RAISED;/*raised and flat*/
+    -fx-text-fill: WHITE;
+    -jfx-rippler-fill: RED;
+}
+.button:pressed {
+    -fx-background-color: white;
+    -jfx-button-type: RAISED;/*raised and flat*/
+    -fx-text-fill: WHITE;
+    -jfx-rippler-fill: RED;
+}
+.button:hover {
+    -fx-background-color: #06388f;
+    -jfx-button-type: RAISED;/*raised and flat*/
+    -fx-text-fill: WHITE;
+    -jfx-rippler-fill: RED;
+}
+.button .jfx-rippler{
+    -jfx-rippler-fill: #577fc2;
+}
+
+.button:disabled{
+    -fx-background-color: #cccccc;
+    -jfx-button-type: RAISED;/*raised and flat*/
+    -fx-text-fill: WHITE;
+    -jfx-rippler-fill: GREEN;
+    
+}
+
+.text-field{
+    -fx-prompt-text-fill: black;
+    -jfx-focus-color: black;
+    -jfx-unfocus-color: black;
+    /*-jfx-label-float: true;*/
+    -fx-text-fill: black;
+}

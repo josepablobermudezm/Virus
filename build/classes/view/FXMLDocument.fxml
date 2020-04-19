@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane stylesheets="@newCascadeStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FXMLDocumentController">
+   <center>
+      <VBox>
+         <children>
+            <AnchorPane id="AnchorPane" prefHeight="645.0" prefWidth="900.0" stylesheets="@newCascadeStyleSheet.css">
+               <children>
+                  <ImageView fx:id="omg" fitHeight="645.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label layoutX="14.0" layoutY="562.0" onMouseClicked="#Salir" styleClass="lbl" text="Salir" />
+                  <Label layoutX="14.0" layoutY="514.0" onMouseClicked="#Configuracion" styleClass="lbl" text="Configuración" />
+                  <Label layoutX="14.0" layoutY="416.0" onMouseClicked="#Start" styleClass="lbl" text="Iniciar" />
+                  <Label layoutX="14.0" layoutY="464.0" onMouseClicked="#jugador" styleClass="lbl" text="Jugador" />
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

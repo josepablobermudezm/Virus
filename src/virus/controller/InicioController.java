@@ -73,7 +73,7 @@ public class InicioController extends Controller implements Initializable {
     private void Jugar(MouseEvent event) {
         if (!txtIP.getText().isEmpty() && !txtJugador.getText().isEmpty() && !txtServidor.getText().isEmpty()) {
             enviarTexto(txtJugador.getText(), txtIP.getText(), txtServidor.getText());
-	    FlowController.getInstance().goView("Juego");
+            FlowController.getInstance().goView("Juego");
         }
     }
 
@@ -135,23 +135,5 @@ public class InicioController extends Controller implements Initializable {
             Logger.getLogger(InicioController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }
-
-    private static void recibirCartas(JugadorDto jugador, String IP_Servidor) {
-        try {
-            Socket socket = new Socket(IP_Servidor, 44440);
-            System.out.println("Connected Object!");
-            // get the output stream from the socket.
-            InputStream inputStream = socket.getInputStream();
-            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            ArrayList<CartaDto> cartas = (ArrayList<CartaDto>) objectInputStream.readObject();
-            jugador.setMazo(cartas);
-
-            cartas.stream().forEach((t) -> {
-                System.out.println(t.getTipoCarta());
-            });
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("MENSAJE DE ERROR: "+e.getMessage());
-        }
     }
 }

@@ -88,9 +88,14 @@ public class FlowController {
         return loader;
     }
 
-    public void goMain() throws IOException {
-        this.mainStage.setScene(new Scene(FXMLLoader.load(Virus.class.getResource("view/Menu.fxml"), this.idioma)));
-        this.mainStage.show();
+    public void goMain() {
+        try {
+            this.mainStage.setScene(new Scene(FXMLLoader.load(Virus.class.getResource("view/Menu.fxml"), this.idioma)));
+            this.mainStage.show();
+        } catch (IOException e) {
+            
+        }
+
     }
 
     public void goView(String viewName) {
@@ -186,8 +191,6 @@ public class FlowController {
 
     }
 
-    
-    
     public void goViewInWindowModal(String viewName, Stage parentStage, Boolean resizable) {
         FXMLLoader loader = getLoader(viewName);
         Controller controller = loader.getController();
@@ -210,7 +213,7 @@ public class FlowController {
         stage.showAndWait();
 
     }
-    
+
     public void goViewInWindowModalCorreo(String viewName, Stage parentStage, Boolean resizable) {
         FXMLLoader loader = getLoader(viewName);
         Controller controller = loader.getController();
@@ -218,7 +221,7 @@ public class FlowController {
         stage.getIcons().add(new Image("/clinicauna/resources/medicine.png"));
         stage.setTitle("Clinica UNA");
         stage.setResizable(resizable);
-        
+
         stage.setOnHidden((WindowEvent event) -> {
             controller.getStage().getScene().setRoot(new Pane());
             controller.setStage(null);
@@ -237,7 +240,6 @@ public class FlowController {
 
     }
 
-    
     public Controller getController(String viewName) {
         return getLoader(viewName).getController();
     }

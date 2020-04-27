@@ -73,6 +73,7 @@ public class InicioController extends Controller implements Initializable {
     private void Jugar(MouseEvent event) {
         if (!txtIP.getText().isEmpty() && !txtJugador.getText().isEmpty() && !txtServidor.getText().isEmpty()) {
             enviarTexto(txtJugador.getText(), txtIP.getText(), txtServidor.getText());
+	    FlowController.getInstance().goView("Juego");
         }
     }
 

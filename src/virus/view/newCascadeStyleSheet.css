@@ -10,6 +10,18 @@
     /*-fx-font-family: url("../fonts/SourceSansPro-Bold.ttf");*/
     -fx-font-size: 25pt;
 }
+.lbl2{
+    -fx-font-family: "Decker";
+    -fx-text-fill: white;
+    /*-fx-font-family: url("../fonts/SourceSansPro-Bold.ttf");*/
+    -fx-font-size: 25pt;
+}
+
+.lbl2:hover{
+    -fx-font-family: "Decker";
+    -fx-font-size : 27pt;
+    -fx-text-fill : black;
+}
 .lbl{
     -fx-font-family: "Decker";
     -fx-text-fill: gray;
@@ -20,7 +32,7 @@
 .lbl:hover{
     -fx-font-family: "Decker";
     -fx-font-size : 27pt;
-    -fx-text-fill : white;
+    -fx-text-fill : #65239e;
 }
 #lblSelected{
     -fx-font-family: "Decker";

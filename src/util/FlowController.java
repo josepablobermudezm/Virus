@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package util;
+package clinicauna.util;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -12,18 +12,17 @@ import java.util.logging.Level;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
-//import pacmanFX.;
 import controller.Controller;
-//import pacmanfx.controller.pacmanFX;
+import javafx.animation.FadeTransition;
+import javafx.scene.image.Image;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import virus.Virus;
 
 /**
@@ -36,6 +35,7 @@ public class FlowController {
     private static Stage mainStage;
     private static ResourceBundle idioma;
     private static HashMap<String, FXMLLoader> loaders = new HashMap<>();
+    private Stage stage;
 
     private FlowController() {
     }
@@ -57,13 +57,9 @@ public class FlowController {
         return INSTANCE;
     }
 
-    public static Stage getMainStage() {
-        return mainStage;
-    }
-    
     @Override
     public Object clone() throws CloneNotSupportedException {
-        throw new CloneNotSupportedException();
+        return null;
     }
 
     public void InitializeFlow(Stage stage, ResourceBundle idioma) {
@@ -91,36 +87,9 @@ public class FlowController {
         return loader;
     }
 
-    public void goViewInWindowTransparent(String viewName) {
-        FXMLLoader loader = getLoader(viewName);
-        Controller controller = loader.getController();
-        Stage stage = new Stage();
-        controller.setStage(stage);
-        controller.initialize();
-        stage.initStyle(StageStyle.TRANSPARENT);
-        //stage.getIcons().add(new Image(ClinicaUna.class.getResourceAsStream("resources/pharmacy.png")));
-        stage.setTitle("Pacman");
-//        stage.setMinWidth(630);
-//        stage.setMinHeight(420);
-        stage.setOnHidden((WindowEvent event) -> {
-        });
-        Parent root = loader.getRoot();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.centerOnScreen();
-        stage.show();
-    }
-    
-    public void goMain() {
-        try {
-            //this.mainStage.setResizable(false);
-            //this.mainStage.getIcons().add(new Image("pacmanfx/resources/icono.png"));
-            this.mainStage.setScene(new Scene(FXMLLoader.load(Virus.class.getResource("view/Menu.fxml"), this.idioma)));
-            mainStage.initStyle(StageStyle.TRANSPARENT);
-            this.mainStage.show();
-        } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(FlowController.class.getName()).log(Level.SEVERE, "Error inicializando la vista base.", ex);
-        }
+    public void goMain() throws IOException {
+        this.mainStage.setScene(new Scene(FXMLLoader.load(Virus.class.getResource("view/Menu.fxml"), this.idioma)));
+        this.mainStage.show();
     }
 
     public void goView(String viewName) {
@@ -131,20 +100,49 @@ public class FlowController {
         goView(viewName, "Center", accion);
     }
 
-    public void goView(String viewName, String location, String accion) {
+    public void goViewInWindowTransparent(String viewName) {
         FXMLLoader loader = getLoader(viewName);
         Controller controller = loader.getController();
+        Stage stage = new Stage();
+        controller.setStage(stage);
+        controller.initialize();
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.getIcons().add(new Image(Virus.class.getResourceAsStream("resources/pharmacy.png")));
+        stage.setTitle("ClinicaUNA");
+//        stage.setMinWidth(630);
+//        stage.setMinHeight(420);
+        stage.setOnHidden((WindowEvent event) -> {
+        });
+        Parent root = loader.getRoot();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
+    }
+
+    public void goView(String viewName, String location, String accion) {
+        FXMLLoader loader = getLoader(viewName);
+        Controller controller = loader.getController();//clase abstracta
         controller.setAccion(accion);
         controller.initialize();
-        Stage stage = controller.getStage();
+        this.stage = controller.getStage();
         if (stage == null) {
             stage = this.mainStage;
             controller.setStage(stage);
         }
+
         switch (location) {
             case "Center":
-                ((VBox) ((BorderPane) stage.getScene().getRoot()).getCenter()).getChildren().clear();
-                ((VBox) ((BorderPane) stage.getScene().getRoot()).getCenter()).getChildren().add(loader.getRoot());
+                FadeTransition t1 = new FadeTransition(Duration.seconds(0.5), ((VBox) ((BorderPane) stage.getScene().getRoot()).getCenter()));
+                t1.setByValue(-1);
+                t1.setOnFinished(f -> {
+                    ((VBox) ((BorderPane) stage.getScene().getRoot()).getCenter()).getChildren().clear();
+                    ((VBox) ((BorderPane) stage.getScene().getRoot()).getCenter()).getChildren().add(loader.getRoot());
+                    FadeTransition t2 = new FadeTransition(Duration.seconds(0.5), ((VBox) ((BorderPane) stage.getScene().getRoot()).getCenter()));
+                    t2.setByValue(1);
+                    t2.play();
+                });
+                t1.play();
                 break;
             case "Top":
                 break;
@@ -162,6 +160,7 @@ public class FlowController {
     public void goViewInStage(String viewName, Stage stage) {
         FXMLLoader loader = getLoader(viewName);
         Controller controller = loader.getController();
+        controller.initialize();
         controller.setStage(stage);
         stage.getScene().setRoot(loader.getRoot());
     }
@@ -169,10 +168,10 @@ public class FlowController {
     public void goViewInWindow(String viewName) {
         FXMLLoader loader = getLoader(viewName);
         Controller controller = loader.getController();
-        //controller.initialize();
+        controller.initialize();
         Stage stage = new Stage();
-        //stage.getIcons().add(new Image("sistematransporte/resources/icono.png"));
-        stage.setTitle("PacMan");
+        stage.getIcons().add(new Image("/clinicauna/resources/medicine.png"));
+        stage.setTitle("Clinica UNA");
         stage.setOnHidden((WindowEvent event) -> {
             controller.getStage().getScene().setRoot(new Pane());
             controller.setStage(null);
@@ -182,27 +181,24 @@ public class FlowController {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.centerOnScreen();
-        stage.setResizable(false);
         stage.show();
-        /*stage.setOnCloseRequest((event) -> {
-            if (PantPrincipalController.timerEnEjecucion) {
-                PantPrincipalController.timer.cancel();
-            }
-        })*/;
 
     }
 
+    
+    
     public void goViewInWindowModal(String viewName, Stage parentStage, Boolean resizable) {
         FXMLLoader loader = getLoader(viewName);
         Controller controller = loader.getController();
         controller.initialize();
         Stage stage = new Stage();
-        //stage.getIcons().add(new Image("sistematransporte/resources/icono.png"));
-        stage.setTitle("PacMan");
-        stage.setResizable(false);
+
+        stage.setResizable(resizable);
         stage.setOnHidden((WindowEvent event) -> {
             controller.getStage().getScene().setRoot(new Pane());
             controller.setStage(null);
+            AppContext.getInstance().delete("Espacio");
+            FlowController.getInstance().initialize();
         });
         controller.setStage(stage);
         Parent root = loader.getRoot();
@@ -212,8 +208,36 @@ public class FlowController {
         stage.initOwner(parentStage);
         stage.centerOnScreen();
         stage.showAndWait();
+
+    }
+    
+    public void goViewInWindowModalCorreo(String viewName, Stage parentStage, Boolean resizable) {
+        FXMLLoader loader = getLoader(viewName);
+        Controller controller = loader.getController();
+        Stage stage = new Stage();
+        stage.getIcons().add(new Image("/clinicauna/resources/medicine.png"));
+        stage.setTitle("Clinica UNA");
+        stage.setResizable(resizable);
+        
+        stage.setOnHidden((WindowEvent event) -> {
+            controller.getStage().getScene().setRoot(new Pane());
+            controller.setStage(null);
+        });
+
+        controller.setStage(stage);
+        controller.initialize();
+        Parent root = loader.getRoot();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(parentStage);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.centerOnScreen();
+        stage.showAndWait();
+
     }
 
+    
     public Controller getController(String viewName) {
         return getLoader(viewName).getController();
     }
@@ -226,21 +250,11 @@ public class FlowController {
         this.loaders.clear();
     }
 
-    public void cerrar(Stage stage) {
-        stage.close();
-    }
-    
     public void salir() {
         this.mainStage.close();
     }
 
-    //No habia ningun metodo que cambiara de escena sin cambiar de ventana, esto lo soluciona y mantiene uso de FlowController
-    public void goViewSameWindow(String scene, Button bot) throws IOException {
-        Parent parent = FXMLLoader.load(Virus.class.getResource("view/" + scene + ".fxml"));
-        Scene sceneToGo = new Scene(parent);
-        Stage stage = ((Stage) bot.getScene().getWindow());
-        stage.setScene(sceneToGo);
-        stage.show();
+    public void delete(String parameter) {
+        loaders.put(parameter, null);
     }
-
 }

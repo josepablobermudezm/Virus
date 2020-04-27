@@ -15,12 +15,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import controller.Controller;
+import util.FlowController;
 
 /**
  *
  * @author Jose Pablo Bermudez
  */
-public class FXMLDocumentController extends Controller implements Initializable {
+public class MenuController extends Controller implements Initializable {
     
     private Label label;
     @FXML
@@ -61,6 +62,9 @@ public class FXMLDocumentController extends Controller implements Initializable 
 
     @FXML
     private void Start(MouseEvent event) {
+        
+        //FlowController.getInstance().goView();
+        
     }
 
     @FXML

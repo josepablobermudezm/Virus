@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import util.FlowController;
 
 /**
  *
@@ -19,12 +20,17 @@ public class Virus extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/FXMLDocument.fxml"));
+        /*Parent root = FXMLLoader.load(getClass().getResource("/view/Menu.fxml"));
         
         Scene scene = new Scene(root);
         
+        //FlowController.getInstance()
+        
         stage.setScene(scene);
-        stage.show();
+        stage.show();*/
+        
+        FlowController.getInstance().InitializeFlow(stage, null);
+        FlowController.getInstance().Main();
     }
 
     /**

@@ -12,6 +12,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import virus.model.CartaDto;
 import virus.util.FlowController;
 
 /**
@@ -23,6 +25,8 @@ public class JuegoController extends Controller implements Initializable {
 
     @FXML
     private ImageView omg;
+    @FXML
+    private AnchorPane anchor;
 
     /**
      * Initializes the controller class.
@@ -36,7 +40,65 @@ public class JuegoController extends Controller implements Initializable {
             omg.setImage(imgLogo);
         } catch (Exception e) {
         }
-    }    
+
+        CartaDto carta1 = new CartaDto("Organo", "Rojo", "corazonCarta.png", "mazo");
+        CartaDto carta2 = new CartaDto("Virus", "Verde", "virusVerdeCarta.png", "mazo");
+        CartaDto carta3 = new CartaDto("Medicina", "Amarillo", "medicinaAmarrilloCarta.png", "mazo");
+
+        ImageView image1 = new ImageView("virus/resources/" + carta1.getImagen());
+        image1.setFitHeight(107.25);
+        image1.setFitWidth(74.75);
+        image1.setLayoutX(75);
+        ImageView image2 = new ImageView("virus/resources/" + carta2.getImagen());
+        image2.setFitHeight(107.25);
+        image2.setFitWidth(74.75);
+        image2.setLayoutX(image1.getLayoutX() + 102.5);
+        ImageView image3 = new ImageView("virus/resources/" + carta3.getImagen());
+        image3.setFitHeight(107.25);
+        image3.setFitWidth(74.75);
+        image3.setLayoutX(image2.getLayoutX() + 102.5);
+
+        anchor.getChildren().add(image1);
+        anchor.getChildren().add(image2);
+        anchor.getChildren().add(image3);
+        
+        ImageView image4 = new ImageView("virus/resources/" + carta1.getImagen());
+        image4.setFitHeight(107.25);
+        image4.setFitWidth(74.75);
+        image4.setLayoutX(image3.getLayoutX() + 252.5);
+        ImageView image5 = new ImageView("virus/resources/" + carta2.getImagen());
+        image5.setFitHeight(107.25);
+        image5.setFitWidth(74.75);
+        image5.setLayoutX(image4.getLayoutX() + 102.5);
+        ImageView image6 = new ImageView("virus/resources/" + carta3.getImagen());
+        image6.setFitHeight(107.25);
+        image6.setFitWidth(74.75);
+        image6.setLayoutX(image5.getLayoutX() + 102.5);
+
+        anchor.getChildren().add(image4);
+        anchor.getChildren().add(image5);
+        anchor.getChildren().add(image6);
+        
+        ImageView image7 = new ImageView("virus/resources/" + carta1.getImagen());
+        image7.setFitHeight(107.25);
+        image7.setFitWidth(74.75);
+        image7.setLayoutX(300);
+        image7.setLayoutY(400);
+        ImageView image8 = new ImageView("virus/resources/" + carta2.getImagen());
+        image8.setFitHeight(107.25);
+        image8.setFitWidth(74.75);
+        image8.setLayoutX(image7.getLayoutX() + 102.5);
+        image8.setLayoutY(400);
+        ImageView image9 = new ImageView("virus/resources/" + carta3.getImagen());
+        image9.setFitHeight(107.25);
+        image9.setFitWidth(74.75);
+        image9.setLayoutX(image8.getLayoutX() + 102.5);
+        image9.setLayoutY(400);
+
+        anchor.getChildren().add(image7);
+        anchor.getChildren().add(image8);
+        anchor.getChildren().add(image9);
+    }
 
     @FXML
     private void Salir(MouseEvent event) {
@@ -47,5 +109,5 @@ public class JuegoController extends Controller implements Initializable {
     public void initialize() {
 
     }
-    
+
 }

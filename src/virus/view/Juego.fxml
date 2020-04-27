@@ -10,7 +10,7 @@
    <center>
       <VBox>
          <children>
-            <AnchorPane id="AnchorPane" prefHeight="645.0" prefWidth="900.0" stylesheets="@newCascadeStyleSheet.css">
+            <AnchorPane id="AnchorPane" fx:id="anchor" prefHeight="645.0" prefWidth="900.0" stylesheets="@newCascadeStyleSheet.css">
                <children>
                   <ImageView fx:id="omg" fitHeight="645.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true" />
                   <Label layoutX="14.0" layoutY="562.0" onMouseClicked="#Salir" styleClass="lbl" text="Salir" />

@@ -69,7 +69,7 @@ public class InicioController extends Controller implements Initializable {
 
     @FXML
     private void Jugar(MouseEvent event) {
-        
+        FlowController.getInstance().goView("Juego");
     }
     
     public static void enviarTexto(String nombre, String IP_Jugador, String IP_Servidor) {

@@ -19,7 +19,6 @@ public class CartaDto implements Serializable {
     private String imagen;
     private String estado;
     
-    
     public CartaDto(String tipoCarta, String color, String imagen, String estado) {
         this.tipoCarta = tipoCarta;
         this.color = color;

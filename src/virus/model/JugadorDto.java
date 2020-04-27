@@ -5,10 +5,86 @@
  */
 package virus.model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 /**
  *
  * @author Usuario
  */
-public class JugadorDto {
+public class JugadorDto implements Serializable{
+    private String nombre;
+    private Boolean turno;
+    private Boolean ganador;
+    private String IP;
+    private ArrayList <CartaDto> mazo;
+    private ArrayList <CartaDto> jugadas;
+    private static final long serialVersionUID = 4L;
+    
+    public JugadorDto() {
+    }
+
+    public JugadorDto(String nombre, Boolean turno, Boolean ganador, String IP, ArrayList<CartaDto> mazo, ArrayList<CartaDto> jugadas) {
+        this.nombre = nombre;
+        this.turno = turno;
+        this.ganador = ganador;
+        this.IP = IP;
+        this.mazo = mazo;
+        this.jugadas = jugadas;
+    }
+    
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Boolean getTurno() {
+        return turno;
+    }
+
+    public void setTurno(Boolean turno) {
+        this.turno = turno;
+    }
+
+    public Boolean getGanador() {
+        return ganador;
+    }
+
+    public void setGanador(Boolean ganador) {
+        this.ganador = ganador;
+    }
+
+    public ArrayList<CartaDto> getMazo() {
+        return mazo;
+    }
+
+    public void setMazo(ArrayList<CartaDto> mazo) {
+        this.mazo = mazo;
+    }
+
+    public ArrayList<CartaDto> getJugadas() {
+        return jugadas;
+    }
+
+    public void setJugadas(ArrayList<CartaDto> jugadas) {
+        this.jugadas = jugadas;
+    }
+
+    public String getIP() {
+        return IP;
+    }
+
+    public void setIP(String IP) {
+        this.IP = IP;
+    }
+    
+    @Override
+    public String toString() {
+        return "JugadorDto{" + "nombre=" + nombre + ", turno=" + turno + ", ganador=" + ganador + ", mazo=" + mazo + ", jugadas=" + jugadas + '}';
+    }
+    
     
 }

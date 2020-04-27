@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package clinicauna.util;
+package virus.util;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -18,11 +18,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import controller.Controller;
+import virus.controller.Controller;
 import javafx.animation.FadeTransition;
 import javafx.scene.image.Image;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import virus.Virus;
 import virus.Virus;
 
 /**
@@ -197,7 +198,6 @@ public class FlowController {
         stage.setOnHidden((WindowEvent event) -> {
             controller.getStage().getScene().setRoot(new Pane());
             controller.setStage(null);
-            AppContext.getInstance().delete("Espacio");
             FlowController.getInstance().initialize();
         });
         controller.setStage(stage);

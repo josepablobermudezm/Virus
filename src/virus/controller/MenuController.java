@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package virus.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,8 +14,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import controller.Controller;
-import util.FlowController;
+import virus.controller.Controller;
+import virus.util.FlowController;
 
 /**
  *
@@ -23,20 +23,16 @@ import util.FlowController;
  */
 public class MenuController extends Controller implements Initializable {
     
-    private Label label;
+   
     @FXML
     private ImageView omg;
-    
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
+  
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Image imgLogo;
         try {
-            imgLogo = new Image("/resources/fondo2.png");
+            imgLogo = new Image("virus/resources/fondo2.png");
             omg.setImage(imgLogo);
         } catch (Exception e) {
         }
@@ -44,12 +40,7 @@ public class MenuController extends Controller implements Initializable {
     
     @Override
     public void initialize() {
-        Image imgLogo;
-        try {
-            imgLogo = new Image("/pacmanfx/resources/fondo4.jpg");
-            omg.setImage(imgLogo);
-        } catch (Exception e) {
-        }
+       
     }
 
     @FXML

@@ -10,7 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import util.FlowController;
+import virus.util.FlowController;
 
 /**
  *
@@ -29,8 +29,8 @@ public class Virus extends Application {
         stage.setScene(scene);
         stage.show();*/
         
-        FlowController.getInstance().InitializeFlow(stage, null);
-        FlowController.getInstance().Main();
+        FlowController.getInstance().InitializeFlow(stage,null);
+        FlowController.getInstance().goMain();
     }
 
     /**

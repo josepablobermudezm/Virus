@@ -1,4 +1,4 @@
-package controller;
+package virus.controller;
 
 import javafx.scene.control.Control;
 import javafx.scene.control.TextInputControl;

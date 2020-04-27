@@ -1,5 +1,5 @@
 
-package clinicauna.util;
+package virus.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;

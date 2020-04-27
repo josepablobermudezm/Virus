@@ -8,6 +8,8 @@ package virus.controller;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
@@ -16,6 +18,8 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
@@ -53,13 +57,11 @@ public class InicioController extends Controller implements Initializable {
             omg.setImage(imgLogo);
         } catch (Exception e) {
         }
-    }    
+    }
 
     @Override
     public void initialize() {
-        if(!txtIP.getText().isEmpty() && !txtJugador.getText().isEmpty() && !txtServidor.getText().isEmpty()){
-            enviarTexto(txtJugador.getText(), txtIP.getText(), txtServidor.getText());
-        }
+
     }
 
     @FXML
@@ -69,9 +71,12 @@ public class InicioController extends Controller implements Initializable {
 
     @FXML
     private void Jugar(MouseEvent event) {
-        FlowController.getInstance().goView("Juego");
+        if (!txtIP.getText().isEmpty() && !txtJugador.getText().isEmpty() && !txtServidor.getText().isEmpty()) {
+            enviarTexto(txtJugador.getText(), txtIP.getText(), txtServidor.getText());
+            FlowController.getInstance().goView("Juego");
+        }
     }
-    
+
     public static void enviarTexto(String nombre, String IP_Jugador, String IP_Servidor) {
         Socket socket;
         DataOutputStream mensaje;
@@ -87,7 +92,7 @@ public class InicioController extends Controller implements Initializable {
             String mensajeRecibido = respuesta.readUTF();//Leemos respuesta
             System.out.println(mensajeRecibido);
             socket.close();
-            enviarObjetos(nombre,IP_Jugador,IP_Servidor);
+            enviarObjetos(nombre, IP_Jugador, IP_Servidor);
             //Cerramos la conexión
         } catch (UnknownHostException e) {
             System.out.println("El host no existe o no está activo.");
@@ -97,24 +102,38 @@ public class InicioController extends Controller implements Initializable {
     }
 
     public static void enviarObjetos(String nombre, String IP_Jugador, String IP_Servidor) {
+        JugadorDto jugador = new JugadorDto(nombre, false, false, IP_Jugador, new ArrayList<CartaDto>(), new ArrayList<CartaDto>(), "");
         try {
             // need host and port, we want to connect to the ServerSocket at port 7777
             Socket socket = new Socket(IP_Servidor, 44440);
             System.out.println("Connected Object!");
-
             // get the output stream from the socket.
             OutputStream outputStream = socket.getOutputStream();
+            InputStream respuesta = new DataInputStream(socket.getInputStream());
             // create an object output stream from the output stream so we can send an object through it
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+            ObjectInputStream objectInputStream = new ObjectInputStream(respuesta);
+            //ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
             // make a bunch of messages to send.
             System.out.println("Sending messages to the ServerSocket");
-            objectOutputStream.writeObject(new JugadorDto(nombre, false, false, IP_Jugador, new ArrayList<CartaDto>(), new ArrayList<CartaDto>(),""));
 
+            objectOutputStream.writeObject(jugador);
+            
+            ArrayList<CartaDto> cartas = (ArrayList<CartaDto>) objectInputStream.readObject();
+            jugador.setMazo(cartas);
+
+            cartas.stream().forEach((t) -> {
+                System.out.println(t.getTipoCarta());
+            });
+            
             System.out.println("Closing socket and terminating program.");
             socket.close();
+            //recibirCartas(jugador, IP_Servidor); 
         } catch (IOException e) {
-            System.out.println("Error enviando objetos");
+            System.out.println(e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(InicioController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
-    
 }

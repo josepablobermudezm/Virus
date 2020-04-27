@@ -7,7 +7,11 @@ package virus.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import virus.util.FlowController;
 
 /**
  * FXML Controller class
@@ -15,6 +19,9 @@ import javafx.fxml.Initializable;
  * @author Jose Pablo Bermudez
  */
 public class InicioController extends Controller implements Initializable {
+
+    @FXML
+    private ImageView omg;
 
     /**
      * Initializes the controller class.
@@ -28,6 +35,11 @@ public class InicioController extends Controller implements Initializable {
     public void initialize() {
 
 
+    }
+
+    @FXML
+    private void Salir(MouseEvent event) {
+        FlowController.getInstance().goView("Menu");
     }
     
 }

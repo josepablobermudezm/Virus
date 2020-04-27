@@ -58,7 +58,7 @@ public class InicioController extends Controller implements Initializable {
     @Override
     public void initialize() {
         if(!txtIP.getText().isEmpty() && !txtJugador.getText().isEmpty() && !txtServidor.getText().isEmpty()){
-            
+            enviarTexto(txtJugador.getText(), txtIP.getText(), txtServidor.getText());
         }
     }
 

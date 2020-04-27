@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane stylesheets="@newCascadeStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virus.controller.InicioController">
+<BorderPane stylesheets="@newCascadeStyleSheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virus.controller.InicioController">
    <center>
       <VBox>
          <children>
@@ -14,6 +15,10 @@
                <children>
                   <ImageView fx:id="omg" fitHeight="645.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true" />
                   <Label layoutX="14.0" layoutY="562.0" onMouseClicked="#Salir" styleClass="lbl" text="Salir" />
+                  <Label layoutX="800.0" layoutY="562.0" onMouseClicked="#Jugar" styleClass="lbl" text="Jugar" />
+                  <TextField fx:id="txtIP" layoutX="276.0" layoutY="92.0" prefHeight="26.0" prefWidth="348.0" promptText="Dirección IP" />
+                  <TextField fx:id="txtServidor" layoutX="276.0" layoutY="239.0" prefHeight="26.0" prefWidth="348.0" promptText="Dirección IP del Servidor" />
+                  <TextField fx:id="txtJugador" layoutX="276.0" layoutY="394.0" prefHeight="26.0" prefWidth="348.0" promptText="Nombre de usuario" />
                </children>
             </AnchorPane>
          </children>

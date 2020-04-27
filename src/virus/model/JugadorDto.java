@@ -17,6 +17,7 @@ public class JugadorDto implements Serializable{
     private Boolean turno;
     private Boolean ganador;
     private String IP;
+    private String IPS;
     private ArrayList <CartaDto> mazo;
     private ArrayList <CartaDto> jugadas;
     private static final long serialVersionUID = 4L;
@@ -24,13 +25,22 @@ public class JugadorDto implements Serializable{
     public JugadorDto() {
     }
 
-    public JugadorDto(String nombre, Boolean turno, Boolean ganador, String IP, ArrayList<CartaDto> mazo, ArrayList<CartaDto> jugadas) {
+    public JugadorDto(String nombre, Boolean turno, Boolean ganador, String IP, ArrayList<CartaDto> mazo, ArrayList<CartaDto> jugadas, String IPS ) {
         this.nombre = nombre;
         this.turno = turno;
         this.ganador = ganador;
         this.IP = IP;
         this.mazo = mazo;
         this.jugadas = jugadas;
+        this.IPS = IPS;
+    }
+
+    public String getIPS() {
+        return IPS;
+    }
+
+    public void setIPS(String IPS) {
+        this.IPS = IPS;
     }
     
     public String getNombre() {

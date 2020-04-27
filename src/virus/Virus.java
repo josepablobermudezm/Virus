@@ -27,7 +27,7 @@ public class Virus extends Application {
     public void start(Stage stage) throws Exception {
         
         // need host and port, we want to connect to the ServerSocket at port 7777
-        Socket socket = new Socket("25.101.202.236", 44440);
+        /*Socket socket = new Socket("25.101.202.236", 44440);
         System.out.println("Connected!");
 
         // get the output stream from the socket.
@@ -46,7 +46,7 @@ public class Virus extends Application {
         objectOutputStream.writeObject(cartas);
 
         System.out.println("Closing socket and terminating program.");
-        socket.close();
+        socket.close();*/
         
        
          // don't need to specify a hostname, it will be the current machine

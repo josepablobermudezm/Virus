@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import virus.util.FlowController;
@@ -28,7 +29,13 @@ public class JuegoController extends Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        // fondoJuego
+        Image imgLogo;
+        try {
+            imgLogo = new Image("virus/resources/fondoJuego1.jpg");
+            omg.setImage(imgLogo);
+        } catch (Exception e) {
+        }
     }    
 
     @FXML

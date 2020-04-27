@@ -12,6 +12,7 @@ import java.util.ArrayList;
  *
  * @author Usuario
  */
+
 public class PartidaDto implements Serializable {
     private ArrayList <CartaDto> mazo;
     private ArrayList <CartaDto> desechadas;
@@ -26,8 +27,8 @@ public class PartidaDto implements Serializable {
 
     public PartidaDto() {
     }
-
-    public ArrayList<CartaDto> getMazo() {
+    
+    public ArrayList <CartaDto> getMazo() {
         return mazo;
     }
 
@@ -44,6 +45,9 @@ public class PartidaDto implements Serializable {
     }
 
     public ArrayList<JugadorDto> getJugadores() {
+        if(jugadores==null){
+            jugadores = new ArrayList();
+        }
         return jugadores;
     }
 
@@ -55,8 +59,5 @@ public class PartidaDto implements Serializable {
     public String toString() {
         return "PartidaDto{" + "mazo=" + mazo + ", desechadas=" + desechadas + ", jugadores=" + jugadores + '}';
     }
-    
-    
-    
     
 }

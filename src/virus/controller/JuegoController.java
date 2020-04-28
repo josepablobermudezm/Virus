@@ -9,11 +9,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import virus.model.CartaDto;
+import virus.model.JugadorDto;
+import virus.util.AppContext;
 import virus.util.FlowController;
 
 /**
@@ -27,6 +30,8 @@ public class JuegoController extends Controller implements Initializable {
     private ImageView omg;
     @FXML
     private AnchorPane anchor;
+    @FXML
+    private Label user;
 
     /**
      * Initializes the controller class.
@@ -44,7 +49,8 @@ public class JuegoController extends Controller implements Initializable {
         CartaDto carta1 = new CartaDto("Organo", "Rojo", "corazonCarta.png", "mazo");
         CartaDto carta2 = new CartaDto("Virus", "Verde", "virusVerdeCarta.png", "mazo");
         CartaDto carta3 = new CartaDto("Medicina", "Amarillo", "medicinaAmarrilloCarta.png", "mazo");
-
+        JugadorDto jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
+        user.setText(jugador.getNombre());
         /*ImageView image1 = new ImageView("virus/resources/" + carta1.getImagen());
         image1.setFitHeight(107.25);
         image1.setFitWidth(74.75);

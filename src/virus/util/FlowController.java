@@ -24,7 +24,6 @@ import javafx.scene.image.Image;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import virus.Virus;
-import virus.Virus;
 
 /**
  *
@@ -39,8 +38,9 @@ public class FlowController {
     private Stage stage;
 
     private FlowController() {
+    
     }
-
+ 
     private static void createInstance() {
         if (INSTANCE == null) {
             synchronized (FlowController.class) {
@@ -50,7 +50,7 @@ public class FlowController {
             }
         }
     }
-
+    
     public static FlowController getInstance() {
         if (INSTANCE == null) {
             createInstance();

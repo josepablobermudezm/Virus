@@ -113,8 +113,8 @@ public class FlowController {
         controller.setStage(stage);
         controller.initialize();
         stage.initStyle(StageStyle.TRANSPARENT);
-        stage.getIcons().add(new Image(Virus.class.getResourceAsStream("resources/pharmacy.png")));
-        stage.setTitle("ClinicaUNA");
+        //stage.getIcons().add(new Image(Virus.class.getResourceAsStream("resources/pharmacy.png")));
+        stage.setTitle("Virus");
 //        stage.setMinWidth(630);
 //        stage.setMinHeight(420);
         stage.setOnHidden((WindowEvent event) -> {

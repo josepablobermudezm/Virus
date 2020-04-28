@@ -29,6 +29,7 @@ import javafx.scene.input.MouseEvent;
 import virus.model.CartaDto;
 import virus.model.JugadorDto;
 import virus.util.FlowController;
+import virus.util.Hilo;
 
 /**
  * FXML Controller class
@@ -73,7 +74,7 @@ public class InicioController extends Controller implements Initializable {
     private void Jugar(MouseEvent event) {
         if (!txtIP.getText().isEmpty() && !txtJugador.getText().isEmpty() && !txtServidor.getText().isEmpty()) {
             enviarTexto(txtJugador.getText(), txtIP.getText(), txtServidor.getText());
-            FlowController.getInstance().goView("Juego");
+            
         }
     }
 
@@ -116,18 +117,14 @@ public class InicioController extends Controller implements Initializable {
             //ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
             // make a bunch of messages to send.
             System.out.println("Sending messages to the ServerSocket");
-
             objectOutputStream.writeObject(jugador);
-            
             ArrayList<CartaDto> cartas = (ArrayList<CartaDto>) objectInputStream.readObject();
             jugador.setMazo(cartas);
-
-            cartas.stream().forEach((t) -> {
-                System.out.println(t.getTipoCarta());
-            });
-            
             System.out.println("Closing socket and terminating program.");
             socket.close();
+            Hilo hilo = new Hilo();
+            hilo.start();
+            FlowController.getInstance().goViewInWindowTransparent("VistaCargando");
             //recibirCartas(jugador, IP_Servidor); 
         } catch (IOException e) {
             System.out.println(e.getMessage());

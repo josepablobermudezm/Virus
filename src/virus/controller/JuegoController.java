@@ -45,7 +45,7 @@ public class JuegoController extends Controller implements Initializable {
         CartaDto carta2 = new CartaDto("Virus", "Verde", "virusVerdeCarta.png", "mazo");
         CartaDto carta3 = new CartaDto("Medicina", "Amarillo", "medicinaAmarrilloCarta.png", "mazo");
 
-        ImageView image1 = new ImageView("virus/resources/" + carta1.getImagen());
+        /*ImageView image1 = new ImageView("virus/resources/" + carta1.getImagen());
         image1.setFitHeight(107.25);
         image1.setFitWidth(74.75);
         image1.setLayoutX(75);
@@ -78,7 +78,7 @@ public class JuegoController extends Controller implements Initializable {
         anchor.getChildren().add(image4);
         anchor.getChildren().add(image5);
         anchor.getChildren().add(image6);
-        
+        */
         ImageView image7 = new ImageView("virus/resources/" + carta1.getImagen());
         image7.setFitHeight(107.25);
         image7.setFitWidth(74.75);

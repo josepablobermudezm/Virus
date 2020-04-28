@@ -50,11 +50,18 @@ public class Hilo extends Thread {
             entrada = new DataInputStream(socket.getInputStream());
 
             salida = new DataOutputStream(socket.getOutputStream());
-            
+
             ObjectInputStream objectInputStream = new ObjectInputStream(entrada);
             //ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
             // make a bunch of messages to send.
             System.out.println("Sending messages to the ServerSocket");
+
+            System.out.println("Confirmando conexion al cliente....");
+
+            // Para recibir el mensaje
+            mensajeRecibido = entrada.readUTF();
+            System.out.println(mensajeRecibido);
+            
             try {
                 ArrayList<JugadorDto> jugadores;
                 jugadores = (ArrayList<JugadorDto>) objectInputStream.readObject();
@@ -62,12 +69,9 @@ public class Hilo extends Thread {
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Hilo.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println("Confirmando conexion al cliente....");
-
-            // Para recibir el mensaje
-            mensajeRecibido = entrada.readUTF();
-            System.out.println(mensajeRecibido);
+            
             salida.writeUTF("Recibido");
+
             serverSocket.close();
         } catch (IOException IO) {
             System.out.println(IO.getMessage());

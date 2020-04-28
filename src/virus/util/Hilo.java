@@ -57,6 +57,6 @@ public class Hilo extends Thread {
         } catch (Exception IO) {
         }
         pantallaCarga.finalizado = true;
-        FlowController.getInstance().goView("Juego");
+        FlowController.getInstance().goView("Juego_1");
     }
 }

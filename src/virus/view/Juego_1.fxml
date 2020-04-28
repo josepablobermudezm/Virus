@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane stylesheets="@newCascadeStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virus.controller.JuegoController">
+<BorderPane stylesheets="@newCascadeStyleSheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virus.controller.JuegoController">
    <center>
       <VBox>
          <children>
@@ -14,6 +14,7 @@
                <children>
                   <ImageView fx:id="omg" fitHeight="645.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true" />
                   <Label layoutX="14.0" layoutY="562.0" onMouseClicked="#Salir" styleClass="lbl" text="Salir" />
+                  <Label fx:id="user" layoutX="3.0" layoutY="14.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
                </children>
             </AnchorPane>
          </children>

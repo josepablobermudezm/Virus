@@ -29,6 +29,11 @@
     -fx-font-size: 25pt;
 }
 
+.lbl1{
+    -fx-font-size : 15pt;
+    -fx-text-fill : white;
+}
+
 .lbl:hover{
     -fx-font-family: "Decker";
     -fx-font-size : 27pt;

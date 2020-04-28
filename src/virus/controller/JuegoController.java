@@ -15,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import virus.model.CartaDto;
 import virus.model.JugadorDto;
 import virus.util.AppContext;
@@ -43,6 +44,18 @@ public class JuegoController extends Controller implements Initializable {
     private Label user5;
     @FXML
     private Label user6;
+    @FXML
+    private HBox hvox;
+    @FXML
+    private HBox hvox2;
+    @FXML
+    private HBox hvox3;
+    @FXML
+    private HBox hvox4;
+    @FXML
+    private HBox hvox5;
+    @FXML
+    private HBox hbox6;
 
     /**
      * Initializes the controller class.
@@ -112,7 +125,7 @@ public class JuegoController extends Controller implements Initializable {
         anchor.getChildren().add(image5);
         anchor.getChildren().add(image6);
         */
-           
+
         ImageView image7 = new ImageView("virus/resources/" + carta1.getImagen());
         image7.setFitHeight(107.25);
         image7.setFitWidth(74.75);

@@ -125,7 +125,6 @@ public class InicioController extends Controller implements Initializable {
             Hilo hilo = new Hilo();
             hilo.start();
             FlowController.getInstance().goViewInWindowTransparent("VistaCargando");
-            //recibirCartas(jugador, IP_Servidor); 
         } catch (IOException e) {
             System.out.println(e.getMessage());
         } catch (ClassNotFoundException ex) {

@@ -54,7 +54,8 @@ public class Hilo extends Thread {
             System.out.println(mensajeRecibido);
             salida.writeUTF("Recibido");
             serverSocket.close();
-        } catch (Exception IO) {
+        } catch (IOException IO) {
+            System.out.println(IO.getMessage());
         }
         pantallaCarga.finalizado = true;
         FlowController.getInstance().goView("Juego_1");

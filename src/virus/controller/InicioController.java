@@ -126,6 +126,7 @@ public class InicioController extends Controller implements Initializable {
             socket.close();
             Hilo hilo = new Hilo();
             hilo.start();
+            
             FlowController.getInstance().goViewInWindowTransparent("VistaCargando");
         } catch (IOException e) {
             System.out.println(e.getMessage());

@@ -14,7 +14,7 @@
                <children>
                   <ImageView fx:id="omg" fitHeight="645.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true" />
                   <Label layoutX="14.0" layoutY="562.0" onMouseClicked="#Salir" styleClass="lbl" text="Salir" />
-                  <Label fx:id="user" layoutX="105.0" layoutY="489.0" prefHeight="40.0" prefWidth="137.0" styleClass="lbl" text="" />
+                  <Label fx:id="user" layoutX="3.0" layoutY="14.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
                </children>
             </AnchorPane>
          </children>

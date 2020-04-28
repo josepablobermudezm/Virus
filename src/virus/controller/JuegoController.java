@@ -46,10 +46,12 @@ public class JuegoController extends Controller implements Initializable {
         } catch (Exception e) {
         }
 
-        CartaDto carta1 = new CartaDto("Organo", "Rojo", "corazonCarta.png", "mazo");
-        CartaDto carta2 = new CartaDto("Virus", "Verde", "virusVerdeCarta.png", "mazo");
-        CartaDto carta3 = new CartaDto("Medicina", "Amarillo", "medicinaAmarrilloCarta.png", "mazo");
         JugadorDto jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
+        CartaDto carta1 = jugador.getMazo().get(0);
+        CartaDto carta2 = jugador.getMazo().get(1);
+        CartaDto carta3 = jugador.getMazo().get(2);
+        
+        
         user.setText(jugador.getNombre());
         /*ImageView image1 = new ImageView("virus/resources/" + carta1.getImagen());
         image1.setFitHeight(107.25);

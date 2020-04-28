@@ -15,7 +15,11 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static virus.controller.InicioController.enviarObjetos;
+import virus.model.CartaDto;
 import virus.model.JugadorDto;
 import virus.model.PartidaDto;
 
@@ -46,7 +50,18 @@ public class Hilo extends Thread {
             entrada = new DataInputStream(socket.getInputStream());
 
             salida = new DataOutputStream(socket.getOutputStream());
-
+            
+            ObjectInputStream objectInputStream = new ObjectInputStream(entrada);
+            //ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+            // make a bunch of messages to send.
+            System.out.println("Sending messages to the ServerSocket");
+            try {
+                ArrayList<JugadorDto> jugadores;
+                jugadores = (ArrayList<JugadorDto>) objectInputStream.readObject();
+                AppContext.getInstance().set("Jugadores", jugadores);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Hilo.class.getName()).log(Level.SEVERE, null, ex);
+            }
             System.out.println("Confirmando conexion al cliente....");
 
             // Para recibir el mensaje

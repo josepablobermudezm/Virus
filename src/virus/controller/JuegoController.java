@@ -6,6 +6,7 @@
 package virus.controller;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,6 +33,16 @@ public class JuegoController extends Controller implements Initializable {
     private AnchorPane anchor;
     @FXML
     private Label user;
+    @FXML
+    private Label user2;
+    @FXML
+    private Label user3;
+    @FXML
+    private Label user4;
+    @FXML
+    private Label user5;
+    @FXML
+    private Label user6;
 
     /**
      * Initializes the controller class.
@@ -51,8 +62,22 @@ public class JuegoController extends Controller implements Initializable {
         CartaDto carta2 = jugador.getMazo().get(1);
         CartaDto carta3 = jugador.getMazo().get(2);
         
-        
         user.setText(jugador.getNombre());
+        
+        ArrayList<JugadorDto> jugadores = (ArrayList<JugadorDto>) AppContext.getInstance().get("Jugadores");
+        
+        ArrayList<Label> nombres = new ArrayList();
+        nombres.add(user);
+        nombres.add(user2);
+        nombres.add(user3);
+        nombres.add(user4);
+        nombres.add(user5);
+        nombres.add(user6);
+        
+        for(int i = 0; i < jugadores.size()-1; i++){
+            nombres.get(i).setText(jugadores.get(i).getNombre());
+        }
+        
         /*ImageView image1 = new ImageView("virus/resources/" + carta1.getImagen());
         image1.setFitHeight(107.25);
         image1.setFitWidth(74.75);
@@ -87,6 +112,9 @@ public class JuegoController extends Controller implements Initializable {
         anchor.getChildren().add(image5);
         anchor.getChildren().add(image6);
         */
+        
+        
+        
         ImageView image7 = new ImageView("virus/resources/" + carta1.getImagen());
         image7.setFitHeight(107.25);
         image7.setFitWidth(74.75);

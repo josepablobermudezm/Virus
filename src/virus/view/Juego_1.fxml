@@ -4,6 +4,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane stylesheets="@newCascadeStyleSheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virus.controller.JuegoController">
@@ -18,8 +19,14 @@
                   <Label fx:id="user2" layoutX="668.0" layoutY="255.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
                   <Label fx:id="user3" layoutX="668.0" layoutY="46.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
                   <Label fx:id="user4" layoutY="46.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
-                  <Label fx:id="user5" layoutY="441.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
-                  <Label fx:id="user6" layoutX="668.0" layoutY="441.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
+                  <Label fx:id="user5" layoutY="421.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
+                  <Label fx:id="user6" layoutX="668.0" layoutY="421.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
+                  <HBox fx:id="hvox" layoutY="295.0" prefHeight="100.0" prefWidth="231.0" />
+                  <HBox fx:id="hvox2" layoutX="668.0" layoutY="295.0" prefHeight="100.0" prefWidth="231.0" />
+                  <HBox fx:id="hvox3" layoutX="668.0" layoutY="86.0" prefHeight="100.0" prefWidth="231.0" />
+                  <HBox fx:id="hvox4" layoutY="86.0" prefHeight="100.0" prefWidth="231.0" />
+                  <HBox fx:id="hvox5" layoutY="461.0" prefHeight="100.0" prefWidth="231.0" />
+                  <HBox fx:id="hbox6" layoutX="668.0" layoutY="461.0" prefHeight="100.0" prefWidth="231.0" />
                </children>
             </AnchorPane>
          </children>

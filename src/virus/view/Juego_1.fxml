@@ -21,12 +21,54 @@
                   <Label fx:id="user4" layoutY="46.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
                   <Label fx:id="user5" layoutY="421.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
                   <Label fx:id="user6" layoutX="668.0" layoutY="421.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
-                  <HBox fx:id="hvox" layoutY="295.0" prefHeight="100.0" prefWidth="231.0" />
-                  <HBox fx:id="hvox2" layoutX="668.0" layoutY="295.0" prefHeight="100.0" prefWidth="231.0" />
-                  <HBox fx:id="hvox3" layoutX="668.0" layoutY="86.0" prefHeight="100.0" prefWidth="231.0" />
-                  <HBox fx:id="hvox4" layoutY="86.0" prefHeight="100.0" prefWidth="231.0" />
-                  <HBox fx:id="hvox5" layoutY="461.0" prefHeight="100.0" prefWidth="231.0" />
-                  <HBox fx:id="hbox6" layoutX="668.0" layoutY="461.0" prefHeight="100.0" prefWidth="231.0" />
+                  <HBox fx:id="hvox" layoutY="295.0" prefHeight="100.0" prefWidth="231.0">
+                     <children>
+                        <VBox fx:id="jug1_1" prefHeight="200.0" prefWidth="57.75" />
+                        <VBox fx:id="jug1_2" prefHeight="200.0" prefWidth="57.75" />
+                        <VBox fx:id="jug1_3" prefHeight="200.0" prefWidth="57.75" />
+                        <VBox fx:id="jug1_4" prefHeight="200.0" prefWidth="57.75" />
+                     </children>
+                  </HBox>
+                  <HBox fx:id="hvox2" layoutX="668.0" layoutY="295.0" prefHeight="100.0" prefWidth="231.0">
+                     <children>
+                        <VBox fx:id="jug2_1" prefHeight="200.0" prefWidth="57.75" />
+                        <VBox fx:id="jug2_2" prefHeight="200.0" prefWidth="57.75" />
+                        <VBox fx:id="jug2_3" prefHeight="200.0" prefWidth="57.75" />
+                        <VBox fx:id="jug2_4" prefHeight="200.0" prefWidth="57.75" />
+                     </children>
+                  </HBox>
+                  <HBox fx:id="hvox3" layoutX="668.0" layoutY="86.0" prefHeight="100.0" prefWidth="231.0">
+                     <children>
+                        <VBox fx:id="jug3_1" prefHeight="200.0" prefWidth="57.75" />
+                        <VBox fx:id="jug3_2" prefHeight="200.0" prefWidth="57.75" />
+                        <VBox fx:id="jug3_3" prefHeight="200.0" prefWidth="57.75" />
+                        <VBox fx:id="jug3_4" prefHeight="200.0" prefWidth="57.75" />
+                     </children>
+                  </HBox>
+                  <HBox fx:id="hvox4" layoutY="86.0" prefHeight="100.0" prefWidth="231.0">
+                     <children>
+                        <VBox fx:id="jug4_1" prefHeight="200.0" prefWidth="57.75" />
+                        <VBox fx:id="jug4_2" prefHeight="200.0" prefWidth="57.75" />
+                        <VBox fx:id="jug4_3" prefHeight="200.0" prefWidth="57.75" />
+                        <VBox fx:id="jug4_4" prefHeight="200.0" prefWidth="57.75" />
+                     </children>
+                  </HBox>
+                  <HBox fx:id="hvox5" layoutY="461.0" prefHeight="100.0" prefWidth="231.0">
+                     <children>
+                        <VBox fx:id="jug5_1" prefHeight="200.0" prefWidth="75.75" />
+                        <VBox fx:id="jug5_2" prefHeight="200.0" prefWidth="75.75" />
+                        <VBox fx:id="jug5_3" prefHeight="200.0" prefWidth="75.75" />
+                        <VBox fx:id="jug5_4" prefHeight="200.0" prefWidth="75.75" />
+                     </children>
+                  </HBox>
+                  <HBox fx:id="hbox6" layoutX="668.0" layoutY="461.0" prefHeight="100.0" prefWidth="231.0">
+                     <children>
+                        <VBox fx:id="jug6_1" prefHeight="200.0" prefWidth="57.75" />
+                        <VBox fx:id="jug6_2" prefHeight="200.0" prefWidth="57.75" />
+                        <VBox fx:id="jug6_3" prefHeight="200.0" prefWidth="57.75" />
+                        <VBox fx:id="jug6_4" prefHeight="200.0" prefWidth="57.75" />
+                     </children>
+                  </HBox>
                </children>
             </AnchorPane>
          </children>

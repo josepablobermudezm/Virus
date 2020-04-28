@@ -125,7 +125,7 @@ public class JuegoController extends Controller implements Initializable {
         anchor.getChildren().add(image5);
         anchor.getChildren().add(image6);
         */
-        
+
         ImageView image7 = new ImageView("virus/resources/" + carta1.getImagen());
         image7.setFitHeight(107.25);
         image7.setFitWidth(74.75);

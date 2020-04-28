@@ -74,7 +74,7 @@ public class JuegoController extends Controller implements Initializable {
         nombres.add(user5);
         nombres.add(user6);
         
-        for(int i = 0; i < jugadores.size()-1; i++){
+        for(int i = 0; i < jugadores.size(); i++){
             nombres.get(i).setText(jugadores.get(i).getNombre());
         }
         

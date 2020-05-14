@@ -5,9 +5,20 @@
  */
 package virus.controller;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.net.Socket;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -16,10 +27,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
+import static virus.controller.InicioController.enviarObjetos;
 import virus.model.CartaDto;
 import virus.model.JugadorDto;
 import virus.util.AppContext;
 import virus.util.FlowController;
+import virus.util.Hilo;
 
 /**
  * FXML Controller class
@@ -56,6 +71,59 @@ public class JuegoController extends Controller implements Initializable {
     private HBox hvox5;
     @FXML
     private HBox hbox6;
+    public static JugadorDto jugador;
+    @FXML
+    private VBox jug1_1;
+    @FXML
+    private VBox jug1_2;
+    @FXML
+    private VBox jug1_3;
+    @FXML
+    private VBox jug1_4;
+    @FXML
+    private VBox jug2_1;
+    @FXML
+    private VBox jug2_2;
+    @FXML
+    private VBox jug2_3;
+    @FXML
+    private VBox jug2_4;
+    @FXML
+    private VBox jug3_1;
+    @FXML
+    private VBox jug3_2;
+    @FXML
+    private VBox jug3_3;
+    @FXML
+    private VBox jug3_4;
+    @FXML
+    private VBox jug4_1;
+    @FXML
+    private VBox jug4_2;
+    @FXML
+    private VBox jug4_3;
+    @FXML
+    private VBox jug4_4;
+    @FXML
+    private VBox jug5_1;
+    @FXML
+    private VBox jug5_2;
+    @FXML
+    private VBox jug5_3;
+    @FXML
+    private VBox jug5_4;
+    @FXML
+    private VBox jug6_1;
+    @FXML
+    private VBox jug6_2;
+    @FXML
+    private VBox jug6_3;
+    @FXML
+    private VBox jug6_4;
+    @FXML
+    private Rectangle CartasDesechadas;
+    @FXML
+    private Rectangle MazoCartas;
 
     /**
      * Initializes the controller class.
@@ -70,10 +138,12 @@ public class JuegoController extends Controller implements Initializable {
         } catch (Exception e) {
         }
 
-        JugadorDto jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
+        jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
         CartaDto carta1 = jugador.getMazo().get(0);
         CartaDto carta2 = jugador.getMazo().get(1);
         CartaDto carta3 = jugador.getMazo().get(2);
+        
+        
         
         user.setText(jugador.getNombre());
         
@@ -156,5 +226,62 @@ public class JuegoController extends Controller implements Initializable {
     public void initialize() {
 
     }
+    
+    
+    public static void ObtenerCarta(String IP_Servidor){
+        Socket socket;
+        DataOutputStream mensaje;
+        DataInputStream respuesta;
+        try {
+            socket = new Socket(IP_Servidor, 44440);
+            mensaje = new DataOutputStream(socket.getOutputStream());
+            respuesta = new DataInputStream(socket.getInputStream());
+            System.out.println("Connected Text!");
+            //Enviamos un mensaje
+            mensaje.writeUTF("pedirCartas");
+            socket.close();
+            socket = new Socket(IP_Servidor, 44440);
+            mensaje = new DataOutputStream(socket.getOutputStream());
+            respuesta = new DataInputStream(socket.getInputStream());
+            System.out.println("Connected Text!");
+            mensaje.writeUTF("EsperandoCarta...");
+            
+            
+            InputStream respuesta2 = new DataInputStream(socket.getInputStream());
+            ObjectInputStream objectInputStream = new ObjectInputStream(respuesta2);
+            
+            CartaDto carta = (CartaDto) objectInputStream.readObject();
+            jugador.getMazo().add(carta);
+
+            String mensajeRecibido = respuesta.readUTF();//Leemos respuesta
+            System.out.println(mensajeRecibido);
+            //Cerramos la conexión
+        } catch (UnknownHostException e ) {
+            System.out.println("El host no existe o no está activo.");
+        } catch (IOException e) {
+            System.out.println(e + "serás?");
+        } catch (ClassNotFoundException e){
+            System.out.println(e + "o tú serás?");
+        }
+    }
+
+    @FXML
+    private void obtenerCarta(MouseEvent event) {
+        ObtenerCarta(jugador.getIPS());
+        jugador.getMazo().forEach(action -> {System.out.println(action.getImagen());});
+    }
 
 }
+/*OutputStream outputStream = socket.getOutputStream();
+            InputStream respuesta = new DataInputStream(socket.getInputStream());
+            // create an object output stream from the output stream so we can send an object through it
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+            ObjectInputStream objectInputStream = new ObjectInputStream(respuesta);
+            //ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+            // make a bunch of messages to send.
+            System.out.println("Sending messages to the ServerSocket");
+            objectOutputStream.writeObject(jugador);
+            ArrayList<CartaDto> cartas = (ArrayList<CartaDto>) objectInputStream.readObject();
+            jugador.setMazo(cartas);
+            System.out.println("Closing socket and terminating program.");
+            socket.close();*/

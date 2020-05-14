@@ -6,8 +6,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 
-<BorderPane stylesheets="@newCascadeStyleSheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virus.controller.JuegoController">
+<BorderPane stylesheets="@newCascadeStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virus.controller.JuegoController">
    <center>
       <VBox>
          <children>
@@ -69,6 +70,8 @@
                         <VBox fx:id="jug6_4" prefHeight="200.0" prefWidth="57.75" />
                      </children>
                   </HBox>
+                  <Rectangle fx:id="CartasDesechadas" arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="129.0" layoutX="335.0" layoutY="174.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="73.0" />
+                  <Rectangle fx:id="MazoCartas" arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="129.0" layoutX="494.0" layoutY="174.0" onMouseClicked="#obtenerCarta" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="73.0" />
                </children>
             </AnchorPane>
          </children>

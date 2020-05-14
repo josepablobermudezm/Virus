@@ -35,7 +35,6 @@ import virus.model.JugadorDto;
 import virus.util.AppContext;
 import virus.util.FlowController;
 import virus.util.Hilo;
-
 /**
  * FXML Controller class
  *

@@ -228,33 +228,33 @@ public class JuegoController extends Controller implements Initializable {
     
     
     public static void ObtenerCarta(String IP_Servidor){
-        Socket socket;
-        DataOutputStream mensaje;
-        DataInputStream respuesta;
         try {
-            socket = new Socket(IP_Servidor, 44440);
-            mensaje = new DataOutputStream(socket.getOutputStream());
-            respuesta = new DataInputStream(socket.getInputStream());
+            Socket socket = new Socket(IP_Servidor, 44440);
+            DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
+            //DataInputStream respuesta = new DataInputStream(socket.getInputStream());
             System.out.println("Connected Text!");
             //Enviamos un mensaje
             mensaje.writeUTF("pedirCartas");
+            String mensajeRecibido = "";
+            DataInputStream entrada = new DataInputStream(socket.getInputStream());
+            mensajeRecibido = entrada.readUTF();
+            System.out.println(mensajeRecibido);
+            //Cerramos la conexión
             socket.close();
-            socket = new Socket(IP_Servidor, 44440);
-            mensaje = new DataOutputStream(socket.getOutputStream());
-            respuesta = new DataInputStream(socket.getInputStream());
+            
+            Socket socket2 = new Socket(IP_Servidor, 44440);
+            DataOutputStream mensaje2 = new DataOutputStream(socket2.getOutputStream());
+            //DataInputStream respuesta = new DataInputStream(socket2.getInputStream());
             System.out.println("Connected Text!");
-            mensaje.writeUTF("EsperandoCarta...");
+            //mensaje2.writeUTF("EsperandoCarta...");
             
-            
-            InputStream respuesta2 = new DataInputStream(socket.getInputStream());
+            DataInputStream respuesta2 = new DataInputStream(socket2.getInputStream());
             ObjectInputStream objectInputStream = new ObjectInputStream(respuesta2);
             
             CartaDto carta = (CartaDto) objectInputStream.readObject();
             jugador.getMazo().add(carta);
-
-            String mensajeRecibido = respuesta.readUTF();//Leemos respuesta
-            System.out.println(mensajeRecibido);
             //Cerramos la conexión
+            socket2.close();
         } catch (UnknownHostException e ) {
             System.out.println("El host no existe o no está activo.");
         } catch (IOException e) {

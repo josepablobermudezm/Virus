@@ -42,6 +42,7 @@ import virus.model.PartidaDto;
 import virus.util.AppContext;
 import virus.util.FlowController;
 import virus.util.Hilo;
+import virus.util.Hilo1;
 import virus.util.Mensaje;
 
 /**
@@ -209,10 +210,10 @@ public class JuegoController extends Controller implements Initializable {
         anchor.getChildren().add(image7);
         anchor.getChildren().add(image8);
         anchor.getChildren().add(image9);
-
-        timer.schedule(task,
-                10, 1000);
-
+        
+        Hilo1 hilo = new Hilo1(partida, imgDesechada);//:)
+        hilo.start();
+        
     }
 
     EventHandler<MouseEvent> cartaAdesechar = event -> {
@@ -222,49 +223,6 @@ public class JuegoController extends Controller implements Initializable {
             cartaAux = carta2;
         } else {//carta 1
             cartaAux = carta1;
-        }
-    };
-    boolean variable = true;
-
-    TimerTask task = new TimerTask() {
-        @Override
-        public void run() {
-            Platform.runLater(() -> {
-                if (variable) {
-                    while (true) {
-                        variable = false;
-                        try {
-                            serverSocket = new ServerSocket(44440);
-                            System.out.println("Esperando una conexión...");
-                            socket = serverSocket.accept();
-                            System.out.println("Un cliente se ha conectado...");
-                            entrada = new DataInputStream(socket.getInputStream());
-                            System.out.println("Confirmando conexion al cliente....");
-                            mensajeRecibido = entrada.readUTF();
-                            System.out.println(mensajeRecibido);
-                            if ("cartaDesechada".equals(mensajeRecibido)) {
-                                DataInputStream respuesta2 = new DataInputStream(socket.getInputStream());
-                                ObjectInputStream objectInputStream = new ObjectInputStream(respuesta2);
-                                CartaDto carta = (CartaDto) objectInputStream.readObject();
-                                partida.getDesechadas().add(carta);
-                                Platform.runLater(() -> {
-                                    imgDesechada.setImage(new Image("virus/resources/" + cartaAux.getImagen()));
-                                });
-                            } else if ("carta".equals(mensajeRecibido)) {
-
-                            }
-                            serverSocket.close();
-                        } catch (IOException IO) {
-                            System.out.println(IO.getMessage());
-                        } catch (ClassNotFoundException ex) {
-                            Logger.getLogger(JuegoController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        variable = true;
-                    }
-                }
-                //timer.cancel();
-                //task.cancel();
-            });
         }
     };
 

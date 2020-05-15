@@ -19,8 +19,10 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -35,6 +37,8 @@ import virus.model.JugadorDto;
 import virus.util.AppContext;
 import virus.util.FlowController;
 import virus.util.Hilo;
+import virus.util.Mensaje;
+
 /**
  * FXML Controller class
  *
@@ -123,6 +127,12 @@ public class JuegoController extends Controller implements Initializable {
     private Rectangle CartasDesechadas;
     @FXML
     private Rectangle MazoCartas;
+    public CartaDto carta1;
+    public CartaDto carta2;
+    @FXML
+    public CartaDto carta3, cartaAux;
+    @FXML
+    private ImageView imgDesechada;
 
     /**
      * Initializes the controller class.
@@ -138,16 +148,14 @@ public class JuegoController extends Controller implements Initializable {
         }
 
         jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
-        CartaDto carta1 = jugador.getMazo().get(0);
-        CartaDto carta2 = jugador.getMazo().get(1);
-        CartaDto carta3 = jugador.getMazo().get(2);
-        
-        
-        
+        carta1 = jugador.getMazo().get(0);
+        carta2 = jugador.getMazo().get(1);
+        carta3 = jugador.getMazo().get(2);
+
         user.setText(jugador.getNombre());
-        
+
         ArrayList<JugadorDto> jugadores = (ArrayList<JugadorDto>) AppContext.getInstance().get("Jugadores");
-        
+
         ArrayList<Label> nombres = new ArrayList();
         nombres.add(user);
         nombres.add(user2);
@@ -155,66 +163,49 @@ public class JuegoController extends Controller implements Initializable {
         nombres.add(user4);
         nombres.add(user5);
         nombres.add(user6);
-        
-        for(int i = 0; i < jugadores.size(); i++){
+
+        for (int i = 0; i < jugadores.size(); i++) {
             nombres.get(i).setText(jugadores.get(i).getNombre());
         }
-        
-        /*ImageView image1 = new ImageView("virus/resources/" + carta1.getImagen());
-        image1.setFitHeight(107.25);
-        image1.setFitWidth(74.75);
-        image1.setLayoutX(75);
-        ImageView image2 = new ImageView("virus/resources/" + carta2.getImagen());
-        image2.setFitHeight(107.25);
-        image2.setFitWidth(74.75);
-        image2.setLayoutX(image1.getLayoutX() + 102.5);
-        ImageView image3 = new ImageView("virus/resources/" + carta3.getImagen());
-        image3.setFitHeight(107.25);
-        image3.setFitWidth(74.75);
-        image3.setLayoutX(image2.getLayoutX() + 102.5);
-
-        anchor.getChildren().add(image1);
-        anchor.getChildren().add(image2);
-        anchor.getChildren().add(image3);
-        
-        ImageView image4 = new ImageView("virus/resources/" + carta1.getImagen());
-        image4.setFitHeight(107.25);
-        image4.setFitWidth(74.75);
-        image4.setLayoutX(image3.getLayoutX() + 252.5);
-        ImageView image5 = new ImageView("virus/resources/" + carta2.getImagen());
-        image5.setFitHeight(107.25);
-        image5.setFitWidth(74.75);
-        image5.setLayoutX(image4.getLayoutX() + 102.5);
-        ImageView image6 = new ImageView("virus/resources/" + carta3.getImagen());
-        image6.setFitHeight(107.25);
-        image6.setFitWidth(74.75);
-        image6.setLayoutX(image5.getLayoutX() + 102.5);
-
-        anchor.getChildren().add(image4);
-        anchor.getChildren().add(image5);
-        anchor.getChildren().add(image6);
-        */
 
         ImageView image7 = new ImageView("virus/resources/" + carta1.getImagen());
+        image7.setId("carta1");
         image7.setFitHeight(107.25);
         image7.setFitWidth(74.75);
         image7.setLayoutX(300);
         image7.setLayoutY(400);
+        image7.setOnMouseClicked(cartaAdesechar);
+
         ImageView image8 = new ImageView("virus/resources/" + carta2.getImagen());
+        image8.setId("carta2");
         image8.setFitHeight(107.25);
         image8.setFitWidth(74.75);
         image8.setLayoutX(image7.getLayoutX() + 102.5);
         image8.setLayoutY(400);
+        image8.setOnMouseClicked(cartaAdesechar);
+
         ImageView image9 = new ImageView("virus/resources/" + carta3.getImagen());
+        image9.setId("carta3");
         image9.setFitHeight(107.25);
         image9.setFitWidth(74.75);
         image9.setLayoutX(image8.getLayoutX() + 102.5);
         image9.setLayoutY(400);
+        image9.setOnMouseClicked(cartaAdesechar);
 
         anchor.getChildren().add(image7);
         anchor.getChildren().add(image8);
         anchor.getChildren().add(image9);
     }
+
+    EventHandler<MouseEvent> cartaAdesechar = event -> {
+        if (((ImageView) event.getSource()).getId().equals("carta3")) {
+            cartaAux = carta3;
+        } else if (((ImageView) event.getSource()).getId().equals("carta2")) {
+            cartaAux = carta2;
+        } else {//carta 1
+            cartaAux = carta1;
+        }
+    };
 
     @FXML
     private void Salir(MouseEvent event) {
@@ -225,9 +216,8 @@ public class JuegoController extends Controller implements Initializable {
     public void initialize() {
 
     }
-    
-    
-    public static void ObtenerCarta(String IP_Servidor){
+
+    public static void ObtenerCarta(String IP_Servidor) {
         try {
             Socket socket = new Socket(IP_Servidor, 44440);
             DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
@@ -241,25 +231,25 @@ public class JuegoController extends Controller implements Initializable {
             System.out.println(mensajeRecibido);
             //Cerramos la conexión
             socket.close();
-            
+
             Socket socket2 = new Socket(IP_Servidor, 44440);
             DataOutputStream mensaje2 = new DataOutputStream(socket2.getOutputStream());
             //DataInputStream respuesta = new DataInputStream(socket2.getInputStream());
             System.out.println("Connected Text!");
             //mensaje2.writeUTF("EsperandoCarta...");
-            
+
             DataInputStream respuesta2 = new DataInputStream(socket2.getInputStream());
             ObjectInputStream objectInputStream = new ObjectInputStream(respuesta2);
-            
+
             CartaDto carta = (CartaDto) objectInputStream.readObject();
             jugador.getMazo().add(carta);
             //Cerramos la conexión
             socket2.close();
-        } catch (UnknownHostException e ) {
+        } catch (UnknownHostException e) {
             System.out.println("El host no existe o no está activo.");
         } catch (IOException e) {
             System.out.println(e + "serás?");
-        } catch (ClassNotFoundException e){
+        } catch (ClassNotFoundException e) {
             System.out.println(e + "o tú serás?");
         }
     }
@@ -267,20 +257,42 @@ public class JuegoController extends Controller implements Initializable {
     @FXML
     private void obtenerCarta(MouseEvent event) {
         ObtenerCarta(jugador.getIPS());
-        jugador.getMazo().forEach(action -> {System.out.println(action.getImagen());});
+        jugador.getMazo().forEach(action -> {
+            System.out.println(action.getImagen());
+        });
     }
 
+    @FXML
+    private void CartaDesechada(MouseEvent event) {
+
+        if (cartaAux != null) {
+            imgDesechada.setImage(new Image("virus/resources/" + cartaAux.getImagen()));
+            try {
+                jugador.getMazo().remove(cartaAux);
+                Socket socket = new Socket(jugador.getIPS(), 44440);
+                DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
+                DataInputStream entrada = new DataInputStream(socket.getInputStream());
+                System.out.println("Connected Text!");
+                mensaje.writeUTF("desecharCarta");
+                String mensajeRecibido = "";
+                mensajeRecibido = entrada.readUTF();
+                System.out.println(mensajeRecibido);
+                socket.close();
+
+                Socket socket2 = new Socket(jugador.getIPS(), 44440);
+                OutputStream outputStream = socket2.getOutputStream();
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+                System.out.println("Sending messages to the ServerSocket");
+                objectOutputStream.writeObject(cartaAux);
+                System.out.println("Closing socket and terminating program.");
+                socket2.close();
+                cartaAux = null;
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        } else {
+            Mensaje msj = new Mensaje();
+            msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
+        }
+    }
 }
-/*OutputStream outputStream = socket.getOutputStream();
-            InputStream respuesta = new DataInputStream(socket.getInputStream());
-            // create an object output stream from the output stream so we can send an object through it
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-            ObjectInputStream objectInputStream = new ObjectInputStream(respuesta);
-            //ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            // make a bunch of messages to send.
-            System.out.println("Sending messages to the ServerSocket");
-            objectOutputStream.writeObject(jugador);
-            ArrayList<CartaDto> cartas = (ArrayList<CartaDto>) objectInputStream.readObject();
-            jugador.setMazo(cartas);
-            System.out.println("Closing socket and terminating program.");
-            socket.close();*/

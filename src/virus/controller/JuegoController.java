@@ -52,9 +52,7 @@ import virus.util.Mensaje;
  */
 public class JuegoController extends Controller implements Initializable {
 
-    @FXML
     private ImageView omg;
-    @FXML
     private AnchorPane anchor;
     @FXML
     private Label user;
@@ -135,8 +133,9 @@ public class JuegoController extends Controller implements Initializable {
     private Rectangle MazoCartas;
     public CartaDto carta1;
     public CartaDto carta2;
+    public CartaDto carta3;
     @FXML
-    public CartaDto carta3, cartaAux;
+    public CartaDto cartaAux;
     @FXML
     private ImageView imgDesechada;
     private PartidaDto partida = new PartidaDto();
@@ -149,6 +148,8 @@ public class JuegoController extends Controller implements Initializable {
     ServerSocket serverSocket;
     String mensajeRecibido;
     ImageView imageViewDesechada = null;
+    @FXML
+    private AnchorPane fondo_juego;
 
     /**
      * Initializes the controller class.

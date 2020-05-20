@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import virus.controller.Controller;
 import virus.util.FlowController;
 
@@ -23,17 +24,17 @@ public class MenuController extends Controller implements Initializable {
     
    
     @FXML
-    private ImageView omg;
+    private AnchorPane omg;
   
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Image imgLogo;
+        /*Image imgLogo;
         try {
             imgLogo = new Image("virus/resources/fondo2.png");
             omg.setImage(imgLogo);
         } catch (Exception e) {
-        }
+        }*/
     }    
     
     @Override

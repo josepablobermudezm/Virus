@@ -25,6 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import virus.model.CartaDto;
 import virus.model.JugadorDto;
 import virus.util.AppContext;
@@ -52,12 +53,12 @@ public class InicioController extends Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Image imgLogo;
+        /*Image imgLogo;
         try {
             imgLogo = new Image("virus/resources/fondo2.png");
             omg.setImage(imgLogo);
         } catch (Exception e) {
-        }
+        }*/
     }
 
     @Override

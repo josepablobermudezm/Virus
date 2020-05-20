@@ -157,12 +157,12 @@ public class JuegoController extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // fondoJuego
-        Image imgLogo;
+        /*Image imgLogo;
         try {
             imgLogo = new Image("virus/resources/fondoJuego1.jpg");
             omg.setImage(imgLogo);
         } catch (Exception e) {
-        }
+        }*/
 
         jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
         carta1 = jugador.getMazo().get(0);

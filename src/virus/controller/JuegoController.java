@@ -211,6 +211,8 @@ public class JuegoController extends Controller implements Initializable {
         anchor.getChildren().add(image8);
         anchor.getChildren().add(image9);
         
+        Hilo_Peticiones peticiones = new Hilo_Peticiones(partida, imgDesechada);
+        peticiones.start();
         //Hilo1 hilo = new Hilo1(partida, imgDesechada);//:)
         //hilo.start();
         

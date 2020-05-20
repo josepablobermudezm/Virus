@@ -50,33 +50,30 @@ public class Hilo_Peticiones extends Thread {
 
     @Override
     public void run() {
-        while (true) {
-            Platform.runLater(() -> {
-                try {
-                    serverSocket = new ServerSocket(44440);
-                    System.out.println("Esperando una conexión...");
-                    socket = serverSocket.accept();
-                    System.out.println("Un cliente se ha conectado...");
-                    entrada = new DataInputStream(socket.getInputStream());
-                    System.out.println("Confirmando conexion al cliente....");
-                    mensajeRecibido = entrada.readUTF();
-                    System.out.println(mensajeRecibido);
-                    if ("cartaDesechada".equals(mensajeRecibido)) {
-                        DataInputStream respuesta2 = new DataInputStream(socket.getInputStream());
-                        ObjectInputStream objectInputStream = new ObjectInputStream(respuesta2);
-                        CartaDto carta = (CartaDto) objectInputStream.readObject();
-                        partidaDto.getDesechadas().add(carta);
-                        Platform.runLater(() -> {
-                            imageView.setImage(new Image("virus/resources/" + carta.getImagen()));
-                        });
-                    }
-                    serverSocket.close();
-                } catch (IOException IO) {
-                    System.out.println(IO.getMessage());
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(JuegoController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
+        try {
+            serverSocket = new ServerSocket(44440);
+            System.out.println("Esperando una conexión...");
+            socket = serverSocket.accept();
+            System.out.println("Un cliente se ha conectado...");
+            entrada = new DataInputStream(socket.getInputStream());
+            System.out.println("Confirmando conexion al cliente....");
+            mensajeRecibido = entrada.readUTF();
+            System.out.println(mensajeRecibido);
+            if ("cartaDesechada".equals(mensajeRecibido)) {
+                DataInputStream respuesta2 = new DataInputStream(socket.getInputStream());
+                ObjectInputStream objectInputStream = new ObjectInputStream(respuesta2);
+                CartaDto carta = (CartaDto) objectInputStream.readObject();
+                partidaDto.getDesechadas().add(carta);
+                Platform.runLater(() -> {
+                    imageView.setImage(new Image("virus/resources/" + carta.getImagen()));
+                });
+            }
+            serverSocket.close();
+        } catch (IOException IO) {
+            System.out.println(IO.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(JuegoController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 }

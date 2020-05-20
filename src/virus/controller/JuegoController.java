@@ -42,7 +42,7 @@ import virus.model.PartidaDto;
 import virus.util.AppContext;
 import virus.util.FlowController;
 import virus.util.Hilo;
-import virus.util.Hilo1;
+import virus.util.Hilo_Peticiones;
 import virus.util.Mensaje;
 
 /**

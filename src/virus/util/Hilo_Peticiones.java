@@ -31,12 +31,12 @@ import virus.model.PartidaDto;
  *
  * @author Jose Pablo Bermudez
  */
-public class Hilo1 extends Thread {
+public class Hilo_Peticiones extends Thread {
 
     public PartidaDto partidaDto;
     public ImageView imageView;
 
-    public Hilo1(PartidaDto partida, ImageView image) {
+    public Hilo_Peticiones(PartidaDto partida, ImageView image) {
         super();
         partidaDto = partida;
         imageView = image;

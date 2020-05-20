@@ -3,6 +3,17 @@
     -fx-font-size : 35pt;
     -jfx-focus-color: -fx-secondary;
 }
+#lbl_t_Turno{
+     -fx-font-family: "Decker";
+    /*-fx-font-family: "Arial Rounded MT Bold";*/
+    /*-fx-font-family: url("../fonts/SourceSansPro-Bold.ttf");*/
+    -fx-font-size: 10pt;
+}
+
+#H_turno{
+    -fx-background-color: #02235D;
+}
+
 .Label{
     -fx-font-family: "Decker";
     /*-fx-font-family: "Arial Rounded MT Bold";*/

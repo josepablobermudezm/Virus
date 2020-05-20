@@ -5,6 +5,7 @@
  */
 package virus.controller;
 
+import com.jfoenix.controls.JFXButton;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -132,7 +133,6 @@ public class JuegoController extends Controller implements Initializable {
     public CartaDto carta1;
     public CartaDto carta2;
     public CartaDto carta3;
-    @FXML
     public CartaDto cartaAux;
     @FXML
     private ImageView imgDesechada;
@@ -148,6 +148,14 @@ public class JuegoController extends Controller implements Initializable {
     ImageView imageViewDesechada = null;
     @FXML
     private AnchorPane fondo_juego;
+    @FXML
+    private HBox H_turno;
+    @FXML
+    private Label lbl_t_Turno;
+    @FXML
+    private Label lbl_JTurno;
+    @FXML
+    private JFXButton btn_PasarT;
 
     /**
      * Initializes the controller class.

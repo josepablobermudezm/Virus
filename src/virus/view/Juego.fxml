@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -77,4 +78,13 @@
          </children>
       </VBox>
    </center>
+   <top>
+      <HBox fx:id="H_turno" prefHeight="25.0" prefWidth="1009.0" spacing="50.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="lbl_t_Turno" prefHeight="25.0" prefWidth="54.0" text="TURNO:" textFill="WHITE" />
+            <Label fx:id="lbl_JTurno" prefHeight="25.0" prefWidth="138.0" textFill="WHITE" />
+            <JFXButton fx:id="btn_PasarT" text="Pasar Turno" />
+         </children>
+      </HBox>
+   </top>
 </BorderPane>

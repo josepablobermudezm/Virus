@@ -310,6 +310,8 @@ public class JuegoController extends Controller implements Initializable {
                 
                 imageViewDesechada.setImage(null);
                 cartaAux = null;
+                
+                
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }

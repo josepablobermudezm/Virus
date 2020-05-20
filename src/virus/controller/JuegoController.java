@@ -52,8 +52,6 @@ import virus.util.Mensaje;
  */
 public class JuegoController extends Controller implements Initializable {
 
-    private ImageView omg;
-    private AnchorPane anchor;
     @FXML
     private Label user;
     @FXML
@@ -209,9 +207,9 @@ public class JuegoController extends Controller implements Initializable {
         image9.setLayoutY(400);
         image9.setOnMouseClicked(cartaAdesechar);
 
-        anchor.getChildren().add(image7);
-        anchor.getChildren().add(image8);
-        anchor.getChildren().add(image9);
+        fondo_juego.getChildren().add(image7);
+        fondo_juego.getChildren().add(image8);
+        fondo_juego.getChildren().add(image9);
         
         Hilo_Peticiones peticiones = new Hilo_Peticiones(partida, imgDesechada);
         peticiones.start();

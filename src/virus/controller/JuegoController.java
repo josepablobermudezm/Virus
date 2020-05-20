@@ -162,14 +162,6 @@ public class JuegoController extends Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // fondoJuego
-        /*Image imgLogo;
-        try {
-            imgLogo = new Image("virus/resources/fondoJuego1.jpg");
-            omg.setImage(imgLogo);
-        } catch (Exception e) {
-        }*/
-
         jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
         carta1 = jugador.getMazo().get(0);
         carta2 = jugador.getMazo().get(1);
@@ -178,8 +170,11 @@ public class JuegoController extends Controller implements Initializable {
         user.setText(jugador.getNombre());
 
         ArrayList<JugadorDto> jugadores = (ArrayList<JugadorDto>) AppContext.getInstance().get("Jugadores");
-
+        
+        lbl_JTurno.setText((jugadores.stream().filter(x->x.getTurno()).findAny().get()).getNombre());
+        
         ArrayList<Label> nombres = new ArrayList();
+        
         nombres.add(user);
         nombres.add(user2);
         nombres.add(user3);

@@ -78,7 +78,11 @@ public class Hilo_Peticiones extends Thread {
                 
                 String nombre = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IP)).
                         findAny().get().getNombre();
-                turno.setText(nombre);
+                
+                Platform.runLater(() -> {
+                     turno.setText(nombre);
+                });
+               
                 System.out.println("Cambio de Turno: "+nombre);
             }
             serverSocket.close();

@@ -148,6 +148,7 @@ public class JuegoController extends Controller implements Initializable {
     Socket socket;
     ServerSocket serverSocket;
     String mensajeRecibido;
+    ImageView imageViewDesechada = null;
 
     /**
      * Initializes the controller class.
@@ -217,7 +218,8 @@ public class JuegoController extends Controller implements Initializable {
         //hilo.start();
     }
 
-    EventHandler<MouseEvent> cartaAdesechar = event -> {
+    EventHandler <MouseEvent> cartaAdesechar = event -> {
+        imageViewDesechada = ((ImageView) event.getSource());
         if (((ImageView) event.getSource()).getId().equals("carta3")) {
             cartaAux = carta3;
         } else if (((ImageView) event.getSource()).getId().equals("carta2")) {
@@ -305,6 +307,8 @@ public class JuegoController extends Controller implements Initializable {
                 objectOutputStream.writeObject(cartaAux);
                 System.out.println("Closing socket and terminating program.");
                 socket2.close();
+                
+                imageViewDesechada.setImage(null);
                 cartaAux = null;
             } catch (IOException e) {
                 System.out.println(e.getMessage());

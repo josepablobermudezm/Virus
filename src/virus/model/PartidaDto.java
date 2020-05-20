@@ -37,6 +37,9 @@ public class PartidaDto implements Serializable {
     }
 
     public ArrayList<CartaDto> getDesechadas() {
+        if(desechadas==null){
+            desechadas = new ArrayList();
+        }
         return desechadas;
     }
 

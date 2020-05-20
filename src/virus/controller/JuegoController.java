@@ -170,11 +170,11 @@ public class JuegoController extends Controller implements Initializable {
         user.setText(jugador.getNombre());
 
         ArrayList<JugadorDto> jugadores = (ArrayList<JugadorDto>) AppContext.getInstance().get("Jugadores");
-        
-        lbl_JTurno.setText((jugadores.stream().filter(x->x.getTurno()).findAny().get()).getNombre());
-        
+
+        lbl_JTurno.setText((jugadores.stream().filter(x -> x.getTurno()).findAny().get()).getNombre());
+
         ArrayList<Label> nombres = new ArrayList();
-        
+
         nombres.add(user);
         nombres.add(user2);
         nombres.add(user3);
@@ -213,12 +213,14 @@ public class JuegoController extends Controller implements Initializable {
         fondo_juego.getChildren().add(image7);
         fondo_juego.getChildren().add(image8);
         fondo_juego.getChildren().add(image9);
-        
-        Hilo_Peticiones peticiones = new Hilo_Peticiones(partida, imgDesechada);
+
+        //Introduce los jugadores a la partida
+        partida.setJugadores(jugadores);
+        Hilo_Peticiones peticiones = new Hilo_Peticiones(partida, imgDesechada, jugador, lbl_JTurno);
         peticiones.start();
     }
 
-    EventHandler <MouseEvent> cartaAdesechar = event -> {
+    EventHandler<MouseEvent> cartaAdesechar = event -> {
         imageViewDesechada = ((ImageView) event.getSource());
         if (((ImageView) event.getSource()).getId().equals("carta3")) {
             cartaAux = carta3;
@@ -307,17 +309,46 @@ public class JuegoController extends Controller implements Initializable {
                 objectOutputStream.writeObject(cartaAux);
                 System.out.println("Closing socket and terminating program.");
                 socket2.close();
-                
+
                 imageViewDesechada.setImage(null);
                 cartaAux = null;
-                
-                
+
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
         } else {
             Mensaje msj = new Mensaje();
             msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
+        }
+    }
+
+    @FXML
+    private void cambiarTurno(MouseEvent event) {
+        try {
+            jugador.getMazo().remove(cartaAux);
+            Socket socket = new Socket(jugador.getIPS(), 44440);
+            DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
+            DataInputStream entrada = new DataInputStream(socket.getInputStream());
+            System.out.println("Connected Text!");
+            mensaje.writeUTF("cambioTurno");
+            String mensajeRecibido;
+            mensajeRecibido = entrada.readUTF();
+            System.out.println(mensajeRecibido);
+            socket.close();
+            /*
+            Socket socket2 = new Socket(jugador.getIPS(), 44440);
+            OutputStream outputStream = socket2.getOutputStream();
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+            System.out.println("Sending messages to the ServerSocket");
+            objectOutputStream.writeObject(cartaAux);
+            System.out.println("Closing socket and terminating program.");
+            socket2.close();
+
+            imageViewDesechada.setImage(null);
+            cartaAux = null;
+            */
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

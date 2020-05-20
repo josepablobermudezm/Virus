@@ -83,7 +83,7 @@
          <children>
             <Label fx:id="lbl_t_Turno" prefHeight="25.0" prefWidth="54.0" text="TURNO:" textFill="WHITE" />
             <Label fx:id="lbl_JTurno" prefHeight="25.0" prefWidth="138.0" textFill="WHITE" />
-            <JFXButton fx:id="btn_PasarT" text="Pasar Turno" />
+            <JFXButton fx:id="btn_PasarT" onMouseClicked="#cambiarTurno" text="Pasar Turno" />
          </children>
       </HBox>
    </top>

@@ -8,20 +8,15 @@ package virus.util;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import static virus.controller.InicioController.enviarObjetos;
 import virus.controller.JuegoController;
 import virus.model.CartaDto;
 import virus.model.JugadorDto;
@@ -33,13 +28,17 @@ import virus.model.PartidaDto;
  */
 public class Hilo_Peticiones extends Thread {
 
-    public PartidaDto partidaDto;
-    public ImageView imageView;
+    private PartidaDto partidaDto;
+    private ImageView imageView;
+    private JugadorDto jugadorDto;
+    private Label turno;
 
-    public Hilo_Peticiones(PartidaDto partida, ImageView image) {
+    public Hilo_Peticiones(PartidaDto partida, ImageView image, JugadorDto jugador, Label label) {
         super();
         partidaDto = partida;
         imageView = image;
+        jugadorDto = jugador;
+        turno = label;
     }
 
     DataInputStream entrada;
@@ -67,9 +66,23 @@ public class Hilo_Peticiones extends Thread {
                 Platform.runLater(() -> {
                     imageView.setImage(new Image("virus/resources/" + carta.getImagen()));
                 });
+            } else if ("cambioTurno".equals(mensajeRecibido)) {
+                String IP = entrada.readUTF();
+                /*
+                Si nuestro jugador es el que se ha recibido desde el servidor es porque 
+                es el turno del mismo
+                 */
+                if (jugadorDto.getIP().equals(IP)) {
+                    jugadorDto.setTurno(true);
+                }
+                
+                String nombre = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IP)).
+                        findAny().get().getNombre();
+                turno.setText(nombre);
+                System.out.println("Cambio de Turno: "+nombre);
             }
             serverSocket.close();
-            Hilo_Peticiones hilo = new Hilo_Peticiones(partidaDto, imageView);
+            Hilo_Peticiones hilo = new Hilo_Peticiones(partidaDto, imageView, jugadorDto, turno);
             hilo.start();
         } catch (IOException IO) {
             System.out.println(IO.getMessage());

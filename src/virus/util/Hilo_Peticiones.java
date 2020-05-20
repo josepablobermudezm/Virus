@@ -69,11 +69,12 @@ public class Hilo_Peticiones extends Thread {
                 });
             }
             serverSocket.close();
+            Hilo_Peticiones hilo = new Hilo_Peticiones(partidaDto, imageView);
+            hilo.start();
         } catch (IOException IO) {
             System.out.println(IO.getMessage());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(JuegoController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 }

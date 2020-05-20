@@ -215,7 +215,6 @@ public class JuegoController extends Controller implements Initializable {
         peticiones.start();
         //Hilo1 hilo = new Hilo1(partida, imgDesechada);//:)
         //hilo.start();
-        
     }
 
     EventHandler<MouseEvent> cartaAdesechar = event -> {

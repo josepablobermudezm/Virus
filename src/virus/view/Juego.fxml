@@ -8,20 +8,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-<BorderPane stylesheets="@newCascadeStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virus.controller.JuegoController">
+<BorderPane prefHeight="645.0" prefWidth="1009.0" stylesheets="@newCascadeStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virus.controller.JuegoController">
    <center>
       <VBox>
          <children>
             <AnchorPane id="AnchorPane" fx:id="anchor" prefHeight="645.0" prefWidth="900.0" stylesheets="@newCascadeStyleSheet.css">
                <children>
-                  <ImageView fx:id="omg" fitHeight="645.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="omg" fitHeight="645.0" fitWidth="1009.0" pickOnBounds="true" preserveRatio="true" />
                   <Label layoutX="14.0" layoutY="562.0" onMouseClicked="#Salir" styleClass="lbl" text="Salir" />
                   <Label fx:id="user" layoutY="255.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
-                  <Label fx:id="user2" layoutX="668.0" layoutY="255.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
-                  <Label fx:id="user3" layoutX="668.0" layoutY="46.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
+                  <Label fx:id="user2" layoutX="769.0" layoutY="255.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
+                  <Label fx:id="user3" layoutX="769.0" layoutY="46.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
                   <Label fx:id="user4" layoutY="46.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
                   <Label fx:id="user5" layoutY="421.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
-                  <Label fx:id="user6" layoutX="668.0" layoutY="421.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
+                  <Label fx:id="user6" layoutX="769.0" layoutY="421.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
                   <HBox fx:id="hvox" layoutY="295.0" prefHeight="100.0" prefWidth="231.0">
                      <children>
                         <VBox fx:id="jug1_1" prefHeight="200.0" prefWidth="57.75" />
@@ -30,7 +30,7 @@
                         <VBox fx:id="jug1_4" prefHeight="200.0" prefWidth="57.75" />
                      </children>
                   </HBox>
-                  <HBox fx:id="hvox2" layoutX="668.0" layoutY="295.0" prefHeight="100.0" prefWidth="231.0">
+                  <HBox fx:id="hvox2" layoutX="769.0" layoutY="295.0" prefHeight="100.0" prefWidth="231.0">
                      <children>
                         <VBox fx:id="jug2_1" prefHeight="200.0" prefWidth="57.75" />
                         <VBox fx:id="jug2_2" prefHeight="200.0" prefWidth="57.75" />
@@ -38,7 +38,7 @@
                         <VBox fx:id="jug2_4" prefHeight="200.0" prefWidth="57.75" />
                      </children>
                   </HBox>
-                  <HBox fx:id="hvox3" layoutX="668.0" layoutY="86.0" prefHeight="100.0" prefWidth="231.0">
+                  <HBox fx:id="hvox3" layoutX="769.0" layoutY="86.0" prefHeight="100.0" prefWidth="231.0">
                      <children>
                         <VBox fx:id="jug3_1" prefHeight="200.0" prefWidth="57.75" />
                         <VBox fx:id="jug3_2" prefHeight="200.0" prefWidth="57.75" />
@@ -62,7 +62,7 @@
                         <VBox fx:id="jug5_4" prefHeight="200.0" prefWidth="75.75" />
                      </children>
                   </HBox>
-                  <HBox fx:id="hbox6" layoutX="668.0" layoutY="461.0" prefHeight="100.0" prefWidth="231.0">
+                  <HBox fx:id="hbox6" layoutX="769.0" layoutY="461.0" prefHeight="100.0" prefWidth="231.0">
                      <children>
                         <VBox fx:id="jug6_1" prefHeight="200.0" prefWidth="57.75" />
                         <VBox fx:id="jug6_2" prefHeight="200.0" prefWidth="57.75" />
@@ -70,9 +70,9 @@
                         <VBox fx:id="jug6_4" prefHeight="200.0" prefWidth="57.75" />
                      </children>
                   </HBox>
-                  <Rectangle fx:id="CartasDesechadas" arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="129.0" layoutX="335.0" layoutY="174.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="73.0" />
-                  <Rectangle fx:id="MazoCartas" arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="129.0" layoutX="494.0" layoutY="174.0" onMouseClicked="#obtenerCarta" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="73.0" />
-                  <ImageView fx:id="imgDesechada" fitHeight="127.0" fitWidth="73.0" layoutX="335.0" layoutY="175.0" onMouseClicked="#CartaDesechada" pickOnBounds="true" preserveRatio="true" />
+                  <Rectangle fx:id="CartasDesechadas" arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="107.25" layoutX="372.0" layoutY="242.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="74.75" />
+                  <Rectangle fx:id="MazoCartas" arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="107.25" layoutX="531.0" layoutY="241.0" onMouseClicked="#obtenerCarta" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="74.75" />
+                  <ImageView fx:id="imgDesechada" fitHeight="107.25" fitWidth="74.75" layoutX="372.0" layoutY="242.0" onMouseClicked="#CartaDesechada" pickOnBounds="true" preserveRatio="true" />
                </children>
             </AnchorPane>
          </children>

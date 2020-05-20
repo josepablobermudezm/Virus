@@ -32,7 +32,6 @@ public class pantallaCarga {
         @Override
         public void run() {
             Platform.runLater(() -> {
-
                 switch (tic) {
                     case 1:
                         label.setText("Buscando Jugadores.");

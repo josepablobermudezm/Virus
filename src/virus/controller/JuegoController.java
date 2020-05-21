@@ -324,31 +324,24 @@ public class JuegoController extends Controller implements Initializable {
 
     @FXML
     private void cambiarTurno(MouseEvent event) {
-        try {
-            jugador.getMazo().remove(cartaAux);
-            Socket socket = new Socket(jugador.getIPS(), 44440);
-            DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
-            DataInputStream entrada = new DataInputStream(socket.getInputStream());
-            System.out.println("Connected Text!");
-            mensaje.writeUTF("cambioTurno");
-            String mensajeRecibido;
-            mensajeRecibido = entrada.readUTF();
-            System.out.println(mensajeRecibido);
-            socket.close();
-            /*
-            Socket socket2 = new Socket(jugador.getIPS(), 44440);
-            OutputStream outputStream = socket2.getOutputStream();
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-            System.out.println("Sending messages to the ServerSocket");
-            objectOutputStream.writeObject(cartaAux);
-            System.out.println("Closing socket and terminating program.");
-            socket2.close();
-
-            imageViewDesechada.setImage(null);
-            cartaAux = null;
-            */
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+        if (jugador.getTurno()) {
+            try {
+                jugador.getMazo().remove(cartaAux);
+                Socket socket = new Socket(jugador.getIPS(), 44440);
+                DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
+                DataInputStream entrada = new DataInputStream(socket.getInputStream());
+                System.out.println("Connected Text!");
+                mensaje.writeUTF("cambioTurno");
+                String mensajeRecibido;
+                mensajeRecibido = entrada.readUTF();
+                System.out.println(mensajeRecibido);
+                socket.close();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }else{
+            Mensaje ms = new Mensaje();
+            ms.show(Alert.AlertType.INFORMATION, "Cambio de Turno","No puedes cambiar de turno porque no es tu turno");
         }
     }
 }

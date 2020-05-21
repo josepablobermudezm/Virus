@@ -176,126 +176,86 @@ public class JuegoController extends Controller implements Initializable {
         ArrayList<JugadorDto> jugadores = (ArrayList<JugadorDto>) AppContext.getInstance().get("Jugadores");
 
         if (jugadores.size() == 2) {
-            hvox.getStyleClass().clear();
-            hvox.getStyleClass().add("hVoxActivo");
             hvox.getChildren().forEach(x -> {
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
-            hvox2.getStyleClass().clear();
-            hvox2.getStyleClass().add("hVoxActivo");
             hvox2.getChildren().forEach(x -> {
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
         } else if (jugadores.size() == 3) {
-            hvox.getStyleClass().clear();
-            hvox.getStyleClass().add("hVoxActivo");
             hvox.getChildren().forEach(x -> {
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
-            hvox2.getStyleClass().clear();
-            hvox2.getStyleClass().add("hVoxActivo");
             hvox2.getChildren().forEach(x -> {
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
-            hvox3.getStyleClass().clear();
-            hvox3.getStyleClass().add("hVoxActivo");
             hvox3.getChildren().forEach(x -> {
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
         } else if (jugadores.size() == 4) {
-            hvox.getStyleClass().clear();
-            hvox.getStyleClass().add("hVoxActivo");
             hvox.getChildren().forEach(x -> {
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
-            hvox2.getStyleClass().clear();
-            hvox2.getStyleClass().add("hVoxActivo");
             hvox2.getChildren().forEach(x -> {
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
-            hvox3.getStyleClass().clear();
-            hvox3.getStyleClass().add("hVoxActivo");
             hvox3.getChildren().forEach(x -> {
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
-            hvox4.getStyleClass().clear();
-            hvox4.getStyleClass().add("hVoxActivo");
             hvox4.getChildren().forEach(x -> {
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
         } else if (jugadores.size() == 5) {
-            hvox.getStyleClass().clear();
-            hvox.getStyleClass().add("hVoxActivo");
             hvox.getChildren().forEach(x -> {
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
-            hvox2.getStyleClass().clear();
-            hvox2.getStyleClass().add("hVoxActivo");
             hvox2.getChildren().forEach(x -> {
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
-            hvox3.getStyleClass().clear();
-            hvox3.getStyleClass().add("hVoxActivo");
             hvox3.getChildren().forEach(x -> {
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
-            hvox4.getStyleClass().clear();
-            hvox4.getStyleClass().add("hVoxActivo");
             hvox4.getChildren().forEach(x -> {
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
-            hvox5.getStyleClass().clear();
-            hvox5.getStyleClass().add("hVoxActivo");
             hvox5.getChildren().forEach(x -> {
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
         } else if (jugadores.size() == 6) {
-            hvox.getStyleClass().clear();
-            hvox.getStyleClass().add("hVoxActivo");
             hvox.getChildren().forEach(x -> {
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
-            hvox2.getStyleClass().clear();
-            hvox2.getStyleClass().add("hVoxActivo");
             hvox2.getChildren().forEach(x -> {
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
-            hvox3.getStyleClass().clear();
-            hvox3.getStyleClass().add("hVoxActivo");
             hvox3.getChildren().forEach(x -> {
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
-            hvox4.getStyleClass().clear();
-            hvox4.getStyleClass().add("hVoxActivo");
             hvox4.getChildren().forEach(x -> {
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
-            hvox5.getStyleClass().clear();
-            hvox5.getStyleClass().add("hVoxActivo");
             hvox5.getChildren().forEach(x -> {
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
-            hbox6.getStyleClass().clear();
-            hbox6.getStyleClass().add("hVoxActivo");
             hbox6.getChildren().forEach(x -> {
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
@@ -325,8 +285,8 @@ public class JuegoController extends Controller implements Initializable {
         image7.setId("carta1");
         image7.setFitHeight(107.25);
         image7.setFitWidth(74.75);
-        image7.setLayoutX(300);
-        image7.setLayoutY(400);
+        image7.setLayoutX(400);
+        image7.setLayoutY(450);
         image7.setOnMouseClicked(cartaAdesechar);
 
         image8 = new ImageView("virus/resources/" + carta2.getImagen());
@@ -334,7 +294,7 @@ public class JuegoController extends Controller implements Initializable {
         image8.setFitHeight(107.25);
         image8.setFitWidth(74.75);
         image8.setLayoutX(image7.getLayoutX() + 102.5);
-        image8.setLayoutY(400);
+        image8.setLayoutY(450);
         image8.setOnMouseClicked(cartaAdesechar);
 
         image9 = new ImageView("virus/resources/" + carta3.getImagen());
@@ -342,7 +302,7 @@ public class JuegoController extends Controller implements Initializable {
         image9.setFitHeight(107.25);
         image9.setFitWidth(74.75);
         image9.setLayoutX(image8.getLayoutX() + 102.5);
-        image9.setLayoutY(400);
+        image9.setLayoutY(450);
         image9.setOnMouseClicked(cartaAdesechar);
 
         fondo_juego.getChildren().add(image7);

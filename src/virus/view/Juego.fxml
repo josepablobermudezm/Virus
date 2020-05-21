@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-<BorderPane prefHeight="645.0" prefWidth="1009.0" stylesheets="@newCascadeStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virus.controller.JuegoController">
+<BorderPane prefHeight="645.0" prefWidth="1074.0" stylesheets="@newCascadeStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virus.controller.JuegoController">
    <center>
       <VBox>
          <children>
@@ -42,7 +42,7 @@
                            </children></VBox>
                      </children>
                   </HBox>
-                  <HBox fx:id="hvox2" layoutX="769.0" layoutY="295.0" prefHeight="100.0" prefWidth="303.0">
+                  <HBox fx:id="hvox2" layoutX="757.0" layoutY="295.0" prefHeight="100.0" prefWidth="303.0">
                      <children>
                         <VBox fx:id="jug2_1" prefHeight="200.0" prefWidth="74.75">
                            <children>
@@ -62,7 +62,7 @@
                            </children></VBox>
                      </children>
                   </HBox>
-                  <HBox fx:id="hvox3" layoutX="769.0" layoutY="86.0" prefHeight="100.0" prefWidth="303.0">
+                  <HBox fx:id="hvox3" layoutX="757.0" layoutY="86.0" prefHeight="100.0" prefWidth="303.0">
                      <children>
                         <VBox fx:id="jug3_1" prefHeight="200.0" prefWidth="74.75">
                            <children>
@@ -122,7 +122,7 @@
                            </children></VBox>
                      </children>
                   </HBox>
-                  <HBox fx:id="hbox6" layoutX="769.0" layoutY="461.0" prefHeight="100.0" prefWidth="303.0">
+                  <HBox fx:id="hbox6" layoutX="757.0" layoutY="461.0" prefHeight="100.0" prefWidth="303.0">
                      <children>
                         <VBox fx:id="jug6_1" prefHeight="200.0" prefWidth="74.75">
                            <children>
@@ -142,10 +142,13 @@
                            </children></VBox>
                      </children>
                   </HBox>
-                  <Rectangle fx:id="CartasDesechadas" arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="107.25" layoutX="372.0" layoutY="242.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="74.75" />
-                  <Rectangle fx:id="MazoCartas" arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="107.25" layoutX="531.0" layoutY="241.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="74.75" />
-                  <ImageView fx:id="imgDesechada" fitHeight="107.25" fitWidth="74.75" layoutX="372.0" layoutY="242.0" onMouseClicked="#CartaDesechada" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="CartaBocaAbajoimg" fitHeight="107.25" fitWidth="74.75" layoutX="531.0" layoutY="242.0" onMouseClicked="#CartadeMazo" pickOnBounds="true" preserveRatio="true">
+                  <HBox layoutX="419.0" layoutY="242.0" styleClass="hVoxActivo">
+                     <children>
+                        <ImageView fx:id="imgDesechada" fitHeight="107.25" fitWidth="74.75" onMouseClicked="#CartaDesechada" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </HBox>
+                  <Rectangle fx:id="MazoCartas" arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="107.25" layoutX="578.0" layoutY="241.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="74.75" />
+                  <ImageView fx:id="CartaBocaAbajoimg" fitHeight="107.25" fitWidth="74.75" layoutX="578.0" layoutY="242.0" onMouseClicked="#CartadeMazo" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../resources/cartaBocaAbajo.png" />
                      </image>

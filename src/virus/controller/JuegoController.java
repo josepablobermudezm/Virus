@@ -176,108 +176,108 @@ public class JuegoController extends Controller implements Initializable {
 
         ArrayList<JugadorDto> jugadores = (ArrayList<JugadorDto>) AppContext.getInstance().get("Jugadores");
 
-        if (jugadores.size() == 2) {
+        if (jugadores.size() == 1) {
             hvox.getChildren().forEach(x -> {
-                x.setOnMouseReleased(cartaAEchar);
+                x.setOnMouseReleased(movimiento);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox2.getChildren().forEach(x -> {
-                x.setOnMouseReleased(cartaAEchar);
+                x.setOnMouseReleased(movimiento);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
         } else if (jugadores.size() == 3) {
             hvox.getChildren().forEach(x -> {
-                x.setOnMouseReleased(cartaAEchar);
+                x.setOnMouseReleased(movimiento);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox2.getChildren().forEach(x -> {
-                x.setOnMouseReleased(cartaAEchar);
+                x.setOnMouseReleased(movimiento);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox3.getChildren().forEach(x -> {
-                x.setOnMouseReleased(cartaAEchar);
+                x.setOnMouseReleased(movimiento);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
         } else if (jugadores.size() == 4) {
             hvox.getChildren().forEach(x -> {
-                x.setOnMouseReleased(cartaAEchar);
+                x.setOnMouseReleased(movimiento);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox2.getChildren().forEach(x -> {
-                x.setOnMouseReleased(cartaAEchar);
+                x.setOnMouseReleased(movimiento);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox3.getChildren().forEach(x -> {
-                x.setOnMouseReleased(cartaAEchar);
+                x.setOnMouseReleased(movimiento);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox4.getChildren().forEach(x -> {
-                x.setOnMouseReleased(cartaAEchar);
+                x.setOnMouseReleased(movimiento);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
         } else if (jugadores.size() == 5) {
             hvox.getChildren().forEach(x -> {
-                x.setOnMouseReleased(cartaAEchar);
+                x.setOnMouseReleased(movimiento);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox2.getChildren().forEach(x -> {
-                x.setOnMouseReleased(cartaAEchar);
+                x.setOnMouseReleased(movimiento);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox3.getChildren().forEach(x -> {
-                x.setOnMouseReleased(cartaAEchar);
+                x.setOnMouseReleased(movimiento);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox4.getChildren().forEach(x -> {
-                x.setOnMouseReleased(cartaAEchar);
+                x.setOnMouseReleased(movimiento);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox5.getChildren().forEach(x -> {
-                x.setOnMouseReleased(cartaAEchar);
+                x.setOnMouseReleased(movimiento);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
         } else if (jugadores.size() == 6) {
             hvox.getChildren().forEach(x -> {
-                x.setOnMouseReleased(cartaAEchar);
+                x.setOnMouseReleased(movimiento);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox2.getChildren().forEach(x -> {
-                x.setOnMouseReleased(cartaAEchar);
+                x.setOnMouseReleased(movimiento);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox3.getChildren().forEach(x -> {
-                x.setOnMouseReleased(cartaAEchar);
+                x.setOnMouseReleased(movimiento);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox4.getChildren().forEach(x -> {
-                x.setOnMouseReleased(cartaAEchar);
+                x.setOnMouseReleased(movimiento);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox5.getChildren().forEach(x -> {
-                x.setOnMouseReleased(cartaAEchar);
+                x.setOnMouseReleased(movimiento);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hbox6.getChildren().forEach(x -> {
-                x.setOnMouseReleased(cartaAEchar);
+                x.setOnMouseReleased(movimiento);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
@@ -329,18 +329,32 @@ public class JuegoController extends Controller implements Initializable {
         fondo_juego.getChildren().add(image7);
         fondo_juego.getChildren().add(image8);
         fondo_juego.getChildren().add(image9);
-
+        
         //Introduce los jugadores a la partida
         partida.setJugadores(jugadores);
-        Hilo_Peticiones peticiones = new Hilo_Peticiones(partida, imgDesechada, jugador, lbl_JTurno);
+        Hilo_Peticiones peticiones = new Hilo_Peticiones(partida, imgDesechada, jugador, lbl_JTurno, fondo_juego);
         peticiones.start();
     }
-
-    EventHandler<MouseEvent> cartaAEchar = event -> {
+    String hijo = "";
+    EventHandler<MouseEvent> movimiento = event -> {
         if (jugador.getTurno()) {
             if (cartaAux != null) {
+                
                 vboxAuxiliar = (VBox) event.getSource();
-                EnviarMensajeCarta("movimientoJugador");
+                String padre = vboxAuxiliar.getParent().getId();
+                hijo = "";
+                fondo_juego.getChildren().forEach((t) -> {
+                    if(t.getId()!=null && t.getId().equals(padre)){
+                        ((HBox)t).getChildren().forEach((v) -> {
+                            if(v.equals(vboxAuxiliar)){
+                                hijo = String.valueOf(((HBox)t).getChildren().indexOf(v));
+                            }
+                        });
+                    }
+                });
+                
+                enviarCartaJuegoSocket("movimientoJugador",padre,hijo);
+                
             } else {
                 Mensaje msj = new Mensaje();
                 msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
@@ -429,7 +443,7 @@ public class JuegoController extends Controller implements Initializable {
         if (!recogioCarta) {
             if (jugador.getTurno()) {
                 if (cartaAux != null) {
-                    EnviarMensajeCarta("desecharCarta");
+                    enviarCartaSocket("desecharCarta");
                 } else {
                     Mensaje msj = new Mensaje();
                     msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
@@ -444,7 +458,7 @@ public class JuegoController extends Controller implements Initializable {
         }
     }
 
-    public void EnviarMensajeCarta(String Mensaje) {
+    public void enviarCartaSocket(String Mensaje) {
         try {
             System.out.println(jugador.getMazo().remove(cartaAux));
             Socket socket = new Socket(jugador.getIPS(), 44440);
@@ -462,6 +476,38 @@ public class JuegoController extends Controller implements Initializable {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
             System.out.println("Sending messages to the ServerSocket");
             objectOutputStream.writeObject(cartaAux);
+            System.out.println("Closing socket and terminating program.");
+            socket2.close();
+
+            imageViewDesechada.setImage(null);
+            cartaAux = null;
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+     public void enviarCartaJuegoSocket(String Mensaje,String padre, String hijo) {
+        try {
+            System.out.println(jugador.getMazo().remove(cartaAux));
+            Socket socket = new Socket(jugador.getIPS(), 44440);
+            DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
+            DataInputStream entrada = new DataInputStream(socket.getInputStream());
+            System.out.println("Connected Text!");
+            mensaje.writeUTF(Mensaje);
+            String mensajeRecibido = "";
+            mensajeRecibido = entrada.readUTF();
+            System.out.println(mensajeRecibido);
+            socket.close();
+
+            Socket socket2 = new Socket(jugador.getIPS(), 44440);
+            OutputStream outputStream = socket2.getOutputStream();
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+            System.out.println("Sending messages to the ServerSocket");
+            objectOutputStream.writeObject(cartaAux);
+            mensaje.writeUTF(padre);
+            mensaje.writeUTF(hijo);
+            
             System.out.println("Closing socket and terminating program.");
             socket2.close();
 

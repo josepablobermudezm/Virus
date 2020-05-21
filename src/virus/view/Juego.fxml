@@ -15,14 +15,14 @@
          <children>
             <AnchorPane id="fondo_juego" fx:id="fondo_juego" prefHeight="645.0" prefWidth="900.0" stylesheets="@newCascadeStyleSheet.css">
                <children>
-                  <Label layoutX="14.0" layoutY="562.0" onMouseClicked="#Salir" styleClass="lbl" text="Salir" />
-                  <Label fx:id="user" layoutY="255.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
+                  <Label layoutX="57.0" layoutY="569.0" onMouseClicked="#Salir" styleClass="lbl" text="Salir" />
+                  <Label fx:id="user" layoutX="14.0" layoutY="258.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
                   <Label fx:id="user2" layoutX="769.0" layoutY="255.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
                   <Label fx:id="user3" layoutX="769.0" layoutY="46.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
-                  <Label fx:id="user4" layoutY="46.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
-                  <Label fx:id="user5" layoutY="421.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
+                  <Label fx:id="user4" layoutX="14.0" layoutY="49.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
+                  <Label fx:id="user5" layoutX="14.0" layoutY="424.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
                   <Label fx:id="user6" layoutX="769.0" layoutY="421.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
-                  <HBox fx:id="hvox" layoutY="295.0" prefHeight="107.25" prefWidth="303.0">
+                  <HBox fx:id="hvox" layoutX="14.0" layoutY="298.0" prefHeight="107.25" prefWidth="303.0">
                      <children>
                         <VBox fx:id="jug1_1" prefHeight="0.0" prefWidth="74.75">
                            <children>
@@ -82,7 +82,7 @@
                            </children></VBox>
                      </children>
                   </HBox>
-                  <HBox fx:id="hvox4" layoutY="86.0" prefHeight="100.0" prefWidth="303.0">
+                  <HBox fx:id="hvox4" layoutX="14.0" layoutY="89.0" prefHeight="100.0" prefWidth="303.0">
                      <children>
                         <VBox fx:id="jug4_1" prefHeight="200.0" prefWidth="74.75">
                            <children>
@@ -102,7 +102,7 @@
                            </children></VBox>
                      </children>
                   </HBox>
-                  <HBox fx:id="hvox5" layoutY="461.0" prefHeight="100.0" prefWidth="303.0">
+                  <HBox fx:id="hvox5" layoutX="14.0" layoutY="464.0" prefHeight="100.0" prefWidth="303.0">
                      <children>
                         <VBox fx:id="jug5_1" prefHeight="200.0" prefWidth="74.75">
                            <children>

@@ -17,6 +17,9 @@ import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import virus.controller.JuegoController;
 import virus.model.CartaDto;
 import virus.model.JugadorDto;
@@ -32,13 +35,15 @@ public class Hilo_Peticiones extends Thread {
     private ImageView imageView;
     private JugadorDto jugadorDto;
     private Label turno;
+    private AnchorPane anchorPane;
 
-    public Hilo_Peticiones(PartidaDto partida, ImageView image, JugadorDto jugador, Label label) {
+    public Hilo_Peticiones(PartidaDto partida, ImageView image, JugadorDto jugador, Label label, AnchorPane anchorPane) {
         super();
         partidaDto = partida;
         imageView = image;
         jugadorDto = jugador;
         turno = label;
+        this.anchorPane = anchorPane;
     }
 
     DataInputStream entrada;
@@ -74,23 +79,44 @@ public class Hilo_Peticiones extends Thread {
                  */
                 if (jugadorDto.getIP().equals(IP)) {
                     jugadorDto.setTurno(true);
-                }else{
+                } else {
                     jugadorDto.setTurno(false);
                 }
-                
+
                 String nombre = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IP)).
                         findAny().get().getNombre();
-                
+
                 Platform.runLater(() -> {
-                     turno.setText(nombre);
+                    turno.setText(nombre);
                 });
-               
-                System.out.println("Cambio de Turno: "+ IP);
-            }else if("movimientoJugador".equals(mensajeRecibido)){
+
+                System.out.println("Cambio de Turno: " + IP);
+            } else if ("movimientoJugador".equals(mensajeRecibido)) {
                 //vboxAuxiliar
+
+                DataInputStream respuesta2 = new DataInputStream(socket.getInputStream());
+                ObjectInputStream objectInputStream = new ObjectInputStream(respuesta2);
+                CartaDto carta = (CartaDto) objectInputStream.readObject();
+                partidaDto.getDesechadas().add(carta);
+
+                String padre = entrada.readUTF();
+
+                String hijo = entrada.readUTF();
+
+                anchorPane.getChildren().forEach((t) -> {
+                    if (t.getId() != null && t.getId().equals(padre)) {
+                        int i = Integer.valueOf(hijo);
+                        Platform.runLater(() -> {
+                            ((ImageView) ((VBox) ((HBox) t).getChildren().get(i)).getChildren().get(0)).
+                                    setImage(new Image("virus/resources/" + carta.getImagen()));
+                        });
+
+                    }
+                });
+
             }
             serverSocket.close();
-            Hilo_Peticiones hilo = new Hilo_Peticiones(partidaDto, imageView, jugadorDto, turno);
+            Hilo_Peticiones hilo = new Hilo_Peticiones(partidaDto, imageView, jugadorDto, turno, anchorPane);
             hilo.start();
         } catch (IOException IO) {
             System.out.println(IO.getMessage());

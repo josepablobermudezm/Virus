@@ -74,6 +74,8 @@ public class Hilo_Peticiones extends Thread {
                  */
                 if (jugadorDto.getIP().equals(IP)) {
                     jugadorDto.setTurno(true);
+                }else{
+                    jugadorDto.setTurno(false);
                 }
                 
                 String nombre = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IP)).

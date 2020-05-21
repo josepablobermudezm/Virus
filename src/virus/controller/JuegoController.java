@@ -155,12 +155,11 @@ public class JuegoController extends Controller implements Initializable {
     @FXML
     private Label lbl_JTurno;
     @FXML
-    private JFXButton btn_PasarT;
-    @FXML
     private ImageView CartaBocaAbajoimg;
     public static ImageView image7;
     public static ImageView image8;
     public static ImageView image9;
+    public static Boolean recogioCarta = false;
 
     /**
      * Initializes the controller class.
@@ -175,6 +174,133 @@ public class JuegoController extends Controller implements Initializable {
         user.setText(jugador.getNombre());
 
         ArrayList<JugadorDto> jugadores = (ArrayList<JugadorDto>) AppContext.getInstance().get("Jugadores");
+
+        if (jugadores.size() == 2) {
+            hvox.getStyleClass().clear();
+            hvox.getStyleClass().add("hVoxActivo");
+            hvox.getChildren().forEach(x -> {
+                x.getStyleClass().clear();
+                x.getStyleClass().add("hVoxActivo");
+            });
+            hvox2.getStyleClass().clear();
+            hvox2.getStyleClass().add("hVoxActivo");
+            hvox2.getChildren().forEach(x -> {
+                x.getStyleClass().clear();
+                x.getStyleClass().add("hVoxActivo");
+            });
+        } else if (jugadores.size() == 3) {
+            hvox.getStyleClass().clear();
+            hvox.getStyleClass().add("hVoxActivo");
+            hvox.getChildren().forEach(x -> {
+                x.getStyleClass().clear();
+                x.getStyleClass().add("hVoxActivo");
+            });
+            hvox2.getStyleClass().clear();
+            hvox2.getStyleClass().add("hVoxActivo");
+            hvox2.getChildren().forEach(x -> {
+                x.getStyleClass().clear();
+                x.getStyleClass().add("hVoxActivo");
+            });
+            hvox3.getStyleClass().clear();
+            hvox3.getStyleClass().add("hVoxActivo");
+            hvox3.getChildren().forEach(x -> {
+                x.getStyleClass().clear();
+                x.getStyleClass().add("hVoxActivo");
+            });
+        } else if (jugadores.size() == 4) {
+            hvox.getStyleClass().clear();
+            hvox.getStyleClass().add("hVoxActivo");
+            hvox.getChildren().forEach(x -> {
+                x.getStyleClass().clear();
+                x.getStyleClass().add("hVoxActivo");
+            });
+            hvox2.getStyleClass().clear();
+            hvox2.getStyleClass().add("hVoxActivo");
+            hvox2.getChildren().forEach(x -> {
+                x.getStyleClass().clear();
+                x.getStyleClass().add("hVoxActivo");
+            });
+            hvox3.getStyleClass().clear();
+            hvox3.getStyleClass().add("hVoxActivo");
+            hvox3.getChildren().forEach(x -> {
+                x.getStyleClass().clear();
+                x.getStyleClass().add("hVoxActivo");
+            });
+            hvox4.getStyleClass().clear();
+            hvox4.getStyleClass().add("hVoxActivo");
+            hvox4.getChildren().forEach(x -> {
+                x.getStyleClass().clear();
+                x.getStyleClass().add("hVoxActivo");
+            });
+        } else if (jugadores.size() == 5) {
+            hvox.getStyleClass().clear();
+            hvox.getStyleClass().add("hVoxActivo");
+            hvox.getChildren().forEach(x -> {
+                x.getStyleClass().clear();
+                x.getStyleClass().add("hVoxActivo");
+            });
+            hvox2.getStyleClass().clear();
+            hvox2.getStyleClass().add("hVoxActivo");
+            hvox2.getChildren().forEach(x -> {
+                x.getStyleClass().clear();
+                x.getStyleClass().add("hVoxActivo");
+            });
+            hvox3.getStyleClass().clear();
+            hvox3.getStyleClass().add("hVoxActivo");
+            hvox3.getChildren().forEach(x -> {
+                x.getStyleClass().clear();
+                x.getStyleClass().add("hVoxActivo");
+            });
+            hvox4.getStyleClass().clear();
+            hvox4.getStyleClass().add("hVoxActivo");
+            hvox4.getChildren().forEach(x -> {
+                x.getStyleClass().clear();
+                x.getStyleClass().add("hVoxActivo");
+            });
+            hvox5.getStyleClass().clear();
+            hvox5.getStyleClass().add("hVoxActivo");
+            hvox5.getChildren().forEach(x -> {
+                x.getStyleClass().clear();
+                x.getStyleClass().add("hVoxActivo");
+            });
+        } else if (jugadores.size() == 6) {
+            hvox.getStyleClass().clear();
+            hvox.getStyleClass().add("hVoxActivo");
+            hvox.getChildren().forEach(x -> {
+                x.getStyleClass().clear();
+                x.getStyleClass().add("hVoxActivo");
+            });
+            hvox2.getStyleClass().clear();
+            hvox2.getStyleClass().add("hVoxActivo");
+            hvox2.getChildren().forEach(x -> {
+                x.getStyleClass().clear();
+                x.getStyleClass().add("hVoxActivo");
+            });
+            hvox3.getStyleClass().clear();
+            hvox3.getStyleClass().add("hVoxActivo");
+            hvox3.getChildren().forEach(x -> {
+                x.getStyleClass().clear();
+                x.getStyleClass().add("hVoxActivo");
+            });
+            hvox4.getStyleClass().clear();
+            hvox4.getStyleClass().add("hVoxActivo");
+            hvox4.getChildren().forEach(x -> {
+                x.getStyleClass().clear();
+                x.getStyleClass().add("hVoxActivo");
+            });
+            hvox5.getStyleClass().clear();
+            hvox5.getStyleClass().add("hVoxActivo");
+            hvox5.getChildren().forEach(x -> {
+                x.getStyleClass().clear();
+                x.getStyleClass().add("hVoxActivo");
+            });
+            hbox6.getStyleClass().clear();
+            hbox6.getStyleClass().add("hVoxActivo");
+            hbox6.getChildren().forEach(x -> {
+                x.getStyleClass().clear();
+                x.getStyleClass().add("hVoxActivo");
+            });
+        }
 
         if (jugadores.get(0).getIP().equals(jugador.getIP())) {
             jugador.setTurno(true);
@@ -299,64 +425,70 @@ public class JuegoController extends Controller implements Initializable {
 
     @FXML
     private void CartaDesechada(MouseEvent event) {
+        if (!recogioCarta) {
+            if (jugador.getTurno()) {
+                if (cartaAux != null) {
+                    try {
+                        System.out.println(jugador.getMazo().remove(cartaAux));
+                        Socket socket = new Socket(jugador.getIPS(), 44440);
+                        DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
+                        DataInputStream entrada = new DataInputStream(socket.getInputStream());
+                        System.out.println("Connected Text!");
+                        mensaje.writeUTF("desecharCarta");
+                        String mensajeRecibido = "";
+                        mensajeRecibido = entrada.readUTF();
+                        System.out.println(mensajeRecibido);
+                        socket.close();
+
+                        Socket socket2 = new Socket(jugador.getIPS(), 44440);
+                        OutputStream outputStream = socket2.getOutputStream();
+                        ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+                        System.out.println("Sending messages to the ServerSocket");
+                        objectOutputStream.writeObject(cartaAux);
+                        System.out.println("Closing socket and terminating program.");
+                        socket2.close();
+
+                        imageViewDesechada.setImage(null);
+                        cartaAux = null;
+
+                    } catch (IOException e) {
+                        System.out.println(e.getMessage());
+                    }
+                } else {
+                    Mensaje msj = new Mensaje();
+                    msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
+                }
+            } else {
+                Mensaje ms = new Mensaje();
+                ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción");
+            }
+        } else {
+            Mensaje ms = new Mensaje();
+            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes desechar una carta en este momento");
+        }
+    }
+
+    public void cambiarTurnoAux() {
         if (jugador.getTurno()) {
-            if (cartaAux != null) {
+            if (jugador.getMazo().size() == 3) {
                 try {
-                    System.out.println(jugador.getMazo().remove(cartaAux));
+                    jugador.getMazo().remove(cartaAux);
                     Socket socket = new Socket(jugador.getIPS(), 44440);
                     DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
                     DataInputStream entrada = new DataInputStream(socket.getInputStream());
                     System.out.println("Connected Text!");
-                    mensaje.writeUTF("desecharCarta");
-                    String mensajeRecibido = "";
+                    mensaje.writeUTF("cambioTurno");
+                    String mensajeRecibido;
                     mensajeRecibido = entrada.readUTF();
                     System.out.println(mensajeRecibido);
                     socket.close();
-
-                    Socket socket2 = new Socket(jugador.getIPS(), 44440);
-                    OutputStream outputStream = socket2.getOutputStream();
-                    ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-                    System.out.println("Sending messages to the ServerSocket");
-                    objectOutputStream.writeObject(cartaAux);
-                    System.out.println("Closing socket and terminating program.");
-                    socket2.close();
-
-                    imageViewDesechada.setImage(null);
-                    cartaAux = null;
-
+                    recogioCarta = false;
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
             } else {
-                Mensaje msj = new Mensaje();
-                msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
-            }
-        } else {
-            Mensaje ms = new Mensaje();
-            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción");
-        }
-    }
-
-    @FXML
-    private void cambiarTurno(MouseEvent event) {
-        cambiarTurnoAux();
-    }
-
-    public void cambiarTurnoAux() {
-        if (jugador.getTurno() && jugador.getMazo().size() == 3) {
-            try {
-                jugador.getMazo().remove(cartaAux);
-                Socket socket = new Socket(jugador.getIPS(), 44440);
-                DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
-                DataInputStream entrada = new DataInputStream(socket.getInputStream());
-                System.out.println("Connected Text!");
-                mensaje.writeUTF("cambioTurno");
-                String mensajeRecibido;
-                mensajeRecibido = entrada.readUTF();
-                System.out.println(mensajeRecibido);
-                socket.close();
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
+                Mensaje ms = new Mensaje();
+                ms.show(Alert.AlertType.WARNING, "Información de Juego", "El mazo no está completo");
             }
         } else {
             Mensaje ms = new Mensaje();
@@ -368,9 +500,12 @@ public class JuegoController extends Controller implements Initializable {
     private void CartadeMazo(MouseEvent event) {
         if (jugador.getTurno()) {
             if (jugador.getMazo().size() < 3) {
+                recogioCarta = true;
                 ObtenerCarta(jugador.getIPS());
                 if (jugador.getMazo().size() == 3) {
                     cambiarTurnoAux();
+                    Mensaje ms = new Mensaje();
+                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Cambio de turno");
                 }
             } else {
                 Mensaje ms = new Mensaje();

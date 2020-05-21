@@ -14,6 +14,12 @@
     -fx-background-color: #02235D;
 }
 
+.hVoxActivo{
+    -fx-border-color:white; 
+    -fx-border-width: 1; 
+    -fx-border-style: solid;
+}
+
 .Label{
     -fx-font-family: "Decker";
     /*-fx-font-family: "Arial Rounded MT Bold";*/

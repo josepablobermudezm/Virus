@@ -69,8 +69,8 @@ public class Hilo_Peticiones extends Thread {
             } else if ("cambioTurno".equals(mensajeRecibido)) {
                 String IP = entrada.readUTF();
                 /*
-                Si nuestro jugador es el que se ha recibido desde el servidor es porque 
-                es el turno del mismo
+                 *    Si nuestro jugador es el que se ha recibido desde el servidor es porque 
+                 *   es el turno del mismo
                  */
                 if (jugadorDto.getIP().equals(IP)) {
                     jugadorDto.setTurno(true);
@@ -83,7 +83,7 @@ public class Hilo_Peticiones extends Thread {
                      turno.setText(nombre);
                 });
                
-                System.out.println("Cambio de Turno: "+nombre);
+                System.out.println("Cambio de Turno: "+ IP);
             }
             serverSocket.close();
             Hilo_Peticiones hilo = new Hilo_Peticiones(partidaDto, imageView, jugadorDto, turno);

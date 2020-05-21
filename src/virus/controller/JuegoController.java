@@ -156,6 +156,11 @@ public class JuegoController extends Controller implements Initializable {
     private Label lbl_JTurno;
     @FXML
     private JFXButton btn_PasarT;
+    @FXML
+    private ImageView CartaBocaAbajoimg;
+    public static ImageView image7;
+    public static ImageView image8;
+    public static ImageView image9;
 
     /**
      * Initializes the controller class.
@@ -170,8 +175,8 @@ public class JuegoController extends Controller implements Initializable {
         user.setText(jugador.getNombre());
 
         ArrayList<JugadorDto> jugadores = (ArrayList<JugadorDto>) AppContext.getInstance().get("Jugadores");
-        
-        if(jugadores.get(0).getIP().equals(jugador.getIP())){
+
+        if (jugadores.get(0).getIP().equals(jugador.getIP())) {
             jugador.setTurno(true);
         }
 
@@ -190,7 +195,7 @@ public class JuegoController extends Controller implements Initializable {
             nombres.get(i).setText(jugadores.get(i).getNombre());
         }
 
-        ImageView image7 = new ImageView("virus/resources/" + carta1.getImagen());
+        image7 = new ImageView("virus/resources/" + carta1.getImagen());
         image7.setId("carta1");
         image7.setFitHeight(107.25);
         image7.setFitWidth(74.75);
@@ -198,7 +203,7 @@ public class JuegoController extends Controller implements Initializable {
         image7.setLayoutY(400);
         image7.setOnMouseClicked(cartaAdesechar);
 
-        ImageView image8 = new ImageView("virus/resources/" + carta2.getImagen());
+        image8 = new ImageView("virus/resources/" + carta2.getImagen());
         image8.setId("carta2");
         image8.setFitHeight(107.25);
         image8.setFitWidth(74.75);
@@ -206,7 +211,7 @@ public class JuegoController extends Controller implements Initializable {
         image8.setLayoutY(400);
         image8.setOnMouseClicked(cartaAdesechar);
 
-        ImageView image9 = new ImageView("virus/resources/" + carta3.getImagen());
+        image9 = new ImageView("virus/resources/" + carta3.getImagen());
         image9.setId("carta3");
         image9.setFitHeight(107.25);
         image9.setFitWidth(74.75);
@@ -271,6 +276,13 @@ public class JuegoController extends Controller implements Initializable {
 
             CartaDto carta = (CartaDto) objectInputStream.readObject();
             jugador.getMazo().add(carta);
+            if (image7.getImage() == null) {
+                image7.setImage(new Image("virus/resources/" + carta.getImagen()));
+            } else if (image8.getImage() == null) {
+                image8.setImage(new Image("virus/resources/" + carta.getImagen()));
+            } else {
+                image9.setImage(new Image("virus/resources/" + carta.getImagen()));
+            }
             //Cerramos la conexión
             socket2.close();
         } catch (UnknownHostException e) {
@@ -283,16 +295,7 @@ public class JuegoController extends Controller implements Initializable {
     }
 
     @FXML
-    private void obtenerCarta(MouseEvent event) {
-        ObtenerCarta(jugador.getIPS());
-        jugador.getMazo().forEach(action -> {
-            System.out.println(action.getImagen());
-        });
-    }
-
-    @FXML
     private void CartaDesechada(MouseEvent event) {
-
         if (cartaAux != null) {
             try {
                 jugador.getMazo().remove(cartaAux);
@@ -328,6 +331,10 @@ public class JuegoController extends Controller implements Initializable {
 
     @FXML
     private void cambiarTurno(MouseEvent event) {
+        cambiarTurnoAux();
+    }
+
+    public void cambiarTurnoAux() {
         if (jugador.getTurno()) {
             try {
                 jugador.getMazo().remove(cartaAux);
@@ -343,9 +350,22 @@ public class JuegoController extends Controller implements Initializable {
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
-        }else{
+        } else {
             Mensaje ms = new Mensaje();
-            ms.show(Alert.AlertType.INFORMATION, "Cambio de Turno","No puedes cambiar de turno porque no es tu turno");
+            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes cambiar de turno porque no es tu turno");
+        }
+    }
+
+    @FXML
+    private void CartadeMazo(MouseEvent event) {
+        if (jugador.getMazo().size() < 3) {
+            ObtenerCarta(jugador.getIPS());
+            if (jugador.getMazo().size() == 3) {
+                cambiarTurnoAux();
+            }
+        } else {
+            Mensaje ms = new Mensaje();
+            ms.show(Alert.AlertType.WARNING, "Información de Juego", "Usted ya tiene su mazo completo");
         }
     }
 }

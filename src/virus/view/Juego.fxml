@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -71,8 +72,13 @@
                      </children>
                   </HBox>
                   <Rectangle fx:id="CartasDesechadas" arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="107.25" layoutX="372.0" layoutY="242.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="74.75" />
-                  <Rectangle fx:id="MazoCartas" arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="107.25" layoutX="531.0" layoutY="241.0" onMouseClicked="#obtenerCarta" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="74.75" />
+                  <Rectangle fx:id="MazoCartas" arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="107.25" layoutX="531.0" layoutY="241.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="74.75" />
                   <ImageView fx:id="imgDesechada" fitHeight="107.25" fitWidth="74.75" layoutX="372.0" layoutY="242.0" onMouseClicked="#CartaDesechada" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="CartaBocaAbajoimg" fitHeight="107.25" fitWidth="74.75" layoutX="531.0" layoutY="242.0" onMouseClicked="#CartadeMazo" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/cartaBocaAbajo.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
          </children>

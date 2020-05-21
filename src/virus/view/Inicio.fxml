@@ -13,10 +13,10 @@
             <AnchorPane id="omg" prefHeight="645.0" prefWidth="900.0" stylesheets="@newCascadeStyleSheet.css">
                <children>
                   <Label layoutX="14.0" layoutY="562.0" onMouseClicked="#Salir" styleClass="lbl" text="Salir" />
-                  <Label layoutX="763.0" layoutY="562.0" onMouseClicked="#Jugar" styleClass="lbl2" text="Jugar" />
-                  <JFXTextField fx:id="txtIP" layoutX="241.0" layoutY="122.0" prefHeight="31.0" prefWidth="420.0" promptText="Dirección IP" />
-                  <JFXTextField fx:id="txtServidor" layoutX="241.0" layoutY="249.0" prefHeight="31.0" prefWidth="420.0" promptText="Dirección IP del Servidor" />
-                  <JFXTextField fx:id="txtJugador" layoutX="240.0" layoutY="383.0" prefHeight="31.0" prefWidth="420.0" promptText="Nombre de usuario" />
+                  <Label layoutX="965.0" layoutY="562.0" onMouseClicked="#Jugar" styleClass="lbl2" text="Jugar" />
+                  <JFXTextField fx:id="txtIP" layoutX="328.0" layoutY="126.0" prefHeight="31.0" prefWidth="420.0" promptText="Dirección IP" />
+                  <JFXTextField fx:id="txtServidor" layoutX="328.0" layoutY="253.0" prefHeight="31.0" prefWidth="420.0" promptText="Dirección IP del Servidor" />
+                  <JFXTextField fx:id="txtJugador" layoutX="327.0" layoutY="387.0" prefHeight="31.0" prefWidth="420.0" promptText="Nombre de usuario" />
                </children>
             </AnchorPane>
          </children>

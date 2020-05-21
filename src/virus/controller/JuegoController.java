@@ -170,6 +170,10 @@ public class JuegoController extends Controller implements Initializable {
         user.setText(jugador.getNombre());
 
         ArrayList<JugadorDto> jugadores = (ArrayList<JugadorDto>) AppContext.getInstance().get("Jugadores");
+        
+        if(jugadores.get(0).getIP().equals(jugador.getIP())){
+            jugador.setTurno(true);
+        }
 
         lbl_JTurno.setText((jugadores.stream().filter(x -> x.getTurno()).findAny().get()).getNombre());
 

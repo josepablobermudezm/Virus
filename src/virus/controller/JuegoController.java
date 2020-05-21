@@ -130,9 +130,9 @@ public class JuegoController extends Controller implements Initializable {
     private Rectangle CartasDesechadas;
     @FXML
     private Rectangle MazoCartas;
-    public CartaDto carta1;
-    public CartaDto carta2;
-    public CartaDto carta3;
+    public static CartaDto carta1;
+    public static CartaDto carta2;
+    public static CartaDto carta3;
     public CartaDto cartaAux;
     @FXML
     private ImageView imgDesechada;
@@ -278,10 +278,13 @@ public class JuegoController extends Controller implements Initializable {
             jugador.getMazo().add(carta);
             if (image7.getImage() == null) {
                 image7.setImage(new Image("virus/resources/" + carta.getImagen()));
+                carta1 = carta;
             } else if (image8.getImage() == null) {
                 image8.setImage(new Image("virus/resources/" + carta.getImagen()));
+                carta2 = carta;
             } else {
                 image9.setImage(new Image("virus/resources/" + carta.getImagen()));
+                carta3 = carta;
             }
             //Cerramos la conexión
             socket2.close();
@@ -296,36 +299,41 @@ public class JuegoController extends Controller implements Initializable {
 
     @FXML
     private void CartaDesechada(MouseEvent event) {
-        if (cartaAux != null) {
-            try {
-                jugador.getMazo().remove(cartaAux);
-                Socket socket = new Socket(jugador.getIPS(), 44440);
-                DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
-                DataInputStream entrada = new DataInputStream(socket.getInputStream());
-                System.out.println("Connected Text!");
-                mensaje.writeUTF("desecharCarta");
-                String mensajeRecibido = "";
-                mensajeRecibido = entrada.readUTF();
-                System.out.println(mensajeRecibido);
-                socket.close();
+        if (jugador.getTurno()) {
+            if (cartaAux != null) {
+                try {
+                    System.out.println(jugador.getMazo().remove(cartaAux));
+                    Socket socket = new Socket(jugador.getIPS(), 44440);
+                    DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
+                    DataInputStream entrada = new DataInputStream(socket.getInputStream());
+                    System.out.println("Connected Text!");
+                    mensaje.writeUTF("desecharCarta");
+                    String mensajeRecibido = "";
+                    mensajeRecibido = entrada.readUTF();
+                    System.out.println(mensajeRecibido);
+                    socket.close();
 
-                Socket socket2 = new Socket(jugador.getIPS(), 44440);
-                OutputStream outputStream = socket2.getOutputStream();
-                ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-                System.out.println("Sending messages to the ServerSocket");
-                objectOutputStream.writeObject(cartaAux);
-                System.out.println("Closing socket and terminating program.");
-                socket2.close();
+                    Socket socket2 = new Socket(jugador.getIPS(), 44440);
+                    OutputStream outputStream = socket2.getOutputStream();
+                    ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+                    System.out.println("Sending messages to the ServerSocket");
+                    objectOutputStream.writeObject(cartaAux);
+                    System.out.println("Closing socket and terminating program.");
+                    socket2.close();
 
-                imageViewDesechada.setImage(null);
-                cartaAux = null;
+                    imageViewDesechada.setImage(null);
+                    cartaAux = null;
 
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else {
+                Mensaje msj = new Mensaje();
+                msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
             }
         } else {
-            Mensaje msj = new Mensaje();
-            msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
+            Mensaje ms = new Mensaje();
+            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes cambiar de turno porque no es tu turno");
         }
     }
 
@@ -335,7 +343,7 @@ public class JuegoController extends Controller implements Initializable {
     }
 
     public void cambiarTurnoAux() {
-        if (jugador.getTurno()) {
+        if (jugador.getTurno() && jugador.getMazo().size() == 3) {
             try {
                 jugador.getMazo().remove(cartaAux);
                 Socket socket = new Socket(jugador.getIPS(), 44440);
@@ -358,14 +366,19 @@ public class JuegoController extends Controller implements Initializable {
 
     @FXML
     private void CartadeMazo(MouseEvent event) {
-        if (jugador.getMazo().size() < 3) {
-            ObtenerCarta(jugador.getIPS());
-            if (jugador.getMazo().size() == 3) {
-                cambiarTurnoAux();
+        if (jugador.getTurno()) {
+            if (jugador.getMazo().size() < 3) {
+                ObtenerCarta(jugador.getIPS());
+                if (jugador.getMazo().size() == 3) {
+                    cambiarTurnoAux();
+                }
+            } else {
+                Mensaje ms = new Mensaje();
+                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Usted ya tiene su mazo completo");
             }
         } else {
             Mensaje ms = new Mensaje();
-            ms.show(Alert.AlertType.WARNING, "Información de Juego", "Usted ya tiene su mazo completo");
+            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes cambiar de turno porque no es tu turno");
         }
     }
 }

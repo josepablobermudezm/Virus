@@ -92,17 +92,16 @@ public class Hilo_Peticiones extends Thread {
 
                 System.out.println("Cambio de Turno: " + IP);
             } else if ("movimientoJugador".equals(mensajeRecibido)) {
-                //vboxAuxiliar
+                DataInputStream input;
+                input = new DataInputStream(socket.getInputStream());
 
+                String padre = input.readUTF();
+                String hijo = input.readUTF();
+                
                 DataInputStream respuesta2 = new DataInputStream(socket.getInputStream());
                 ObjectInputStream objectInputStream = new ObjectInputStream(respuesta2);
                 CartaDto carta = (CartaDto) objectInputStream.readObject();
-                partidaDto.getDesechadas().add(carta);
-
-                String padre = entrada.readUTF();
-
-                String hijo = entrada.readUTF();
-
+                
                 anchorPane.getChildren().forEach((t) -> {
                     if (t.getId() != null && t.getId().equals(padre)) {
                         int i = Integer.valueOf(hijo);
@@ -110,10 +109,8 @@ public class Hilo_Peticiones extends Thread {
                             ((ImageView) ((VBox) ((HBox) t).getChildren().get(i)).getChildren().get(0)).
                                     setImage(new Image("virus/resources/" + carta.getImagen()));
                         });
-
                     }
                 });
-
             }
             serverSocket.close();
             Hilo_Peticiones hilo = new Hilo_Peticiones(partidaDto, imageView, jugadorDto, turno, anchorPane);

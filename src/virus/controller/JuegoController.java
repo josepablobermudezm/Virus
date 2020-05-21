@@ -329,32 +329,102 @@ public class JuegoController extends Controller implements Initializable {
         fondo_juego.getChildren().add(image7);
         fondo_juego.getChildren().add(image8);
         fondo_juego.getChildren().add(image9);
-        
+
         //Introduce los jugadores a la partida
         partida.setJugadores(jugadores);
         Hilo_Peticiones peticiones = new Hilo_Peticiones(partida, imgDesechada, jugador, lbl_JTurno, fondo_juego);
         peticiones.start();
     }
     String hijo = "";
+    Boolean vacio = true;
+    VBox boxVacio = null;
+
+    private void primermovimiento(String padre) {
+        
+        if (vboxAuxiliar!=null && ((ImageView)vboxAuxiliar.getChildren().get(0)).getImage() == null) {
+            hijo = "";
+            vacio = true;
+
+            fondo_juego.getChildren().forEach((t) -> {
+                if (t.getId() != null && t.getId().equals(padre)) {
+                    ((HBox) t).getChildren().forEach((v) -> {
+                        if (v.equals(vboxAuxiliar)) {
+                            hijo = String.valueOf(((HBox) t).getChildren().indexOf(v));
+                        }
+                    });
+                }
+            });
+
+            enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
+        }else{
+            
+        }
+
+    }
+
     EventHandler<MouseEvent> movimiento = event -> {
         if (jugador.getTurno()) {
             if (cartaAux != null) {
-                
-                vboxAuxiliar = (VBox) event.getSource();
-                String padre = vboxAuxiliar.getParent().getId();
-                hijo = "";
-                fondo_juego.getChildren().forEach((t) -> {
-                    if(t.getId()!=null && t.getId().equals(padre)){
-                        ((HBox)t).getChildren().forEach((v) -> {
-                            if(v.equals(vboxAuxiliar)){
-                                hijo = String.valueOf(((HBox)t).getChildren().indexOf(v));
+                if (cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
+                        || cartaAux.getTipoCarta().equals("Cerebro") || cartaAux.getTipoCarta().equals("Hueso") || 
+                        cartaAux.getTipoCarta().equals("Organo_Comodin")) {
+                    JugadorDto jugadorAux = partida.getJugadores().stream().
+                            filter(x -> x.getIP().equals(jugador.getIP())).findAny().get();
+                    int i = partida.getJugadores().indexOf(jugadorAux);
+                    vboxAuxiliar = (VBox) event.getSource();
+                    String padre = vboxAuxiliar.getParent().getId();
+                    switch (i) {
+                        case 0:
+                            if (padre.equals("hvox")) {
+                                primermovimiento(padre);
+                            } else {
+                                Mensaje ms = new Mensaje();
+                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
                             }
-                        });
+                            break;
+                        case 1:
+                            if (padre.equals("hvox2")) {
+                                primermovimiento(padre);
+                            } else {
+                                Mensaje ms = new Mensaje();
+                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
+                            }
+                            break;
+
+                        case 2:
+                            if (padre.equals("hvox3")) {
+                                primermovimiento(padre);
+                            } else {
+                                Mensaje ms = new Mensaje();
+                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
+                            }
+                            break;
+                        case 3:
+                            if (padre.equals("hvox4")) {
+                                primermovimiento(padre);
+                            } else {
+                                Mensaje ms = new Mensaje();
+                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
+                            }
+                            break;
+                        case 4:
+                            if (padre.equals("hvox5")) {
+                                primermovimiento(padre);
+                            } else {
+                                Mensaje ms = new Mensaje();
+                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
+                            }
+                            break;
+                        case 5:
+                            if (padre.equals("hbox6")) {
+                                primermovimiento(padre);
+                            } else {
+                                Mensaje ms = new Mensaje();
+                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
+                            }
+                            break;
                     }
-                });
-                
-                enviarCartaJuegoSocket("movimientoJugador",padre,hijo);
-                
+                }
             } else {
                 Mensaje msj = new Mensaje();
                 msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
@@ -486,8 +556,8 @@ public class JuegoController extends Controller implements Initializable {
             System.out.println(e.getMessage());
         }
     }
-    
-     public void enviarCartaJuegoSocket(String Mensaje,String padre, String hijo) {
+
+    public void enviarCartaJuegoSocket(String Mensaje, String padre, String hijo) {
         try {
             System.out.println(jugador.getMazo().remove(cartaAux));
             Socket socket = new Socket(jugador.getIPS(), 44440);
@@ -502,12 +572,13 @@ public class JuegoController extends Controller implements Initializable {
 
             Socket socket2 = new Socket(jugador.getIPS(), 44440);
             OutputStream outputStream = socket2.getOutputStream();
+            DataOutputStream mensaje2 = new DataOutputStream(socket2.getOutputStream());
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
             System.out.println("Sending messages to the ServerSocket");
             objectOutputStream.writeObject(cartaAux);
-            mensaje.writeUTF(padre);
-            mensaje.writeUTF(hijo);
-            
+            mensaje2.writeUTF(padre);
+            mensaje2.writeUTF(hijo);
+
             System.out.println("Closing socket and terminating program.");
             socket2.close();
 

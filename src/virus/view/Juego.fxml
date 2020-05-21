@@ -26,19 +26,19 @@
                      <children>
                         <VBox fx:id="jug1_1" prefHeight="0.0" prefWidth="74.75">
                            <children>
-                              <ImageView fx:id="imgDesechada1" fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
                         <VBox fx:id="jug1_2" prefHeight="0.0" prefWidth="74.75">
                            <children>
-                              <ImageView fx:id="imgDesechada2" fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
                         <VBox fx:id="jug1_3" prefHeight="0.0" prefWidth="75.75">
                            <children>
-                              <ImageView fx:id="imgDesechada3" fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
                         <VBox fx:id="jug1_4" prefHeight="0.0" prefWidth="75.75">
                            <children>
-                              <ImageView fx:id="imgDesechada4" fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
                      </children>
                   </HBox>
@@ -46,19 +46,19 @@
                      <children>
                         <VBox fx:id="jug2_1" prefHeight="200.0" prefWidth="74.75">
                            <children>
-                              <ImageView fx:id="imgDesechada17" fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
                         <VBox fx:id="jug2_2" prefHeight="200.0" prefWidth="74.75">
                            <children>
-                              <ImageView fx:id="imgDesechada19" fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
                         <VBox fx:id="jug2_3" prefHeight="200.0" prefWidth="74.75">
                            <children>
-                              <ImageView fx:id="imgDesechada18" fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
                         <VBox fx:id="jug2_4" prefHeight="200.0" prefWidth="74.75">
                            <children>
-                              <ImageView fx:id="imgDesechada20" fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
                      </children>
                   </HBox>
@@ -66,19 +66,19 @@
                      <children>
                         <VBox fx:id="jug3_1" prefHeight="200.0" prefWidth="74.75">
                            <children>
-                              <ImageView fx:id="imgDesechada21" fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
                         <VBox fx:id="jug3_2" prefHeight="200.0" prefWidth="74.75">
                            <children>
-                              <ImageView fx:id="imgDesechada22" fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
                         <VBox fx:id="jug3_3" prefHeight="200.0" prefWidth="74.75">
                            <children>
-                              <ImageView fx:id="imgDesechada23" fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
                         <VBox fx:id="jug3_4" prefHeight="200.0" prefWidth="74.75">
                            <children>
-                              <ImageView fx:id="imgDesechada24" fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
                      </children>
                   </HBox>
@@ -86,19 +86,19 @@
                      <children>
                         <VBox fx:id="jug4_1" prefHeight="200.0" prefWidth="74.75">
                            <children>
-                              <ImageView fx:id="imgDesechada9" fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
                         <VBox fx:id="jug4_2" prefHeight="200.0" prefWidth="74.75">
                            <children>
-                              <ImageView fx:id="imgDesechada10" fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
                         <VBox fx:id="jug4_3" prefHeight="200.0" prefWidth="74.75">
                            <children>
-                              <ImageView fx:id="imgDesechada11" fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
                         <VBox fx:id="jug4_4" prefHeight="200.0" prefWidth="74.75">
                            <children>
-                              <ImageView fx:id="imgDesechada12" fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
                      </children>
                   </HBox>
@@ -106,19 +106,19 @@
                      <children>
                         <VBox fx:id="jug5_1" prefHeight="200.0" prefWidth="74.75">
                            <children>
-                              <ImageView fx:id="imgDesechada5" fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
                         <VBox fx:id="jug5_2" prefHeight="200.0" prefWidth="74.75">
                            <children>
-                              <ImageView fx:id="imgDesechada6" fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
                         <VBox fx:id="jug5_3" prefHeight="200.0" prefWidth="74.75">
                            <children>
-                              <ImageView fx:id="imgDesechada7" fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
                         <VBox fx:id="jug5_4" prefHeight="200.0" prefWidth="74.75">
                            <children>
-                              <ImageView fx:id="imgDesechada8" fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
                      </children>
                   </HBox>
@@ -126,19 +126,19 @@
                      <children>
                         <VBox fx:id="jug6_1" prefHeight="200.0" prefWidth="74.75">
                            <children>
-                              <ImageView fx:id="imgDesechada13" fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
                         <VBox fx:id="jug6_2" prefHeight="200.0" prefWidth="74.75">
                            <children>
-                              <ImageView fx:id="imgDesechada14" fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
                         <VBox fx:id="jug6_3" prefHeight="200.0" prefWidth="74.75">
                            <children>
-                              <ImageView fx:id="imgDesechada15" fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
                         <VBox fx:id="jug6_4" prefHeight="200.0" prefWidth="74.75">
                            <children>
-                              <ImageView fx:id="imgDesechada16" fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
                      </children>
                   </HBox>

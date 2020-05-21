@@ -104,7 +104,7 @@ public class InicioController extends Controller implements Initializable {
     }
 
     public static void enviarObjetos(String nombre, String IP_Jugador, String IP_Servidor) {
-        JugadorDto jugador = new JugadorDto(nombre, false, false, IP_Jugador, new ArrayList<CartaDto>(), new ArrayList<CartaDto>(), new ArrayList<CartaDto>(), new ArrayList<CartaDto>(),new ArrayList<CartaDto>(), IP_Servidor);
+        JugadorDto jugador = new JugadorDto(nombre, false, false, IP_Jugador, new ArrayList<CartaDto>(), new ArrayList<CartaDto>(), new ArrayList<CartaDto>(),new ArrayList<CartaDto>(), IP_Servidor);
         AppContext.getInstance().set("JugadorDto", jugador);
         try {
             // need host and port, we want to connect to the ServerSocket at port 7777

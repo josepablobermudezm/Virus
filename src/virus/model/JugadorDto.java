@@ -28,12 +28,11 @@ public class JugadorDto implements Serializable{
     public JugadorDto() {
     }
 
-    public JugadorDto(String nombre, Boolean turno, Boolean ganador, String IP, ArrayList<CartaDto> mazo, ArrayList<CartaDto> cartas1, ArrayList<CartaDto> cartas2, ArrayList<CartaDto> cartas3, ArrayList<CartaDto> cartas4, String IPS ) {
+    public JugadorDto(String nombre, Boolean turno, Boolean ganador, String IP, ArrayList<CartaDto> cartas1, ArrayList<CartaDto> cartas2, ArrayList<CartaDto> cartas3, ArrayList<CartaDto> cartas4, String IPS ) {
         this.nombre = nombre;
         this.turno = turno;
         this.ganador = ganador;
         this.IP = IP;
-        this.mazo = mazo;
         this.cartas1 = cartas1;
         this.cartas2 = cartas2;
         this.cartas3 = cartas3;

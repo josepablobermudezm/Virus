@@ -333,7 +333,7 @@ public class JuegoController extends Controller implements Initializable {
             }
         } else {
             Mensaje ms = new Mensaje();
-            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes cambiar de turno porque no es tu turno");
+            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción");
         }
     }
 
@@ -360,7 +360,7 @@ public class JuegoController extends Controller implements Initializable {
             }
         } else {
             Mensaje ms = new Mensaje();
-            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes cambiar de turno porque no es tu turno");
+            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción");
         }
     }
 
@@ -378,7 +378,7 @@ public class JuegoController extends Controller implements Initializable {
             }
         } else {
             Mensaje ms = new Mensaje();
-            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes cambiar de turno porque no es tu turno");
+            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción");
         }
     }
 }

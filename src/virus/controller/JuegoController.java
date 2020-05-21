@@ -160,6 +160,7 @@ public class JuegoController extends Controller implements Initializable {
     public static ImageView image8;
     public static ImageView image9;
     public static Boolean recogioCarta = false;
+    public static VBox vboxAuxiliar;
 
     /**
      * Initializes the controller class.
@@ -177,86 +178,106 @@ public class JuegoController extends Controller implements Initializable {
 
         if (jugadores.size() == 2) {
             hvox.getChildren().forEach(x -> {
+                x.setOnMouseReleased(cartaAEchar);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox2.getChildren().forEach(x -> {
+                x.setOnMouseReleased(cartaAEchar);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
         } else if (jugadores.size() == 3) {
             hvox.getChildren().forEach(x -> {
+                x.setOnMouseReleased(cartaAEchar);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox2.getChildren().forEach(x -> {
+                x.setOnMouseReleased(cartaAEchar);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox3.getChildren().forEach(x -> {
+                x.setOnMouseReleased(cartaAEchar);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
         } else if (jugadores.size() == 4) {
             hvox.getChildren().forEach(x -> {
+                x.setOnMouseReleased(cartaAEchar);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox2.getChildren().forEach(x -> {
+                x.setOnMouseReleased(cartaAEchar);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox3.getChildren().forEach(x -> {
+                x.setOnMouseReleased(cartaAEchar);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox4.getChildren().forEach(x -> {
+                x.setOnMouseReleased(cartaAEchar);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
         } else if (jugadores.size() == 5) {
             hvox.getChildren().forEach(x -> {
+                x.setOnMouseReleased(cartaAEchar);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox2.getChildren().forEach(x -> {
+                x.setOnMouseReleased(cartaAEchar);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox3.getChildren().forEach(x -> {
+                x.setOnMouseReleased(cartaAEchar);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox4.getChildren().forEach(x -> {
+                x.setOnMouseReleased(cartaAEchar);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox5.getChildren().forEach(x -> {
+                x.setOnMouseReleased(cartaAEchar);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
         } else if (jugadores.size() == 6) {
             hvox.getChildren().forEach(x -> {
+                x.setOnMouseReleased(cartaAEchar);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox2.getChildren().forEach(x -> {
+                x.setOnMouseReleased(cartaAEchar);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox3.getChildren().forEach(x -> {
+                x.setOnMouseReleased(cartaAEchar);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox4.getChildren().forEach(x -> {
+                x.setOnMouseReleased(cartaAEchar);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hvox5.getChildren().forEach(x -> {
+                x.setOnMouseReleased(cartaAEchar);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
             hbox6.getChildren().forEach(x -> {
+                x.setOnMouseReleased(cartaAEchar);
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
             });
@@ -315,14 +336,34 @@ public class JuegoController extends Controller implements Initializable {
         peticiones.start();
     }
 
+    EventHandler<MouseEvent> cartaAEchar = event -> {
+        if (jugador.getTurno()) {
+            if (cartaAux != null) {
+                vboxAuxiliar = (VBox) event.getSource();
+                EnviarMensajeCarta("movimientoJugador");
+            } else {
+                Mensaje msj = new Mensaje();
+                msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
+            }
+        } else {
+            Mensaje ms = new Mensaje();
+            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción");
+        }
+    };
+
     EventHandler<MouseEvent> cartaAdesechar = event -> {
-        imageViewDesechada = ((ImageView) event.getSource());
-        if (((ImageView) event.getSource()).getId().equals("carta3")) {
-            cartaAux = carta3;
-        } else if (((ImageView) event.getSource()).getId().equals("carta2")) {
-            cartaAux = carta2;
-        } else {//carta 1
-            cartaAux = carta1;
+        if (jugador.getTurno()) {
+            imageViewDesechada = ((ImageView) event.getSource());
+            if (((ImageView) event.getSource()).getId().equals("carta3")) {
+                cartaAux = carta3;
+            } else if (((ImageView) event.getSource()).getId().equals("carta2")) {
+                cartaAux = carta2;
+            } else {//carta 1
+                cartaAux = carta1;
+            }
+        } else {
+            Mensaje ms = new Mensaje();
+            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción");
         }
     };
 
@@ -388,32 +429,7 @@ public class JuegoController extends Controller implements Initializable {
         if (!recogioCarta) {
             if (jugador.getTurno()) {
                 if (cartaAux != null) {
-                    try {
-                        System.out.println(jugador.getMazo().remove(cartaAux));
-                        Socket socket = new Socket(jugador.getIPS(), 44440);
-                        DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
-                        DataInputStream entrada = new DataInputStream(socket.getInputStream());
-                        System.out.println("Connected Text!");
-                        mensaje.writeUTF("desecharCarta");
-                        String mensajeRecibido = "";
-                        mensajeRecibido = entrada.readUTF();
-                        System.out.println(mensajeRecibido);
-                        socket.close();
-
-                        Socket socket2 = new Socket(jugador.getIPS(), 44440);
-                        OutputStream outputStream = socket2.getOutputStream();
-                        ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-                        System.out.println("Sending messages to the ServerSocket");
-                        objectOutputStream.writeObject(cartaAux);
-                        System.out.println("Closing socket and terminating program.");
-                        socket2.close();
-
-                        imageViewDesechada.setImage(null);
-                        cartaAux = null;
-
-                    } catch (IOException e) {
-                        System.out.println(e.getMessage());
-                    }
+                    EnviarMensajeCarta("desecharCarta");
                 } else {
                     Mensaje msj = new Mensaje();
                     msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
@@ -425,6 +441,35 @@ public class JuegoController extends Controller implements Initializable {
         } else {
             Mensaje ms = new Mensaje();
             ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes desechar una carta en este momento");
+        }
+    }
+
+    public void EnviarMensajeCarta(String Mensaje) {
+        try {
+            System.out.println(jugador.getMazo().remove(cartaAux));
+            Socket socket = new Socket(jugador.getIPS(), 44440);
+            DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
+            DataInputStream entrada = new DataInputStream(socket.getInputStream());
+            System.out.println("Connected Text!");
+            mensaje.writeUTF(Mensaje);
+            String mensajeRecibido = "";
+            mensajeRecibido = entrada.readUTF();
+            System.out.println(mensajeRecibido);
+            socket.close();
+
+            Socket socket2 = new Socket(jugador.getIPS(), 44440);
+            OutputStream outputStream = socket2.getOutputStream();
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+            System.out.println("Sending messages to the ServerSocket");
+            objectOutputStream.writeObject(cartaAux);
+            System.out.println("Closing socket and terminating program.");
+            socket2.close();
+
+            imageViewDesechada.setImage(null);
+            cartaAux = null;
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 

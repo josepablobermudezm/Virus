@@ -86,6 +86,8 @@ public class Hilo_Peticiones extends Thread {
                 });
                
                 System.out.println("Cambio de Turno: "+ IP);
+            }else if("movimientoJugador".equals(mensajeRecibido)){
+                //vboxAuxiliar
             }
             serverSocket.close();
             Hilo_Peticiones hilo = new Hilo_Peticiones(partidaDto, imageView, jugadorDto, turno);

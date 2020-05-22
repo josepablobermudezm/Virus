@@ -409,10 +409,18 @@ public class JuegoController extends Controller implements Initializable {
             //si es el primer movimiento
             if (jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty()) {
                 enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
-            } else if ((!jugador.getCartas1().isEmpty() ? !cartaAux.getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta()) : true)
-                    && (!jugador.getCartas2().isEmpty() ? !cartaAux.getTipoCarta().equals(jugador.getCartas2().get(0).getTipoCarta()) : true)
-                    && (!jugador.getCartas3().isEmpty() ? !cartaAux.getTipoCarta().equals(jugador.getCartas3().get(0).getTipoCarta()) : true)
-                    && (!jugador.getCartas4().isEmpty() ? !cartaAux.getTipoCarta().equals(jugador.getCartas4().get(0).getTipoCarta()) : true)) {
+            } else if ((!jugador.getCartas1().isEmpty() 
+                    ? !cartaAux.getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta()) 
+                    : true)
+                    && (!jugador.getCartas2().isEmpty() 
+                    ? !cartaAux.getTipoCarta().equals(jugador.getCartas2().get(0).getTipoCarta()) 
+                    : true)
+                    && (!jugador.getCartas3().isEmpty() 
+                    ? !cartaAux.getTipoCarta().equals(jugador.getCartas3().get(0).getTipoCarta()) 
+                    : true)
+                    && (!jugador.getCartas4().isEmpty()
+                    ? !cartaAux.getTipoCarta().equals(jugador.getCartas4().get(0).getTipoCarta()) 
+                    : true)) {
                 enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
             } else {
                 Mensaje ms = new Mensaje();
@@ -576,7 +584,7 @@ public class JuegoController extends Controller implements Initializable {
         if (!recogioCarta) {
             if (jugador.getTurno()) {
                 if (cartaAux != null) {
-                    enviarCartaSocket("desecharCarta");
+                    desecharCarta("desecharCarta");
                 } else {
                     Mensaje msj = new Mensaje();
                     msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
@@ -590,8 +598,8 @@ public class JuegoController extends Controller implements Initializable {
             ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes desechar una carta en este momento");
         }
     }
-
-    public void enviarCartaSocket(String Mensaje) {
+    
+    public void desecharCarta(String Mensaje) {
         try {
             System.out.println(jugador.getMazo().remove(cartaAux));
             Socket socket = new Socket(jugador.getIPS(), 44440);
@@ -619,7 +627,8 @@ public class JuegoController extends Controller implements Initializable {
             System.out.println(e.getMessage());
         }
     }
-
+    
+    //Envía las cartas a los jugadores
     public void enviarCartaJuegoSocket(String Mensaje, String padre, String hijo) {
         try {
             System.out.println(jugador.getMazo().remove(cartaAux));

@@ -409,10 +409,10 @@ public class JuegoController extends Controller implements Initializable {
             //si es el primer movimiento
             if (jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty()) {
                 enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
-            } else if ((jugador.getCartas1().get(0) != null ? !cartaAux.getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta()) : true)
-                    && (jugador.getCartas2().get(0) != null ? !cartaAux.getTipoCarta().equals(jugador.getCartas2().get(0).getTipoCarta()) : true)
-                    && (jugador.getCartas3().get(0) != null ? !cartaAux.getTipoCarta().equals(jugador.getCartas3().get(0).getTipoCarta()) : true)
-                    && (jugador.getCartas4().get(0) != null ? !cartaAux.getTipoCarta().equals(jugador.getCartas4().get(0).getTipoCarta()) : true)) {
+            } else if ((!jugador.getCartas1().isEmpty() ? !cartaAux.getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta()) : true)
+                    && (!jugador.getCartas2().isEmpty() ? !cartaAux.getTipoCarta().equals(jugador.getCartas2().get(0).getTipoCarta()) : true)
+                    && (!jugador.getCartas3().isEmpty() ? !cartaAux.getTipoCarta().equals(jugador.getCartas3().get(0).getTipoCarta()) : true)
+                    && (!jugador.getCartas4().isEmpty() ? !cartaAux.getTipoCarta().equals(jugador.getCartas4().get(0).getTipoCarta()) : true)) {
                 enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
             } else {
                 Mensaje ms = new Mensaje();

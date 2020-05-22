@@ -176,7 +176,7 @@ public class JuegoController extends Controller implements Initializable {
 
         ArrayList<JugadorDto> jugadores = (ArrayList<JugadorDto>) AppContext.getInstance().get("Jugadores");
 
-        if (jugadores.size() == 1) {
+        if (jugadores.size() == 2) {
             hvox.getChildren().forEach(x -> {
                 x.setOnMouseReleased(movimiento);
                 x.getStyleClass().clear();
@@ -340,8 +340,8 @@ public class JuegoController extends Controller implements Initializable {
     VBox boxVacio = null;
 
     private void primermovimiento(String padre) {
-        
-        if (vboxAuxiliar!=null && ((ImageView)vboxAuxiliar.getChildren().get(0)).getImage() == null) {
+
+        if (vboxAuxiliar != null && ((ImageView) vboxAuxiliar.getChildren().get(0)).getImage() == null) {
             hijo = "";
             vacio = true;
 
@@ -356,8 +356,9 @@ public class JuegoController extends Controller implements Initializable {
             });
 
             enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
-        }else{
-            
+        } else {
+            Mensaje ms = new Mensaje();
+            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes agregar un órgano en este lugar.");
         }
 
     }
@@ -366,8 +367,8 @@ public class JuegoController extends Controller implements Initializable {
         if (jugador.getTurno()) {
             if (cartaAux != null) {
                 if (cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
-                        || cartaAux.getTipoCarta().equals("Cerebro") || cartaAux.getTipoCarta().equals("Hueso") || 
-                        cartaAux.getTipoCarta().equals("Organo_Comodin")) {
+                        || cartaAux.getTipoCarta().equals("Cerebro") || cartaAux.getTipoCarta().equals("Hueso")
+                        || cartaAux.getTipoCarta().equals("Organo_Comodin")) {
                     JugadorDto jugadorAux = partida.getJugadores().stream().
                             filter(x -> x.getIP().equals(jugador.getIP())).findAny().get();
                     int i = partida.getJugadores().indexOf(jugadorAux);

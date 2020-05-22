@@ -131,7 +131,7 @@ public class Hilo_Peticiones extends Thread {
                 }
                 //pregunta que si el jugador es el mismo que encontramos, el que hizo el movimiento, entonces actualizamos las cartas
                 if(jugadorAux.getIP().equals(jugadorDto.getIP())){
-                    jugadorDto = jugadorAux;
+                    AppContext.getInstance().set("JugadorDto", jugadorAux);
                 }
 
                 anchorPane.getChildren().forEach((t) -> {

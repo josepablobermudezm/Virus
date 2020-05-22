@@ -374,17 +374,17 @@ public class JuegoController extends Controller implements Initializable {
             //si es el primer movimiento
             if (jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty()) {
                 enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
-            } else if ((!jugador.getCartas1().isEmpty() 
-                    ? !cartaAux.getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta()) 
+            } else if ((!jugador.getCartas1().isEmpty()
+                    ? !cartaAux.getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta())
                     : true)
-                    && (!jugador.getCartas2().isEmpty() 
-                    ? !cartaAux.getTipoCarta().equals(jugador.getCartas2().get(0).getTipoCarta()) 
+                    && (!jugador.getCartas2().isEmpty()
+                    ? !cartaAux.getTipoCarta().equals(jugador.getCartas2().get(0).getTipoCarta())
                     : true)
-                    && (!jugador.getCartas3().isEmpty() 
-                    ? !cartaAux.getTipoCarta().equals(jugador.getCartas3().get(0).getTipoCarta()) 
+                    && (!jugador.getCartas3().isEmpty()
+                    ? !cartaAux.getTipoCarta().equals(jugador.getCartas3().get(0).getTipoCarta())
                     : true)
                     && (!jugador.getCartas4().isEmpty()
-                    ? !cartaAux.getTipoCarta().equals(jugador.getCartas4().get(0).getTipoCarta()) 
+                    ? !cartaAux.getTipoCarta().equals(jugador.getCartas4().get(0).getTipoCarta())
                     : true)) {
                 enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
             } else {
@@ -520,10 +520,8 @@ public class JuegoController extends Controller implements Initializable {
 
             DataInputStream respuesta2 = new DataInputStream(socket2.getInputStream());
             ObjectInputStream objectInputStream = new ObjectInputStream(respuesta2);
-            CartaDto carta = null;
-            if (objectInputStream.readObject() != null) {
-                carta = (CartaDto) objectInputStream.readObject();
-            } else {
+            CartaDto carta = (CartaDto) objectInputStream.readObject();
+            if (carta == null) {
                 OutputStream outputstream = socket.getOutputStream();
                 ObjectOutputStream objectoutputstream = new ObjectOutputStream(outputstream);
                 //Envia null para que me devuelva las cartas
@@ -535,7 +533,7 @@ public class JuegoController extends Controller implements Initializable {
                     desechadas.setImage(null);
                 });
             }
-            
+
             jugador.getMazo().add(carta);
             if (image7.getImage() == null) {
                 image7.setImage(new Image("virus/resources/" + carta.getImagen()));
@@ -578,7 +576,7 @@ public class JuegoController extends Controller implements Initializable {
             ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes desechar una carta en este momento");
         }
     }
-    
+
     public void desecharCarta(String Mensaje) {
         try {
             System.out.println(jugador.getMazo().remove(cartaAux));
@@ -607,7 +605,7 @@ public class JuegoController extends Controller implements Initializable {
             System.out.println(e.getMessage());
         }
     }
-    
+
     //Envía las cartas a los jugadores
     public void enviarCartaJuegoSocket(String Mensaje, String padre, String hijo) {
         try {

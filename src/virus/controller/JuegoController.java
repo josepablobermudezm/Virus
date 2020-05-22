@@ -366,7 +366,53 @@ public class JuegoController extends Controller implements Initializable {
                 }
             });
 
-            enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
+            /*switch (hijo) {
+                case "0":
+                    if (jugador.getCartas1().isEmpty()) {
+                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
+                    } else if (cartaAux.getTipoCarta() != jugador.getCartas1().get(0).getTipoCarta()) {
+                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
+                    } else {
+                        Mensaje ms = new Mensaje();
+                        ms.show(Alert.AlertType.WARNING, "Información de Juego", "Ya hay un tipo de organo ");
+                    }
+                    break;
+                case "1":
+                    if (jugador.getCartas2().isEmpty()) {
+                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
+                    }
+                    break;
+                case "2":
+                    if (jugador.getCartas3().isEmpty()) {
+                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
+                    }
+                    break;
+                case "3":
+                    if (jugador.getCartas4().isEmpty()) {
+                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
+                    }
+                    break;
+                case "4":
+                    /*if(jugador.getCartas5().isEmpty()){
+                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
+                    }
+                    break;
+                default:
+                    break;
+            }*/
+            
+            //si es el primer movimiento
+            if (jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty()) {
+                enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
+            } else if ((jugador.getCartas1().get(0) != null ? !cartaAux.getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta()) : true)
+                    && (jugador.getCartas2().get(0) != null ? !cartaAux.getTipoCarta().equals(jugador.getCartas2().get(0).getTipoCarta()) : true)
+                    && (jugador.getCartas3().get(0) != null ? !cartaAux.getTipoCarta().equals(jugador.getCartas3().get(0).getTipoCarta()) : true)
+                    && (jugador.getCartas4().get(0) != null ? !cartaAux.getTipoCarta().equals(jugador.getCartas4().get(0).getTipoCarta()) : true)) {
+                enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
+            } else {
+                Mensaje ms = new Mensaje();
+                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Ya hay un tipo de organo en este mazo");
+            }
         } else {
             Mensaje ms = new Mensaje();
             ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes agregar un órgano en este lugar.");

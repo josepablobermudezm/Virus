@@ -401,6 +401,12 @@ public class JuegoController extends Controller implements Initializable {
                     break;
             }*/
             
+            System.out.println("CANTIDADES PARA PROBAR");
+            System.out.println((jugador.getCartas1().size()));
+            System.out.println((jugador.getCartas2().size()));
+            System.out.println((jugador.getCartas3().size()));
+            System.out.println((jugador.getCartas4().size()));
+            
             //si es el primer movimiento
             if (jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty()) {
                 enviarCartaJuegoSocket("movimientoJugador", padre, hijo);

@@ -301,34 +301,45 @@ public class JuegoController extends Controller implements Initializable {
         for (int i = 0; i < jugadores.size(); i++) {
             nombres.get(i).setText(jugadores.get(i).getNombre());
         }
-
+        VBox vBox = new VBox();
         image7 = new ImageView("virus/resources/" + carta1.getImagen());
         image7.setId("carta1");
+        vBox.getStyleClass().clear();
+        vBox.getStyleClass().add("hVoxActivo");
         image7.setFitHeight(107.25);
         image7.setFitWidth(74.75);
-        image7.setLayoutX(400);
-        image7.setLayoutY(450);
+        vBox.setLayoutX(400);
+        vBox.setLayoutY(450);
         image7.setOnMouseClicked(cartaAdesechar);
+        vBox.getChildren().add(image7);
 
+        VBox vBox2 = new VBox();
         image8 = new ImageView("virus/resources/" + carta2.getImagen());
         image8.setId("carta2");
+        vBox2.getStyleClass().clear();
+        vBox2.getStyleClass().add("hVoxActivo");
         image8.setFitHeight(107.25);
         image8.setFitWidth(74.75);
-        image8.setLayoutX(image7.getLayoutX() + 102.5);
-        image8.setLayoutY(450);
+        vBox2.setLayoutX(vBox.getLayoutX() + 102.5);
+        vBox2.setLayoutY(450);
         image8.setOnMouseClicked(cartaAdesechar);
+        vBox2.getChildren().add(image8);
 
+        VBox vBox3 = new VBox();
         image9 = new ImageView("virus/resources/" + carta3.getImagen());
         image9.setId("carta3");
+        vBox3.getStyleClass().clear();
+        vBox3.getStyleClass().add("hVoxActivo");
         image9.setFitHeight(107.25);
         image9.setFitWidth(74.75);
-        image9.setLayoutX(image8.getLayoutX() + 102.5);
-        image9.setLayoutY(450);
+        vBox3.setLayoutX(vBox2.getLayoutX() + 102.5);
+        vBox3.setLayoutY(450);
         image9.setOnMouseClicked(cartaAdesechar);
+        vBox3.getChildren().add(image9);
 
-        fondo_juego.getChildren().add(image7);
-        fondo_juego.getChildren().add(image8);
-        fondo_juego.getChildren().add(image9);
+        fondo_juego.getChildren().add(vBox);
+        fondo_juego.getChildren().add(vBox2);
+        fondo_juego.getChildren().add(vBox3);
 
         //Introduce los jugadores a la partida
         partida.setJugadores(jugadores);
@@ -579,6 +590,7 @@ public class JuegoController extends Controller implements Initializable {
             objectOutputStream.writeObject(cartaAux);
             mensaje2.writeUTF(padre);
             mensaje2.writeUTF(hijo);
+            mensaje2.writeUTF(jugador.getIP());
 
             System.out.println("Closing socket and terminating program.");
             socket2.close();

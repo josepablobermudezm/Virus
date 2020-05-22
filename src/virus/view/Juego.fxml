@@ -148,11 +148,15 @@
                      </children>
                   </HBox>
                   <Rectangle fx:id="MazoCartas" arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="107.25" layoutX="578.0" layoutY="241.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="74.75" />
-                  <ImageView fx:id="CartaBocaAbajoimg" fitHeight="107.25" fitWidth="74.75" layoutX="578.0" layoutY="242.0" onMouseClicked="#CartadeMazo" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../resources/cartaBocaAbajo.png" />
-                     </image>
-                  </ImageView>
+                  <VBox layoutX="578.0" layoutY="242.0" styleClass="hVoxActivo">
+                     <children>
+                        <ImageView fx:id="CartaBocaAbajoimg" fitHeight="107.25" fitWidth="74.75" onMouseClicked="#CartadeMazo" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/cartaBocaAbajo.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
                </children>
             </AnchorPane>
          </children>

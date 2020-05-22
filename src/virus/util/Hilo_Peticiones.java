@@ -97,11 +97,43 @@ public class Hilo_Peticiones extends Thread {
 
                 String padre = input.readUTF();
                 String hijo = input.readUTF();
-                
+                String IPJugador = input.readUTF();
+
                 DataInputStream respuesta2 = new DataInputStream(socket.getInputStream());
                 ObjectInputStream objectInputStream = new ObjectInputStream(respuesta2);
                 CartaDto carta = (CartaDto) objectInputStream.readObject();
-                
+
+                JugadorDto jugadorAux = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get();
+
+                switch (hijo) {
+                    case "0":
+                        jugadorAux.getCartas1().add(carta);
+                        break;
+                    case "1":
+                        jugadorAux.getCartas2().add(carta);
+                        break;
+                    case "2":
+                        jugadorAux.getCartas3().add(carta);
+                        break;
+                    case "3":
+                        jugadorAux.getCartas4().add(carta);
+                        break;
+                    case "4":
+                        //jugadorAux.getCartas5().add(carta);
+                        break;
+                    default:
+                        break;
+                }
+
+                System.out.println("lista carta1 ");
+                jugadorAux.getCartas1().forEach(x -> System.out.print(x.toString()));
+                System.out.println("lista carta2 ");
+                jugadorAux.getCartas2().forEach(x -> System.out.print(x.toString()));
+                System.out.println("lista carta3 ");
+                jugadorAux.getCartas3().forEach(x -> System.out.print(x.toString()));
+                System.out.println("lista carta4 ");
+                jugadorAux.getCartas4().forEach(x -> System.out.print(x.toString()));
+
                 anchorPane.getChildren().forEach((t) -> {
                     if (t.getId() != null && t.getId().equals(padre)) {
                         int i = Integer.valueOf(hijo);

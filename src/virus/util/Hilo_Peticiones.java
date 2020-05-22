@@ -129,15 +129,10 @@ public class Hilo_Peticiones extends Thread {
                     default:
                         break;
                 }
-
-                System.out.println("lista carta1 ");
-                jugadorAux.getCartas1().forEach(x -> System.out.print(x.toString()));
-                System.out.println("lista carta2 ");
-                jugadorAux.getCartas2().forEach(x -> System.out.print(x.toString()));
-                System.out.println("lista carta3 ");
-                jugadorAux.getCartas3().forEach(x -> System.out.print(x.toString()));
-                System.out.println("lista carta4 ");
-                jugadorAux.getCartas4().forEach(x -> System.out.print(x.toString()));
+                //pregunta que si el jugador es el mismo que encontramos, el que hizo el movimiento, entonces actualizamos las cartas
+                if(jugadorAux.getIP().equals(jugadorDto.getIP())){
+                    jugadorDto = jugadorAux;
+                }
 
                 anchorPane.getChildren().forEach((t) -> {
                     if (t.getId() != null && t.getId().equals(padre)) {

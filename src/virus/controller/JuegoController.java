@@ -136,7 +136,8 @@ public class JuegoController extends Controller implements Initializable {
     public CartaDto cartaAux;
     @FXML
     private ImageView imgDesechada;
-    private PartidaDto partida = new PartidaDto();
+    private static ImageView desechadas;
+    private static PartidaDto partida = new PartidaDto();
     boolean finalizado = false;
     Timer timer = new Timer();
     int tic = 1;
@@ -345,6 +346,8 @@ public class JuegoController extends Controller implements Initializable {
         partida.setJugadores(jugadores);
         Hilo_Peticiones peticiones = new Hilo_Peticiones(partida, imgDesechada, jugador, lbl_JTurno, fondo_juego);
         peticiones.start();
+
+        desechadas = imgDesechada;
     }
     String hijo = "";
     Boolean vacio = true;
@@ -366,46 +369,8 @@ public class JuegoController extends Controller implements Initializable {
                 }
             });
 
-            /*switch (hijo) {
-                case "0":
-                    if (jugador.getCartas1().isEmpty()) {
-                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
-                    } else if (cartaAux.getTipoCarta() != jugador.getCartas1().get(0).getTipoCarta()) {
-                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
-                    } else {
-                        Mensaje ms = new Mensaje();
-                        ms.show(Alert.AlertType.WARNING, "Información de Juego", "Ya hay un tipo de organo ");
-                    }
-                    break;
-                case "1":
-                    if (jugador.getCartas2().isEmpty()) {
-                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
-                    }
-                    break;
-                case "2":
-                    if (jugador.getCartas3().isEmpty()) {
-                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
-                    }
-                    break;
-                case "3":
-                    if (jugador.getCartas4().isEmpty()) {
-                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
-                    }
-                    break;
-                case "4":
-                    /*if(jugador.getCartas5().isEmpty()){
-                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
-                    }
-                    break;
-                default:
-                    break;
-            }*/
             jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
-            System.out.println("CANTIDADES PARA PROBAR");
-            System.out.println((jugador.getCartas1().size()));
-            System.out.println((jugador.getCartas2().size()));
-            System.out.println((jugador.getCartas3().size()));
-            System.out.println((jugador.getCartas4().size()));
+
             //si es el primer movimiento
             if (jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty()) {
                 enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
@@ -547,8 +512,22 @@ public class JuegoController extends Controller implements Initializable {
 
             DataInputStream respuesta2 = new DataInputStream(socket2.getInputStream());
             ObjectInputStream objectInputStream = new ObjectInputStream(respuesta2);
-
-            CartaDto carta = (CartaDto) objectInputStream.readObject();
+            CartaDto carta = null;
+            if (objectInputStream.readObject() != null) {
+                carta = (CartaDto) objectInputStream.readObject();
+            } else {
+                OutputStream outputstream = socket.getOutputStream();
+                ObjectOutputStream objectoutputstream = new ObjectOutputStream(outputstream);
+                //Envia null para que me devuelva las cartas
+                objectoutputstream.writeObject(partida.getDesechadas());
+                partida.getDesechadas().clear();
+                carta = (CartaDto) objectInputStream.readObject();
+                partida.getDesechadas().add(carta);
+                Platform.runLater(() -> {
+                    desechadas.setImage(null);
+                });
+            }
+            
             jugador.getMazo().add(carta);
             if (image7.getImage() == null) {
                 image7.setImage(new Image("virus/resources/" + carta.getImagen()));
@@ -560,6 +539,7 @@ public class JuegoController extends Controller implements Initializable {
                 image9.setImage(new Image("virus/resources/" + carta.getImagen()));
                 carta3 = carta;
             }
+
             //Cerramos la conexión
             socket2.close();
         } catch (UnknownHostException e) {

@@ -81,6 +81,9 @@ public class JugadorDto implements Serializable{
     }
 
     public ArrayList<CartaDto> getCartas1() {
+        if(cartas1 == null){
+            cartas1 = new ArrayList();
+        }
         return cartas1;
     }
 
@@ -89,6 +92,9 @@ public class JugadorDto implements Serializable{
     }
     
     public ArrayList<CartaDto> getCartas2() {
+        if(cartas2 == null){
+            cartas2 = new ArrayList();
+        }
         return cartas2;
     }
 
@@ -97,6 +103,9 @@ public class JugadorDto implements Serializable{
     }
 
     public ArrayList<CartaDto> getCartas3() {
+        if(cartas3 == null){
+            cartas3 = new ArrayList();
+        }
         return cartas3;
     }
 
@@ -105,6 +114,9 @@ public class JugadorDto implements Serializable{
     }
     
     public ArrayList<CartaDto> getCartas4() {
+        if(cartas4 == null){
+            cartas4 = new ArrayList();
+        }
         return cartas4;
     }
 

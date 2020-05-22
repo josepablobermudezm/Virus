@@ -53,12 +53,6 @@ public class InicioController extends Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        /*Image imgLogo;
-        try {
-            imgLogo = new Image("virus/resources/fondo2.png");
-            omg.setImage(imgLogo);
-        } catch (Exception e) {
-        }*/
     }
 
     @Override
@@ -75,7 +69,7 @@ public class InicioController extends Controller implements Initializable {
     private void Jugar(MouseEvent event) {
         if (!txtIP.getText().isEmpty() && !txtJugador.getText().isEmpty() && !txtServidor.getText().isEmpty()) {
             enviarTexto(txtJugador.getText(), txtIP.getText(), txtServidor.getText());
-            
+
         }
     }
 
@@ -104,8 +98,7 @@ public class InicioController extends Controller implements Initializable {
     }
 
     public static void enviarObjetos(String nombre, String IP_Jugador, String IP_Servidor) {
-        JugadorDto jugador = new JugadorDto(nombre, false, false, IP_Jugador, new ArrayList<CartaDto>(), new ArrayList<CartaDto>(), new ArrayList<CartaDto>(),new ArrayList<CartaDto>(), IP_Servidor);
-        AppContext.getInstance().set("JugadorDto", jugador);
+        JugadorDto jugador = new JugadorDto(nombre, false, false, IP_Jugador, new ArrayList<CartaDto>(), new ArrayList<CartaDto>(), new ArrayList<CartaDto>(), new ArrayList<CartaDto>(), IP_Servidor);
         try {
             // need host and port, we want to connect to the ServerSocket at port 7777
             Socket socket = new Socket(IP_Servidor, 44440);
@@ -122,11 +115,12 @@ public class InicioController extends Controller implements Initializable {
             objectOutputStream.writeObject(jugador);
             ArrayList<CartaDto> cartas = (ArrayList<CartaDto>) objectInputStream.readObject();
             jugador.setMazo(cartas);
+            AppContext.getInstance().set("JugadorDto", jugador);
             System.out.println("Closing socket and terminating program.");
             socket.close();
             Hilo hilo = new Hilo();
             hilo.start();
-            
+
             FlowController.getInstance().goViewInWindowTransparent("VistaCargando");
         } catch (IOException e) {
             System.out.println(e.getMessage());

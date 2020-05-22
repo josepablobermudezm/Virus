@@ -103,7 +103,12 @@ public class Hilo_Peticiones extends Thread {
                 ObjectInputStream objectInputStream = new ObjectInputStream(respuesta2);
                 CartaDto carta = (CartaDto) objectInputStream.readObject();
 
+                partidaDto.getJugadores().stream().forEach(x->System.out.print(x.getIP() + " IP Jugadores"));
+                System.out.println(IPJugador + " ip recibida");
+                
                 JugadorDto jugadorAux = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get();
+                
+                System.out.println(jugadorAux.getIP() + " jugadorAux ip");
 
                 switch (hijo) {
                     case "0":

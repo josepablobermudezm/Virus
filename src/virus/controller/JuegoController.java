@@ -498,7 +498,6 @@ public class JuegoController extends Controller implements Initializable {
     }
 
     public static void ObtenerCarta(String IP_Servidor) {
-        System.out.println(desechadas);
         try {
             Socket socket = new Socket(IP_Servidor, 44440);
             DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
@@ -523,9 +522,9 @@ public class JuegoController extends Controller implements Initializable {
             ObjectInputStream objectInputStream = new ObjectInputStream(respuesta2);
             CartaDto carta = (CartaDto) objectInputStream.readObject();
             if (carta == null) {
-                OutputStream outputstream = socket.getOutputStream();
+                OutputStream outputstream = socket2.getOutputStream();
                 ObjectOutputStream objectoutputstream = new ObjectOutputStream(outputstream);
-                //Envia null para que me devuelva las cartas
+                partida.getDesechadas().stream().forEach(x -> System.out.print(x.getTipoCarta()));
                 objectoutputstream.writeObject(partida.getDesechadas());
                 partida.getDesechadas().clear();
                 carta = (CartaDto) objectInputStream.readObject();

@@ -498,6 +498,7 @@ public class JuegoController extends Controller implements Initializable {
     }
 
     public static void ObtenerCarta(String IP_Servidor) {
+        System.out.println(desechadas);
         try {
             Socket socket = new Socket(IP_Servidor, 44440);
             DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
@@ -528,7 +529,6 @@ public class JuegoController extends Controller implements Initializable {
                 objectoutputstream.writeObject(partida.getDesechadas());
                 partida.getDesechadas().clear();
                 carta = (CartaDto) objectInputStream.readObject();
-                partida.getDesechadas().add(carta);
                 Platform.runLater(() -> {
                     desechadas.setImage(null);
                 });

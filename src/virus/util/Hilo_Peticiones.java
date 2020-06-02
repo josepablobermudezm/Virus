@@ -80,7 +80,9 @@ public class Hilo_Peticiones extends Thread {
                  */
                 if (jugadorDto.getIP().equals(IP)) {
                     jugadorDto.setTurno(true);
-                    new Mensaje().show(Alert.AlertType.INFORMATION, "Información de juego", "Es tu turno");
+                    Platform.runLater(() -> {
+                        new Mensaje().show(Alert.AlertType.INFORMATION, "Información de juego", "Es tu turno");
+                    });
                 } else {
                     jugadorDto.setTurno(false);
                 }
@@ -106,7 +108,6 @@ public class Hilo_Peticiones extends Thread {
                 CartaDto carta = (CartaDto) objectInputStream.readObject();
 
                 JugadorDto jugadorAux = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get();
-                
 
                 switch (hijo) {
                     case "0":
@@ -128,12 +129,11 @@ public class Hilo_Peticiones extends Thread {
                         break;
                 }
                 //pregunta que si el jugador es el mismo que encontramos, el que hizo el movimiento, entonces actualizamos las cartas
-                if(jugadorAux.getIP().equals(jugadorDto.getIP())){
+                if (jugadorAux.getIP().equals(jugadorDto.getIP())) {
                     jugadorAux.setMazo(jugadorDto.getMazo());
                     jugadorAux.setTurno(jugadorDto.getTurno());
                     AppContext.getInstance().set("JugadorDto", jugadorAux);
                 }
-                
 
                 anchorPane.getChildren().forEach((t) -> {
                     if (t.getId() != null && t.getId().equals(padre)) {

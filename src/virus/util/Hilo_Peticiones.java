@@ -14,6 +14,7 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -79,6 +80,7 @@ public class Hilo_Peticiones extends Thread {
                  */
                 if (jugadorDto.getIP().equals(IP)) {
                     jugadorDto.setTurno(true);
+                    new Mensaje().show(Alert.AlertType.INFORMATION, "Información de juego", "Es tu turno");
                 } else {
                     jugadorDto.setTurno(false);
                 }

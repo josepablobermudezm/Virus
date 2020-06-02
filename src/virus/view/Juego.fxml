@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 
 <BorderPane prefHeight="645.0" prefWidth="1074.0" stylesheets="@newCascadeStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virus.controller.JuegoController">
    <center>
@@ -16,13 +15,13 @@
             <AnchorPane id="fondo_juego" fx:id="fondo_juego" prefHeight="645.0" prefWidth="900.0" stylesheets="@newCascadeStyleSheet.css">
                <children>
                   <Label layoutX="57.0" layoutY="569.0" onMouseClicked="#Salir" styleClass="lbl" text="Salir" />
-                  <Label fx:id="user" layoutX="14.0" layoutY="258.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
-                  <Label fx:id="user2" layoutX="769.0" layoutY="255.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
-                  <Label fx:id="user3" layoutX="769.0" layoutY="46.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
-                  <Label fx:id="user4" layoutX="14.0" layoutY="49.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
-                  <Label fx:id="user5" layoutX="14.0" layoutY="424.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
-                  <Label fx:id="user6" layoutX="769.0" layoutY="421.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
-                  <HBox fx:id="hvox" layoutX="14.0" layoutY="298.0" prefHeight="107.25" prefWidth="303.0">
+                  <Label fx:id="user" layoutX="40.0" layoutY="235.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
+                  <Label fx:id="user2" layoutX="802.0" layoutY="235.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
+                  <Label fx:id="user3" layoutX="802.0" layoutY="26.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
+                  <Label fx:id="user4" layoutX="40.0" layoutY="26.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
+                  <Label fx:id="user5" layoutX="40.0" layoutY="404.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
+                  <Label fx:id="user6" layoutX="802.0" layoutY="404.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
+                  <HBox fx:id="hvox" layoutX="40.0" layoutY="278.0" prefHeight="107.25" prefWidth="377.75">
                      <children>
                         <VBox fx:id="jug1_1" prefHeight="0.0" prefWidth="74.75">
                            <children>
@@ -40,9 +39,14 @@
                            <children>
                               <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
+                        <VBox fx:id="jug1_5" prefHeight="0.0" prefWidth="75.75">
+                           <children>
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
-                  <HBox fx:id="hvox2" layoutX="757.0" layoutY="295.0" prefHeight="100.0" prefWidth="303.0">
+                  <HBox fx:id="hvox2" layoutX="656.0" layoutY="278.0" prefHeight="100.0" prefWidth="377.75">
                      <children>
                         <VBox fx:id="jug2_1" prefHeight="200.0" prefWidth="74.75">
                            <children>
@@ -60,9 +64,14 @@
                            <children>
                               <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
+                        <VBox fx:id="jug2_5" prefHeight="200.0" prefWidth="74.75">
+                           <children>
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
-                  <HBox fx:id="hvox3" layoutX="757.0" layoutY="86.0" prefHeight="100.0" prefWidth="303.0">
+                  <HBox fx:id="hvox3" layoutX="656.0" layoutY="69.0" prefHeight="100.0" prefWidth="377.75">
                      <children>
                         <VBox fx:id="jug3_1" prefHeight="200.0" prefWidth="74.75">
                            <children>
@@ -80,9 +89,14 @@
                            <children>
                               <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
+                        <VBox fx:id="jug3_5" prefHeight="200.0" prefWidth="74.75">
+                           <children>
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
-                  <HBox fx:id="hvox4" layoutX="14.0" layoutY="89.0" prefHeight="100.0" prefWidth="303.0">
+                  <HBox fx:id="hvox4" layoutX="40.0" layoutY="69.0" prefHeight="100.0" prefWidth="377.75">
                      <children>
                         <VBox fx:id="jug4_1" prefHeight="200.0" prefWidth="74.75">
                            <children>
@@ -100,9 +114,14 @@
                            <children>
                               <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
+                        <VBox fx:id="jug4_5" prefHeight="200.0" prefWidth="74.75">
+                           <children>
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
-                  <HBox fx:id="hvox5" layoutX="14.0" layoutY="464.0" prefHeight="100.0" prefWidth="303.0">
+                  <HBox fx:id="hvox5" layoutX="40.0" layoutY="444.0" prefHeight="100.0" prefWidth="377.75">
                      <children>
                         <VBox fx:id="jug5_1" prefHeight="200.0" prefWidth="74.75">
                            <children>
@@ -120,9 +139,14 @@
                            <children>
                               <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
+                        <VBox fx:id="jug5_5" prefHeight="200.0" prefWidth="74.75">
+                           <children>
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
-                  <HBox fx:id="hbox6" layoutX="757.0" layoutY="461.0" prefHeight="100.0" prefWidth="303.0">
+                  <HBox fx:id="hbox6" layoutX="656.0" layoutY="444.0" prefHeight="100.0" prefWidth="377.75">
                      <children>
                         <VBox fx:id="jug6_1" prefHeight="200.0" prefWidth="74.75">
                            <children>
@@ -140,15 +164,19 @@
                            <children>
                               <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
                            </children></VBox>
+                        <VBox fx:id="jug6_5" prefHeight="200.0" prefWidth="74.75">
+                           <children>
+                              <ImageView fitHeight="107.25" fitWidth="74.75" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
-                  <HBox layoutX="419.0" layoutY="242.0" styleClass="hVoxActivo">
+                  <HBox layoutX="453.0" layoutY="277.0" styleClass="hVoxActivo">
                      <children>
                         <ImageView fx:id="imgDesechada" fitHeight="107.25" fitWidth="74.75" onMouseClicked="#CartaDesechada" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </HBox>
-                  <Rectangle fx:id="MazoCartas" arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="107.25" layoutX="578.0" layoutY="241.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="74.75" />
-                  <VBox layoutX="578.0" layoutY="242.0" styleClass="hVoxActivo">
+                  <VBox layoutX="544.0" layoutY="277.0" styleClass="hVoxActivo">
                      <children>
                         <ImageView fx:id="CartaBocaAbajoimg" fitHeight="107.25" fitWidth="74.75" onMouseClicked="#CartadeMazo" pickOnBounds="true" preserveRatio="true">
                            <image>

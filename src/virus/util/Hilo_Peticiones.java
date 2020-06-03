@@ -38,6 +38,7 @@ public class Hilo_Peticiones extends Thread {
     private JugadorDto jugadorDto;
     private Label turno;
     private AnchorPane anchorPane;
+    public static Boolean findePartida = false;
 
     public Hilo_Peticiones(PartidaDto partida, ImageView image, JugadorDto jugador, Label label, AnchorPane anchorPane) {
         super();
@@ -150,18 +151,19 @@ public class Hilo_Peticiones extends Thread {
                         cont++;
                     }
                     if (cont == 4) {
+                        findePartida = true;
+                        mensajeRecibido = "partidaFinalizada";
                         System.out.println(jugadorAux.getNombre() + " Haz ganado el juego");
                         Platform.runLater(() -> {
-                            new Mensaje().showModal(Alert.AlertType.INFORMATION, "¡VICTORIA!",this.imageView.getScene().getWindow() ,jugadorAux.getNombre() + " Ha ganado el juego");
+                            new Mensaje().showModal(Alert.AlertType.INFORMATION, "¡VICTORIA!", this.imageView.getScene().getWindow(), jugadorAux.getNombre() + " Ha ganado el juego");
                         });
-                    }
-                    System.out.println(cont + " ..........................................Contador para ganar el juego ");
-                    //pregunta que si el jugador es el mismo que encontramos, el que hizo el movimiento, entonces actualizamos las cartas
-                    if (jugadorAux.getIP().equals(jugadorDto.getIP())) {
+                    } else if (jugadorAux.getIP().equals(jugadorDto.getIP())) {
                         jugadorAux.setMazo(jugadorDto.getMazo());
                         jugadorAux.setTurno(jugadorDto.getTurno());
                         AppContext.getInstance().set("JugadorDto", jugadorAux);
                     }
+                    System.out.println(cont + " ..........................................Contador para ganar el juego ");
+                    //pregunta que si el jugador es el mismo que encontramos, el que hizo el movimiento, entonces actualizamos las cartas
 
                     anchorPane.getChildren().forEach((t) -> {
                         if (t.getId() != null && t.getId().equals(padre)) {

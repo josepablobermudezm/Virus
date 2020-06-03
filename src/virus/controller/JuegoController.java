@@ -44,6 +44,7 @@ import virus.util.AppContext;
 import virus.util.FlowController;
 import virus.util.Hilo;
 import virus.util.Hilo_Peticiones;
+import static virus.util.Hilo_Peticiones.findePartida;
 import virus.util.Mensaje;
 
 /**
@@ -358,152 +359,167 @@ public class JuegoController extends Controller implements Initializable {
     VBox boxVacio = null;
 
     private void movimiento(String padre) {
-        jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
-        if (!unSoloOrgano) {
-            if (!modoDesechar) {
-                if (vboxAuxiliar != null && ((ImageView) vboxAuxiliar.getChildren().get(0)).getImage() == null) {
-                    hijo = "";
-                    vacio = true;
+        if (findePartida) {
+            jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
+            if (!unSoloOrgano) {
+                if (!modoDesechar) {
+                    if (vboxAuxiliar != null && ((ImageView) vboxAuxiliar.getChildren().get(0)).getImage() == null) {
+                        hijo = "";
+                        vacio = true;
 
-                    fondo_juego.getChildren().forEach((t) -> {
-                        if (t.getId() != null && t.getId().equals(padre)) {
-                            ((HBox) t).getChildren().forEach((v) -> {
-                                if (v.equals(vboxAuxiliar)) {
-                                    hijo = String.valueOf(((HBox) t).getChildren().indexOf(v));
-                                }
-                            });
+                        fondo_juego.getChildren().forEach((t) -> {
+                            if (t.getId() != null && t.getId().equals(padre)) {
+                                ((HBox) t).getChildren().forEach((v) -> {
+                                    if (v.equals(vboxAuxiliar)) {
+                                        hijo = String.valueOf(((HBox) t).getChildren().indexOf(v));
+                                    }
+                                });
+                            }
+                        });
+                        //si es el primer movimiento
+                        if (jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty() && jugador.getCartas5().isEmpty()) {
+                            enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
+                            modoOrgano = true;
+                            unSoloOrgano = true;
+                        } else if ((!jugador.getCartas1().isEmpty()
+                                ? !cartaAux.getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta())
+                                : true)
+                                && (!jugador.getCartas2().isEmpty()
+                                ? !cartaAux.getTipoCarta().equals(jugador.getCartas2().get(0).getTipoCarta())
+                                : true)
+                                && (!jugador.getCartas3().isEmpty()
+                                ? !cartaAux.getTipoCarta().equals(jugador.getCartas3().get(0).getTipoCarta())
+                                : true)
+                                && (!jugador.getCartas4().isEmpty()
+                                ? !cartaAux.getTipoCarta().equals(jugador.getCartas4().get(0).getTipoCarta())
+                                : true)
+                                && (!jugador.getCartas5().isEmpty()
+                                ? !cartaAux.getTipoCarta().equals(jugador.getCartas5().get(0).getTipoCarta())
+                                : true)) {
+                            enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
+                            modoOrgano = true;
+                            unSoloOrgano = true;
+                        } else {
+                            Mensaje ms = new Mensaje();
+                            ms.show(Alert.AlertType.WARNING, "Información de Juego", "Ya hay un tipo de organo en este mazo");
                         }
-                    });
-                    //si es el primer movimiento
-                    if (jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty() && jugador.getCartas5().isEmpty()) {
-                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
-                        modoOrgano = true;
-                        unSoloOrgano = true;
-                    } else if ((!jugador.getCartas1().isEmpty()
-                            ? !cartaAux.getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta())
-                            : true)
-                            && (!jugador.getCartas2().isEmpty()
-                            ? !cartaAux.getTipoCarta().equals(jugador.getCartas2().get(0).getTipoCarta())
-                            : true)
-                            && (!jugador.getCartas3().isEmpty()
-                            ? !cartaAux.getTipoCarta().equals(jugador.getCartas3().get(0).getTipoCarta())
-                            : true)
-                            && (!jugador.getCartas4().isEmpty()
-                            ? !cartaAux.getTipoCarta().equals(jugador.getCartas4().get(0).getTipoCarta())
-                            : true)
-                            && (!jugador.getCartas5().isEmpty()
-                            ? !cartaAux.getTipoCarta().equals(jugador.getCartas5().get(0).getTipoCarta())
-                            : true)) {
-                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
-                        modoOrgano = true;
-                        unSoloOrgano = true;
                     } else {
                         Mensaje ms = new Mensaje();
-                        ms.show(Alert.AlertType.WARNING, "Información de Juego", "Ya hay un tipo de organo en este mazo");
+                        ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes agregar un órgano en este lugar.");
                     }
                 } else {
                     Mensaje ms = new Mensaje();
-                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes agregar un órgano en este lugar.");
+                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes agregar un órgano si ya botaste cartas");
                 }
             } else {
-                Mensaje ms = new Mensaje();
-                ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes agregar un órgano si ya botaste cartas");
+                Mensaje msj = new Mensaje();
+                msj.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes agregar un órgano si has agregado uno previamente");//.l.
             }
         } else {
             Mensaje msj = new Mensaje();
-            msj.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes agregar un órgano si has agregado uno previamente");//.l.
+            msj.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");//.l.
         }
     }
 
     EventHandler<MouseEvent> movimiento = event -> {
-        if (jugador.getTurno()) {
-            if (cartaAux != null) {
-                if (cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
-                        || cartaAux.getTipoCarta().equals("Cerebro") || cartaAux.getTipoCarta().equals("Hueso")
-                        || cartaAux.getTipoCarta().equals("Organo_Comodin")) {
-                    JugadorDto jugadorAux = partida.getJugadores().stream().
-                            filter(x -> x.getIP().equals(jugador.getIP())).findAny().get();
-                    int i = partida.getJugadores().indexOf(jugadorAux);
-                    vboxAuxiliar = (VBox) event.getSource();
-                    String padre = vboxAuxiliar.getParent().getId();
-                    switch (i) {
-                        case 0:
-                            if (padre.equals("hvox")) {
-                                movimiento(padre);
-                            } else {
-                                Mensaje ms = new Mensaje();
-                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
-                            }
-                            break;
-                        case 1:
-                            if (padre.equals("hvox2")) {
-                                movimiento(padre);
-                            } else {
-                                Mensaje ms = new Mensaje();
-                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
-                            }
-                            break;
+        if (findePartida) {
+            if (jugador.getTurno()) {
+                if (cartaAux != null) {
+                    if (cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
+                            || cartaAux.getTipoCarta().equals("Cerebro") || cartaAux.getTipoCarta().equals("Hueso")
+                            || cartaAux.getTipoCarta().equals("Organo_Comodin")) {
+                        JugadorDto jugadorAux = partida.getJugadores().stream().
+                                filter(x -> x.getIP().equals(jugador.getIP())).findAny().get();
+                        int i = partida.getJugadores().indexOf(jugadorAux);
+                        vboxAuxiliar = (VBox) event.getSource();
+                        String padre = vboxAuxiliar.getParent().getId();
+                        switch (i) {
+                            case 0:
+                                if (padre.equals("hvox")) {
+                                    movimiento(padre);
+                                } else {
+                                    Mensaje ms = new Mensaje();
+                                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
+                                }
+                                break;
+                            case 1:
+                                if (padre.equals("hvox2")) {
+                                    movimiento(padre);
+                                } else {
+                                    Mensaje ms = new Mensaje();
+                                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
+                                }
+                                break;
 
-                        case 2:
-                            if (padre.equals("hvox3")) {
-                                movimiento(padre);
-                            } else {
-                                Mensaje ms = new Mensaje();
-                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
-                            }
-                            break;
-                        case 3:
-                            if (padre.equals("hvox4")) {
-                                movimiento(padre);
-                            } else {
-                                Mensaje ms = new Mensaje();
-                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
-                            }
-                            break;
-                        case 4:
-                            if (padre.equals("hvox5")) {
-                                movimiento(padre);
-                            } else {
-                                Mensaje ms = new Mensaje();
-                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
-                            }
-                            break;
-                        case 5:
-                            if (padre.equals("hbox6")) {
-                                movimiento(padre);
-                            } else {
-                                Mensaje ms = new Mensaje();
-                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
-                            }
-                            break;
+                            case 2:
+                                if (padre.equals("hvox3")) {
+                                    movimiento(padre);
+                                } else {
+                                    Mensaje ms = new Mensaje();
+                                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
+                                }
+                                break;
+                            case 3:
+                                if (padre.equals("hvox4")) {
+                                    movimiento(padre);
+                                } else {
+                                    Mensaje ms = new Mensaje();
+                                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
+                                }
+                                break;
+                            case 4:
+                                if (padre.equals("hvox5")) {
+                                    movimiento(padre);
+                                } else {
+                                    Mensaje ms = new Mensaje();
+                                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
+                                }
+                                break;
+                            case 5:
+                                if (padre.equals("hbox6")) {
+                                    movimiento(padre);
+                                } else {
+                                    Mensaje ms = new Mensaje();
+                                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
+                                }
+                                break;
+                        }
+                    } else {
+                        Mensaje msj = new Mensaje();
+                        msj.show(Alert.AlertType.WARNING, "Error con carta", "No puede poner un virus sobre sus propias cartas");
                     }
                 } else {
                     Mensaje msj = new Mensaje();
-                    msj.show(Alert.AlertType.WARNING, "Error con carta", "No puede poner un virus sobre sus propias cartas");
+                    msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
                 }
             } else {
-                Mensaje msj = new Mensaje();
-                msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
+                Mensaje ms = new Mensaje();
+                ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción");
             }
         } else {
             Mensaje ms = new Mensaje();
-            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción");
+            ms.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");
         }
     };
 
     EventHandler<MouseEvent> cartaAdesechar = event -> {
-        if (jugador.getTurno()) {
-            imageViewDesechada = ((ImageView) event.getSource());
-            if (((ImageView) event.getSource()).getId().equals("carta3")) {
-                cartaAux = carta3;
-            } else if (((ImageView) event.getSource()).getId().equals("carta2")) {
-                cartaAux = carta2;
-            } else {//carta 1
-                cartaAux = carta1;
+        if (findePartida) {
+            if (jugador.getTurno()) {
+                imageViewDesechada = ((ImageView) event.getSource());
+                if (((ImageView) event.getSource()).getId().equals("carta3")) {
+                    cartaAux = carta3;
+                } else if (((ImageView) event.getSource()).getId().equals("carta2")) {
+                    cartaAux = carta2;
+                } else {//carta 1
+                    cartaAux = carta1;
+                }
+            } else {
+                Mensaje ms = new Mensaje();
+                ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción");
             }
         } else {
             Mensaje ms = new Mensaje();
-            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción");
+            ms.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");
         }
     };
 
@@ -581,27 +597,32 @@ public class JuegoController extends Controller implements Initializable {
 
     @FXML
     private void CartaDesechada(MouseEvent event) {
-        if (!modoOrgano) {
-            if (!recogioCarta) {
-                if (jugador.getTurno()) {
-                    if (cartaAux != null) {
-                        desecharCarta("desecharCarta");
-                        modoDesechar = true;
+        if (findePartida) {
+            if (!modoOrgano) {
+                if (!recogioCarta) {
+                    if (jugador.getTurno()) {
+                        if (cartaAux != null) {
+                            desecharCarta("desecharCarta");
+                            modoDesechar = true;
+                        } else {
+                            Mensaje msj = new Mensaje();
+                            msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
+                        }
                     } else {
-                        Mensaje msj = new Mensaje();
-                        msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
+                        Mensaje ms = new Mensaje();
+                        ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción");
                     }
                 } else {
                     Mensaje ms = new Mensaje();
-                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción");
+                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes desechar una carta en este momento");
                 }
             } else {
                 Mensaje ms = new Mensaje();
-                ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes desechar una carta en este momento");
+                ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes desechar una carta si ya botaste un organo");
             }
         } else {
             Mensaje ms = new Mensaje();
-            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes desechar una carta si ya botaste un organo");
+            ms.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");
         }
     }
 
@@ -656,7 +677,7 @@ public class JuegoController extends Controller implements Initializable {
             socket2.close();
             imageViewDesechada.setImage(null);
             System.out.println(jugador.getMazo().remove(cartaAux));//removemos la carta del mazo del  jugador 
-            
+
             //AppContext.getInstance().set("JugadorDto", jugador);
             cartaAux = null;
         } catch (IOException e) {
@@ -665,59 +686,69 @@ public class JuegoController extends Controller implements Initializable {
     }
 
     public void cambiarTurnoAux() {
-        if (jugador.getTurno()) {
-            if (jugador.getMazo().size() == 3) {
-                try {
-                    Socket socket = new Socket(jugador.getIPS(), 44440);
-                    DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
-                    DataInputStream entrada = new DataInputStream(socket.getInputStream());
-                    System.out.println("Connected Text!");
-                    mensaje.writeUTF("cambioTurno");
-                    String mensajeRecibido;
-                    mensajeRecibido = entrada.readUTF();
-                    System.out.println(mensajeRecibido);
-                    socket.close();
-                    //jugador.getMazo().remove(cartaAux);
-                    //AppContext.getInstance().set("JugadorDto", jugador);
-                    recogioCarta = false;
-                    modoDesechar = false;
-                    modoOrgano = false;
-                    unSoloOrgano = false;
-                    cartaAux = null;
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
+        if (findePartida) {
+            if (jugador.getTurno()) {
+                if (jugador.getMazo().size() == 3) {
+                    try {
+                        Socket socket = new Socket(jugador.getIPS(), 44440);
+                        DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
+                        DataInputStream entrada = new DataInputStream(socket.getInputStream());
+                        System.out.println("Connected Text!");
+                        mensaje.writeUTF("cambioTurno");
+                        String mensajeRecibido;
+                        mensajeRecibido = entrada.readUTF();
+                        System.out.println(mensajeRecibido);
+                        socket.close();
+                        //jugador.getMazo().remove(cartaAux);
+                        //AppContext.getInstance().set("JugadorDto", jugador);
+                        recogioCarta = false;
+                        modoDesechar = false;
+                        modoOrgano = false;
+                        unSoloOrgano = false;
+                        cartaAux = null;
+                    } catch (IOException e) {
+                        System.out.println(e.getMessage());
+                    }
+                } else {
+                    Mensaje ms = new Mensaje();
+                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "El mazo no está completo");
                 }
             } else {
                 Mensaje ms = new Mensaje();
-                ms.show(Alert.AlertType.WARNING, "Información de Juego", "El mazo no está completo");
+                ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción");
             }
         } else {
             Mensaje ms = new Mensaje();
-            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción");
+            ms.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");
         }
     }
 
     @FXML
     private void CartadeMazo(MouseEvent event) {
-        cartaAux = null;
-        if (jugador.getTurno()) {
-            if (jugador.getMazo().size() < 3 && (image9.getImage() == null || image8.getImage() == null
-                    || image7.getImage() == null)) {
-                System.out.println("MI MAZO EES MEJOR A 3 CARTAS CARTAS CARTAS CARTAS CARTAS CARTAS CARTAS CARTAS");
-                recogioCarta = true;
-                ObtenerCarta(jugador.getIPS());
-                if (jugador.getMazo().size() == 3) {
-                    cambiarTurnoAux();
+        if (findePartida) {
+            cartaAux = null;
+            if (jugador.getTurno()) {
+                if (jugador.getMazo().size() < 3 && (image9.getImage() == null || image8.getImage() == null
+                        || image7.getImage() == null)) {
+                    System.out.println("MI MAZO EES MEJOR A 3 CARTAS CARTAS CARTAS CARTAS CARTAS CARTAS CARTAS CARTAS");
+                    recogioCarta = true;
+                    ObtenerCarta(jugador.getIPS());
+                    if (jugador.getMazo().size() == 3) {
+                        cambiarTurnoAux();
+                        Mensaje ms = new Mensaje();
+                        ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Cambio de turno");
+                    }
+                } else {
                     Mensaje ms = new Mensaje();
-                    ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Cambio de turno");
+                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Usted ya tiene su mazo completo");
                 }
             } else {
                 Mensaje ms = new Mensaje();
-                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Usted ya tiene su mazo completo");
+                ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción");
             }
         } else {
             Mensaje ms = new Mensaje();
-            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción");
+            ms.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");
         }
     }
 }

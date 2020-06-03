@@ -43,9 +43,9 @@ public class FlowController {
     private Stage stage;
 
     private FlowController() {
-
+    
     }
-
+ 
     private static void createInstance() {
         if (INSTANCE == null) {
             synchronized (FlowController.class) {
@@ -55,7 +55,7 @@ public class FlowController {
             }
         }
     }
-
+    
     public static FlowController getInstance() {
         if (INSTANCE == null) {
             createInstance();
@@ -94,8 +94,12 @@ public class FlowController {
     }
 
     public void goMain() {
-        this.mainStage.setScene(new Scene(FXMLLoader.load(Virus.class.getResource("view/Menu.fxml"), this.idioma)));
-        this.mainStage.show();
+        try {
+            this.mainStage.setScene(new Scene(FXMLLoader.load(Virus.class.getResource("view/Menu.fxml"), this.idioma)));
+            this.mainStage.show();
+        } catch (IOException e) {
+            
+        }
 
     }
 
@@ -133,7 +137,6 @@ public class FlowController {
         controller.setAccion(accion);
         controller.initialize();
         this.stage = controller.getStage();
-
         if (stage == null) {
             stage = this.mainStage;
             controller.setStage(stage);

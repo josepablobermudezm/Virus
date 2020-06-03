@@ -327,7 +327,6 @@ public class JuegoController extends Controller implements Initializable {
 
     private void movimiento(String padre) {
         if (!findePartida) {
-            jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
             if (!unSoloOrgano) {
                 if (!modoDesechar) {
                     if (paneAuxiliar != null /*&& ((ImageView) paneAuxiliar.getChildren().get(0)).getImage() == null*/) {
@@ -433,6 +432,7 @@ public class JuegoController extends Controller implements Initializable {
 
     EventHandler<MouseEvent> movimiento = event -> {
         if (!findePartida) {
+            jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
             if (jugador.getTurno()) {
                 if (cartaAux != null) {
                     JugadorDto jugadorAux = partida.getJugadores().stream().
@@ -507,6 +507,7 @@ public class JuegoController extends Controller implements Initializable {
 
     EventHandler<MouseEvent> cartaAdesechar = event -> {
         if (!findePartida) {
+            jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
             if (jugador.getTurno()) {
                 imageViewDesechada = ((ImageView) event.getSource());
                 if (((ImageView) event.getSource()).getId().equals("carta3")) {
@@ -551,7 +552,6 @@ public class JuegoController extends Controller implements Initializable {
             //Cerramos la conexión
             socket.close();
             Socket socket2 = new Socket(IP_Servidor, 44440);
-            DataOutputStream mensaje2 = new DataOutputStream(socket2.getOutputStream());
             System.out.println("Connected Text!");
             DataInputStream respuesta2 = new DataInputStream(socket2.getInputStream());
             ObjectInputStream objectInputStream = new ObjectInputStream(respuesta2);
@@ -577,16 +577,19 @@ public class JuegoController extends Controller implements Initializable {
                 image9.setImage(new Image("virus/resources/" + carta.getImagen()));
                 carta3 = carta;
             }
-            if (carta != null) {
+            
+            jugador.getMazo().add(carta);
+            
+            /*if (carta != null) {
                 System.out.println(jugador.getMazo().size() + " antes ");
-                jugador.getMazo().add(carta);
+                
                 //AppContext.getInstance().set("JugadorDto", jugador);
                 System.out.println(jugador.getMazo().size() + " después ");
                 System.out.println("CARTA AGREGADA AL MAZO DEL JUGADOR AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             } else {
                 System.out.println("CARTA NOOOOOOOOOOO AGREGADA AL MAZO DEL JUGADOR AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                 System.out.println(jugador.getMazo().size());
-            }
+            }*/
             //Cerramos la conexión
             socket2.close();
         } catch (UnknownHostException e) {

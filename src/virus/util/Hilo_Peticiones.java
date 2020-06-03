@@ -147,9 +147,11 @@ public class Hilo_Peticiones extends Thread {
                     }
                 });
                 IniciarHilo();
-            }else if("partidaFinalizada".equals(mensajeRecibido)){
+            } else if ("partidaFinalizada".equals(mensajeRecibido)) {
                 System.out.println("Partida Finalizada");
             }
+            serverSocket.close();
+
         } catch (IOException IO) {
             System.out.println(IO.getMessage());
         } catch (ClassNotFoundException ex) {
@@ -158,12 +160,7 @@ public class Hilo_Peticiones extends Thread {
     }
 
     public void IniciarHilo() {
-        try {
-            serverSocket.close();
-            Hilo_Peticiones hilo = new Hilo_Peticiones(partidaDto, imageView, jugadorDto, turno, anchorPane);
-            hilo.start();
-        } catch (IOException ex) {
-            Logger.getLogger(Hilo_Peticiones.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Hilo_Peticiones hilo = new Hilo_Peticiones(partidaDto, imageView, jugadorDto, turno, anchorPane);
+        hilo.start();
     }
 }

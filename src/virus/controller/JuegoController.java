@@ -333,7 +333,7 @@ public class JuegoController extends Controller implements Initializable {
                         //si es el primer movimiento
                         if (jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty() && jugador.getCartas5().isEmpty()) {
                             movimientoOrgano(padre, hijo);
-                        } else if ((!jugador.getCartas1().isEmpty()
+                        } else if ((!jugador.getCartas1().isEmpty() //Organo en los campos vacios
                                 ? !cartaAux.getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta())
                                 : true)
                                 && (!jugador.getCartas2().isEmpty()
@@ -386,17 +386,45 @@ public class JuegoController extends Controller implements Initializable {
                                     }
                                     break;
                             }
-                        } else if (!jugador.getCartas1().isEmpty() && cartaAux.getColor().equals(jugador.getCartas1().get(0).getColor()) && cartaAux.getTipoCarta().equals("Medicina")) {
-                            movimiento(padre, hijo);
-                        } else if (!jugador.getCartas2().isEmpty() && cartaAux.getColor().equals(jugador.getCartas2().get(0).getColor()) && cartaAux.getTipoCarta().equals("Medicina")) {
-                            movimiento(padre, hijo);
-                        } else if (!jugador.getCartas3().isEmpty() && cartaAux.getColor().equals(jugador.getCartas3().get(0).getColor()) && cartaAux.getTipoCarta().equals("Medicina")) {
-                            movimiento(padre, hijo);
-                        } else if (!jugador.getCartas4().isEmpty() && cartaAux.getColor().equals(jugador.getCartas4().get(0).getColor()) && cartaAux.getTipoCarta().equals("Medicina")) {
-                            movimiento(padre, hijo);
-                        } else if (!jugador.getCartas5().isEmpty() && cartaAux.getColor().equals(jugador.getCartas5().get(0).getColor()) && cartaAux.getTipoCarta().equals("Medicina")) {
-                            movimiento(padre, hijo);
-                        } else {
+                        } else {//Cualquier otro movimiento
+                            switch(hijo){
+                                case "0":
+                                    if(jugador.getCartas1().get(0).getColor().equals(cartaAux.getColor())){
+                                        movimiento(padre, hijo);
+                                    }else{
+                                        new Mensaje().show(Alert.AlertType.WARNING,"Información de juego", "No se pueden poner cartas de distinto color");
+                                    }
+                                    break;
+                                case "1":
+                                    if(jugador.getCartas2().get(0).getColor().equals(cartaAux.getColor())){
+                                        movimiento(padre, hijo);
+                                    }else{
+                                        new Mensaje().show(Alert.AlertType.WARNING,"Información de juego", "No se pueden poner cartas de distinto color");
+                                    }
+                                    break;
+                                case "2":
+                                    if(jugador.getCartas3().get(0).getColor().equals(cartaAux.getColor())){
+                                        movimiento(padre, hijo);
+                                    }else{
+                                        new Mensaje().show(Alert.AlertType.WARNING,"Información de juego", "No se pueden poner cartas de distinto color");
+                                    }
+                                    break;
+                                case "3":
+                                    if(jugador.getCartas4().get(0).getColor().equals(cartaAux.getColor())){
+                                        movimiento(padre, hijo);
+                                    }else{
+                                        new Mensaje().show(Alert.AlertType.WARNING,"Información de juego", "No se pueden poner cartas de distinto color");
+                                    }
+                                    break;
+                                case "4": 
+                                    if(jugador.getCartas5().get(0).getColor().equals(cartaAux.getColor())){
+                                        movimiento(padre, hijo);
+                                    }else{
+                                        new Mensaje().show(Alert.AlertType.WARNING,"Información de juego", "No se pueden poner cartas de distinto color");
+                                    }
+                                    break;
+                            }
+                            
                             Mensaje ms = new Mensaje();
                             ms.show(Alert.AlertType.WARNING, "Información de Juego", "Ya hay un tipo de organo en este mazo");
                         }
@@ -499,12 +527,17 @@ public class JuegoController extends Controller implements Initializable {
             jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
             if (jugador.getTurno()) {
                 imageViewDesechada = ((ImageView) event.getSource());
-                if (((ImageView) event.getSource()).getId().equals("carta3")) {
-                    cartaAux = carta3;
-                } else if (((ImageView) event.getSource()).getId().equals("carta2")) {
-                    cartaAux = carta2;
-                } else {//carta 1
-                    cartaAux = carta1;
+                switch (((ImageView) event.getSource()).getId()) {
+                    case "carta3":
+                        cartaAux = carta3;
+                        break;
+                    case "carta2":
+                        cartaAux = carta2;
+                        break;
+                    default:
+                        //carta 1
+                        cartaAux = carta1;
+                        break;
                 }
             } else {
                 Mensaje ms = new Mensaje();
@@ -569,16 +602,6 @@ public class JuegoController extends Controller implements Initializable {
             
             jugador.getMazo().add(carta);
             
-            /*if (carta != null) {
-                System.out.println(jugador.getMazo().size() + " antes ");
-                
-                //AppContext.getInstance().set("JugadorDto", jugador);
-                System.out.println(jugador.getMazo().size() + " después ");
-                System.out.println("CARTA AGREGADA AL MAZO DEL JUGADOR AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            } else {
-                System.out.println("CARTA NOOOOOOOOOOO AGREGADA AL MAZO DEL JUGADOR AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-                System.out.println(jugador.getMazo().size());
-            }*/
             //Cerramos la conexión
             socket2.close();
         } catch (UnknownHostException e) {

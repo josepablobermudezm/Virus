@@ -43,9 +43,9 @@ public class FlowController {
     private Stage stage;
 
     private FlowController() {
-    
+
     }
- 
+
     private static void createInstance() {
         if (INSTANCE == null) {
             synchronized (FlowController.class) {
@@ -55,7 +55,7 @@ public class FlowController {
             }
         }
     }
-    
+
     public static FlowController getInstance() {
         if (INSTANCE == null) {
             createInstance();
@@ -98,7 +98,7 @@ public class FlowController {
             this.mainStage.setScene(new Scene(FXMLLoader.load(Virus.class.getResource("view/Menu.fxml"), this.idioma)));
             this.mainStage.show();
         } catch (IOException e) {
-            
+
         }
 
     }
@@ -169,18 +169,20 @@ public class FlowController {
         //para cerrar el hilo una vez que se cierra la ventana 
         stage.setOnCloseRequest(event -> {
             Socket socket;
-            try {
-                socket = new Socket(jugador.getIPS(), 44440);
-                DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
-                DataInputStream entrada = new DataInputStream(socket.getInputStream());
-                System.out.println("Connected Text!");
-                mensaje.writeUTF("partidaFinalizada");
-                String mensajeRecibido;
-                mensajeRecibido = entrada.readUTF();
-                System.out.println(mensajeRecibido);
-                socket.close();
-            } catch (IOException ex) {
-                Logger.getLogger(FlowController.class.getName()).log(Level.SEVERE, null, ex);
+            if (jugador != null) {
+                try {
+                    socket = new Socket(jugador.getIPS(), 44440);
+                    DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
+                    DataInputStream entrada = new DataInputStream(socket.getInputStream());
+                    System.out.println("Connected Text!");
+                    mensaje.writeUTF("partidaFinalizada");
+                    String mensajeRecibido;
+                    mensajeRecibido = entrada.readUTF();
+                    System.out.println(mensajeRecibido);
+                    socket.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(FlowController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

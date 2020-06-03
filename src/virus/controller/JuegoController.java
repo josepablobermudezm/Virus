@@ -560,6 +560,7 @@ public class JuegoController extends Controller implements Initializable {
             }
             if (carta != null) {
                 jugador.getMazo().add(carta);
+                AppContext.getInstance().set("JugadorDto", jugador);
                 System.out.println(jugador.getMazo().size());
                 System.out.println("CARTA AGREGADA AL MAZO DEL JUGADOR AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             } else {
@@ -654,6 +655,7 @@ public class JuegoController extends Controller implements Initializable {
             socket2.close();
             imageViewDesechada.setImage(null);
             System.out.println(jugador.getMazo().remove(cartaAux));//removemos la carta del mazo del  jugador 
+            AppContext.getInstance().set("JugadorDto", jugador);
             cartaAux = null;
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -674,6 +676,7 @@ public class JuegoController extends Controller implements Initializable {
                     System.out.println(mensajeRecibido);
                     socket.close();
                     jugador.getMazo().remove(cartaAux);
+                    AppContext.getInstance().set("JugadorDto", jugador);
                     recogioCarta = false;
                     modoDesechar = false;
                     modoOrgano = false;

@@ -55,6 +55,7 @@ public class Hilo_Peticiones extends Thread {
     Socket socket;
     ServerSocket serverSocket;
     String mensajeRecibido = "";
+    String nombreGanador = "";
 
     @Override
     public void run() {
@@ -165,7 +166,7 @@ public class Hilo_Peticiones extends Thread {
                                 imageAux.setFitWidth(77.75);
                                 imageAux.setTranslateX(0);
                                 imageAux.setTranslateY(0);
-                                
+
                                 switch (hijo) {
                                     case "0":
                                         imageAux.setLayoutY(pane.getLayoutY() + (jugadorAux.getCartas1().size() - 1) * 25);
@@ -194,14 +195,15 @@ public class Hilo_Peticiones extends Thread {
                     if (cont == 4) {
                         findePartida = true;
                         mensajeRecibido = "partidaFinalizada";
-                        System.out.println(jugadorAux.getNombre() + " Haz ganado el juego");
-                        Platform.runLater(() -> {
-                            new Mensaje().showModal(Alert.AlertType.INFORMATION, "¡VICTORIA!", this.imageView.getScene().getWindow(), jugadorAux.getNombre() + " Ha ganado el juego");
-                        });
+                        nombreGanador = jugadorAux.getNombre();
                     } else if (jugadorAux.getIP().equals(jugadorDto.getIP())) {
                         jugadorAux.setMazo(jugadorDto.getMazo());
                         jugadorAux.setTurno(jugadorDto.getTurno());
+                        jugadorDto = jugadorAux;
                         AppContext.getInstance().set("JugadorDto", jugadorAux);
+                    } else {
+                        jugadorDto.setTurno(false);
+                        AppContext.getInstance().set("JugadorDto", jugadorDto);
                     }
                     System.out.println(cont + " ..........................................Contador para ganar el juego ");
                     //pregunta que si el jugador es el mismo que encontramos, el que hizo el movimiento, entonces actualizamos las cartas
@@ -219,9 +221,11 @@ public class Hilo_Peticiones extends Thread {
             }
         }
 
+        Platform.runLater(() -> {
+           new Mensaje().showModal(Alert.AlertType.INFORMATION,"¡VICTORIA!", this.imageView.getScene().getWindow(), nombreGanador + " Ha ganado el juego");
+           FlowController.getInstance().goView("Inicio");
+        });
         //Cierra todos los procesos que queden pendientes
-        System.exit(0);
-        System.out.println("..................................................................................................AAAA");
     }
 
     public void IniciarHilo() {

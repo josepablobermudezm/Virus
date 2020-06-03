@@ -126,117 +126,105 @@ public class JuegoController extends Controller implements Initializable {
         carta1 = jugador.getMazo().get(0);
         carta2 = jugador.getMazo().get(1);
         carta3 = jugador.getMazo().get(2);
-
+        
         user.setText(jugador.getNombre());
 
         ArrayList<JugadorDto> jugadores = (ArrayList<JugadorDto>) AppContext.getInstance().get("Jugadores");
-
-        if (jugadores.size() == 2) {
-            hvox.getChildren().forEach(x -> {
-                x.setOnMouseReleased(movimiento);
-                x.getStyleClass().clear();
-                x.getStyleClass().add("hVoxActivo");
-
-            });
-            hvox2.getChildren().forEach(x -> {
-                x.setOnMouseReleased(movimiento);
-                x.getStyleClass().clear();
-                x.getStyleClass().add("hVoxActivo");
-            });
-        } else if (jugadores.size() == 3) {
-            hvox.getChildren().forEach(x -> {
-                x.setOnMouseReleased(movimiento);
-                x.getStyleClass().clear();
-                x.getStyleClass().add("hVoxActivo");
-            });
-            hvox2.getChildren().forEach(x -> {
-                x.setOnMouseReleased(movimiento);
-                x.getStyleClass().clear();
-                x.getStyleClass().add("hVoxActivo");
-            });
-            hvox3.getChildren().forEach(x -> {
-                x.setOnMouseReleased(movimiento);
-                x.getStyleClass().clear();
-                x.getStyleClass().add("hVoxActivo");
-            });
-        } else if (jugadores.size() == 4) {
-            hvox.getChildren().forEach(x -> {
-                x.setOnMouseReleased(movimiento);
-                x.getStyleClass().clear();
-                x.getStyleClass().add("hVoxActivo");
-            });
-            hvox2.getChildren().forEach(x -> {
-                x.setOnMouseReleased(movimiento);
-                x.getStyleClass().clear();
-                x.getStyleClass().add("hVoxActivo");
-            });
-            hvox3.getChildren().forEach(x -> {
-                x.setOnMouseReleased(movimiento);
-                x.getStyleClass().clear();
-                x.getStyleClass().add("hVoxActivo");
-            });
-            hvox4.getChildren().forEach(x -> {
-                x.setOnMouseReleased(movimiento);
-                x.getStyleClass().clear();
-                x.getStyleClass().add("hVoxActivo");
-            });
-        } else if (jugadores.size() == 5) {
-            hvox.getChildren().forEach(x -> {
-                x.setOnMouseReleased(movimiento);
-                x.getStyleClass().clear();
-                x.getStyleClass().add("hVoxActivo");
-            });
-            hvox2.getChildren().forEach(x -> {
-                x.setOnMouseReleased(movimiento);
-                x.getStyleClass().clear();
-                x.getStyleClass().add("hVoxActivo");
-            });
-            hvox3.getChildren().forEach(x -> {
-                x.setOnMouseReleased(movimiento);
-                x.getStyleClass().clear();
-                x.getStyleClass().add("hVoxActivo");
-            });
-            hvox4.getChildren().forEach(x -> {
-                x.setOnMouseReleased(movimiento);
-                x.getStyleClass().clear();
-                x.getStyleClass().add("hVoxActivo");
-            });
-            hvox5.getChildren().forEach(x -> {
-                x.setOnMouseReleased(movimiento);
-                x.getStyleClass().clear();
-                x.getStyleClass().add("hVoxActivo");
-            });
-        } else if (jugadores.size() == 6) {
-            hvox.getChildren().forEach(x -> {
-                x.setOnMouseReleased(movimiento);
-                x.getStyleClass().clear();
-                x.getStyleClass().add("hVoxActivo");
-            });
-            hvox2.getChildren().forEach(x -> {
-                x.setOnMouseReleased(movimiento);
-                x.getStyleClass().clear();
-                x.getStyleClass().add("hVoxActivo");
-            });
-            hvox3.getChildren().forEach(x -> {
-                x.setOnMouseReleased(movimiento);
-                x.getStyleClass().clear();
-                x.getStyleClass().add("hVoxActivo");
-            });
-            hvox4.getChildren().forEach(x -> {
-                x.setOnMouseReleased(movimiento);
-                x.getStyleClass().clear();
-                x.getStyleClass().add("hVoxActivo");
-            });
-            hvox5.getChildren().forEach(x -> {
-                x.setOnMouseReleased(movimiento);
-                x.getStyleClass().clear();
-                x.getStyleClass().add("hVoxActivo");
-            });
-            hbox6.getChildren().forEach(x -> {
-                x.setOnMouseReleased(movimiento);
-                x.getStyleClass().clear();
-                x.getStyleClass().add("hVoxActivo");
-            });
+        
+        switch (jugadores.size()) {
+            case 2:
+                hvox.getChildren().forEach(x -> {
+                    x.setOnMouseReleased(movimiento);
+                    x.getStyleClass().clear();
+                    x.getStyleClass().add("hVoxActivo");
+                    
+                }); hvox2.getChildren().forEach(x -> {
+                    x.setOnMouseReleased(movimiento);
+                    x.getStyleClass().clear();
+                    x.getStyleClass().add("hVoxActivo");
+                }); break;
+            case 3:
+                hvox.getChildren().forEach(x -> {
+                    x.setOnMouseReleased(movimiento);
+                    x.getStyleClass().clear();
+                    x.getStyleClass().add("hVoxActivo");
+                }); hvox2.getChildren().forEach(x -> {
+                    x.setOnMouseReleased(movimiento);
+                    x.getStyleClass().clear();
+                    x.getStyleClass().add("hVoxActivo");
+                }); hvox3.getChildren().forEach(x -> {
+                    x.setOnMouseReleased(movimiento);
+                    x.getStyleClass().clear();
+                    x.getStyleClass().add("hVoxActivo");
+                }); break;
+            case 4:
+                hvox.getChildren().forEach(x -> {
+                    x.setOnMouseReleased(movimiento);
+                    x.getStyleClass().clear();
+                    x.getStyleClass().add("hVoxActivo");
+                }); hvox2.getChildren().forEach(x -> {
+                    x.setOnMouseReleased(movimiento);
+                    x.getStyleClass().clear();
+                    x.getStyleClass().add("hVoxActivo");
+                }); hvox3.getChildren().forEach(x -> {
+                    x.setOnMouseReleased(movimiento);
+                    x.getStyleClass().clear();
+                    x.getStyleClass().add("hVoxActivo");
+                }); hvox4.getChildren().forEach(x -> {
+                    x.setOnMouseReleased(movimiento);
+                    x.getStyleClass().clear();
+                    x.getStyleClass().add("hVoxActivo");
+                }); break;
+            case 5:
+                hvox.getChildren().forEach(x -> {
+                    x.setOnMouseReleased(movimiento);
+                    x.getStyleClass().clear();
+                    x.getStyleClass().add("hVoxActivo");
+                }); hvox2.getChildren().forEach(x -> {
+                    x.setOnMouseReleased(movimiento);
+                    x.getStyleClass().clear();
+                    x.getStyleClass().add("hVoxActivo");
+                }); hvox3.getChildren().forEach(x -> {
+                    x.setOnMouseReleased(movimiento);
+                    x.getStyleClass().clear();
+                    x.getStyleClass().add("hVoxActivo");
+                }); hvox4.getChildren().forEach(x -> {
+                    x.setOnMouseReleased(movimiento);
+                    x.getStyleClass().clear();
+                    x.getStyleClass().add("hVoxActivo");
+                }); hvox5.getChildren().forEach(x -> {
+                    x.setOnMouseReleased(movimiento);
+                    x.getStyleClass().clear();
+                    x.getStyleClass().add("hVoxActivo");
+                }); break;
+            case 6:
+                hvox.getChildren().forEach(x -> {
+                    x.setOnMouseReleased(movimiento);
+                    x.getStyleClass().clear();
+                    x.getStyleClass().add("hVoxActivo");
+                }); hvox2.getChildren().forEach(x -> {
+                    x.setOnMouseReleased(movimiento);
+                    x.getStyleClass().clear();
+                    x.getStyleClass().add("hVoxActivo");
+                }); hvox3.getChildren().forEach(x -> {
+                    x.setOnMouseReleased(movimiento);
+                    x.getStyleClass().clear();
+                    x.getStyleClass().add("hVoxActivo");
+                }); hvox4.getChildren().forEach(x -> {
+                    x.setOnMouseReleased(movimiento);
+                    x.getStyleClass().clear();
+                    x.getStyleClass().add("hVoxActivo");
+                }); hvox5.getChildren().forEach(x -> {
+                    x.setOnMouseReleased(movimiento);
+                    x.getStyleClass().clear();
+                    x.getStyleClass().add("hVoxActivo");
+                }); hbox6.getChildren().forEach(x -> {
+                    x.setOnMouseReleased(movimiento);
+                    x.getStyleClass().clear();
+                    x.getStyleClass().add("hVoxActivo");
+                }); break;
+            default:
+                break;
         }
 
         if (jugadores.get(0).getIP().equals(jugador.getIP())) {
@@ -713,6 +701,7 @@ public class JuegoController extends Controller implements Initializable {
                         modoOrgano = false;
                         unSoloOrgano = false;
                         cartaAux = null;
+                        
                         jugador.setTurno(false);
                     } catch (IOException e) {
                         System.out.println(e.getMessage());
@@ -738,7 +727,6 @@ public class JuegoController extends Controller implements Initializable {
             if (jugador.getTurno()) {
                 if (jugador.getMazo().size() < 3 && (image9.getImage() == null || image8.getImage() == null
                         || image7.getImage() == null)) {
-                    System.out.println("MI MAZO EES MEJOR A 3 CARTAS CARTAS CARTAS CARTAS CARTAS CARTAS CARTAS CARTAS");
                     recogioCarta = true;
                     ObtenerCarta(jugador.getIPS());
                     if (jugador.getMazo().size() == 3) {

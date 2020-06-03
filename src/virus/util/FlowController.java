@@ -286,4 +286,7 @@ public class FlowController {
     public void delete(String parameter) {
         loaders.put(parameter, null);
     }
+    public void exit(Stage ventana){
+        ventana.hide();
+    }
 }

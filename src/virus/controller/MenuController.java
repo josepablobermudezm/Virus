@@ -53,7 +53,7 @@ public class MenuController extends Controller implements Initializable {
 
     @FXML
     private void Start(MouseEvent event) {
-        FlowController.getInstance().goViewInWindowTransparent("Inicio");
+        FlowController.getInstance().goView("Inicio");
         //FlowController.getInstance().goView();
     }
 

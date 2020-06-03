@@ -25,6 +25,7 @@
     -fx-border-width: 2; 
     -fx-border-style: solid;
     -fx-border-radius: 5px;
+    -fx-cursor: hand;
 }
 
 .Label{

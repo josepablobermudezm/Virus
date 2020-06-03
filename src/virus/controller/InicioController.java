@@ -98,7 +98,7 @@ public class InicioController extends Controller implements Initializable {
     }
 
     public static void enviarObjetos(String nombre, String IP_Jugador, String IP_Servidor) {
-        JugadorDto jugador = new JugadorDto(nombre, false, false, IP_Jugador, new ArrayList<CartaDto>(), new ArrayList<CartaDto>(), new ArrayList<CartaDto>(), new ArrayList<CartaDto>(), IP_Servidor);
+        JugadorDto jugador = new JugadorDto(nombre, false, false, IP_Jugador, new ArrayList<CartaDto>(), new ArrayList<CartaDto>(), new ArrayList<CartaDto>(), new ArrayList<CartaDto>(), new ArrayList<CartaDto>(), IP_Servidor);
         try {
             // need host and port, we want to connect to the ServerSocket at port 7777
             Socket socket = new Socket(IP_Servidor, 44440);

@@ -5,10 +5,14 @@
  */
 package virus.util;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.Socket;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -24,6 +28,7 @@ import javafx.scene.image.Image;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import virus.Virus;
+import static virus.controller.JuegoController.jugador;
 
 /**
  *
@@ -38,9 +43,9 @@ public class FlowController {
     private Stage stage;
 
     private FlowController() {
-    
+
     }
- 
+
     private static void createInstance() {
         if (INSTANCE == null) {
             synchronized (FlowController.class) {
@@ -50,7 +55,7 @@ public class FlowController {
             }
         }
     }
-    
+
     public static FlowController getInstance() {
         if (INSTANCE == null) {
             createInstance();
@@ -89,12 +94,8 @@ public class FlowController {
     }
 
     public void goMain() {
-        try {
-            this.mainStage.setScene(new Scene(FXMLLoader.load(Virus.class.getResource("view/Menu.fxml"), this.idioma)));
-            this.mainStage.show();
-        } catch (IOException e) {
-            
-        }
+        this.mainStage.setScene(new Scene(FXMLLoader.load(Virus.class.getResource("view/Menu.fxml"), this.idioma)));
+        this.mainStage.show();
 
     }
 
@@ -132,6 +133,7 @@ public class FlowController {
         controller.setAccion(accion);
         controller.initialize();
         this.stage = controller.getStage();
+
         if (stage == null) {
             stage = this.mainStage;
             controller.setStage(stage);
@@ -161,6 +163,23 @@ public class FlowController {
             default:
                 break;
         }
+        //para cerrar el hilo una vez que se cierra la ventana 
+        stage.setOnCloseRequest(event -> {
+            Socket socket;
+            try {
+                socket = new Socket(jugador.getIPS(), 44440);
+                DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
+                DataInputStream entrada = new DataInputStream(socket.getInputStream());
+                System.out.println("Connected Text!");
+                mensaje.writeUTF("partidaFinalizada");
+                String mensajeRecibido;
+                mensajeRecibido = entrada.readUTF();
+                System.out.println(mensajeRecibido);
+                socket.close();
+            } catch (IOException ex) {
+                Logger.getLogger(FlowController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
     }
 
     public void goViewInStage(String viewName, Stage stage) {

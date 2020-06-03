@@ -72,6 +72,7 @@ public class Hilo_Peticiones extends Thread {
                 Platform.runLater(() -> {
                     imageView.setImage(new Image("virus/resources/" + carta.getImagen()));
                 });
+                IniciarHilo();
             } else if ("cambioTurno".equals(mensajeRecibido)) {
                 String IP = entrada.readUTF();
                 /*
@@ -95,6 +96,7 @@ public class Hilo_Peticiones extends Thread {
                 });
 
                 System.out.println("Cambio de Turno: " + IP);
+                IniciarHilo();
             } else if ("movimientoJugador".equals(mensajeRecibido)) {
                 DataInputStream input;
                 input = new DataInputStream(socket.getInputStream());
@@ -123,7 +125,7 @@ public class Hilo_Peticiones extends Thread {
                         jugadorAux.getCartas4().add(carta);
                         break;
                     case "4":
-                        //jugadorAux.getCartas5().add(carta);
+                        jugadorAux.getCartas5().add(carta);
                         break;
                     default:
                         break;
@@ -144,14 +146,24 @@ public class Hilo_Peticiones extends Thread {
                         });
                     }
                 });
+                IniciarHilo();
+            }else if("partidaFinalizada".equals(mensajeRecibido)){
+                System.out.println("Partida Finalizada");
             }
-            serverSocket.close();
-            Hilo_Peticiones hilo = new Hilo_Peticiones(partidaDto, imageView, jugadorDto, turno, anchorPane);
-            hilo.start();
         } catch (IOException IO) {
             System.out.println(IO.getMessage());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(JuegoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void IniciarHilo() {
+        try {
+            serverSocket.close();
+            Hilo_Peticiones hilo = new Hilo_Peticiones(partidaDto, imageView, jugadorDto, turno, anchorPane);
+            hilo.start();
+        } catch (IOException ex) {
+            Logger.getLogger(Hilo_Peticiones.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

@@ -372,7 +372,7 @@ public class JuegoController extends Controller implements Initializable {
             jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
 
             //si es el primer movimiento
-            if (jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty()) {
+            if (jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty() && jugador.getCartas5().isEmpty() ) {
                 enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
             } else if ((!jugador.getCartas1().isEmpty()
                     ? !cartaAux.getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta())
@@ -385,6 +385,9 @@ public class JuegoController extends Controller implements Initializable {
                     : true)
                     && (!jugador.getCartas4().isEmpty()
                     ? !cartaAux.getTipoCarta().equals(jugador.getCartas4().get(0).getTipoCarta())
+                    : true)
+                    && (!jugador.getCartas5().isEmpty()
+                    ? !cartaAux.getTipoCarta().equals(jugador.getCartas5().get(0).getTipoCarta())
                     : true)) {
                 enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
             } else {
@@ -677,7 +680,7 @@ public class JuegoController extends Controller implements Initializable {
                 if (jugador.getMazo().size() == 3) {
                     cambiarTurnoAux();
                     Mensaje ms = new Mensaje();
-                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Cambio de turno");
+                    ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Cambio de turno");
                 }
             } else {
                 Mensaje ms = new Mensaje();

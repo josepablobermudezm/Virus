@@ -308,6 +308,23 @@ public class JuegoController extends Controller implements Initializable {
     Boolean vacio = true;
     VBox boxVacio = null;
 
+    private void movimiento(String padre, String hijo) {
+        enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
+        modoOrgano = true;
+        unSoloOrgano = true;
+    }
+
+    private void movimientoOrgano(String padre, String hijo) {
+        if (cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
+                || cartaAux.getTipoCarta().equals("Cerebro") || cartaAux.getTipoCarta().equals("Hueso")
+                || cartaAux.getTipoCarta().equals("Organo_Comodin")) {
+            movimiento(padre, hijo);
+        } else {
+            Mensaje msj = new Mensaje();
+            msj.show(Alert.AlertType.WARNING, "Error con carta", "No puede poner un virus sobre sus propias cartas");
+        }
+    }
+
     private void movimiento(String padre) {
         if (!findePartida) {
             jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
@@ -328,9 +345,7 @@ public class JuegoController extends Controller implements Initializable {
                         });
                         //si es el primer movimiento
                         if (jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty() && jugador.getCartas5().isEmpty()) {
-                            enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
-                            modoOrgano = true;
-                            unSoloOrgano = true;
+                            movimientoOrgano(padre, hijo);
                         } else if ((!jugador.getCartas1().isEmpty()
                                 ? !cartaAux.getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta())
                                 : true)
@@ -346,32 +361,55 @@ public class JuegoController extends Controller implements Initializable {
                                 && (!jugador.getCartas5().isEmpty()
                                 ? !cartaAux.getTipoCarta().equals(jugador.getCartas5().get(0).getTipoCarta())
                                 : true)) {
-                            enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
-                            modoOrgano = true;
-                            unSoloOrgano = true;
-                        }else if(jugador.getCartas1().size()!=0 && cartaAux.getColor().equals(jugador.getCartas1().get(0).getColor()) && cartaAux.getTipoCarta().equals("Medicina")){
-                            enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
-                            modoOrgano = true;
-                            unSoloOrgano = true;
-                        }else if(jugador.getCartas2().size()!=0 && cartaAux.getColor().equals(jugador.getCartas2().get(0).getColor()) && cartaAux.getTipoCarta().equals("Medicina")){
-                            enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
-                            modoOrgano = true;
-                            unSoloOrgano = true;
-                        }else if(jugador.getCartas3().size()!=0 && cartaAux.getColor().equals(jugador.getCartas3().get(0).getColor()) && cartaAux.getTipoCarta().equals("Medicina")){
-                            enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
-                            modoOrgano = true;
-                            unSoloOrgano = true;
-                        }else if(jugador.getCartas4().size()!=0 && cartaAux.getColor().equals(jugador.getCartas4().get(0).getColor()) && cartaAux.getTipoCarta().equals("Medicina")){
-                            enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
-                            modoOrgano = true;
-                            unSoloOrgano = true;
-                        }else if(jugador.getCartas5().size()!=0 && cartaAux.getColor().equals(jugador.getCartas5().get(0).getColor()) && cartaAux.getTipoCarta().equals("Medicina")){
-                            enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
-                            modoOrgano = true;
-                            unSoloOrgano = true;
-                        }  
-                        
-                        else {
+                            //Verifica que el organo que se desea poner no este lleno con un organo 
+                            switch (hijo) {
+                                case "0":
+                                    if (jugador.getCartas1().isEmpty()) {
+                                        movimientoOrgano(padre,hijo);
+                                    }else{
+                                        new Mensaje().show(Alert.AlertType.WARNING,"Información de juego", "No se pude poner otro órgano en este campo");
+                                    }
+                                    break;
+                                case "1":
+                                    if (jugador.getCartas2().isEmpty()) {
+                                        movimientoOrgano(padre,hijo);
+                                    }else{
+                                        new Mensaje().show(Alert.AlertType.WARNING,"Información de juego", "No se pude poner otro órgano en este campo");
+                                    }
+                                    break;
+                                case "2":
+                                    if (jugador.getCartas3().isEmpty()) {
+                                        movimientoOrgano(padre,hijo);
+                                    }else{
+                                        new Mensaje().show(Alert.AlertType.WARNING,"Información de juego", "No se pude poner otro órgano en este campo");
+                                    }
+                                    break;
+                                case "3":
+                                    if (jugador.getCartas4().isEmpty()) {
+                                        movimientoOrgano(padre,hijo);
+                                    }else{
+                                        new Mensaje().show(Alert.AlertType.WARNING,"Información de juego", "No se pude poner otro órgano en este campo");
+                                    }
+                                    break;
+                                case "4":
+                                    if (jugador.getCartas5().isEmpty()) {
+                                        movimientoOrgano(padre,hijo);
+                                    }else{
+                                        new Mensaje().show(Alert.AlertType.WARNING,"Información de juego", "No se pude poner otro órgano en este campo");
+                                    }
+                                    break;
+                            }
+                        } else if (!jugador.getCartas1().isEmpty() && cartaAux.getColor().equals(jugador.getCartas1().get(0).getColor()) && cartaAux.getTipoCarta().equals("Medicina")) {
+                            movimiento(padre, hijo);
+                        } else if (!jugador.getCartas2().isEmpty() && cartaAux.getColor().equals(jugador.getCartas2().get(0).getColor()) && cartaAux.getTipoCarta().equals("Medicina")) {
+                            movimiento(padre, hijo);
+                        } else if (!jugador.getCartas3().isEmpty() && cartaAux.getColor().equals(jugador.getCartas3().get(0).getColor()) && cartaAux.getTipoCarta().equals("Medicina")) {
+                            movimiento(padre, hijo);
+                        } else if (!jugador.getCartas4().isEmpty() && cartaAux.getColor().equals(jugador.getCartas4().get(0).getColor()) && cartaAux.getTipoCarta().equals("Medicina")) {
+                            movimiento(padre, hijo);
+                        } else if (!jugador.getCartas5().isEmpty() && cartaAux.getColor().equals(jugador.getCartas5().get(0).getColor()) && cartaAux.getTipoCarta().equals("Medicina")) {
+                            movimiento(padre, hijo);
+                        } else {
                             Mensaje ms = new Mensaje();
                             ms.show(Alert.AlertType.WARNING, "Información de Juego", "Ya hay un tipo de organo en este mazo");
                         }
@@ -397,68 +435,61 @@ public class JuegoController extends Controller implements Initializable {
         if (!findePartida) {
             if (jugador.getTurno()) {
                 if (cartaAux != null) {
-                    if (cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
-                            || cartaAux.getTipoCarta().equals("Cerebro") || cartaAux.getTipoCarta().equals("Hueso")
-                            || cartaAux.getTipoCarta().equals("Organo_Comodin")) {
-                        JugadorDto jugadorAux = partida.getJugadores().stream().
-                                filter(x -> x.getIP().equals(jugador.getIP())).findAny().get();
-                        int i = partida.getJugadores().indexOf(jugadorAux);
-                        paneAuxiliar = (Pane) event.getSource();
-                        String padre = paneAuxiliar.getParent().getId();
-                        switch (i) {
-                            case 0:
-                                if (padre.equals("hvox")) {
-                                    movimiento(padre);
-                                } else {
-                                    Mensaje ms = new Mensaje();
-                                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
-                                }
-                                break;
-                            case 1:
-                                if (padre.equals("hvox2")) {
-                                    movimiento(padre);
-                                } else {
-                                    Mensaje ms = new Mensaje();
-                                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
-                                }
-                                break;
+                    JugadorDto jugadorAux = partida.getJugadores().stream().
+                            filter(x -> x.getIP().equals(jugador.getIP())).findAny().get();
+                    int i = partida.getJugadores().indexOf(jugadorAux);
+                    paneAuxiliar = (Pane) event.getSource();
+                    String padre = paneAuxiliar.getParent().getId();
+                    switch (i) {
+                        case 0:
+                            if (padre.equals("hvox")) {
+                                movimiento(padre);
+                            } else {
+                                Mensaje ms = new Mensaje();
+                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
+                            }
+                            break;
+                        case 1:
+                            if (padre.equals("hvox2")) {
+                                movimiento(padre);
+                            } else {
+                                Mensaje ms = new Mensaje();
+                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
+                            }
+                            break;
 
-                            case 2:
-                                if (padre.equals("hvox3")) {
-                                    movimiento(padre);
-                                } else {
-                                    Mensaje ms = new Mensaje();
-                                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
-                                }
-                                break;
-                            case 3:
-                                if (padre.equals("hvox4")) {
-                                    movimiento(padre);
-                                } else {
-                                    Mensaje ms = new Mensaje();
-                                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
-                                }
-                                break;
-                            case 4:
-                                if (padre.equals("hvox5")) {
-                                    movimiento(padre);
-                                } else {
-                                    Mensaje ms = new Mensaje();
-                                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
-                                }
-                                break;
-                            case 5:
-                                if (padre.equals("hbox6")) {
-                                    movimiento(padre);
-                                } else {
-                                    Mensaje ms = new Mensaje();
-                                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
-                                }
-                                break;
-                        }
-                    } else {
-                        Mensaje msj = new Mensaje();
-                        msj.show(Alert.AlertType.WARNING, "Error con carta", "No puede poner un virus sobre sus propias cartas");
+                        case 2:
+                            if (padre.equals("hvox3")) {
+                                movimiento(padre);
+                            } else {
+                                Mensaje ms = new Mensaje();
+                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
+                            }
+                            break;
+                        case 3:
+                            if (padre.equals("hvox4")) {
+                                movimiento(padre);
+                            } else {
+                                Mensaje ms = new Mensaje();
+                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
+                            }
+                            break;
+                        case 4:
+                            if (padre.equals("hvox5")) {
+                                movimiento(padre);
+                            } else {
+                                Mensaje ms = new Mensaje();
+                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
+                            }
+                            break;
+                        case 5:
+                            if (padre.equals("hbox6")) {
+                                movimiento(padre);
+                            } else {
+                                Mensaje ms = new Mensaje();
+                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
+                            }
+                            break;
                     }
                 } else {
                     Mensaje msj = new Mensaje();

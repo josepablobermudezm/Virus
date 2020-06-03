@@ -62,7 +62,7 @@ public class InicioController extends Controller implements Initializable {
 
     @FXML
     private void Salir(MouseEvent event) {
-        FlowController.getInstance().goView("Menu");
+        FlowController.getInstance().goViewInWindowTransparent("Menu");
     }
 
     @FXML

@@ -222,7 +222,7 @@ public class Hilo_Peticiones extends Thread {
         }
 
         Platform.runLater(() -> {
-           new Mensaje().showModal(Alert.AlertType.INFORMATION,"¡VICTORIA!", this.imageView.getScene().getWindow(), nombreGanador + " Ha ganado el juego");
+           new Mensaje().showModal(Alert.AlertType.INFORMATION,"¡VICTORIA!", this.imageView.getScene().getWindow(), nombreGanador + " ha ganado el juego");
            FlowController.getInstance().goView("Inicio");
         });
         //Cierra todos los procesos que queden pendientes

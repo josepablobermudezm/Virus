@@ -163,6 +163,7 @@ public class JuegoController extends Controller implements Initializable {
     public static Boolean recogioCarta = false;
     public static VBox vboxAuxiliar;
     public static Boolean modoDesechar = false;
+    public static Hilo_Peticiones peticiones;
 
     /**
      * Initializes the controller class.
@@ -345,7 +346,7 @@ public class JuegoController extends Controller implements Initializable {
 
         //Introduce los jugadores a la partida
         partida.setJugadores(jugadores);
-        Hilo_Peticiones peticiones = new Hilo_Peticiones(partida, imgDesechada, jugador, lbl_JTurno, fondo_juego);
+        peticiones = new Hilo_Peticiones(partida, imgDesechada, jugador, lbl_JTurno, fondo_juego);
         peticiones.start();
 
         desechadas = imgDesechada;
@@ -373,7 +374,7 @@ public class JuegoController extends Controller implements Initializable {
             jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
 
             //si es el primer movimiento
-            if (jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty() && jugador.getCartas5().isEmpty() ) {
+            if (jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty() && jugador.getCartas5().isEmpty()) {
                 enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
             } else if ((!jugador.getCartas1().isEmpty()
                     ? !cartaAux.getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta())

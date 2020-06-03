@@ -29,6 +29,7 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import virus.Virus;
 import static virus.controller.JuegoController.jugador;
+import static virus.controller.JuegoController.peticiones;
 
 /**
  *
@@ -174,16 +175,18 @@ public class FlowController {
                     socket = new Socket(jugador.getIPS(), 44440);
                     DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
                     DataInputStream entrada = new DataInputStream(socket.getInputStream());
-                    System.out.println("Connected Text!");
+                    System.out.println("Connected Text!kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
                     mensaje.writeUTF("partidaFinalizada");
                     String mensajeRecibido;
                     mensajeRecibido = entrada.readUTF();
-                    System.out.println(mensajeRecibido);
+                    System.out.println(mensajeRecibido + "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
                     socket.close();
+                    peticiones.stop();
                 } catch (IOException ex) {
                     Logger.getLogger(FlowController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            System.out.println("UN MENSAJE AFUERA DE ESE IF");
         });
     }
 

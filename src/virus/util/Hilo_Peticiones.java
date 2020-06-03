@@ -46,7 +46,7 @@ public class Hilo_Peticiones extends Thread {
         turno = label;
         this.anchorPane = anchorPane;
     }
-
+    
     DataInputStream entrada;
     DataOutputStream salida;
     Socket socket;
@@ -55,7 +55,7 @@ public class Hilo_Peticiones extends Thread {
 
     @Override
     public void run() {
-
+        System.out.println("HILO NO SE ESTÁ CERAAAAAAAAAAAAAAAAAAAANDO...............................");
         while (!mensajeRecibido.equals("partidaFinalizada")) {
             try {
                 serverSocket = new ServerSocket(44440);
@@ -160,6 +160,7 @@ public class Hilo_Peticiones extends Thread {
                 Logger.getLogger(JuegoController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        System.out.println("..................................................................................................AAAA");
     }
 
     public void IniciarHilo() {

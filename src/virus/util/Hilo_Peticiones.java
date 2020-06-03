@@ -22,6 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import virus.controller.JuegoController;
+import static virus.controller.JuegoController.jugador;
 import virus.model.CartaDto;
 import virus.model.JugadorDto;
 import virus.model.PartidaDto;
@@ -46,7 +47,7 @@ public class Hilo_Peticiones extends Thread {
         turno = label;
         this.anchorPane = anchorPane;
     }
-    
+
     DataInputStream entrada;
     DataOutputStream salida;
     Socket socket;
@@ -132,6 +133,26 @@ public class Hilo_Peticiones extends Thread {
                         default:
                             break;
                     }
+                    int cont = 0;
+                    if ((!jugadorAux.getCartas1().isEmpty()) ? jugadorAux.getCartas1().get(0).getEstado().equals("Sana") : false) {
+                        cont++;
+                    }
+                    if ((!jugadorAux.getCartas2().isEmpty()) ? jugadorAux.getCartas2().get(0).getEstado().equals("Sana") : false) {
+                        cont++;
+                    }
+                    if ((!jugadorAux.getCartas3().isEmpty()) ? jugadorAux.getCartas3().get(0).getEstado().equals("Sana") : false) {
+                        cont++;
+                    }
+                    if ((!jugadorAux.getCartas4().isEmpty()) ? jugadorAux.getCartas4().get(0).getEstado().equals("Sana") : false) {
+                        cont++;
+                    }
+                    if ((!jugadorAux.getCartas5().isEmpty()) ? jugadorAux.getCartas5().get(0).getEstado().equals("Sana") : false) {
+                        cont++;
+                    }
+                    if (cont == 4) {
+                        System.out.println(jugadorAux.getNombre() + " Haz ganado el juego");
+                    }
+                    System.out.println(cont + " ..........................................Contador para ganar el juego ");
                     //pregunta que si el jugador es el mismo que encontramos, el que hizo el movimiento, entonces actualizamos las cartas
                     if (jugadorAux.getIP().equals(jugadorDto.getIP())) {
                         jugadorAux.setMazo(jugadorDto.getMazo());

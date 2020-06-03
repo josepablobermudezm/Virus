@@ -156,40 +156,43 @@ public class Hilo_Peticiones extends Thread {
 
                     //Introduce las cartas jugadas en las vistas de los usuarios
                     anchorPane.getChildren().forEach((t) -> {
-                        System.out.println("PADRE   "+ padre +"  HIJO    "+ hijo);
                         if (t.getId() != null && t.getId().equals(padre)) {
                             int i = Integer.valueOf(hijo);
                             Platform.runLater(() -> {
+                                 System.out.println("TAMANO DE HIJOS "+((HBox) t).getChildren().size());
                                 Pane pane = ((Pane) ((HBox) t).getChildren().get(i));
                                 ImageView imageAux = new ImageView("virus/resources/" + carta.getImagen());
                                 imageAux.setFitHeight(108);
                                 imageAux.setFitWidth(77.75);
                                 //imageAux.relocate(imageAux.getLayoutX() + imageAux.getTranslateX(), imageAux.getLayoutY() + imageAux.getTranslateY());
-                                /*imageAux.setTranslateX(0);
-                                imageAux.setTranslateY(0);*/
-                                //imageAux.setLayoutX(pane.getLayoutX());
-
+                                imageAux.setTranslateX(0);
+                                imageAux.setTranslateY(0);
+                                /*imageAux.setLayoutX(pane.getLayoutX());*/
+                                /*card.relocate(card.getLayoutX() + card.getTranslateX(), card.getLayoutY() + card.getTranslateY());
+                                card.setTranslateX(0);
+                                card.setTranslateY(0);
+                                card.setLayoutX(getLayoutX());
+                                card.setLayoutY(getLayoutY() + (cards.size() - 1) * cardGap);*/
                                 switch (hijo) {
                                     case "0":
-                                        imageAux.setLayoutY(jugadorAux.getCartas1().size()-1 * 25);
+                                        imageAux.setLayoutY(pane.getLayoutY() + (jugadorAux.getCartas1().size() - 1) * 25);
                                         break;
                                     case "1":
-                                        imageAux.setLayoutY(jugadorAux.getCartas2().size()-1 * 25);
+                                        imageAux.setLayoutY(pane.getLayoutY() + (jugadorAux.getCartas2().size() - 1) * 25);
                                         break;
                                     case "2":
-                                        imageAux.setLayoutY(jugadorAux.getCartas3().size()-1 * 25);
+                                        imageAux.setLayoutY(pane.getLayoutY() + (jugadorAux.getCartas3().size() - 1) * 25);
                                         break;
                                     case "3":
-                                        imageAux.setLayoutY(pane.getLayoutY() + jugadorAux.getCartas4().size()-1 * 25);
+                                        imageAux.setLayoutY(pane.getLayoutY() + (jugadorAux.getCartas4().size() - 1) * 25);
                                         break;
                                     case "4":
-                                        imageAux.setLayoutY(pane.getLayoutY() + jugadorAux.getCartas5().size()-1 * 25);
+                                        imageAux.setLayoutY(pane.getLayoutY() + (jugadorAux.getCartas5().size() - 1) * 25);
                                         break;
                                     default:
                                         break;
                                 }
 
-                                
                                 pane.getChildren().add(imageAux);
                                 /*
                                 ((Pane) x).getChildren().add(imageAux);//:)
@@ -219,13 +222,15 @@ public class Hilo_Peticiones extends Thread {
                     System.out.println("Partida Finalizada");
                 }
                 serverSocket.close();
-                
+
             } catch (IOException IO) {
                 System.out.println(IO.getMessage());
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(JuegoController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
+        //Cierra todos los procesos que queden pendientes
         System.exit(0);
         System.out.println("..................................................................................................AAAA");
     }

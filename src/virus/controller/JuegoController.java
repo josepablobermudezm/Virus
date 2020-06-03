@@ -358,6 +358,7 @@ public class JuegoController extends Controller implements Initializable {
     VBox boxVacio = null;
 
     private void movimiento(String padre) {
+        jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
         if (!unSoloOrgano) {
             if (!modoDesechar) {
                 if (vboxAuxiliar != null && ((ImageView) vboxAuxiliar.getChildren().get(0)).getImage() == null) {
@@ -373,7 +374,6 @@ public class JuegoController extends Controller implements Initializable {
                             });
                         }
                     });
-                    jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
                     //si es el primer movimiento
                     if (jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty() && jugador.getCartas5().isEmpty()) {
                         enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
@@ -477,6 +477,9 @@ public class JuegoController extends Controller implements Initializable {
                             }
                             break;
                     }
+                } else {
+                    Mensaje msj = new Mensaje();
+                    msj.show(Alert.AlertType.WARNING, "Error con carta", "No puede poner un virus sobre sus propias cartas");
                 }
             } else {
                 Mensaje msj = new Mensaje();
@@ -528,13 +531,9 @@ public class JuegoController extends Controller implements Initializable {
             System.out.println(mensajeRecibido);
             //Cerramos la conexión
             socket.close();
-
             Socket socket2 = new Socket(IP_Servidor, 44440);
             DataOutputStream mensaje2 = new DataOutputStream(socket2.getOutputStream());
-            //DataInputStream respuesta = new DataInputStream(socket2.getInputStream());
             System.out.println("Connected Text!");
-            //mensaje2.writeUTF("EsperandoCarta...");
-
             DataInputStream respuesta2 = new DataInputStream(socket2.getInputStream());
             ObjectInputStream objectInputStream = new ObjectInputStream(respuesta2);
             CartaDto carta = (CartaDto) objectInputStream.readObject();
@@ -549,8 +548,6 @@ public class JuegoController extends Controller implements Initializable {
                     desechadas.setImage(null);
                 });
             }
-
-            jugador.getMazo().add(carta);
             if (image7.getImage() == null) {
                 image7.setImage(new Image("virus/resources/" + carta.getImagen()));
                 carta1 = carta;
@@ -560,6 +557,14 @@ public class JuegoController extends Controller implements Initializable {
             } else {
                 image9.setImage(new Image("virus/resources/" + carta.getImagen()));
                 carta3 = carta;
+            }
+            if (carta != null) {
+                jugador.getMazo().add(carta);
+                System.out.println(jugador.getMazo().size());
+                System.out.println("CARTA AGREGADA AL MAZO DEL JUGADOR AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            } else {
+                System.out.println("CARTA NOOOOOOOOOOO AGREGADA AL MAZO DEL JUGADOR AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                System.out.println(jugador.getMazo().size());
             }
             //Cerramos la conexión
             socket2.close();
@@ -690,6 +695,7 @@ public class JuegoController extends Controller implements Initializable {
     private void CartadeMazo(MouseEvent event) {
         if (jugador.getTurno()) {
             if (jugador.getMazo().size() < 3) {
+                System.out.println("MI MAZO EES MEJOR A 3 CARTAS CARTAS CARTAS CARTAS CARTAS CARTAS CARTAS CARTAS");
                 recogioCarta = true;
                 ObtenerCarta(jugador.getIPS());
                 if (jugador.getMazo().size() == 3) {

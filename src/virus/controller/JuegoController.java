@@ -332,7 +332,6 @@ public class JuegoController extends Controller implements Initializable {
             msj.show(Alert.AlertType.WARNING, "Error con carta", "No puede poner un virus sobre sus propias cartas");
         }
     }*/
-
     private void movimiento(String padre) {
         if (!findePartida) {
             if (!unSoloOrgano) {
@@ -446,11 +445,11 @@ public class JuegoController extends Controller implements Initializable {
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     }
+                                default:
+                                    Mensaje ms = new Mensaje();
+                                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Ya hay un tipo de organo en este mazo");
                                     break;
                             }
-
-                            Mensaje ms = new Mensaje();
-                            ms.show(Alert.AlertType.WARNING, "Información de Juego", "Ya hay un tipo de organo en este mazo");
                         }
                     } else {
                         Mensaje ms = new Mensaje();

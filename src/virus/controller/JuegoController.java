@@ -676,7 +676,7 @@ public class JuegoController extends Controller implements Initializable {
                     mensajeRecibido = entrada.readUTF();
                     System.out.println(mensajeRecibido);
                     socket.close();
-                    jugador.getMazo().remove(cartaAux);
+                    //jugador.getMazo().remove(cartaAux);
                     AppContext.getInstance().set("JugadorDto", jugador);
                     recogioCarta = false;
                     modoDesechar = false;
@@ -700,8 +700,8 @@ public class JuegoController extends Controller implements Initializable {
     private void CartadeMazo(MouseEvent event) {
         cartaAux = null;
         if (jugador.getTurno()) {
-            if (jugador.getMazo().size() < 3 && (image9.getImage() == null || image8.getImage() == null
-                    || image7.getImage() == null)) {
+            if (jugador.getMazo().size() < 3 /*&& (image9.getImage() == null || image8.getImage() == null
+                    || image7.getImage() == null)*/) {
                 System.out.println("MI MAZO EES MEJOR A 3 CARTAS CARTAS CARTAS CARTAS CARTAS CARTAS CARTAS CARTAS");
                 recogioCarta = true;
                 ObtenerCarta(jugador.getIPS());

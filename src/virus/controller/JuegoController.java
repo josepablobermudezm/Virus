@@ -535,7 +535,7 @@ public class JuegoController extends Controller implements Initializable {
                 }
             } else {
                 Mensaje ms = new Mensaje();
-                ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción");
+                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Espera a tu turno");
             }
         } else {
             Mensaje ms = new Mensaje();
@@ -562,7 +562,7 @@ public class JuegoController extends Controller implements Initializable {
                 }
             } else {
                 Mensaje ms = new Mensaje();
-                ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción");
+                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Espera a tu turno");
             }
         } else {
             Mensaje ms = new Mensaje();
@@ -649,7 +649,7 @@ public class JuegoController extends Controller implements Initializable {
                         }
                     } else {
                         Mensaje ms = new Mensaje();
-                        ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción");
+                        ms.show(Alert.AlertType.WARNING, "Información de Juego", "Espera a tu turno");
                     }
                 } else {
                     Mensaje ms = new Mensaje();
@@ -734,12 +734,13 @@ public class JuegoController extends Controller implements Initializable {
                         DataInputStream entrada = new DataInputStream(socket.getInputStream());
                         System.out.println("Connected Text!");
                         mensaje.writeUTF("cambioTurno");
-                        String mensajeRecibido;
                         mensajeRecibido = entrada.readUTF();
-                        System.out.println(mensajeRecibido);
+
                         socket.close();
-                        //jugador.getMazo().remove(cartaAux);
-                        //AppContext.getInstance().set("JugadorDto", jugador);
+                        
+                        /*
+                        Reinicio de variables
+                        */
                         recogioCarta = false;
                         modoDesechar = false;
                         modoOrgano = false;
@@ -756,7 +757,7 @@ public class JuegoController extends Controller implements Initializable {
                 }
             } else {
                 Mensaje ms = new Mensaje();
-                ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción");
+                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Espera a tu tuno");
             }
         } else {
             Mensaje ms = new Mensaje();
@@ -784,7 +785,7 @@ public class JuegoController extends Controller implements Initializable {
                 }
             } else {
                 Mensaje ms = new Mensaje();
-                ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción");
+                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Espera a tu tuno");
             }
         } else {
             Mensaje ms = new Mensaje();

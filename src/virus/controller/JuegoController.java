@@ -601,7 +601,6 @@ public class JuegoController extends Controller implements Initializable {
 
     public void desecharCarta(String Mensaje) {
         try {
-            System.out.println(jugador.getMazo().remove(cartaAux));
             Socket socket = new Socket(jugador.getIPS(), 44440);
             DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
             DataInputStream entrada = new DataInputStream(socket.getInputStream());
@@ -611,7 +610,6 @@ public class JuegoController extends Controller implements Initializable {
             mensajeRecibido = entrada.readUTF();
             System.out.println(mensajeRecibido);
             socket.close();
-
             Socket socket2 = new Socket(jugador.getIPS(), 44440);
             OutputStream outputStream = socket2.getOutputStream();
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
@@ -619,10 +617,9 @@ public class JuegoController extends Controller implements Initializable {
             objectOutputStream.writeObject(cartaAux);
             System.out.println("Closing socket and terminating program.");
             socket2.close();
-
+            System.out.println(jugador.getMazo().remove(cartaAux));//removemos la carta del mazo del  jugador 
             imageViewDesechada.setImage(null);
             cartaAux = null;
-
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -631,7 +628,6 @@ public class JuegoController extends Controller implements Initializable {
     //Envía las cartas a los jugadores
     public void enviarCartaJuegoSocket(String Mensaje, String padre, String hijo) {
         try {
-            System.out.println(jugador.getMazo().remove(cartaAux));
             Socket socket = new Socket(jugador.getIPS(), 44440);
             DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
             DataInputStream entrada = new DataInputStream(socket.getInputStream());
@@ -641,7 +637,6 @@ public class JuegoController extends Controller implements Initializable {
             mensajeRecibido = entrada.readUTF();
             System.out.println(mensajeRecibido);
             socket.close();
-
             Socket socket2 = new Socket(jugador.getIPS(), 44440);
             OutputStream outputStream = socket2.getOutputStream();
             DataOutputStream mensaje2 = new DataOutputStream(socket2.getOutputStream());
@@ -651,13 +646,11 @@ public class JuegoController extends Controller implements Initializable {
             mensaje2.writeUTF(padre);
             mensaje2.writeUTF(hijo);
             mensaje2.writeUTF(jugador.getIP());
-
             System.out.println("Closing socket and terminating program.");
             socket2.close();
-
             imageViewDesechada.setImage(null);
             cartaAux = null;
-
+            System.out.println(jugador.getMazo().remove(cartaAux));//removemos la carta del mazo del  jugador 
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -667,7 +660,6 @@ public class JuegoController extends Controller implements Initializable {
         if (jugador.getTurno()) {
             if (jugador.getMazo().size() == 3) {
                 try {
-                    jugador.getMazo().remove(cartaAux);
                     Socket socket = new Socket(jugador.getIPS(), 44440);
                     DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
                     DataInputStream entrada = new DataInputStream(socket.getInputStream());
@@ -677,6 +669,7 @@ public class JuegoController extends Controller implements Initializable {
                     mensajeRecibido = entrada.readUTF();
                     System.out.println(mensajeRecibido);
                     socket.close();
+                    jugador.getMazo().remove(cartaAux);
                     recogioCarta = false;
                     modoDesechar = false;
                     modoOrgano = false;

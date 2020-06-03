@@ -180,7 +180,7 @@ public class FlowController {
                     mensajeRecibido = entrada.readUTF();
                     System.out.println(mensajeRecibido + "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
                     socket.close();
-                    System.exit(0);
+                    
                 } catch (IOException ex) {
                     Logger.getLogger(FlowController.class.getName()).log(Level.SEVERE, null, ex);
                 }

@@ -219,13 +219,14 @@ public class Hilo_Peticiones extends Thread {
                     System.out.println("Partida Finalizada");
                 }
                 serverSocket.close();
-
+                
             } catch (IOException IO) {
                 System.out.println(IO.getMessage());
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(JuegoController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        System.exit(0);
         System.out.println("..................................................................................................AAAA");
     }
 

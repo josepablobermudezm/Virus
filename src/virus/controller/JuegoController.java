@@ -126,103 +126,123 @@ public class JuegoController extends Controller implements Initializable {
         carta1 = jugador.getMazo().get(0);
         carta2 = jugador.getMazo().get(1);
         carta3 = jugador.getMazo().get(2);
-        
+
         user.setText(jugador.getNombre());
 
         ArrayList<JugadorDto> jugadores = (ArrayList<JugadorDto>) AppContext.getInstance().get("Jugadores");
-        
+
         switch (jugadores.size()) {
             case 2:
                 hvox.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
                     x.getStyleClass().add("hVoxActivo");
-                    
-                }); hvox2.getChildren().forEach(x -> {
+
+                });
+                hvox2.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
                     x.getStyleClass().add("hVoxActivo");
-                }); break;
+                });
+                break;
             case 3:
                 hvox.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
                     x.getStyleClass().add("hVoxActivo");
-                }); hvox2.getChildren().forEach(x -> {
+                });
+                hvox2.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
                     x.getStyleClass().add("hVoxActivo");
-                }); hvox3.getChildren().forEach(x -> {
+                });
+                hvox3.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
                     x.getStyleClass().add("hVoxActivo");
-                }); break;
+                });
+                break;
             case 4:
                 hvox.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
                     x.getStyleClass().add("hVoxActivo");
-                }); hvox2.getChildren().forEach(x -> {
+                });
+                hvox2.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
                     x.getStyleClass().add("hVoxActivo");
-                }); hvox3.getChildren().forEach(x -> {
+                });
+                hvox3.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
                     x.getStyleClass().add("hVoxActivo");
-                }); hvox4.getChildren().forEach(x -> {
+                });
+                hvox4.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
                     x.getStyleClass().add("hVoxActivo");
-                }); break;
+                });
+                break;
             case 5:
                 hvox.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
                     x.getStyleClass().add("hVoxActivo");
-                }); hvox2.getChildren().forEach(x -> {
+                });
+                hvox2.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
                     x.getStyleClass().add("hVoxActivo");
-                }); hvox3.getChildren().forEach(x -> {
+                });
+                hvox3.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
                     x.getStyleClass().add("hVoxActivo");
-                }); hvox4.getChildren().forEach(x -> {
+                });
+                hvox4.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
                     x.getStyleClass().add("hVoxActivo");
-                }); hvox5.getChildren().forEach(x -> {
+                });
+                hvox5.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
                     x.getStyleClass().add("hVoxActivo");
-                }); break;
+                });
+                break;
             case 6:
                 hvox.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
                     x.getStyleClass().add("hVoxActivo");
-                }); hvox2.getChildren().forEach(x -> {
+                });
+                hvox2.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
                     x.getStyleClass().add("hVoxActivo");
-                }); hvox3.getChildren().forEach(x -> {
+                });
+                hvox3.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
                     x.getStyleClass().add("hVoxActivo");
-                }); hvox4.getChildren().forEach(x -> {
+                });
+                hvox4.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
                     x.getStyleClass().add("hVoxActivo");
-                }); hvox5.getChildren().forEach(x -> {
+                });
+                hvox5.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
                     x.getStyleClass().add("hVoxActivo");
-                }); hbox6.getChildren().forEach(x -> {
+                });
+                hbox6.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
                     x.getStyleClass().add("hVoxActivo");
-                }); break;
+                });
+                break;
             default:
                 break;
         }
@@ -302,7 +322,7 @@ public class JuegoController extends Controller implements Initializable {
         unSoloOrgano = true;
     }
 
-    private void movimientoOrgano(String padre, String hijo) {
+    /*private void movimientoOrgano(String padre, String hijo) {
         if (cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
                 || cartaAux.getTipoCarta().equals("Cerebro") || cartaAux.getTipoCarta().equals("Hueso")
                 || cartaAux.getTipoCarta().equals("Organo_Comodin")) {
@@ -311,7 +331,7 @@ public class JuegoController extends Controller implements Initializable {
             Mensaje msj = new Mensaje();
             msj.show(Alert.AlertType.WARNING, "Error con carta", "No puede poner un virus sobre sus propias cartas");
         }
-    }
+    }*/
 
     private void movimiento(String padre) {
         if (!findePartida) {
@@ -331,9 +351,13 @@ public class JuegoController extends Controller implements Initializable {
                             }
                         });
                         //si es el primer movimiento
-                        if (jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty() && jugador.getCartas5().isEmpty()) {
-                            movimientoOrgano(padre, hijo);
-                        } else if ((!jugador.getCartas1().isEmpty() //Organo en los campos vacios
+                        if (cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
+                                || cartaAux.getTipoCarta().equals("Cerebro") || cartaAux.getTipoCarta().equals("Hueso")
+                                || cartaAux.getTipoCarta().equals("Organo_Comodin") && jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty() && jugador.getCartas5().isEmpty()) {
+                            movimiento(padre, hijo);
+                        } else if (cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
+                                || cartaAux.getTipoCarta().equals("Cerebro") || cartaAux.getTipoCarta().equals("Hueso")
+                                || cartaAux.getTipoCarta().equals("Organo_Comodin") && (!jugador.getCartas1().isEmpty() //Organo en los campos vacios
                                 ? !cartaAux.getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta())
                                 : true)
                                 && (!jugador.getCartas2().isEmpty()
@@ -352,79 +376,79 @@ public class JuegoController extends Controller implements Initializable {
                             switch (hijo) {
                                 case "0":
                                     if (jugador.getCartas1().isEmpty()) {
-                                        movimientoOrgano(padre,hijo);
-                                    }else{
-                                        new Mensaje().show(Alert.AlertType.WARNING,"Información de juego", "No se pude poner otro órgano en este campo");
+                                        movimiento(padre, hijo);
+                                    } else {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pude poner otro órgano en este campo");
                                     }
                                     break;
                                 case "1":
                                     if (jugador.getCartas2().isEmpty()) {
-                                        movimientoOrgano(padre,hijo);
-                                    }else{
-                                        new Mensaje().show(Alert.AlertType.WARNING,"Información de juego", "No se pude poner otro órgano en este campo");
+                                        movimiento(padre, hijo);
+                                    } else {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pude poner otro órgano en este campo");
                                     }
                                     break;
                                 case "2":
                                     if (jugador.getCartas3().isEmpty()) {
-                                        movimientoOrgano(padre,hijo);
-                                    }else{
-                                        new Mensaje().show(Alert.AlertType.WARNING,"Información de juego", "No se pude poner otro órgano en este campo");
+                                        movimiento(padre, hijo);
+                                    } else {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pude poner otro órgano en este campo");
                                     }
                                     break;
                                 case "3":
                                     if (jugador.getCartas4().isEmpty()) {
-                                        movimientoOrgano(padre,hijo);
-                                    }else{
-                                        new Mensaje().show(Alert.AlertType.WARNING,"Información de juego", "No se pude poner otro órgano en este campo");
+                                        movimiento(padre, hijo);
+                                    } else {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pude poner otro órgano en este campo");
                                     }
                                     break;
                                 case "4":
                                     if (jugador.getCartas5().isEmpty()) {
-                                        movimientoOrgano(padre,hijo);
-                                    }else{
-                                        new Mensaje().show(Alert.AlertType.WARNING,"Información de juego", "No se pude poner otro órgano en este campo");
+                                        movimiento(padre, hijo);
+                                    } else {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pude poner otro órgano en este campo");
                                     }
                                     break;
                             }
                         } else {//Cualquier otro movimiento
-                            switch(hijo){
+                            switch (hijo) {
                                 case "0":
-                                    if(jugador.getCartas1().get(0).getColor().equals(cartaAux.getColor())){
+                                    if (jugador.getCartas1().get(0).getColor().equals(cartaAux.getColor())) {
                                         movimiento(padre, hijo);
-                                    }else{
-                                        new Mensaje().show(Alert.AlertType.WARNING,"Información de juego", "No se pueden poner cartas de distinto color");
+                                    } else {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     }
                                     break;
                                 case "1":
-                                    if(jugador.getCartas2().get(0).getColor().equals(cartaAux.getColor())){
+                                    if (jugador.getCartas2().get(0).getColor().equals(cartaAux.getColor())) {
                                         movimiento(padre, hijo);
-                                    }else{
-                                        new Mensaje().show(Alert.AlertType.WARNING,"Información de juego", "No se pueden poner cartas de distinto color");
+                                    } else {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     }
                                     break;
                                 case "2":
-                                    if(jugador.getCartas3().get(0).getColor().equals(cartaAux.getColor())){
+                                    if (jugador.getCartas3().get(0).getColor().equals(cartaAux.getColor())) {
                                         movimiento(padre, hijo);
-                                    }else{
-                                        new Mensaje().show(Alert.AlertType.WARNING,"Información de juego", "No se pueden poner cartas de distinto color");
+                                    } else {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     }
                                     break;
                                 case "3":
-                                    if(jugador.getCartas4().get(0).getColor().equals(cartaAux.getColor())){
+                                    if (jugador.getCartas4().get(0).getColor().equals(cartaAux.getColor())) {
                                         movimiento(padre, hijo);
-                                    }else{
-                                        new Mensaje().show(Alert.AlertType.WARNING,"Información de juego", "No se pueden poner cartas de distinto color");
+                                    } else {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     }
                                     break;
-                                case "4": 
-                                    if(jugador.getCartas5().get(0).getColor().equals(cartaAux.getColor())){
+                                case "4":
+                                    if (jugador.getCartas5().get(0).getColor().equals(cartaAux.getColor())) {
                                         movimiento(padre, hijo);
-                                    }else{
-                                        new Mensaje().show(Alert.AlertType.WARNING,"Información de juego", "No se pueden poner cartas de distinto color");
+                                    } else {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     }
                                     break;
                             }
-                            
+
                             Mensaje ms = new Mensaje();
                             ms.show(Alert.AlertType.WARNING, "Información de Juego", "Ya hay un tipo de organo en este mazo");
                         }
@@ -454,7 +478,7 @@ public class JuegoController extends Controller implements Initializable {
                     JugadorDto jugadorAux = partida.getJugadores().stream().
                             filter(x -> x.getIP().equals(jugador.getIP())).findAny().get();
                     int i = partida.getJugadores().indexOf(jugadorAux);
-                    
+
                     paneAuxiliar = (Pane) event.getSource();
                     String padre = paneAuxiliar.getParent().getId();
                     switch (i) {
@@ -599,9 +623,9 @@ public class JuegoController extends Controller implements Initializable {
                 image9.setImage(new Image("virus/resources/" + carta.getImagen()));
                 carta3 = carta;
             }
-            
+
             jugador.getMazo().add(carta);
-            
+
             //Cerramos la conexión
             socket2.close();
         } catch (UnknownHostException e) {
@@ -724,7 +748,7 @@ public class JuegoController extends Controller implements Initializable {
                         modoOrgano = false;
                         unSoloOrgano = false;
                         cartaAux = null;
-                        
+
                         jugador.setTurno(false);
                     } catch (IOException e) {
                         System.out.println(e.getMessage());

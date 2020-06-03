@@ -313,7 +313,7 @@ public class JuegoController extends Controller implements Initializable {
             jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
             if (!unSoloOrgano) {
                 if (!modoDesechar) {
-                    if (paneAuxiliar != null && ((ImageView) paneAuxiliar.getChildren().get(0)).getImage() == null) {
+                    if (paneAuxiliar != null /*&& ((ImageView) paneAuxiliar.getChildren().get(0)).getImage() == null*/) {
                         hijo = "";
                         vacio = true;
 

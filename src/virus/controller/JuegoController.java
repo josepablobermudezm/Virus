@@ -162,6 +162,7 @@ public class JuegoController extends Controller implements Initializable {
     public static ImageView image9;
     public static Boolean recogioCarta = false;
     public static VBox vboxAuxiliar;
+    public static Boolean modoDesechar = false;
 
     /**
      * Initializes the controller class.
@@ -561,6 +562,7 @@ public class JuegoController extends Controller implements Initializable {
 
     @FXML
     private void CartaDesechada(MouseEvent event) {
+        modoDesechar = true;
         if (!recogioCarta) {
             if (jugador.getTurno()) {
                 if (cartaAux != null) {
@@ -673,6 +675,7 @@ public class JuegoController extends Controller implements Initializable {
 
     @FXML
     private void CartadeMazo(MouseEvent event) {
+        modoDesechar = false;
         if (jugador.getTurno()) {
             if (jugador.getMazo().size() < 3) {
                 recogioCarta = true;

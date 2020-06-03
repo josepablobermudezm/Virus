@@ -51,111 +51,114 @@ public class Hilo_Peticiones extends Thread {
     DataOutputStream salida;
     Socket socket;
     ServerSocket serverSocket;
-    String mensajeRecibido;
+    String mensajeRecibido = "";
 
     @Override
     public void run() {
-        try {
-            serverSocket = new ServerSocket(44440);
-            System.out.println("Esperando una conexión...");
-            socket = serverSocket.accept();
-            System.out.println("Un cliente se ha conectado...");
-            entrada = new DataInputStream(socket.getInputStream());
-            System.out.println("Confirmando conexion al cliente....");
-            mensajeRecibido = entrada.readUTF();
-            System.out.println(mensajeRecibido);
-            if ("cartaDesechada".equals(mensajeRecibido)) {
-                DataInputStream respuesta2 = new DataInputStream(socket.getInputStream());
-                ObjectInputStream objectInputStream = new ObjectInputStream(respuesta2);
-                CartaDto carta = (CartaDto) objectInputStream.readObject();
-                partidaDto.getDesechadas().add(carta);
-                Platform.runLater(() -> {
-                    imageView.setImage(new Image("virus/resources/" + carta.getImagen()));
-                });
-                IniciarHilo();
-            } else if ("cambioTurno".equals(mensajeRecibido)) {
-                String IP = entrada.readUTF();
-                /*
+
+        while (!mensajeRecibido.equals("partidaFinalizada")) {
+            try {
+                serverSocket = new ServerSocket(44440);
+                System.out.println("Esperando una conexión...");
+                socket = serverSocket.accept();
+                System.out.println("Un cliente se ha conectado...");
+                entrada = new DataInputStream(socket.getInputStream());
+                System.out.println("Confirmando conexion al cliente....");
+                mensajeRecibido = entrada.readUTF();
+                System.out.println(mensajeRecibido);
+                if ("cartaDesechada".equals(mensajeRecibido)) {
+                    DataInputStream respuesta2 = new DataInputStream(socket.getInputStream());
+                    ObjectInputStream objectInputStream = new ObjectInputStream(respuesta2);
+                    CartaDto carta = (CartaDto) objectInputStream.readObject();
+                    partidaDto.getDesechadas().add(carta);
+                    Platform.runLater(() -> {
+                        imageView.setImage(new Image("virus/resources/" + carta.getImagen()));
+                    });
+                    //IniciarHilo();
+                } else if ("cambioTurno".equals(mensajeRecibido)) {
+                    String IP = entrada.readUTF();
+                    /*
                  *    Si nuestro jugador es el que se ha recibido desde el servidor es porque 
                  *   es el turno del mismo
-                 */
-                if (jugadorDto.getIP().equals(IP)) {
-                    jugadorDto.setTurno(true);
-                    Platform.runLater(() -> {
-                        new Mensaje().show(Alert.AlertType.INFORMATION, "Información de juego", "Es tu turno");
-                    });
-                } else {
-                    jugadorDto.setTurno(false);
-                }
-
-                String nombre = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IP)).
-                        findAny().get().getNombre();
-
-                Platform.runLater(() -> {
-                    turno.setText(nombre);
-                });
-
-                System.out.println("Cambio de Turno: " + IP);
-                IniciarHilo();
-            } else if ("movimientoJugador".equals(mensajeRecibido)) {
-                DataInputStream input;
-                input = new DataInputStream(socket.getInputStream());
-
-                String padre = input.readUTF();
-                String hijo = input.readUTF();
-                String IPJugador = input.readUTF();
-
-                DataInputStream respuesta2 = new DataInputStream(socket.getInputStream());
-                ObjectInputStream objectInputStream = new ObjectInputStream(respuesta2);
-                CartaDto carta = (CartaDto) objectInputStream.readObject();
-
-                JugadorDto jugadorAux = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get();
-
-                switch (hijo) {
-                    case "0":
-                        jugadorAux.getCartas1().add(carta);
-                        break;
-                    case "1":
-                        jugadorAux.getCartas2().add(carta);
-                        break;
-                    case "2":
-                        jugadorAux.getCartas3().add(carta);
-                        break;
-                    case "3":
-                        jugadorAux.getCartas4().add(carta);
-                        break;
-                    case "4":
-                        jugadorAux.getCartas5().add(carta);
-                        break;
-                    default:
-                        break;
-                }
-                //pregunta que si el jugador es el mismo que encontramos, el que hizo el movimiento, entonces actualizamos las cartas
-                if (jugadorAux.getIP().equals(jugadorDto.getIP())) {
-                    jugadorAux.setMazo(jugadorDto.getMazo());
-                    jugadorAux.setTurno(jugadorDto.getTurno());
-                    AppContext.getInstance().set("JugadorDto", jugadorAux);
-                }
-
-                anchorPane.getChildren().forEach((t) -> {
-                    if (t.getId() != null && t.getId().equals(padre)) {
-                        int i = Integer.valueOf(hijo);
+                     */
+                    if (jugadorDto.getIP().equals(IP)) {
+                        jugadorDto.setTurno(true);
                         Platform.runLater(() -> {
-                            ((ImageView) ((VBox) ((HBox) t).getChildren().get(i)).getChildren().get(0)).
-                                    setImage(new Image("virus/resources/" + carta.getImagen()));
+                            new Mensaje().show(Alert.AlertType.INFORMATION, "Información de juego", "Es tu turno");
                         });
+                    } else {
+                        jugadorDto.setTurno(false);
                     }
-                });
-                IniciarHilo();
-            } else if ("partidaFinalizada".equals(mensajeRecibido)) {
-                System.out.println("Partida Finalizada");
-            }
-            serverSocket.close();
 
-        } catch (IOException IO) {
-            System.out.println(IO.getMessage());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(JuegoController.class.getName()).log(Level.SEVERE, null, ex);
+                    String nombre = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IP)).
+                            findAny().get().getNombre();
+
+                    Platform.runLater(() -> {
+                        turno.setText(nombre);
+                    });
+
+                    System.out.println("Cambio de Turno: " + IP);
+                    //IniciarHilo();
+                } else if ("movimientoJugador".equals(mensajeRecibido)) {
+                    DataInputStream input;
+                    input = new DataInputStream(socket.getInputStream());
+
+                    String padre = input.readUTF();
+                    String hijo = input.readUTF();
+                    String IPJugador = input.readUTF();
+
+                    DataInputStream respuesta2 = new DataInputStream(socket.getInputStream());
+                    ObjectInputStream objectInputStream = new ObjectInputStream(respuesta2);
+                    CartaDto carta = (CartaDto) objectInputStream.readObject();
+
+                    JugadorDto jugadorAux = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get();
+
+                    switch (hijo) {
+                        case "0":
+                            jugadorAux.getCartas1().add(carta);
+                            break;
+                        case "1":
+                            jugadorAux.getCartas2().add(carta);
+                            break;
+                        case "2":
+                            jugadorAux.getCartas3().add(carta);
+                            break;
+                        case "3":
+                            jugadorAux.getCartas4().add(carta);
+                            break;
+                        case "4":
+                            jugadorAux.getCartas5().add(carta);
+                            break;
+                        default:
+                            break;
+                    }
+                    //pregunta que si el jugador es el mismo que encontramos, el que hizo el movimiento, entonces actualizamos las cartas
+                    if (jugadorAux.getIP().equals(jugadorDto.getIP())) {
+                        jugadorAux.setMazo(jugadorDto.getMazo());
+                        jugadorAux.setTurno(jugadorDto.getTurno());
+                        AppContext.getInstance().set("JugadorDto", jugadorAux);
+                    }
+
+                    anchorPane.getChildren().forEach((t) -> {
+                        if (t.getId() != null && t.getId().equals(padre)) {
+                            int i = Integer.valueOf(hijo);
+                            Platform.runLater(() -> {
+                                ((ImageView) ((VBox) ((HBox) t).getChildren().get(i)).getChildren().get(0)).
+                                        setImage(new Image("virus/resources/" + carta.getImagen()));
+                            });
+                        }
+                    });
+                    //IniciarHilo();
+                } else if ("partidaFinalizada".equals(mensajeRecibido)) {
+                    System.out.println("Partida Finalizada");
+                }
+                serverSocket.close();
+
+            } catch (IOException IO) {
+                System.out.println(IO.getMessage());
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(JuegoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

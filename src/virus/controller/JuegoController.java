@@ -413,35 +413,55 @@ public class JuegoController extends Controller implements Initializable {
                             switch (hijo) {
                                 case "0":
                                     if (jugador.getCartas1().get(0).getColor().equals(cartaAux.getColor())) {
-                                        movimiento(padre, hijo);
+                                        if(cartaAux.getTipoCarta().equals("Virus")){
+                                            movimiento(padre, hijo);
+                                        }else{
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner un virus en tus propias cartas");
+                                        }
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     }
                                     break;
                                 case "1":
                                     if (jugador.getCartas2().get(0).getColor().equals(cartaAux.getColor())) {
-                                        movimiento(padre, hijo);
+                                        if(cartaAux.getTipoCarta().equals("Virus")){
+                                            movimiento(padre, hijo);
+                                        }else{
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner un virus en tus propias cartas");
+                                        }
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     }
                                     break;
                                 case "2":
                                     if (jugador.getCartas3().get(0).getColor().equals(cartaAux.getColor())) {
-                                        movimiento(padre, hijo);
+                                        if(cartaAux.getTipoCarta().equals("Virus")){
+                                            movimiento(padre, hijo);
+                                        }else{
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner un virus en tus propias cartas");
+                                        }
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     }
                                     break;
                                 case "3":
                                     if (jugador.getCartas4().get(0).getColor().equals(cartaAux.getColor())) {
-                                        movimiento(padre, hijo);
+                                        if(cartaAux.getTipoCarta().equals("Virus")){
+                                            movimiento(padre, hijo);
+                                        }else{
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner un virus en tus propias cartas");
+                                        }
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     }
                                     break;
                                 case "4":
                                     if (jugador.getCartas5().get(0).getColor().equals(cartaAux.getColor())) {
-                                        movimiento(padre, hijo);
+                                        if(cartaAux.getTipoCarta().equals("Virus")){
+                                            movimiento(padre, hijo);
+                                        }else{
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner un virus en tus propias cartas");
+                                        }
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     }

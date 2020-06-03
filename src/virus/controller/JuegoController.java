@@ -189,15 +189,6 @@ public class JuegoController extends Controller implements Initializable {
                 x.getStyleClass().clear();
                 x.getStyleClass().add("hVoxActivo");
 
-                ImageView imageAux = new ImageView("virus/resources/" + "HuesoCarta.png");
-                imageAux.setFitHeight(107.25);
-                imageAux.setFitWidth(74.75);
-                imageAux.relocate(imageAux.getLayoutX() + imageAux.getTranslateX(), imageAux.getLayoutY() + imageAux.getTranslateY());
-                imageAux.setTranslateX(0);
-                imageAux.setTranslateY(0);
-                imageAux.setLayoutX(x.getLayoutX());
-                imageAux.setLayoutY(x.getLayoutY() + 1 * 25);
-                ((Pane) x).getChildren().add(imageAux);//:)
             });
             hvox2.getChildren().forEach(x -> {
                 x.setOnMouseReleased(movimiento);
@@ -410,7 +401,29 @@ public class JuegoController extends Controller implements Initializable {
                             enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
                             modoOrgano = true;
                             unSoloOrgano = true;
-                        } else {
+                        }else if(jugador.getCartas1().size()!=0 && cartaAux.getColor().equals(jugador.getCartas1().get(0).getColor()) && cartaAux.getTipoCarta().equals("Medicina")){
+                            enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
+                            modoOrgano = true;
+                            unSoloOrgano = true;
+                        }else if(jugador.getCartas2().size()!=0 && cartaAux.getColor().equals(jugador.getCartas2().get(0).getColor()) && cartaAux.getTipoCarta().equals("Medicina")){
+                            enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
+                            modoOrgano = true;
+                            unSoloOrgano = true;
+                        }else if(jugador.getCartas3().size()!=0 && cartaAux.getColor().equals(jugador.getCartas3().get(0).getColor()) && cartaAux.getTipoCarta().equals("Medicina")){
+                            enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
+                            modoOrgano = true;
+                            unSoloOrgano = true;
+                        }else if(jugador.getCartas4().size()!=0 && cartaAux.getColor().equals(jugador.getCartas4().get(0).getColor()) && cartaAux.getTipoCarta().equals("Medicina")){
+                            enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
+                            modoOrgano = true;
+                            unSoloOrgano = true;
+                        }else if(jugador.getCartas5().size()!=0 && cartaAux.getColor().equals(jugador.getCartas5().get(0).getColor()) && cartaAux.getTipoCarta().equals("Medicina")){
+                            enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
+                            modoOrgano = true;
+                            unSoloOrgano = true;
+                        }  
+                        
+                        else {
                             Mensaje ms = new Mensaje();
                             ms.show(Alert.AlertType.WARNING, "Información de Juego", "Ya hay un tipo de organo en este mazo");
                         }

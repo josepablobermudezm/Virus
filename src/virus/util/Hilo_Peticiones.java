@@ -115,7 +115,6 @@ public class Hilo_Peticiones extends Thread {
                     CartaDto carta = (CartaDto) objectInputStream.readObject();
 
                     JugadorDto jugadorAux = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get();
-
                     switch (hijo) {
                         case "0":
                             jugadorAux.getCartas1().add(carta);
@@ -135,6 +134,9 @@ public class Hilo_Peticiones extends Thread {
                         default:
                             break;
                     }
+                    /*
+                    Preguntamos si ya termino el juego
+                     */
                     int cont = 0;
                     if ((!jugadorAux.getCartas1().isEmpty()) ? jugadorAux.getCartas1().get(0).getEstado().equals("Sana") : false) {
                         cont++;
@@ -151,6 +153,52 @@ public class Hilo_Peticiones extends Thread {
                     if ((!jugadorAux.getCartas5().isEmpty()) ? jugadorAux.getCartas5().get(0).getEstado().equals("Sana") : false) {
                         cont++;
                     }
+
+                    //Introduce las cartas jugadas en las vistas de los usuarios
+                    anchorPane.getChildren().forEach((t) -> {
+
+                        if (t.getId() != null && t.getId().equals(padre)) {
+                            int i = Integer.valueOf(hijo);
+                            Platform.runLater(() -> {
+                                Pane pane = ((Pane) ((HBox) t).getChildren().get(i));
+                                ImageView imageAux = new ImageView("virus/resources/" + carta.getImagen());
+                                imageAux.setFitHeight(107.25);
+                                imageAux.setFitWidth(74.75);
+                                imageAux.relocate(imageAux.getLayoutX() + imageAux.getTranslateX(), imageAux.getLayoutY() + imageAux.getTranslateY());
+                                imageAux.setTranslateX(0);
+                                imageAux.setTranslateY(0);
+                                imageAux.setLayoutX(pane.getLayoutX());
+
+                                switch (hijo) {
+                                    case "0":
+                                        imageAux.setLayoutY(pane.getLayoutY() + jugadorAux.getCartas1().size() * 25);
+                                        break;
+                                    case "1":
+                                        imageAux.setLayoutY(pane.getLayoutY() + jugadorAux.getCartas2().size() * 25);
+                                        break;
+                                    case "2":
+                                        imageAux.setLayoutY(pane.getLayoutY() + jugadorAux.getCartas3().size() * 25);
+                                        break;
+                                    case "3":
+                                        imageAux.setLayoutY(pane.getLayoutY() + jugadorAux.getCartas4().size() * 25);
+                                        break;
+                                    case "4":
+                                        imageAux.setLayoutY(pane.getLayoutY() + jugadorAux.getCartas5().size() * 25);
+                                        break;
+                                    default:
+                                        break;
+                                }
+
+                                
+                                pane.getChildren().add(imageAux);
+                                /*
+                                ((Pane) x).getChildren().add(imageAux);//:)
+                                ((ImageView) ((Pane) ((HBox) t).getChildren().get(i)).getChildren().get(0)).
+                                        setImage(new Image("virus/resources/" + carta.getImagen()));*/
+                            });
+                        }
+                    });
+
                     if (cont == 4) {
                         findePartida = true;
                         mensajeRecibido = "partidaFinalizada";
@@ -166,15 +214,6 @@ public class Hilo_Peticiones extends Thread {
                     System.out.println(cont + " ..........................................Contador para ganar el juego ");
                     //pregunta que si el jugador es el mismo que encontramos, el que hizo el movimiento, entonces actualizamos las cartas
 
-                    anchorPane.getChildren().forEach((t) -> {
-                        if (t.getId() != null && t.getId().equals(padre)) {
-                            int i = Integer.valueOf(hijo);
-                            Platform.runLater(() -> {
-                                ((ImageView) ((Pane) ((HBox) t).getChildren().get(i)).getChildren().get(0)).
-                                        setImage(new Image("virus/resources/" + carta.getImagen()));
-                            });
-                        }
-                    });
                     //IniciarHilo();
                 } else if ("partidaFinalizada".equals(mensajeRecibido)) {
                     System.out.println("Partida Finalizada");

@@ -13,7 +13,7 @@
    <center>
       <VBox>
          <children>
-            <AnchorPane id="fondo_juego" fx:id="fondo_juego" prefHeight="645.0" prefWidth="900.0" stylesheets="@newCascadeStyleSheet.css">
+            <AnchorPane id="fondo_juego" fx:id="fondo_juego" prefHeight="665.0" prefWidth="1074.0" stylesheets="@newCascadeStyleSheet.css">
                <children>
                   <Label layoutX="57.0" layoutY="569.0" onMouseClicked="#Salir" styleClass="lbl" text="Salir" />
                   <Label fx:id="user" layoutX="40.0" layoutY="235.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />

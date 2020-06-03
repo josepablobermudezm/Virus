@@ -10,7 +10,7 @@
    <center>
       <VBox>
          <children>
-            <AnchorPane id="omg" prefHeight="645.0" prefWidth="900.0" stylesheets="@newCascadeStyleSheet.css">
+            <AnchorPane id="omg" prefHeight="690.0" prefWidth="1074.0" stylesheets="@newCascadeStyleSheet.css">
                <children>
                   <Label layoutX="14.0" layoutY="562.0" onMouseClicked="#Salir" styleClass="lbl" text="Salir" />
                   <Label layoutX="965.0" layoutY="562.0" onMouseClicked="#Jugar" styleClass="lbl2" text="Jugar" />

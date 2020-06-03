@@ -554,14 +554,15 @@ public class JuegoController extends Controller implements Initializable {
             } else if (image8.getImage() == null) {
                 image8.setImage(new Image("virus/resources/" + carta.getImagen()));
                 carta2 = carta;
-            } else {
+            } else if (image9.getImage() == null) {
                 image9.setImage(new Image("virus/resources/" + carta.getImagen()));
                 carta3 = carta;
             }
             if (carta != null) {
+                System.out.println(jugador.getMazo().size() + " antes ");
                 jugador.getMazo().add(carta);
                 AppContext.getInstance().set("JugadorDto", jugador);
-                System.out.println(jugador.getMazo().size());
+                System.out.println(jugador.getMazo().size() + " después ");
                 System.out.println("CARTA AGREGADA AL MAZO DEL JUGADOR AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             } else {
                 System.out.println("CARTA NOOOOOOOOOOO AGREGADA AL MAZO DEL JUGADOR AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
@@ -681,6 +682,7 @@ public class JuegoController extends Controller implements Initializable {
                     modoDesechar = false;
                     modoOrgano = false;
                     unSoloOrgano = false;
+                    cartaAux = null;
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
@@ -696,8 +698,10 @@ public class JuegoController extends Controller implements Initializable {
 
     @FXML
     private void CartadeMazo(MouseEvent event) {
+        cartaAux = null;
         if (jugador.getTurno()) {
-            if (jugador.getMazo().size() < 3) {
+            if (jugador.getMazo().size() < 3 && (image9.getImage() == null || image8.getImage() == null
+                    || image7.getImage() == null)) {
                 System.out.println("MI MAZO EES MEJOR A 3 CARTAS CARTAS CARTAS CARTAS CARTAS CARTAS CARTAS CARTAS");
                 recogioCarta = true;
                 ObtenerCarta(jugador.getIPS());

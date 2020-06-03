@@ -34,6 +34,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import static virus.controller.InicioController.enviarObjetos;
@@ -162,7 +163,7 @@ public class JuegoController extends Controller implements Initializable {
     public static ImageView image8;
     public static ImageView image9;
     public static Boolean recogioCarta = false;
-    public static VBox vboxAuxiliar;
+    public static Pane paneAuxiliar;
     public Boolean modoDesechar = false;
     public Boolean modoOrgano = false;
     public Boolean unSoloOrgano = false;
@@ -363,14 +364,14 @@ public class JuegoController extends Controller implements Initializable {
             jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
             if (!unSoloOrgano) {
                 if (!modoDesechar) {
-                    if (vboxAuxiliar != null && ((ImageView) vboxAuxiliar.getChildren().get(0)).getImage() == null) {
+                    if (paneAuxiliar != null && ((ImageView) paneAuxiliar.getChildren().get(0)).getImage() == null) {
                         hijo = "";
                         vacio = true;
 
                         fondo_juego.getChildren().forEach((t) -> {
                             if (t.getId() != null && t.getId().equals(padre)) {
                                 ((HBox) t).getChildren().forEach((v) -> {
-                                    if (v.equals(vboxAuxiliar)) {
+                                    if (v.equals(paneAuxiliar)) {
                                         hijo = String.valueOf(((HBox) t).getChildren().indexOf(v));
                                     }
                                 });
@@ -431,8 +432,8 @@ public class JuegoController extends Controller implements Initializable {
                         JugadorDto jugadorAux = partida.getJugadores().stream().
                                 filter(x -> x.getIP().equals(jugador.getIP())).findAny().get();
                         int i = partida.getJugadores().indexOf(jugadorAux);
-                        vboxAuxiliar = (VBox) event.getSource();
-                        String padre = vboxAuxiliar.getParent().getId();
+                        paneAuxiliar = (Pane) event.getSource();
+                        String padre = paneAuxiliar.getParent().getId();
                         switch (i) {
                             case 0:
                                 if (padre.equals("hvox")) {

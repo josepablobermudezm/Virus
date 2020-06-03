@@ -20,7 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.Pane;
 import virus.controller.JuegoController;
 import static virus.controller.JuegoController.jugador;
 import virus.model.CartaDto;
@@ -169,7 +169,7 @@ public class Hilo_Peticiones extends Thread {
                         if (t.getId() != null && t.getId().equals(padre)) {
                             int i = Integer.valueOf(hijo);
                             Platform.runLater(() -> {
-                                ((ImageView) ((VBox) ((HBox) t).getChildren().get(i)).getChildren().get(0)).
+                                ((ImageView) ((Pane) ((HBox) t).getChildren().get(i)).getChildren().get(0)).
                                         setImage(new Image("virus/resources/" + carta.getImagen()));
                             });
                         }

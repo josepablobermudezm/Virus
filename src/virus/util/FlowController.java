@@ -168,7 +168,7 @@ public class FlowController {
                 break;
         }
         //para cerrar el hilo una vez que se cierra la ventana 
-        stage.setOnCloseRequest(event -> {
+        /*stage.setOnCloseRequest(event -> {
             Socket socket;
             if (jugador != null) {
                 try {
@@ -187,7 +187,7 @@ public class FlowController {
                 }
             }
             System.out.println("UN MENSAJE AFUERA DE ESE IF");
-        });
+        });*/
     }
 
     public void goViewInStage(String viewName, Stage stage) {

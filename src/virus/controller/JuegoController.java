@@ -656,6 +656,25 @@ public class JuegoController extends Controller implements Initializable {
             socket2.close();
             imageViewDesechada.setImage(null);
             System.out.println(jugador.getMazo().remove(cartaAux));//removemos la carta del mazo del  jugador 
+            int cont = 0;
+            if ((!jugador.getCartas1().isEmpty()) ? jugador.getCartas1().get(0).getEstado().equals("Sana"): false) {
+                cont++;
+            }
+            if ((!jugador.getCartas2().isEmpty()) ? jugador.getCartas2().get(0).getEstado().equals("Sana"): false) {
+                cont++;
+            }
+            if ((!jugador.getCartas3().isEmpty()) ? jugador.getCartas3().get(0).getEstado().equals("Sana"): false) {
+                cont++;
+            }
+            if ((!jugador.getCartas4().isEmpty()) ? jugador.getCartas4().get(0).getEstado().equals("Sana"): false) {
+                cont++;
+            }
+            if ((!jugador.getCartas5().isEmpty()) ? jugador.getCartas5().get(0).getEstado().equals("Sana"): false) {
+                cont++;
+            }
+            if(cont == 4){
+                System.out.println("Haz ganado el juego");
+            }
             AppContext.getInstance().set("JugadorDto", jugador);
             cartaAux = null;
         } catch (IOException e) {
@@ -700,8 +719,8 @@ public class JuegoController extends Controller implements Initializable {
     private void CartadeMazo(MouseEvent event) {
         cartaAux = null;
         if (jugador.getTurno()) {
-            if (jugador.getMazo().size() < 3 /*&& (image9.getImage() == null || image8.getImage() == null
-                    || image7.getImage() == null)*/) {
+            if (jugador.getMazo().size() < 3 && (image9.getImage() == null || image8.getImage() == null
+                    || image7.getImage() == null)) {
                 System.out.println("MI MAZO EES MEJOR A 3 CARTAS CARTAS CARTAS CARTAS CARTAS CARTAS CARTAS CARTAS");
                 recogioCarta = true;
                 ObtenerCarta(jugador.getIPS());

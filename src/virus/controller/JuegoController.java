@@ -438,6 +438,7 @@ public class JuegoController extends Controller implements Initializable {
                     JugadorDto jugadorAux = partida.getJugadores().stream().
                             filter(x -> x.getIP().equals(jugador.getIP())).findAny().get();
                     int i = partida.getJugadores().indexOf(jugadorAux);
+                    
                     paneAuxiliar = (Pane) event.getSource();
                     String padre = paneAuxiliar.getParent().getId();
                     switch (i) {
@@ -712,6 +713,7 @@ public class JuegoController extends Controller implements Initializable {
                         modoOrgano = false;
                         unSoloOrgano = false;
                         cartaAux = null;
+                        jugador.setTurno(false);
                     } catch (IOException e) {
                         System.out.println(e.getMessage());
                     }

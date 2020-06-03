@@ -156,34 +156,34 @@ public class Hilo_Peticiones extends Thread {
 
                     //Introduce las cartas jugadas en las vistas de los usuarios
                     anchorPane.getChildren().forEach((t) -> {
-
+                        System.out.println("PADRE   "+ padre +"  HIJO    "+ hijo);
                         if (t.getId() != null && t.getId().equals(padre)) {
                             int i = Integer.valueOf(hijo);
                             Platform.runLater(() -> {
                                 Pane pane = ((Pane) ((HBox) t).getChildren().get(i));
                                 ImageView imageAux = new ImageView("virus/resources/" + carta.getImagen());
-                                imageAux.setFitHeight(107.25);
-                                imageAux.setFitWidth(74.75);
-                                imageAux.relocate(imageAux.getLayoutX() + imageAux.getTranslateX(), imageAux.getLayoutY() + imageAux.getTranslateY());
-                                imageAux.setTranslateX(0);
-                                imageAux.setTranslateY(0);
-                                imageAux.setLayoutX(pane.getLayoutX());
+                                imageAux.setFitHeight(108);
+                                imageAux.setFitWidth(77.75);
+                                //imageAux.relocate(imageAux.getLayoutX() + imageAux.getTranslateX(), imageAux.getLayoutY() + imageAux.getTranslateY());
+                                /*imageAux.setTranslateX(0);
+                                imageAux.setTranslateY(0);*/
+                                //imageAux.setLayoutX(pane.getLayoutX());
 
                                 switch (hijo) {
                                     case "0":
-                                        imageAux.setLayoutY(pane.getLayoutY() + jugadorAux.getCartas1().size() * 25);
+                                        imageAux.setLayoutY(jugadorAux.getCartas1().size()-1 * 25);
                                         break;
                                     case "1":
-                                        imageAux.setLayoutY(pane.getLayoutY() + jugadorAux.getCartas2().size() * 25);
+                                        imageAux.setLayoutY(jugadorAux.getCartas2().size()-1 * 25);
                                         break;
                                     case "2":
-                                        imageAux.setLayoutY(pane.getLayoutY() + jugadorAux.getCartas3().size() * 25);
+                                        imageAux.setLayoutY(jugadorAux.getCartas3().size()-1 * 25);
                                         break;
                                     case "3":
-                                        imageAux.setLayoutY(pane.getLayoutY() + jugadorAux.getCartas4().size() * 25);
+                                        imageAux.setLayoutY(pane.getLayoutY() + jugadorAux.getCartas4().size()-1 * 25);
                                         break;
                                     case "4":
-                                        imageAux.setLayoutY(pane.getLayoutY() + jugadorAux.getCartas5().size() * 25);
+                                        imageAux.setLayoutY(pane.getLayoutY() + jugadorAux.getCartas5().size()-1 * 25);
                                         break;
                                     default:
                                         break;

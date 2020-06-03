@@ -19,6 +19,7 @@ public class Virus extends Application {
     public void start(Stage stage){
         FlowController.getInstance().InitializeFlow(stage, null);
         FlowController.getInstance().goMain();
+        
     }
 
     /**

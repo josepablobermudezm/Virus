@@ -162,7 +162,9 @@ public class JuegoController extends Controller implements Initializable {
     public static ImageView image9;
     public static Boolean recogioCarta = false;
     public static VBox vboxAuxiliar;
-    public static Boolean modoDesechar = false;
+    public Boolean modoDesechar = false;
+    public Boolean modoOrgano = false;
+    public Boolean unSoloOrgano = false;
     public static Hilo_Peticiones peticiones;
 
     /**
@@ -355,52 +357,62 @@ public class JuegoController extends Controller implements Initializable {
     Boolean vacio = true;
     VBox boxVacio = null;
 
-    private void primermovimiento(String padre) {
+    private void movimiento(String padre) {
+        if (!unSoloOrgano) {
+            if (!modoDesechar) {
+                if (vboxAuxiliar != null && ((ImageView) vboxAuxiliar.getChildren().get(0)).getImage() == null) {
+                    hijo = "";
+                    vacio = true;
 
-        if (vboxAuxiliar != null && ((ImageView) vboxAuxiliar.getChildren().get(0)).getImage() == null) {
-            hijo = "";
-            vacio = true;
-
-            fondo_juego.getChildren().forEach((t) -> {
-                if (t.getId() != null && t.getId().equals(padre)) {
-                    ((HBox) t).getChildren().forEach((v) -> {
-                        if (v.equals(vboxAuxiliar)) {
-                            hijo = String.valueOf(((HBox) t).getChildren().indexOf(v));
+                    fondo_juego.getChildren().forEach((t) -> {
+                        if (t.getId() != null && t.getId().equals(padre)) {
+                            ((HBox) t).getChildren().forEach((v) -> {
+                                if (v.equals(vboxAuxiliar)) {
+                                    hijo = String.valueOf(((HBox) t).getChildren().indexOf(v));
+                                }
+                            });
                         }
                     });
+                    jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
+                    //si es el primer movimiento
+                    if (jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty() && jugador.getCartas5().isEmpty()) {
+                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
+                        modoOrgano = true;
+                        unSoloOrgano = true;
+                    } else if ((!jugador.getCartas1().isEmpty()
+                            ? !cartaAux.getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta())
+                            : true)
+                            && (!jugador.getCartas2().isEmpty()
+                            ? !cartaAux.getTipoCarta().equals(jugador.getCartas2().get(0).getTipoCarta())
+                            : true)
+                            && (!jugador.getCartas3().isEmpty()
+                            ? !cartaAux.getTipoCarta().equals(jugador.getCartas3().get(0).getTipoCarta())
+                            : true)
+                            && (!jugador.getCartas4().isEmpty()
+                            ? !cartaAux.getTipoCarta().equals(jugador.getCartas4().get(0).getTipoCarta())
+                            : true)
+                            && (!jugador.getCartas5().isEmpty()
+                            ? !cartaAux.getTipoCarta().equals(jugador.getCartas5().get(0).getTipoCarta())
+                            : true)) {
+                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
+                        modoOrgano = true;
+                        unSoloOrgano = true;
+                    } else {
+                        Mensaje ms = new Mensaje();
+                        ms.show(Alert.AlertType.WARNING, "Información de Juego", "Ya hay un tipo de organo en este mazo");
+                    }
+                } else {
+                    Mensaje ms = new Mensaje();
+                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes agregar un órgano en este lugar.");
                 }
-            });
-
-            jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
-
-            //si es el primer movimiento
-            if (jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty() && jugador.getCartas5().isEmpty()) {
-                enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
-            } else if ((!jugador.getCartas1().isEmpty()
-                    ? !cartaAux.getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta())
-                    : true)
-                    && (!jugador.getCartas2().isEmpty()
-                    ? !cartaAux.getTipoCarta().equals(jugador.getCartas2().get(0).getTipoCarta())
-                    : true)
-                    && (!jugador.getCartas3().isEmpty()
-                    ? !cartaAux.getTipoCarta().equals(jugador.getCartas3().get(0).getTipoCarta())
-                    : true)
-                    && (!jugador.getCartas4().isEmpty()
-                    ? !cartaAux.getTipoCarta().equals(jugador.getCartas4().get(0).getTipoCarta())
-                    : true)
-                    && (!jugador.getCartas5().isEmpty()
-                    ? !cartaAux.getTipoCarta().equals(jugador.getCartas5().get(0).getTipoCarta())
-                    : true)) {
-                enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
             } else {
                 Mensaje ms = new Mensaje();
-                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Ya hay un tipo de organo en este mazo");
+                ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes agregar un órgano si ya botaste cartas");
             }
         } else {
-            Mensaje ms = new Mensaje();
-            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes agregar un órgano en este lugar.");
+            Mensaje msj = new Mensaje();
+            msj.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes agregar un órgano si has agregado uno previamente");//.l.
         }
-
     }
 
     EventHandler<MouseEvent> movimiento = event -> {
@@ -417,7 +429,7 @@ public class JuegoController extends Controller implements Initializable {
                     switch (i) {
                         case 0:
                             if (padre.equals("hvox")) {
-                                primermovimiento(padre);
+                                movimiento(padre);
                             } else {
                                 Mensaje ms = new Mensaje();
                                 ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
@@ -425,7 +437,7 @@ public class JuegoController extends Controller implements Initializable {
                             break;
                         case 1:
                             if (padre.equals("hvox2")) {
-                                primermovimiento(padre);
+                                movimiento(padre);
                             } else {
                                 Mensaje ms = new Mensaje();
                                 ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
@@ -434,7 +446,7 @@ public class JuegoController extends Controller implements Initializable {
 
                         case 2:
                             if (padre.equals("hvox3")) {
-                                primermovimiento(padre);
+                                movimiento(padre);
                             } else {
                                 Mensaje ms = new Mensaje();
                                 ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
@@ -442,7 +454,7 @@ public class JuegoController extends Controller implements Initializable {
                             break;
                         case 3:
                             if (padre.equals("hvox4")) {
-                                primermovimiento(padre);
+                                movimiento(padre);
                             } else {
                                 Mensaje ms = new Mensaje();
                                 ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
@@ -450,7 +462,7 @@ public class JuegoController extends Controller implements Initializable {
                             break;
                         case 4:
                             if (padre.equals("hvox5")) {
-                                primermovimiento(padre);
+                                movimiento(padre);
                             } else {
                                 Mensaje ms = new Mensaje();
                                 ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
@@ -458,7 +470,7 @@ public class JuegoController extends Controller implements Initializable {
                             break;
                         case 5:
                             if (padre.equals("hbox6")) {
-                                primermovimiento(padre);
+                                movimiento(padre);
                             } else {
                                 Mensaje ms = new Mensaje();
                                 ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
@@ -563,22 +575,27 @@ public class JuegoController extends Controller implements Initializable {
 
     @FXML
     private void CartaDesechada(MouseEvent event) {
-        modoDesechar = true;
-        if (!recogioCarta) {
-            if (jugador.getTurno()) {
-                if (cartaAux != null) {
-                    desecharCarta("desecharCarta");
+        if (!modoOrgano) {
+            if (!recogioCarta) {
+                if (jugador.getTurno()) {
+                    if (cartaAux != null) {
+                        desecharCarta("desecharCarta");
+                        modoDesechar = true;
+                    } else {
+                        Mensaje msj = new Mensaje();
+                        msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
+                    }
                 } else {
-                    Mensaje msj = new Mensaje();
-                    msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
+                    Mensaje ms = new Mensaje();
+                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción");
                 }
             } else {
                 Mensaje ms = new Mensaje();
-                ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción");
+                ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes desechar una carta en este momento");
             }
         } else {
             Mensaje ms = new Mensaje();
-            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes desechar una carta en este momento");
+            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes desechar una carta si ya botaste un organo");
         }
     }
 
@@ -661,6 +678,9 @@ public class JuegoController extends Controller implements Initializable {
                     System.out.println(mensajeRecibido);
                     socket.close();
                     recogioCarta = false;
+                    modoDesechar = false;
+                    modoOrgano = false;
+                    unSoloOrgano = false;
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
@@ -676,7 +696,6 @@ public class JuegoController extends Controller implements Initializable {
 
     @FXML
     private void CartadeMazo(MouseEvent event) {
-        modoDesechar = false;
         if (jugador.getTurno()) {
             if (jugador.getMazo().size() < 3) {
                 recogioCarta = true;

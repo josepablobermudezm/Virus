@@ -167,8 +167,7 @@ public class FlowController {
             default:
                 break;
         }
-        //para cerrar el hilo una vez que se cierra la ventana 
-        /*stage.setOnCloseRequest(event -> {
+        stage.setOnHidden((WindowEvent event) -> {
             Socket socket;
             if (jugador != null) {
                 try {
@@ -181,13 +180,14 @@ public class FlowController {
                     mensajeRecibido = entrada.readUTF();
                     System.out.println(mensajeRecibido + "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
                     socket.close();
-                    peticiones.stop();
+                    System.exit(0);
                 } catch (IOException ex) {
                     Logger.getLogger(FlowController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             System.out.println("UN MENSAJE AFUERA DE ESE IF");
-        });*/
+        });
+        
     }
 
     public void goViewInStage(String viewName, Stage stage) {
@@ -286,7 +286,8 @@ public class FlowController {
     public void delete(String parameter) {
         loaders.put(parameter, null);
     }
-    public void exit(Stage ventana){
+
+    public void exit(Stage ventana) {
         ventana.hide();
     }
 }

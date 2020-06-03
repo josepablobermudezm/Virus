@@ -561,7 +561,6 @@ public class JuegoController extends Controller implements Initializable {
                 image9.setImage(new Image("virus/resources/" + carta.getImagen()));
                 carta3 = carta;
             }
-
             //Cerramos la conexión
             socket2.close();
         } catch (UnknownHostException e) {
@@ -649,8 +648,8 @@ public class JuegoController extends Controller implements Initializable {
             System.out.println("Closing socket and terminating program.");
             socket2.close();
             imageViewDesechada.setImage(null);
-            cartaAux = null;
             System.out.println(jugador.getMazo().remove(cartaAux));//removemos la carta del mazo del  jugador 
+            cartaAux = null;
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

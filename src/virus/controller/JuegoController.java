@@ -359,7 +359,7 @@ public class JuegoController extends Controller implements Initializable {
     VBox boxVacio = null;
 
     private void movimiento(String padre) {
-        if (findePartida) {
+        if (!findePartida) {
             jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
             if (!unSoloOrgano) {
                 if (!modoDesechar) {
@@ -422,7 +422,7 @@ public class JuegoController extends Controller implements Initializable {
     }
 
     EventHandler<MouseEvent> movimiento = event -> {
-        if (findePartida) {
+        if (!findePartida) {
             if (jugador.getTurno()) {
                 if (cartaAux != null) {
                     if (cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
@@ -503,7 +503,7 @@ public class JuegoController extends Controller implements Initializable {
     };
 
     EventHandler<MouseEvent> cartaAdesechar = event -> {
-        if (findePartida) {
+        if (!findePartida) {
             if (jugador.getTurno()) {
                 imageViewDesechada = ((ImageView) event.getSource());
                 if (((ImageView) event.getSource()).getId().equals("carta3")) {
@@ -597,7 +597,7 @@ public class JuegoController extends Controller implements Initializable {
 
     @FXML
     private void CartaDesechada(MouseEvent event) {
-        if (findePartida) {
+        if (!findePartida) {
             if (!modoOrgano) {
                 if (!recogioCarta) {
                     if (jugador.getTurno()) {
@@ -686,7 +686,7 @@ public class JuegoController extends Controller implements Initializable {
     }
 
     public void cambiarTurnoAux() {
-        if (findePartida) {
+        if (!findePartida) {
             if (jugador.getTurno()) {
                 if (jugador.getMazo().size() == 3) {
                     try {
@@ -725,7 +725,7 @@ public class JuegoController extends Controller implements Initializable {
 
     @FXML
     private void CartadeMazo(MouseEvent event) {
-        if (findePartida) {
+        if (!findePartida) {
             cartaAux = null;
             if (jugador.getTurno()) {
                 if (jugador.getMazo().size() < 3 && (image9.getImage() == null || image8.getImage() == null

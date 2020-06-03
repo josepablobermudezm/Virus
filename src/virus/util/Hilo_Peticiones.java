@@ -151,6 +151,9 @@ public class Hilo_Peticiones extends Thread {
                     }
                     if (cont == 4) {
                         System.out.println(jugadorAux.getNombre() + " Haz ganado el juego");
+                        Platform.runLater(() -> {
+                            new Mensaje().showModal(Alert.AlertType.INFORMATION, "¡VICTORIA!",this.imageView.getScene().getWindow() ,jugadorAux.getNombre() + " Ha ganado el juego");
+                        });
                     }
                     System.out.println(cont + " ..........................................Contador para ganar el juego ");
                     //pregunta que si el jugador es el mismo que encontramos, el que hizo el movimiento, entonces actualizamos las cartas

@@ -80,58 +80,6 @@ public class JuegoController extends Controller implements Initializable {
     @FXML
     private HBox hbox6;
     public static JugadorDto jugador;
-    @FXML
-    private VBox jug1_1;
-    @FXML
-    private VBox jug1_2;
-    @FXML
-    private VBox jug1_3;
-    @FXML
-    private VBox jug1_4;
-    @FXML
-    private VBox jug2_1;
-    @FXML
-    private VBox jug2_2;
-    @FXML
-    private VBox jug2_3;
-    @FXML
-    private VBox jug2_4;
-    @FXML
-    private VBox jug3_1;
-    @FXML
-    private VBox jug3_2;
-    @FXML
-    private VBox jug3_3;
-    @FXML
-    private VBox jug3_4;
-    @FXML
-    private VBox jug4_1;
-    @FXML
-    private VBox jug4_2;
-    @FXML
-    private VBox jug4_3;
-    @FXML
-    private VBox jug4_4;
-    @FXML
-    private VBox jug5_1;
-    @FXML
-    private VBox jug5_2;
-    @FXML
-    private VBox jug5_3;
-    @FXML
-    private VBox jug5_4;
-    @FXML
-    private VBox jug6_1;
-    @FXML
-    private VBox jug6_2;
-    @FXML
-    private VBox jug6_3;
-    @FXML
-    private VBox jug6_4;
-    @FXML
-    private Rectangle CartasDesechadas;
-    @FXML
-    private Rectangle MazoCartas;
     public static CartaDto carta1;
     public static CartaDto carta2;
     public static CartaDto carta3;

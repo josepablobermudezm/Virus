@@ -168,7 +168,8 @@ public class FlowController {
                 break;
         }
         stage.setOnHidden((WindowEvent event) -> {
-            Socket socket;
+            System.exit(0);
+            /*Socket socket;
             if (jugador != null) {
                 try {
                     socket = new Socket(jugador.getIPS(), 44440);
@@ -185,7 +186,7 @@ public class FlowController {
                     Logger.getLogger(FlowController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            System.out.println("UN MENSAJE AFUERA DE ESE IF");
+            System.out.println("UN MENSAJE AFUERA DE ESE IF");*/
         });
         
     }

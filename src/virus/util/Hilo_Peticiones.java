@@ -187,10 +187,10 @@ public class Hilo_Peticiones extends Thread {
                                 jugadorAux.setTurno(jugadorDto.getTurno());
                                 jugadorDto = jugadorAux;
                                 AppContext.getInstance().set("JugadorDto", jugadorAux);
-                            } else {
+                            } /*else {
                                 jugadorDto.setTurno(false);
                                 AppContext.getInstance().set("JugadorDto", jugadorDto);
-                            }
+                            }*/
                             break;
                         }
                         

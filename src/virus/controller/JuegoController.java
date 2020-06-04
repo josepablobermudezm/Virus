@@ -27,6 +27,7 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -133,6 +134,8 @@ public class JuegoController extends Controller implements Initializable {
 
         switch (jugadores.size()) {
             case 2:
+                hvox.setVisible(true);
+                hvox2.setVisible(true);
                 hvox.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
@@ -146,6 +149,10 @@ public class JuegoController extends Controller implements Initializable {
                 });
                 break;
             case 3:
+                hvox.setVisible(true);
+                hvox2.setVisible(true);
+                hvox3.setVisible(true);
+
                 hvox.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
@@ -163,6 +170,10 @@ public class JuegoController extends Controller implements Initializable {
                 });
                 break;
             case 4:
+                hvox.setVisible(true);
+                hvox2.setVisible(true);
+                hvox3.setVisible(true);
+                hvox4.setVisible(true);
                 hvox.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
@@ -185,6 +196,11 @@ public class JuegoController extends Controller implements Initializable {
                 });
                 break;
             case 5:
+                hvox.setVisible(true);
+                hvox2.setVisible(true);
+                hvox3.setVisible(true);
+                hvox4.setVisible(true);
+                hvox5.setVisible(true);
                 hvox.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
@@ -212,6 +228,11 @@ public class JuegoController extends Controller implements Initializable {
                 });
                 break;
             case 6:
+                hvox.setVisible(true);
+                hvox2.setVisible(true);
+                hvox3.setVisible(true);
+                hvox4.setVisible(true);
+                hbox6.setVisible(true);
                 hvox.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
@@ -273,8 +294,8 @@ public class JuegoController extends Controller implements Initializable {
         image7.setFitHeight(107.25);
         image7.setFitWidth(74.75);
         vBox.setLayoutX(400);
-        vBox.setLayoutY(450);
-        image7.setOnMouseClicked(cartaAdesechar);
+        vBox.setLayoutY(510);
+        image7.setOnMouseClicked(seleccionarCarta);
         vBox.getChildren().add(image7);
 
         VBox vBox2 = new VBox();
@@ -285,8 +306,8 @@ public class JuegoController extends Controller implements Initializable {
         image8.setFitHeight(107.25);
         image8.setFitWidth(74.75);
         vBox2.setLayoutX(vBox.getLayoutX() + 102.5);
-        vBox2.setLayoutY(450);
-        image8.setOnMouseClicked(cartaAdesechar);
+        vBox2.setLayoutY(510);
+        image8.setOnMouseClicked(seleccionarCarta);
         vBox2.getChildren().add(image8);
 
         VBox vBox3 = new VBox();
@@ -297,8 +318,8 @@ public class JuegoController extends Controller implements Initializable {
         image9.setFitHeight(107.25);
         image9.setFitWidth(74.75);
         vBox3.setLayoutX(vBox2.getLayoutX() + 102.5);
-        vBox3.setLayoutY(450);
-        image9.setOnMouseClicked(cartaAdesechar);
+        vBox3.setLayoutY(510);
+        image9.setOnMouseClicked(seleccionarCarta);
         vBox3.getChildren().add(image9);
 
         fondo_juego.getChildren().add(vBox);
@@ -312,12 +333,125 @@ public class JuegoController extends Controller implements Initializable {
 
         desechadas = imgDesechada;
     }
+
+    /*
+    * EVENTOS Dinamicos de MOUSE
+     */
+    EventHandler<MouseEvent> movimiento = event -> {
+        if (!findePartida) {
+            jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
+            if (jugador.getTurno()) {
+                if (cartaAux != null) {
+                    JugadorDto jugadorAux = partida.getJugadores().stream().
+                            filter(x -> x.getIP().equals(jugador.getIP())).findAny().get();
+                    int i = partida.getJugadores().indexOf(jugadorAux);
+
+                    paneAuxiliar = (Pane) event.getSource();
+                    String padre = paneAuxiliar.getParent().getId();
+                    switch (i) {
+                        case 0:
+                            if (padre.equals("hvox")) {
+                                movimiento(padre);
+                            } else {
+                                movimientoAdvXJug(padre);
+                            }
+                            break;
+                        case 1:
+                            if (padre.equals("hvox2")) {
+                                movimiento(padre);
+                            } else {
+                                movimientoAdvXJug(padre);
+                            }
+                            break;
+
+                        case 2:
+                            if (padre.equals("hvox3")) {
+                                movimiento(padre);
+                            } else {
+                                movimientoAdvXJug(padre);
+                            }
+                            break;
+                        case 3:
+                            if (padre.equals("hvox4")) {
+                                movimiento(padre);
+                            } else {
+                                movimientoAdvXJug(padre);
+                            }
+                            break;
+                        case 4:
+                            if (padre.equals("hvox5")) {
+                                movimiento(padre);
+                            } else {
+                                movimientoAdvXJug(padre);
+                            }
+                            break;
+                        case 5:
+                            if (padre.equals("hbox6")) {
+                                movimiento(padre);
+                            } else {
+                                movimientoAdvXJug(padre);
+                            }
+                            break;
+                    }
+                } else {
+                    Mensaje msj = new Mensaje();
+                    msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
+                }
+            } else {
+                Mensaje ms = new Mensaje();
+                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Espera a tu turno");
+            }
+        } else {
+            Mensaje ms = new Mensaje();
+            ms.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");
+        }
+    };
+
+    EventHandler<MouseEvent> seleccionarCarta = event -> {
+        if (!findePartida) {
+            jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
+            if (jugador.getTurno()) {
+                imageViewDesechada = ((ImageView) event.getSource());
+                switch (((ImageView) event.getSource()).getId()) {
+                    case "carta3":
+                        cartaAux = carta3;
+                        break;
+                    case "carta2":
+                        cartaAux = carta2;
+                        break;
+                    default:
+                        //carta 1
+                        cartaAux = carta1;
+                        break;
+                }
+            } else {
+                Mensaje ms = new Mensaje();
+                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Espera a tu turno");
+            }
+        } else {
+            Mensaje ms = new Mensaje();
+            ms.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");
+        }
+    };
+
     String hijo = "";
-    Boolean vacio = true;
     VBox boxVacio = null;
 
+    private void movimientoAdvXJug(String padre) {
+        if (cartaAux.getTipoCarta().equals("Virus")
+                || cartaAux.getTipoCarta().equals("Transplante")
+                || cartaAux.getTipoCarta().equals("Contagio")
+                || cartaAux.getTipoCarta().equals("Ladron")
+                || cartaAux.getTipoCarta().equals("Error")) {
+            movimientoContrario(padre);
+        } else {
+            Mensaje ms = new Mensaje();
+            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes poner este tipo de carta en este mazo.");
+        }
+    }
+
     private void movimiento(String padre, String hijo) {
-        enviarCartaJuegoSocket("movimientoJugador", padre, hijo);
+        enviarCartaJuegoSocket("movimientoJugador", padre, hijo, jugador.getIP());
         modoOrgano = true;
         unSoloOrgano = true;
     }
@@ -330,23 +464,148 @@ public class JuegoController extends Controller implements Initializable {
         }
     }
 
+    /*
+    *Retorna el valor del indice del pane hijo
+     */
+    private String hijo(String padre) {
+        String i = "";
+        for (Node t : fondo_juego.getChildren()) {
+            if (t.getId() != null && t.getId().equals(padre)) {
+                for (Node v : ((HBox) t).getChildren()) {
+                    if (v.equals(paneAuxiliar)) {
+                        i = String.valueOf(((HBox) t).getChildren().indexOf(v));
+                    }
+                }
+            }
+        }
+        return i;
+    }
+
+    private ArrayList<CartaDto> cartasRival(JugadorDto rival, Integer indice) {
+        switch (indice) {
+            case 0:
+                return rival.getCartas1();
+            case 1:
+                return rival.getCartas2();
+            case 2:
+                return rival.getCartas3();
+            case 3:
+                return rival.getCartas4();
+            case 4:
+                return rival.getCartas5();
+            default:
+                return null;
+        }
+    }
+
+    private void movimientoContrario(String padre) {
+        if (!findePartida) {
+            if (!unSoloOrgano) {
+                if (!modoDesechar) {
+                    hijo = "";
+                    hijo = hijo(padre);
+                    Integer iHijo = Integer.valueOf(hijo);
+                    switch (padre) {
+                        case "hvox":
+                            ArrayList<CartaDto> jug1C = cartasRival(partida.getJugadores().get(0), iHijo);
+                            if (!jug1C.isEmpty()) {
+                                if (jug1C.get(0).getColor().equals(cartaAux.getColor())) {
+                                    String IP = partida.getJugadores().get(0).getIP();
+                                    enviarCartaJuegoSocket("movimientoJuego", padre, hijo, IP);
+                                } else {
+                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                }
+                            } else {
+                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner tu carta en este lugar");
+                            }
+                            break;
+                        case "hvox2":
+                            ArrayList<CartaDto> jug2C = cartasRival(partida.getJugadores().get(1), iHijo);
+                            if (!jug2C.isEmpty()) {
+                                if (jug2C.get(0).getColor().equals(cartaAux.getColor())) {
+                                    String IP2 = partida.getJugadores().get(1).getIP();
+                                    enviarCartaJuegoSocket("movimientoJuego", padre, hijo, IP2);
+                                } else {
+                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                }
+                            } else {
+                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner tu carta en este lugar");
+                            }
+                            break;
+                        case "hvox3":
+                            ArrayList<CartaDto> jug3C = cartasRival(partida.getJugadores().get(2), iHijo);
+                            if (!jug3C.isEmpty()) {
+                                if (jug3C.get(0).getColor().equals(cartaAux.getColor())) {
+                                    String IP3 = partida.getJugadores().get(2).getIP();
+                                    enviarCartaJuegoSocket("movimientoJuego", padre, hijo, IP3);
+                                } else {
+                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                }
+                            } else {
+                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner tu carta en este lugar");
+                            }
+                            break;
+                        case "hvox4":
+                            ArrayList<CartaDto> jug4C = cartasRival(partida.getJugadores().get(3), iHijo);
+                            if (!jug4C.isEmpty()) {
+                                if (jug4C.get(0).getColor().equals(cartaAux.getColor())) {
+                                    String IP4 = partida.getJugadores().get(3).getIP();
+                                    enviarCartaJuegoSocket("movimientoJuego", padre, hijo, IP4);
+                                } else {
+                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                }
+                            } else {
+                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner tu carta en este lugar");
+                            }
+                            break;
+                        case "hvox5":
+                            ArrayList<CartaDto> jug5C = cartasRival(partida.getJugadores().get(4), iHijo);
+                            if (!jug5C.isEmpty()) {
+                                if (jug5C.get(0).getColor().equals(cartaAux.getColor())) {
+                                    String IP5 = partida.getJugadores().get(4).getIP();
+                                    enviarCartaJuegoSocket("movimientoJuego", padre, hijo, IP5);
+                                } else {
+                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                }
+                            } else {
+                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner tu carta en este lugar");
+                            }
+                            break;
+                        case "hbox6":
+                            ArrayList<CartaDto> jug6C = cartasRival(partida.getJugadores().get(5), iHijo);
+                            if (!jug6C.isEmpty()) {
+                                if (jug6C.get(0).getColor().equals(cartaAux.getColor())) {
+                                    String IP6 = partida.getJugadores().get(5).getIP();
+                                    enviarCartaJuegoSocket("movimientoJuego", padre, hijo, IP6);
+                                } else {
+                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                }
+                            } else {
+                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner tu carta en este lugar");
+                            }
+                            break;
+                    }
+                } else {
+                    Mensaje ms = new Mensaje();
+                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes agregar un órgano si ya botaste cartas");
+                }
+            } else {
+                Mensaje msj = new Mensaje();
+                msj.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes agregar un órgano si has agregado uno previamente");//.l.
+            }
+        } else {
+            Mensaje msj = new Mensaje();
+            msj.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");//.l.
+        }
+    }
+
     private void movimiento(String padre) {
         if (!findePartida) {
             if (!unSoloOrgano) {
                 if (!modoDesechar) {
                     if (paneAuxiliar != null) {
                         hijo = "";
-                        vacio = true;
-
-                        fondo_juego.getChildren().forEach((t) -> {
-                            if (t.getId() != null && t.getId().equals(padre)) {
-                                ((HBox) t).getChildren().forEach((v) -> {
-                                    if (v.equals(paneAuxiliar)) {
-                                        hijo = String.valueOf(((HBox) t).getChildren().indexOf(v));
-                                    }
-                                });
-                            }
-                        });
+                        hijo = hijo(padre);
                         //si es el primer movimiento
                         if (cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
                                 || cartaAux.getTipoCarta().equals("Cerebro") || cartaAux.getTipoCarta().equals("Hueso")
@@ -424,7 +683,7 @@ public class JuegoController extends Controller implements Initializable {
                                     }
                                     break;
                                 case "2":
-                                    if (jugador.getCartas3().get(0).getColor().equals(cartaAux.getColor())|| jugador.getCartas3().get(0).getTipoCarta().equals("Organo_Comodin")) {
+                                    if (jugador.getCartas3().get(0).getColor().equals(cartaAux.getColor()) || jugador.getCartas3().get(0).getTipoCarta().equals("Organo_Comodin")) {
                                         noVirus(padre, hijo);
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
@@ -466,109 +725,6 @@ public class JuegoController extends Controller implements Initializable {
             msj.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");//.l.
         }
     }
-
-    EventHandler<MouseEvent> movimiento = event -> {
-        if (!findePartida) {
-            jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
-            if (jugador.getTurno()) {
-                if (cartaAux != null) {
-                    JugadorDto jugadorAux = partida.getJugadores().stream().
-                            filter(x -> x.getIP().equals(jugador.getIP())).findAny().get();
-                    int i = partida.getJugadores().indexOf(jugadorAux);
-
-                    paneAuxiliar = (Pane) event.getSource();
-                    String padre = paneAuxiliar.getParent().getId();
-                    switch (i) {
-                        case 0:
-                            if (padre.equals("hvox")) {
-                                movimiento(padre);
-                            } else {
-                                Mensaje ms = new Mensaje();
-                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
-                            }
-                            break;
-                        case 1:
-                            if (padre.equals("hvox2")) {
-                                movimiento(padre);
-                            } else {
-                                Mensaje ms = new Mensaje();
-                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
-                            }
-                            break;
-
-                        case 2:
-                            if (padre.equals("hvox3")) {
-                                movimiento(padre);
-                            } else {
-                                Mensaje ms = new Mensaje();
-                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
-                            }
-                            break;
-                        case 3:
-                            if (padre.equals("hvox4")) {
-                                movimiento(padre);
-                            } else {
-                                Mensaje ms = new Mensaje();
-                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
-                            }
-                            break;
-                        case 4:
-                            if (padre.equals("hvox5")) {
-                                movimiento(padre);
-                            } else {
-                                Mensaje ms = new Mensaje();
-                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
-                            }
-                            break;
-                        case 5:
-                            if (padre.equals("hbox6")) {
-                                movimiento(padre);
-                            } else {
-                                Mensaje ms = new Mensaje();
-                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Esta no es tu zona de juego.");
-                            }
-                            break;
-                    }
-                } else {
-                    Mensaje msj = new Mensaje();
-                    msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
-                }
-            } else {
-                Mensaje ms = new Mensaje();
-                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Espera a tu turno");
-            }
-        } else {
-            Mensaje ms = new Mensaje();
-            ms.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");
-        }
-    };
-
-    EventHandler<MouseEvent> cartaAdesechar = event -> {
-        if (!findePartida) {
-            jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
-            if (jugador.getTurno()) {
-                imageViewDesechada = ((ImageView) event.getSource());
-                switch (((ImageView) event.getSource()).getId()) {
-                    case "carta3":
-                        cartaAux = carta3;
-                        break;
-                    case "carta2":
-                        cartaAux = carta2;
-                        break;
-                    default:
-                        //carta 1
-                        cartaAux = carta1;
-                        break;
-                }
-            } else {
-                Mensaje ms = new Mensaje();
-                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Espera a tu turno");
-            }
-        } else {
-            Mensaje ms = new Mensaje();
-            ms.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");
-        }
-    };
 
     @FXML
     private void Salir(MouseEvent event) {
@@ -676,6 +832,7 @@ public class JuegoController extends Controller implements Initializable {
             mensajeRecibido = entrada.readUTF();
             System.out.println(mensajeRecibido);
             socket.close();
+
             Socket socket2 = new Socket(jugador.getIPS(), 44440);
             OutputStream outputStream = socket2.getOutputStream();
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
@@ -692,7 +849,7 @@ public class JuegoController extends Controller implements Initializable {
     }
 
     //Envía las cartas a los jugadores
-    public void enviarCartaJuegoSocket(String Mensaje, String padre, String hijo) {
+    public void enviarCartaJuegoSocket(String Mensaje, String padre, String hijo, String IP) {
         try {
             Socket socket = new Socket(jugador.getIPS(), 44440);
             DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
@@ -711,7 +868,8 @@ public class JuegoController extends Controller implements Initializable {
             objectOutputStream.writeObject(cartaAux);
             mensaje2.writeUTF(padre);
             mensaje2.writeUTF(hijo);
-            mensaje2.writeUTF(jugador.getIP());
+            //Envia la IP del jugador destino que ha hecho este jugador
+            mensaje2.writeUTF(IP);
             System.out.println("Closing socket and terminating program.");
             socket2.close();
             imageViewDesechada.setImage(null);
@@ -737,10 +895,10 @@ public class JuegoController extends Controller implements Initializable {
                         mensajeRecibido = entrada.readUTF();
 
                         socket.close();
-                        
+
                         /*
                         Reinicio de variables
-                        */
+                         */
                         recogioCarta = false;
                         modoDesechar = false;
                         modoOrgano = false;

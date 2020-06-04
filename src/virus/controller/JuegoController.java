@@ -523,8 +523,15 @@ public class JuegoController extends Controller implements Initializable {
                             ArrayList<CartaDto> jug2C = cartasRival(partida.getJugadores().get(1), iHijo);
                             if (!jug2C.isEmpty()) {
                                 if (jug2C.get(0).getColor().equals(cartaAux.getColor())) {
-                                    String IP2 = partida.getJugadores().get(1).getIP();
-                                    enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
+                                    if (cartaAux.getTipoCarta().equals("Transplante")
+                                            || cartaAux.getTipoCarta().equals("Contagio")
+                                            || cartaAux.getTipoCarta().equals("Ladron")
+                                            || cartaAux.getTipoCarta().equals("Error") || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
+                                        String IP2 = partida.getJugadores().get(1).getIP();
+                                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
+                                    } else {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de este tipo");
+                                    }
                                 } else {
                                     new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                 }
@@ -536,8 +543,15 @@ public class JuegoController extends Controller implements Initializable {
                             ArrayList<CartaDto> jug3C = cartasRival(partida.getJugadores().get(2), iHijo);
                             if (!jug3C.isEmpty()) {
                                 if (jug3C.get(0).getColor().equals(cartaAux.getColor())) {
-                                    String IP3 = partida.getJugadores().get(2).getIP();
-                                    enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP3);
+                                    if (cartaAux.getTipoCarta().equals("Transplante")
+                                            || cartaAux.getTipoCarta().equals("Contagio")
+                                            || cartaAux.getTipoCarta().equals("Ladron")
+                                            || cartaAux.getTipoCarta().equals("Error") || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
+                                        String IP3 = partida.getJugadores().get(2).getIP();
+                                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP3);
+                                    } else {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de este tipo");
+                                    }
                                 } else {
                                     new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                 }
@@ -549,8 +563,15 @@ public class JuegoController extends Controller implements Initializable {
                             ArrayList<CartaDto> jug4C = cartasRival(partida.getJugadores().get(3), iHijo);
                             if (!jug4C.isEmpty()) {
                                 if (jug4C.get(0).getColor().equals(cartaAux.getColor())) {
-                                    String IP4 = partida.getJugadores().get(3).getIP();
-                                    enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP4);
+                                    if (cartaAux.getTipoCarta().equals("Transplante")
+                                            || cartaAux.getTipoCarta().equals("Contagio")
+                                            || cartaAux.getTipoCarta().equals("Ladron")
+                                            || cartaAux.getTipoCarta().equals("Error") || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
+                                        String IP4 = partida.getJugadores().get(3).getIP();
+                                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP4);
+                                    } else {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de este tipo");
+                                    }
                                 } else {
                                     new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                 }
@@ -562,8 +583,15 @@ public class JuegoController extends Controller implements Initializable {
                             ArrayList<CartaDto> jug5C = cartasRival(partida.getJugadores().get(4), iHijo);
                             if (!jug5C.isEmpty()) {
                                 if (jug5C.get(0).getColor().equals(cartaAux.getColor())) {
-                                    String IP5 = partida.getJugadores().get(4).getIP();
-                                    enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP5);
+                                    if (cartaAux.getTipoCarta().equals("Transplante")
+                                            || cartaAux.getTipoCarta().equals("Contagio")
+                                            || cartaAux.getTipoCarta().equals("Ladron")
+                                            || cartaAux.getTipoCarta().equals("Error") || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
+                                        String IP5 = partida.getJugadores().get(4).getIP();
+                                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP5);
+                                    } else {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de este tipo");
+                                    }
                                 } else {
                                     new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                 }
@@ -575,8 +603,15 @@ public class JuegoController extends Controller implements Initializable {
                             ArrayList<CartaDto> jug6C = cartasRival(partida.getJugadores().get(5), iHijo);
                             if (!jug6C.isEmpty()) {
                                 if (jug6C.get(0).getColor().equals(cartaAux.getColor())) {
-                                    String IP6 = partida.getJugadores().get(5).getIP();
-                                    enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP6);
+                                    if (cartaAux.getTipoCarta().equals("Transplante")
+                                            || cartaAux.getTipoCarta().equals("Contagio")
+                                            || cartaAux.getTipoCarta().equals("Ladron")
+                                            || cartaAux.getTipoCarta().equals("Error") || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
+                                        String IP6 = partida.getJugadores().get(5).getIP();
+                                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP6);
+                                    } else {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de este tipo");
+                                    }
                                 } else {
                                     new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                 }
@@ -927,6 +962,7 @@ public class JuegoController extends Controller implements Initializable {
     private void CartadeMazo(MouseEvent event) {
         if (!findePartida) {
             cartaAux = null;
+
             if (jugador.getTurno()) {
                 if (jugador.getMazo().size() < 3 && (image9.getImage() == null || image8.getImage() == null
                         || image7.getImage() == null)) {

@@ -511,7 +511,7 @@ public class JuegoController extends Controller implements Initializable {
                             if (!jug1C.isEmpty()) {
                                 if (jug1C.get(0).getColor().equals(cartaAux.getColor())) {
                                     String IP = partida.getJugadores().get(0).getIP();
-                                    enviarCartaJuegoSocket("movimientoJuego", padre, hijo, IP);
+                                    enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP);
                                 } else {
                                     new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                 }
@@ -524,7 +524,7 @@ public class JuegoController extends Controller implements Initializable {
                             if (!jug2C.isEmpty()) {
                                 if (jug2C.get(0).getColor().equals(cartaAux.getColor())) {
                                     String IP2 = partida.getJugadores().get(1).getIP();
-                                    enviarCartaJuegoSocket("movimientoJuego", padre, hijo, IP2);
+                                    enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
                                 } else {
                                     new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                 }
@@ -537,7 +537,7 @@ public class JuegoController extends Controller implements Initializable {
                             if (!jug3C.isEmpty()) {
                                 if (jug3C.get(0).getColor().equals(cartaAux.getColor())) {
                                     String IP3 = partida.getJugadores().get(2).getIP();
-                                    enviarCartaJuegoSocket("movimientoJuego", padre, hijo, IP3);
+                                    enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP3);
                                 } else {
                                     new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                 }
@@ -550,7 +550,7 @@ public class JuegoController extends Controller implements Initializable {
                             if (!jug4C.isEmpty()) {
                                 if (jug4C.get(0).getColor().equals(cartaAux.getColor())) {
                                     String IP4 = partida.getJugadores().get(3).getIP();
-                                    enviarCartaJuegoSocket("movimientoJuego", padre, hijo, IP4);
+                                    enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP4);
                                 } else {
                                     new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                 }
@@ -563,7 +563,7 @@ public class JuegoController extends Controller implements Initializable {
                             if (!jug5C.isEmpty()) {
                                 if (jug5C.get(0).getColor().equals(cartaAux.getColor())) {
                                     String IP5 = partida.getJugadores().get(4).getIP();
-                                    enviarCartaJuegoSocket("movimientoJuego", padre, hijo, IP5);
+                                    enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP5);
                                 } else {
                                     new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                 }
@@ -576,7 +576,7 @@ public class JuegoController extends Controller implements Initializable {
                             if (!jug6C.isEmpty()) {
                                 if (jug6C.get(0).getColor().equals(cartaAux.getColor())) {
                                     String IP6 = partida.getJugadores().get(5).getIP();
-                                    enviarCartaJuegoSocket("movimientoJuego", padre, hijo, IP6);
+                                    enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP6);
                                 } else {
                                     new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                 }

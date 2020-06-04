@@ -106,6 +106,7 @@ public class Hilo_Peticiones extends Thread {
                             ObjectInputStream objectInputStream = new ObjectInputStream(respuesta2);
                             CartaDto carta = (CartaDto) objectInputStream.readObject();
                             JugadorDto jugadorAux = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get();
+                            System.out.println("HIJO  "+ hijo+"    PADRE    "+padre);
                             switch (hijo) {
                                 case "0":
                                     jugadorAux.getCartas1().add(carta);
@@ -126,7 +127,7 @@ public class Hilo_Peticiones extends Thread {
                                     break;
                             }
                             /*
-                        Preguntamos si ya termino el juegoS
+                            Preguntamos si ya termino el juegoS
                              */
                             int cont = 0;
                             if ((!jugadorAux.getCartas1().isEmpty()) ? jugadorAux.getCartas1().get(0).getEstado().equals("Sana") : false) {

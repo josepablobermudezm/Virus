@@ -15,7 +15,7 @@
          <children>
             <AnchorPane id="fondo_juego" fx:id="fondo_juego" prefHeight="665.0" prefWidth="1074.0" stylesheets="@newCascadeStyleSheet.css">
                <children>
-                  <Label layoutX="57.0" layoutY="569.0" onMouseClicked="#Salir" styleClass="lbl" text="Salir" />
+                  <Label layoutX="12.0" layoutY="611.0" onMouseClicked="#Salir" styleClass="lbl2" text="Salir" />
                   <Label fx:id="user" layoutX="40.0" layoutY="235.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
                   <Label fx:id="user2" layoutX="802.0" layoutY="235.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
                   <Label fx:id="user3" layoutX="802.0" layoutY="26.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />

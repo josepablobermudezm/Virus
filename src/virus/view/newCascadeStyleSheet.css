@@ -1,6 +1,6 @@
 #Titulo{
     -fx-text-fill: gray;
-    -fx-font-size : 35pt;
+    -fx-font-size : 100pt;
     -jfx-focus-color: -fx-secondary;
 }
 #lbl_t_Turno{

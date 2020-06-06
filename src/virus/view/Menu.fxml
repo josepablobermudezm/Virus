@@ -13,6 +13,7 @@
                <children>
                   <Label layoutX="14.0" layoutY="629.0" onMouseClicked="#Salir" styleClass="lbl" text="Salir" />
                   <Label layoutX="14.0" layoutY="578.0" onMouseClicked="#Start" styleClass="lbl" text="Iniciar" />
+                  <Label fx:id="Titulo" layoutX="334.0" layoutY="248.0" prefHeight="194.0" prefWidth="406.0" text="VIRUS" />
                </children>
             </AnchorPane>
          </children>

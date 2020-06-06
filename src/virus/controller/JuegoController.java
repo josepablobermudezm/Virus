@@ -527,7 +527,7 @@ public class JuegoController extends Controller implements Initializable {
                                     if (cartaAux.getTipoCarta().equals("Transplante")
                                             || cartaAux.getTipoCarta().equals("Contagio")
                                             || cartaAux.getTipoCarta().equals("Ladron")
-                                            || cartaAux.getTipoCarta().equals("Error") 
+                                            || cartaAux.getTipoCarta().equals("Error")
                                             || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
                                         String IP2 = partida.getJugadores().get(1).getIP();
                                         enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
@@ -548,7 +548,7 @@ public class JuegoController extends Controller implements Initializable {
                                     if (cartaAux.getTipoCarta().equals("Transplante")
                                             || cartaAux.getTipoCarta().equals("Contagio")
                                             || cartaAux.getTipoCarta().equals("Ladron")
-                                            || cartaAux.getTipoCarta().equals("Error") 
+                                            || cartaAux.getTipoCarta().equals("Error")
                                             || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
                                         String IP3 = partida.getJugadores().get(2).getIP();
                                         enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP3);
@@ -569,7 +569,7 @@ public class JuegoController extends Controller implements Initializable {
                                     if (cartaAux.getTipoCarta().equals("Transplante")
                                             || cartaAux.getTipoCarta().equals("Contagio")
                                             || cartaAux.getTipoCarta().equals("Ladron")
-                                            || cartaAux.getTipoCarta().equals("Error") 
+                                            || cartaAux.getTipoCarta().equals("Error")
                                             || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
                                         String IP4 = partida.getJugadores().get(3).getIP();
                                         enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP4);
@@ -590,7 +590,7 @@ public class JuegoController extends Controller implements Initializable {
                                     if (cartaAux.getTipoCarta().equals("Transplante")
                                             || cartaAux.getTipoCarta().equals("Contagio")
                                             || cartaAux.getTipoCarta().equals("Ladron")
-                                            || cartaAux.getTipoCarta().equals("Error") 
+                                            || cartaAux.getTipoCarta().equals("Error")
                                             || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
                                         String IP5 = partida.getJugadores().get(4).getIP();
                                         enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP5);
@@ -611,7 +611,7 @@ public class JuegoController extends Controller implements Initializable {
                                     if (cartaAux.getTipoCarta().equals("Transplante")
                                             || cartaAux.getTipoCarta().equals("Contagio")
                                             || cartaAux.getTipoCarta().equals("Ladron")
-                                            || cartaAux.getTipoCarta().equals("Error") 
+                                            || cartaAux.getTipoCarta().equals("Error")
                                             || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
                                         String IP6 = partida.getJugadores().get(5).getIP();
                                         enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP6);
@@ -711,35 +711,69 @@ public class JuegoController extends Controller implements Initializable {
                             switch (hijo) {
                                 case "0":
                                     if (jugador.getCartas1().get(0).getColor().equals(cartaAux.getColor()) || jugador.getCartas1().get(0).getTipoCarta().equals("Organo_Comodin")) {
-                                        noVirus(padre, hijo);
+                                        if (cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
+                                                || cartaAux.getTipoCarta().equals("Cerebro") || cartaAux.getTipoCarta().equals("Hueso")
+                                                || cartaAux.getTipoCarta().equals("Organo_Comodin")) {
+                                            noVirus(padre, hijo);
+                                        }
+                                         else {
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner un organo encima de otro órgano");
+                                        }
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     }
                                     break;
                                 case "1":
                                     if (jugador.getCartas2().get(0).getColor().equals(cartaAux.getColor()) || jugador.getCartas2().get(0).getTipoCarta().equals("Organo_Comodin")) {
-                                        noVirus(padre, hijo);
+                                        if (cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
+                                                || cartaAux.getTipoCarta().equals("Cerebro") || cartaAux.getTipoCarta().equals("Hueso")
+                                                || cartaAux.getTipoCarta().equals("Organo_Comodin")) {
+                                            noVirus(padre, hijo);
+                                        }
+                                         else {
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner un organo encima de otro órgano");
+                                        }
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     }
                                     break;
                                 case "2":
                                     if (jugador.getCartas3().get(0).getColor().equals(cartaAux.getColor()) || jugador.getCartas3().get(0).getTipoCarta().equals("Organo_Comodin")) {
-                                        noVirus(padre, hijo);
+                                        if (cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
+                                                || cartaAux.getTipoCarta().equals("Cerebro") || cartaAux.getTipoCarta().equals("Hueso")
+                                                || cartaAux.getTipoCarta().equals("Organo_Comodin")) {
+                                            noVirus(padre, hijo);
+                                        }
+                                         else {
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner un organo encima de otro órgano");
+                                        }
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     }
                                     break;
                                 case "3":
                                     if (jugador.getCartas4().get(0).getColor().equals(cartaAux.getColor()) || jugador.getCartas4().get(0).getTipoCarta().equals("Organo_Comodin")) {
-                                        noVirus(padre, hijo);
+                                        if (cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
+                                                || cartaAux.getTipoCarta().equals("Cerebro") || cartaAux.getTipoCarta().equals("Hueso")
+                                                || cartaAux.getTipoCarta().equals("Organo_Comodin")) {
+                                            noVirus(padre, hijo);
+                                        } else {
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner un organo encima de otro órgano");
+                                        }
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     }
                                     break;
                                 case "4":
                                     if (jugador.getCartas5().get(0).getColor().equals(cartaAux.getColor()) || jugador.getCartas5().get(0).getTipoCarta().equals("Organo_Comodin")) {
-                                        noVirus(padre, hijo);
+                                        if (cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
+                                                || cartaAux.getTipoCarta().equals("Cerebro") || cartaAux.getTipoCarta().equals("Hueso")
+                                                || cartaAux.getTipoCarta().equals("Organo_Comodin")) {
+                                            noVirus(padre, hijo);
+                                        }
+                                         else {
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner un organo encima de otro órgano");
+                                        }
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     }

@@ -237,9 +237,9 @@
 }
 
 .text-field{
-    -fx-prompt-text-fill: black;
-    -jfx-focus-color: black;
-    -jfx-unfocus-color: black;
+    -fx-prompt-text-fill: white;
+    -jfx-focus-color: white;
+    -jfx-unfocus-color: white;
     /*-jfx-label-float: true;*/
-    -fx-text-fill: black;
+    -fx-text-fill: white;
 }

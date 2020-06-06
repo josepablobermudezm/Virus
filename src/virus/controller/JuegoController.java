@@ -515,7 +515,6 @@ public class JuegoController extends Controller implements Initializable {
                     Integer iHijo = Integer.valueOf(hijo);
                     switch (padre) {
                         case "hvox":
-                            System.out.println("CASO hvox DENTRO DE MOVIMIENTO CONTRARIO, SWITCH");
                             ArrayList<CartaDto> jug1C = cartasRival(partida.getJugadores().get(0), iHijo);
                             if (!jug1C.isEmpty()) {
                                 if (jug1C.get(0).getColor().equals(cartaAux.getColor())
@@ -525,7 +524,6 @@ public class JuegoController extends Controller implements Initializable {
                                         || cartaAux.getTipoCarta().equals("Ladron")
                                         || cartaAux.getTipoCarta().equals("Error")
                                         || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
-                                    System.out.println("entró al caso");
                                     String IP2 = partida.getJugadores().get(0).getIP();
                                     enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
                                 } else {
@@ -541,7 +539,6 @@ public class JuegoController extends Controller implements Initializable {
                             }
                             break;
                         case "hvox2":
-                            System.out.println("CASO hvox2 DENTRO DE MOVIMIENTO CONTRARIO, SWITCH");
                             ArrayList<CartaDto> jug2C = cartasRival(partida.getJugadores().get(1), iHijo);
                             if (!jug2C.isEmpty()) {
                                 if (jug2C.get(0).getColor().equals(cartaAux.getColor()) 
@@ -551,7 +548,6 @@ public class JuegoController extends Controller implements Initializable {
                                         || cartaAux.getTipoCarta().equals("Ladron")
                                         || cartaAux.getTipoCarta().equals("Error")
                                         || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
-                                    System.out.println("entró al caso");
                                     String IP2 = partida.getJugadores().get(1).getIP();
                                     enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
                                 } else {
@@ -567,7 +563,6 @@ public class JuegoController extends Controller implements Initializable {
                             }
                             break;
                         case "hvox3":
-                            System.out.println("CASO hvox3 DENTRO DE MOVIMIENTO CONTRARIO, SWITCH");
                             ArrayList<CartaDto> jug3C = cartasRival(partida.getJugadores().get(2), iHijo);
                             if (!jug3C.isEmpty()) {
                                 if (jug3C.get(0).getColor().equals(cartaAux.getColor()) 
@@ -577,7 +572,6 @@ public class JuegoController extends Controller implements Initializable {
                                         || cartaAux.getTipoCarta().equals("Ladron")
                                         || cartaAux.getTipoCarta().equals("Error")
                                         || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
-                                    System.out.println("entró al caso");
                                     String IP2 = partida.getJugadores().get(2).getIP();
                                     enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
                                 } else {
@@ -593,7 +587,6 @@ public class JuegoController extends Controller implements Initializable {
                             }
                             break;
                         case "hvox4":
-                            System.out.println("CASO hvox4 DENTRO DE MOVIMIENTO CONTRARIO, SWITCH");
                             ArrayList<CartaDto> jug4C = cartasRival(partida.getJugadores().get(3), iHijo);
                             if (!jug4C.isEmpty()) {
                                 if (jug4C.get(0).getColor().equals(cartaAux.getColor()) 
@@ -603,7 +596,6 @@ public class JuegoController extends Controller implements Initializable {
                                         || cartaAux.getTipoCarta().equals("Ladron")
                                         || cartaAux.getTipoCarta().equals("Error")
                                         || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
-                                    System.out.println("entró al caso");
                                     String IP2 = partida.getJugadores().get(3).getIP();
                                     enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
                                 } else {
@@ -619,7 +611,6 @@ public class JuegoController extends Controller implements Initializable {
                             }
                             break;
                         case "hvox5":
-                            System.out.println("CASO hvox5 DENTRO DE MOVIMIENTO CONTRARIO, SWITCH");
                             ArrayList<CartaDto> jug5C = cartasRival(partida.getJugadores().get(4), iHijo);
                             if (!jug5C.isEmpty()) {
                                 if (jug5C.get(0).getColor().equals(cartaAux.getColor()) 
@@ -629,7 +620,6 @@ public class JuegoController extends Controller implements Initializable {
                                         || cartaAux.getTipoCarta().equals("Ladron")
                                         || cartaAux.getTipoCarta().equals("Error")
                                         || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
-                                    System.out.println("entró al caso");
                                     String IP2 = partida.getJugadores().get(4).getIP();
                                     enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
                                 } else {
@@ -645,7 +635,6 @@ public class JuegoController extends Controller implements Initializable {
                             }
                             break;
                         case "hbox6":
-                            System.out.println("CASO hbox6 DENTRO DE MOVIMIENTO CONTRARIO, SWITCH");
                             ArrayList<CartaDto> jug6C = cartasRival(partida.getJugadores().get(5), iHijo);
                             if (!jug6C.isEmpty()) {
                                 if (jug6C.get(0).getColor().equals(cartaAux.getColor()) 
@@ -655,7 +644,6 @@ public class JuegoController extends Controller implements Initializable {
                                         || cartaAux.getTipoCarta().equals("Ladron")
                                         || cartaAux.getTipoCarta().equals("Error")
                                         || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
-                                    System.out.println("entró al caso");
                                     String IP2 = partida.getJugadores().get(5).getIP();
                                     enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
                                 } else {
@@ -663,7 +651,6 @@ public class JuegoController extends Controller implements Initializable {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
-
                                     }
                                 }
                             } else {
@@ -671,7 +658,6 @@ public class JuegoController extends Controller implements Initializable {
                             }
                             break;
                         default:
-                            System.out.println("ESTE ES EL CASO DEFAULT DEL SWITCH QUE ESTAMOS PROBANDO 635");
                     }
                 } else {
                     Mensaje ms = new Mensaje();

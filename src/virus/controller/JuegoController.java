@@ -710,7 +710,7 @@ public class JuegoController extends Controller implements Initializable {
                         } else {//Cualquier otro movimiento
                             switch (hijo) {
                                 case "0":
-                                    if (jugador.getCartas1().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin")) {
+                                    if (!jugador.getCartas1().isEmpty() && jugador.getCartas1().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin")) {
                                         if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
                                                 && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")
                                                 && !cartaAux.getTipoCarta().equals("Organo_Comodin")) {
@@ -719,11 +719,17 @@ public class JuegoController extends Controller implements Initializable {
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner un organo encima de otro órgano");
                                         }
                                     } else {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                        if (jugador.getCartas1().isEmpty()) {
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+                                        } else if (!jugador.getCartas1().isEmpty() && !jugador.getCartas1().get(0).getColor().equals(cartaAux.getColor())) {
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                        } else {
+                                            System.out.println("NO VALIDADOOOOO");
+                                        }
                                     }
                                     break;
                                 case "1":
-                                    if (jugador.getCartas2().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin")) {
+                                    if (!jugador.getCartas2().isEmpty() && jugador.getCartas2().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin")) {
                                         if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
                                                 && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")
                                                 && !cartaAux.getTipoCarta().equals("Organo_Comodin")) {
@@ -732,11 +738,17 @@ public class JuegoController extends Controller implements Initializable {
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner un organo encima de otro órgano");
                                         }
                                     } else {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                        if (jugador.getCartas2().isEmpty()) {
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+                                        } else if (!jugador.getCartas2().isEmpty() && !jugador.getCartas2().get(0).getColor().equals(cartaAux.getColor())) {
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                        } else {
+                                            System.out.println("NO VALIDADOOOOO");
+                                        }
                                     }
                                     break;
                                 case "2":
-                                    if (jugador.getCartas3().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin")) {
+                                    if (!jugador.getCartas3().isEmpty() && jugador.getCartas3().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin")) {
                                         if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
                                                 && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")
                                                 && !cartaAux.getTipoCarta().equals("Organo_Comodin")) {
@@ -745,12 +757,18 @@ public class JuegoController extends Controller implements Initializable {
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner un organo encima de otro órgano");
                                         }
                                     } else {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                        if (jugador.getCartas3().isEmpty()) {
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+                                        } else if (!jugador.getCartas3().isEmpty() && !jugador.getCartas3().get(0).getColor().equals(cartaAux.getColor())) {
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                        } else {
+                                            System.out.println("NO VALIDADOOOOO");
+                                        }
                                     }
                                     break;
 
                                 case "3":
-                                    if (jugador.getCartas4().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin")) {
+                                    if (!jugador.getCartas4().isEmpty() && jugador.getCartas4().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin")) {
                                         if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
                                                 && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")
                                                 && !cartaAux.getTipoCarta().equals("Organo_Comodin")) {
@@ -759,12 +777,18 @@ public class JuegoController extends Controller implements Initializable {
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner un organo encima de otro órgano");
                                         }
                                     } else {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                        if (jugador.getCartas4().isEmpty()) {
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+                                        } else if (!jugador.getCartas4().isEmpty() && !jugador.getCartas4().get(0).getColor().equals(cartaAux.getColor())) {
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                        } else {
+                                            System.out.println("NO VALIDADOOOOO");
+                                        }
                                     }
                                     break;
 
                                 case "4":
-                                    if (jugador.getCartas5().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin")) {
+                                    if (!jugador.getCartas5().isEmpty() && jugador.getCartas5().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin")) {
                                         if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
                                                 && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")
                                                 && !cartaAux.getTipoCarta().equals("Organo_Comodin")) {
@@ -773,8 +797,15 @@ public class JuegoController extends Controller implements Initializable {
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner un organo encima de otro órgano");
                                         }
                                     } else {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                        if (jugador.getCartas5().isEmpty()) {
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+                                        } else if (!jugador.getCartas5().isEmpty() && !jugador.getCartas5().get(0).getColor().equals(cartaAux.getColor())) {
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                        } else {
+                                            System.out.println("NO VALIDADOOOOO");
+                                        }
                                     }
+                                    break;
                                 /*default:
                                     Mensaje ms = new Mensaje();
                                     ms.show(Alert.AlertType.WARNING, "Información de Juego", "Ya hay un tipo de organo en este mazo....");

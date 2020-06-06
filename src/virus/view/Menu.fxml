@@ -11,8 +11,10 @@
          <children>
             <AnchorPane id="omg" prefHeight="693.0" prefWidth="1074.0" stylesheets="@newCascadeStyleSheet.css">
                <children>
-                  <Label layoutX="14.0" layoutY="636.0" onMouseClicked="#Salir" styleClass="lbl" text="Salir" />
-                  <Label layoutX="14.0" layoutY="596.0" onMouseClicked="#Start" styleClass="lbl" text="Iniciar" />
+                  <Label layoutX="14.0" layoutY="562.0" onMouseClicked="#Salir" styleClass="lbl" text="Salir" />
+                  <Label layoutX="14.0" layoutY="514.0" onMouseClicked="#Configuracion" styleClass="lbl" text="Configuración" />
+                  <Label layoutX="14.0" layoutY="416.0" onMouseClicked="#Start" styleClass="lbl" text="Iniciar" />
+                  <Label layoutX="14.0" layoutY="464.0" onMouseClicked="#jugador" styleClass="lbl" text="Jugador" />
                </children>
             </AnchorPane>
          </children>

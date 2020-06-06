@@ -224,14 +224,15 @@ public class Hilo_Peticiones extends Thread {
 
     public void CambioEstado(CartaDto carta, ArrayList<CartaDto> mazo) {
         if ((carta.getTipoCarta().equals("Medicina") || carta.getTipoCarta().equals("Medicina_Comodin")) && mazo.stream().filter(x -> x.getTipoCarta().equals("Medicina")
-                || x.getTipoCarta().equals("Medicina_Comodin")).count() == 0) {//Vacunar
+                || x.getTipoCarta().equals("Medicina_Comodin")).count() == 0 && mazo.stream().filter(x -> x.getTipoCarta().equals("Virus")
+                || x.getTipoCarta().equals("Virus_Comodin")).count() == 0) {//Vacunar
             mazo.get(0).setEstado("Vacunado");
             System.out.println("estado del organo ahora es Vacunado");
             /*
              *cambia el estado de la carta a vacunado y ahora se necesitan 2 virus para infectar el organo
              */
         } else if ((carta.getTipoCarta().equals("Medicina") || carta.getTipoCarta().equals("Medicina_Comodin")) && mazo.stream().filter(x -> x.getTipoCarta().equals("Virus")
-                || x.getTipoCarta().equals("Virus_Comodin")).count() == 1) {//Curar
+                || x.getTipoCarta().equals("Virus_Comodin")).count() == 1 ) {//Curar
             mazo.get(0).setEstado("Curado");
             System.out.println("estado del organo ahora es Curado");
             /*
@@ -247,7 +248,8 @@ public class Hilo_Peticiones extends Thread {
              *se giran 90 grados sobre el órgano para indicar que está inmune.
              */
         } else if ((carta.getTipoCarta().equals("Virus_Comodin") || carta.getTipoCarta().equals("Virus")) && mazo.stream().filter(x -> x.getTipoCarta().equals("Virus")
-                || x.getTipoCarta().equals("Virus_Comodin")).count() == 0) {//Infectar
+                || x.getTipoCarta().equals("Virus_Comodin")).count() == 0 && mazo.stream().filter(x -> x.getTipoCarta().equals("Medicina")
+                || x.getTipoCarta().equals("Medicina_Comodin")).count() == 0) {//Infectar
             mazo.get(0).setEstado("Infectado");
             System.out.println("estado del organo ahora es Infectado");
             //se cambia el estado del organo a infectado y
@@ -261,8 +263,8 @@ public class Hilo_Peticiones extends Thread {
              */
         } else if ((carta.getTipoCarta().equals("Virus_Comodin") || carta.getTipoCarta().equals("Virus")) && mazo.stream().filter(x -> x.getTipoCarta().equals("Medicina")
                 || x.getTipoCarta().equals("Medicina_Comodin")).count() == 1) {//Destruir vacuna
-            mazo.get(0).setEstado("Destruir");
-            System.out.println("estado del organo ahora es Destruido");
+            mazo.get(0).setEstado("Sana");
+            System.out.println("estado del organo ahora es Sana después de destruir");
             /*
              *si sobre un órgano se encuentra una carta de medicina y se le aplica
              *un virus del mismo color, ambas cartas (la medicina y el virus) serán enviadas a la pila

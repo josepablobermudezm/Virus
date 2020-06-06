@@ -66,7 +66,7 @@
 
 #omg{
     -fx-background-size: 100% 100%; 
-    -fx-background-image: url("../resources/fondo2.png");
+    -fx-background-image: url("../resources/fondoJuego1.png");
 }
 .lbl:hover{
     -fx-font-family: "Decker";

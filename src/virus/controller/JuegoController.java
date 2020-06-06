@@ -464,6 +464,9 @@ public class JuegoController extends Controller implements Initializable {
             new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner un virus en tus propias cartas");
         }
     }
+    private Boolean noVirus(CartaDto carta) {
+        return !carta.getTipoCarta().equals("Virus");
+    }
 
     /*
     *Retorna el valor del indice del pane hijo
@@ -510,7 +513,7 @@ public class JuegoController extends Controller implements Initializable {
                         case "hvox":
                             ArrayList<CartaDto> jug1C = cartasRival(partida.getJugadores().get(0), iHijo);
                             if (!jug1C.isEmpty()) {
-                                if (jug1C.get(0).getColor().equals(cartaAux.getColor())) {
+                                if (jug1C.get(0).getColor().equals(cartaAux.getColor()) || jug1C.get(0).getTipoCarta().equals("Organo_Comodin")) {
                                     String IP = partida.getJugadores().get(0).getIP();
                                     enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP);
                                 } else {
@@ -523,7 +526,7 @@ public class JuegoController extends Controller implements Initializable {
                         case "hvox2":
                             ArrayList<CartaDto> jug2C = cartasRival(partida.getJugadores().get(1), iHijo);
                             if (!jug2C.isEmpty()) {
-                                if (jug2C.get(0).getColor().equals(cartaAux.getColor())) {
+                                if (jug2C.get(0).getColor().equals(cartaAux.getColor()) || jug2C.get(0).getTipoCarta().equals("Organo_Comodin")) {
                                     if (cartaAux.getTipoCarta().equals("Transplante")
                                             || cartaAux.getTipoCarta().equals("Contagio")
                                             || cartaAux.getTipoCarta().equals("Ladron")
@@ -544,7 +547,7 @@ public class JuegoController extends Controller implements Initializable {
                         case "hvox3":
                             ArrayList<CartaDto> jug3C = cartasRival(partida.getJugadores().get(2), iHijo);
                             if (!jug3C.isEmpty()) {
-                                if (jug3C.get(0).getColor().equals(cartaAux.getColor())) {
+                                if (jug3C.get(0).getColor().equals(cartaAux.getColor()) || jug3C.get(0).getTipoCarta().equals("Organo_Comodin")) {
                                     if (cartaAux.getTipoCarta().equals("Transplante")
                                             || cartaAux.getTipoCarta().equals("Contagio")
                                             || cartaAux.getTipoCarta().equals("Ladron")
@@ -565,7 +568,7 @@ public class JuegoController extends Controller implements Initializable {
                         case "hvox4":
                             ArrayList<CartaDto> jug4C = cartasRival(partida.getJugadores().get(3), iHijo);
                             if (!jug4C.isEmpty()) {
-                                if (jug4C.get(0).getColor().equals(cartaAux.getColor())) {
+                                if (jug4C.get(0).getColor().equals(cartaAux.getColor()) || jug4C.get(0).getTipoCarta().equals("Organo_Comodin")) {
                                     if (cartaAux.getTipoCarta().equals("Transplante")
                                             || cartaAux.getTipoCarta().equals("Contagio")
                                             || cartaAux.getTipoCarta().equals("Ladron")
@@ -586,7 +589,7 @@ public class JuegoController extends Controller implements Initializable {
                         case "hvox5":
                             ArrayList<CartaDto> jug5C = cartasRival(partida.getJugadores().get(4), iHijo);
                             if (!jug5C.isEmpty()) {
-                                if (jug5C.get(0).getColor().equals(cartaAux.getColor())) {
+                                if (jug5C.get(0).getColor().equals(cartaAux.getColor()) || jug5C.get(0).getTipoCarta().equals("Organo_Comodin")) {
                                     if (cartaAux.getTipoCarta().equals("Transplante")
                                             || cartaAux.getTipoCarta().equals("Contagio")
                                             || cartaAux.getTipoCarta().equals("Ladron")
@@ -607,7 +610,7 @@ public class JuegoController extends Controller implements Initializable {
                         case "hbox6":
                             ArrayList<CartaDto> jug6C = cartasRival(partida.getJugadores().get(5), iHijo);
                             if (!jug6C.isEmpty()) {
-                                if (jug6C.get(0).getColor().equals(cartaAux.getColor())) {
+                                if (jug6C.get(0).getColor().equals(cartaAux.getColor()) || jug6C.get(0).getTipoCarta().equals("Organo_Comodin")) {
                                     if (cartaAux.getTipoCarta().equals("Transplante")
                                             || cartaAux.getTipoCarta().equals("Contagio")
                                             || cartaAux.getTipoCarta().equals("Ladron")
@@ -648,9 +651,9 @@ public class JuegoController extends Controller implements Initializable {
                         hijo = "";
                         hijo = hijo(padre);
                         //si es el primer movimiento
-                        if (cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
+                        if ( (cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
                                 || cartaAux.getTipoCarta().equals("Cerebro") || cartaAux.getTipoCarta().equals("Hueso")
-                                || cartaAux.getTipoCarta().equals("Organo_Comodin") && jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty() && jugador.getCartas5().isEmpty()) {
+                                || cartaAux.getTipoCarta().equals("Organo_Comodin")) && jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty() && jugador.getCartas5().isEmpty()) {
                             movimiento(padre, hijo);
                         } else if (cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
                                 || cartaAux.getTipoCarta().equals("Cerebro") || cartaAux.getTipoCarta().equals("Hueso")
@@ -675,35 +678,35 @@ public class JuegoController extends Controller implements Initializable {
                                     if (jugador.getCartas1().isEmpty()) {
                                         movimiento(padre, hijo);
                                     } else {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pude poner otro órgano en este campo");
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner otro órgano en este campo");
                                     }
                                     break;
                                 case "1":
                                     if (jugador.getCartas2().isEmpty()) {
                                         movimiento(padre, hijo);
                                     } else {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pude poner otro órgano en este campo");
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner otro órgano en este campo");
                                     }
                                     break;
                                 case "2":
                                     if (jugador.getCartas3().isEmpty()) {
                                         movimiento(padre, hijo);
                                     } else {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pude poner otro órgano en este campo");
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner otro órgano en este campo");
                                     }
                                     break;
                                 case "3":
                                     if (jugador.getCartas4().isEmpty()) {
                                         movimiento(padre, hijo);
                                     } else {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pude poner otro órgano en este campo");
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner otro órgano en este campo");
                                     }
                                     break;
                                 case "4":
                                     if (jugador.getCartas5().isEmpty()) {
                                         movimiento(padre, hijo);
                                     } else {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pude poner otro órgano en este campo");
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner otro órgano en este campo");
                                     }
                                     break;
                             }
@@ -722,7 +725,11 @@ public class JuegoController extends Controller implements Initializable {
                                         if (jugador.getCartas1().isEmpty()) {
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
                                         } else if (!jugador.getCartas1().isEmpty() && !jugador.getCartas1().get(0).getColor().equals(cartaAux.getColor())) {
-                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                             if(noVirus(cartaAux)){
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner un virus en tu propio mazo");
+                                            }else{
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                            }
                                         } else {
                                             System.out.println("NO VALIDADOOOOO");
                                         }
@@ -741,7 +748,11 @@ public class JuegoController extends Controller implements Initializable {
                                         if (jugador.getCartas2().isEmpty()) {
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
                                         } else if (!jugador.getCartas2().isEmpty() && !jugador.getCartas2().get(0).getColor().equals(cartaAux.getColor())) {
-                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                            if(noVirus(cartaAux)){
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner un virus en tu propio mazo");
+                                            }else{
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                            }
                                         } else {
                                             System.out.println("NO VALIDADOOOOO");
                                         }
@@ -760,7 +771,11 @@ public class JuegoController extends Controller implements Initializable {
                                         if (jugador.getCartas3().isEmpty()) {
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
                                         } else if (!jugador.getCartas3().isEmpty() && !jugador.getCartas3().get(0).getColor().equals(cartaAux.getColor())) {
-                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                             if(noVirus(cartaAux)){
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner un virus en tu propio mazo");
+                                            }else{
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                            }
                                         } else {
                                             System.out.println("NO VALIDADOOOOO");
                                         }
@@ -780,7 +795,11 @@ public class JuegoController extends Controller implements Initializable {
                                         if (jugador.getCartas4().isEmpty()) {
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
                                         } else if (!jugador.getCartas4().isEmpty() && !jugador.getCartas4().get(0).getColor().equals(cartaAux.getColor())) {
-                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                           if(noVirus(cartaAux)){
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner un virus en tu propio mazo");
+                                            }else{
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                            }
                                         } else {
                                             System.out.println("NO VALIDADOOOOO");
                                         }
@@ -800,7 +819,11 @@ public class JuegoController extends Controller implements Initializable {
                                         if (jugador.getCartas5().isEmpty()) {
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
                                         } else if (!jugador.getCartas5().isEmpty() && !jugador.getCartas5().get(0).getColor().equals(cartaAux.getColor())) {
-                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                            if(noVirus(cartaAux)){
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner un virus en tu propio mazo");
+                                            }else{
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                            }
                                         } else {
                                             System.out.println("NO VALIDADOOOOO");
                                         }

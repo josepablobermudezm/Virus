@@ -713,7 +713,7 @@ public class JuegoController extends Controller implements Initializable {
                         } else {//Cualquier otro movimiento
                             switch (hijo) {
                                 case "0":
-                                    if (!jugador.getCartas1().isEmpty() && jugador.getCartas1().get(0).getTipoCarta().equals("Organo_Comodin") && (jugador.getCartas1().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin"))) {
+                                    if (!jugador.getCartas1().isEmpty() && (  jugador.getCartas1().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin") || jugador.getCartas1().get(0).getTipoCarta().equals("Organo_Comodin") )) {
                                         if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
                                                 && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")
                                                 && !cartaAux.getTipoCarta().equals("Organo_Comodin")) {
@@ -736,7 +736,7 @@ public class JuegoController extends Controller implements Initializable {
                                     }
                                     break;
                                 case "1":
-                                    if (!jugador.getCartas2().isEmpty() && jugador.getCartas2().get(0).getTipoCarta().equals("Organo_Comodin") && (jugador.getCartas2().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin"))) {
+                                    if (!jugador.getCartas2().isEmpty() && (jugador.getCartas2().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin") || jugador.getCartas2().get(0).getTipoCarta().equals("Organo_Comodin"))) {
                                         if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
                                                 && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")
                                                 && !cartaAux.getTipoCarta().equals("Organo_Comodin")) {
@@ -759,7 +759,7 @@ public class JuegoController extends Controller implements Initializable {
                                     }
                                     break;
                                 case "2":
-                                    if (!jugador.getCartas3().isEmpty() && jugador.getCartas3().get(0).getTipoCarta().equals("Organo_Comodin") && (jugador.getCartas3().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin"))) {
+                                    if (!jugador.getCartas3().isEmpty() && (jugador.getCartas3().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin") || jugador.getCartas3().get(0).getTipoCarta().equals("Organo_Comodin"))) {
                                         if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
                                                 && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")
                                                 && !cartaAux.getTipoCarta().equals("Organo_Comodin")) {
@@ -783,7 +783,7 @@ public class JuegoController extends Controller implements Initializable {
                                     break;
 
                                 case "3":
-                                    if (!jugador.getCartas4().isEmpty() && jugador.getCartas4().get(0).getTipoCarta().equals("Organo_Comodin") && (jugador.getCartas4().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin"))) {
+                                    if (!jugador.getCartas4().isEmpty() && (jugador.getCartas4().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin") || jugador.getCartas4().get(0).getTipoCarta().equals("Organo_Comodin") )) {
                                         if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
                                                 && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")
                                                 && !cartaAux.getTipoCarta().equals("Organo_Comodin")) {
@@ -807,7 +807,7 @@ public class JuegoController extends Controller implements Initializable {
                                     break;
 
                                 case "4":
-                                    if (!jugador.getCartas5().isEmpty() && jugador.getCartas5().get(0).getTipoCarta().equals("Organo_Comodin") && (jugador.getCartas5().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin"))) {
+                                    if (!jugador.getCartas5().isEmpty() && (jugador.getCartas5().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin") || jugador.getCartas5().get(0).getTipoCarta().equals("Organo_Comodin") )) {
                                         if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
                                                 && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")
                                                 && !cartaAux.getTipoCarta().equals("Organo_Comodin")) {

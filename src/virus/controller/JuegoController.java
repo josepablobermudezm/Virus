@@ -710,43 +710,43 @@ public class JuegoController extends Controller implements Initializable {
                         } else {//Cualquier otro movimiento
                             switch (hijo) {
                                 case "0":
-                                    if (jugador.getCartas1().get(0).getColor().equals(cartaAux.getColor()) || jugador.getCartas1().get(0).getTipoCarta().equals("Medicina_Comodin")) {
+                                    if (jugador.getCartas1().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin")) {
                                         noVirus(padre, hijo);
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     }
                                     break;
                                 case "1":
-                                    if (jugador.getCartas2().get(0).getColor().equals(cartaAux.getColor()) || jugador.getCartas2().get(0).getTipoCarta().equals("Medicina_Comodin")) {
+                                    if (jugador.getCartas2().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin")) {
                                         noVirus(padre, hijo);
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     }
                                     break;
                                 case "2":
-                                    if (jugador.getCartas3().get(0).getColor().equals(cartaAux.getColor()) || jugador.getCartas3().get(0).getTipoCarta().equals("Medicina_Comodin")) {
+                                    if (jugador.getCartas3().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin")) {
                                         noVirus(padre, hijo);
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     }
                                     break;
                                 case "3":
-                                    if (jugador.getCartas4().get(0).getColor().equals(cartaAux.getColor()) || jugador.getCartas4().get(0).getTipoCarta().equals("Medicina_Comodin")) {
+                                    if (jugador.getCartas4().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin")) {
                                         noVirus(padre, hijo);
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     }
                                     break;
                                 case "4":
-                                    if (jugador.getCartas5().get(0).getColor().equals(cartaAux.getColor()) || jugador.getCartas5().get(0).getTipoCarta().equals("Medicina_Comodin")) {
+                                    if (jugador.getCartas5().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin")) {
                                         noVirus(padre, hijo);
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     }
-                                default:
+                                /*default:
                                     Mensaje ms = new Mensaje();
                                     ms.show(Alert.AlertType.WARNING, "Información de Juego", "Ya hay un tipo de organo en este mazo....");
-                                    break;
+                                    break;*/
                             }
                         }
                     } else {

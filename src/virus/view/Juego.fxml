@@ -9,20 +9,20 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="690.0" prefWidth="1074.0" stylesheets="@newCascadeStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virus.controller.JuegoController">
+<BorderPane prefHeight="690.0" prefWidth="1280.0" stylesheets="@newCascadeStyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="virus.controller.JuegoController">
    <center>
       <VBox>
          <children>
             <AnchorPane id="fondo_juego" fx:id="fondo_juego" prefHeight="665.0" prefWidth="1074.0" stylesheets="@newCascadeStyleSheet.css">
                <children>
                   <Label layoutX="12.0" layoutY="611.0" onMouseClicked="#Salir" styleClass="lbl2" text="Salir" />
-                  <Label fx:id="user" layoutX="40.0" layoutY="235.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
-                  <Label fx:id="user2" layoutX="802.0" layoutY="235.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
-                  <Label fx:id="user3" layoutX="802.0" layoutY="26.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
-                  <Label fx:id="user4" layoutX="40.0" layoutY="26.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
-                  <Label fx:id="user5" layoutX="40.0" layoutY="404.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
-                  <Label fx:id="user6" layoutX="802.0" layoutY="404.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
-                  <HBox fx:id="hvox" layoutX="40.0" layoutY="278.0" prefHeight="108.0" prefWidth="377.75" visible="false">
+                  <Label fx:id="user" layoutX="15.0" layoutY="234.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
+                  <Label fx:id="user2" layoutX="752.0" layoutY="234.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
+                  <Label fx:id="user3" layoutX="749.0" layoutY="24.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
+                  <Label fx:id="user4" layoutX="16.0" layoutY="24.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
+                  <Label fx:id="user5" layoutX="15.0" layoutY="438.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
+                  <Label fx:id="user6" layoutX="752.0" layoutY="438.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
+                  <HBox fx:id="hvox" layoutX="15.0" layoutY="280.0" prefHeight="108.0" prefWidth="513.75" spacing="35.0" visible="false">
                      <children>
                         <Pane maxWidth="-Infinity" prefHeight="108.0" prefWidth="77.75" />
                         <Pane maxWidth="-Infinity" prefHeight="108.0" prefWidth="77.75" />
@@ -31,7 +31,7 @@
                         <Pane maxWidth="-Infinity" prefHeight="108.0" prefWidth="77.75" />
                      </children>
                   </HBox>
-                  <HBox fx:id="hvox2" layoutX="656.0" layoutY="278.0" prefHeight="108.0" prefWidth="377.75" visible="false">
+                  <HBox fx:id="hvox2" layoutX="752.0" layoutY="282.0" prefHeight="108.0" prefWidth="513.75" spacing="35.0" visible="false">
                      <children>
                         <Pane prefHeight="108.0" prefWidth="77.75" />
                         <Pane prefWidth="77.75" />
@@ -40,18 +40,16 @@
                         <Pane prefWidth="77.75" />
                      </children>
                   </HBox>
-                  <HBox fx:id="hvox3" layoutX="656.0" layoutY="69.0" prefHeight="108.0" prefWidth="377.75" visible="false">
+                  <HBox fx:id="hvox3" layoutX="749.0" layoutY="71.0" prefHeight="108.0" prefWidth="513.75" spacing="35.0" visible="false">
                      <children>
-                        <Pane prefWidth="77.75">
-                           <children>
-                              <Pane prefWidth="77.75" />
-                              <Pane prefWidth="77.75" />
-                           </children></Pane>
+                        <Pane prefWidth="77.75" />
+                        <Pane prefWidth="77.75" />
+                        <Pane prefWidth="77.75" />
                         <Pane prefWidth="77.75" />
                         <Pane prefWidth="77.75" />
                      </children>
                   </HBox>
-                  <HBox fx:id="hvox4" layoutX="40.0" layoutY="69.0" prefHeight="108.0" prefWidth="377.75" visible="false">
+                  <HBox fx:id="hvox4" layoutX="15.0" layoutY="71.0" prefHeight="108.0" prefWidth="513.75" spacing="35.0" visible="false">
                      <children>
                         <Pane prefHeight="108.0" prefWidth="77.75" />
                         <Pane prefHeight="108.0" prefWidth="77.75" />
@@ -60,7 +58,7 @@
                         <Pane prefHeight="108.0" prefWidth="77.75" />
                      </children>
                   </HBox>
-                  <HBox fx:id="hvox5" layoutX="40.0" layoutY="444.0" prefHeight="108.0" prefWidth="377.75" visible="false">
+                  <HBox fx:id="hvox5" layoutX="15.0" layoutY="486.0" prefHeight="108.0" prefWidth="513.75" spacing="35.0" visible="false">
                      <children>
                         <Pane prefWidth="77.75" />
                         <Pane prefHeight="108.0" prefWidth="77.75" />
@@ -69,7 +67,7 @@
                         <Pane prefHeight="108.0" prefWidth="77.75" />
                      </children>
                   </HBox>
-                  <HBox fx:id="hbox6" layoutX="656.0" layoutY="444.0" prefHeight="108.0" prefWidth="377.75" visible="false">
+                  <HBox fx:id="hbox6" layoutX="752.0" layoutY="486.0" prefHeight="108.0" prefWidth="513.75" spacing="35.0" visible="false">
                      <children>
                         <Pane prefHeight="108.0" prefWidth="77.75" />
                         <Pane prefHeight="108.0" prefWidth="77.75" />
@@ -78,20 +76,20 @@
                         <Pane prefHeight="108.0" prefWidth="77.75" />
                      </children>
                   </HBox>
-                  <HBox layoutX="453.0" layoutY="277.0" styleClass="hVoxActivo">
+                  <HBox layoutX="555.0" layoutY="281.0" styleClass="hVoxActivo">
                      <children>
-                        <ImageView fx:id="imgDesechada" fitHeight="107.25" fitWidth="74.75" onMouseClicked="#CartaDesechada" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="imgDesechada" fitHeight="107.25" fitWidth="74.75" onMouseClicked="#CartaDesechada" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
-                  <VBox layoutX="544.0" layoutY="277.0" styleClass="hVoxActivo">
+                  <HBox layoutX="650.0" layoutY="281.0" styleClass="hVoxActivo">
                      <children>
-                        <ImageView fx:id="CartaBocaAbajoimg" fitHeight="107.25" fitWidth="74.75" onMouseClicked="#CartadeMazo" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="CartaBocaAbajoimg" fitHeight="107.25" fitWidth="74.75" onMouseClicked="#CartadeMazo" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                            <image>
                               <Image url="@../resources/cartaBocaAbajo.png" />
                            </image>
                         </ImageView>
                      </children>
-                  </VBox>
+                  </HBox>
                </children>
             </AnchorPane>
          </children>

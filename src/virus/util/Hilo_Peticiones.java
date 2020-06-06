@@ -55,6 +55,7 @@ public class Hilo_Peticiones extends Thread {
     ServerSocket serverSocket;
     String mensajeRecibido = "";
     String nombreGanador = "";
+    private Boolean inmune = false;
 
     @Override
     public void run() {
@@ -155,7 +156,14 @@ public class Hilo_Peticiones extends Thread {
                                     int i = Integer.valueOf(hijo);
                                     Platform.runLater(() -> {
                                         Pane pane = ((Pane) ((HBox) t).getChildren().get(i));
+                                        if (inmune) {
+                                            pane.setRotate(90.0);
+                                            pane.setLayoutX(pane.getLayoutX()+25.0);
+                                            inmune = false;
+                                        }
+
                                         ImageView imageAux = new ImageView("virus/resources/" + carta.getImagen());
+                                        //imageAux.setRotate(90.0);
                                         imageAux.setFitHeight(108);
                                         imageAux.setFitWidth(77.75);
                                         imageAux.setTranslateX(0);
@@ -232,7 +240,7 @@ public class Hilo_Peticiones extends Thread {
              *cambia el estado de la carta a vacunado y ahora se necesitan 2 virus para infectar el organo
              */
         } else if ((carta.getTipoCarta().equals("Medicina") || carta.getTipoCarta().equals("Medicina_Comodin")) && mazo.stream().filter(x -> x.getTipoCarta().equals("Virus")
-                || x.getTipoCarta().equals("Virus_Comodin")).count() == 1 ) {//Curar
+                || x.getTipoCarta().equals("Virus_Comodin")).count() == 1) {//Curar
             mazo.get(0).setEstado("Curado");
             System.out.println("estado del organo ahora es Curado");
             /*
@@ -241,6 +249,7 @@ public class Hilo_Peticiones extends Thread {
         } else if ((carta.getTipoCarta().equals("Medicina") || carta.getTipoCarta().equals("Medicina_Comodin")) && mazo.stream().filter(x -> x.getTipoCarta().equals("Medicina")
                 || x.getTipoCarta().equals("Medicina_Comodin")).count() == 1) {//Inmunizar
             mazo.get(0).setEstado("Inmunizado");
+            inmune = true;
             System.out.println("estado del organo ahora es Inmunizado");
             /*si ya el órgano cuenta con una medicina, esta segunda medicina logrará
              *proteger para siempre contra el ataque de cualquier virus y no podrá ser destruido ni

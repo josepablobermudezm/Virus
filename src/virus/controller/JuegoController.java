@@ -286,6 +286,7 @@ public class JuegoController extends Controller implements Initializable {
         for (int i = 0; i < jugadores.size(); i++) {
             nombres.get(i).setText(jugadores.get(i).getNombre());
         }
+        
         VBox vBox = new VBox();
         image7 = new ImageView("virus/resources/" + carta1.getImagen());
         image7.setId("carta1");
@@ -293,7 +294,7 @@ public class JuegoController extends Controller implements Initializable {
         vBox.getStyleClass().add("hVoxActivo");
         image7.setFitHeight(107.25);
         image7.setFitWidth(74.75);
-        vBox.setLayoutX(400);
+        vBox.setLayoutX(535);
         vBox.setLayoutY(510);
         image7.setOnMouseClicked(seleccionarCarta);
         vBox.getChildren().add(image7);
@@ -531,7 +532,6 @@ public class JuegoController extends Controller implements Initializable {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
-
                                     }
                                 }
                             } else {

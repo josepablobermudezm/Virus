@@ -458,14 +458,14 @@ public class JuegoController extends Controller implements Initializable {
     }
 
     private void noVirus(String padre, String hijo) {
-        if (!cartaAux.getTipoCarta().equals("Virus")) {
+        if (!cartaAux.getTipoCarta().equals("Virus") && !cartaAux.getTipoCarta().equals("Virus_Comodin")) {
             movimiento(padre, hijo);
         } else {
             new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner un virus en tus propias cartas");
         }
     }
     private Boolean virus(CartaDto carta) {
-        return carta.getTipoCarta().equals("Virus");
+        return carta.getTipoCarta().equals("Virus") || carta.getTipoCarta().equals("Virus_Comodin");
     }
 
     /*

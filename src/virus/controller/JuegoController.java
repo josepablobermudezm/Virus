@@ -447,7 +447,7 @@ public class JuegoController extends Controller implements Initializable {
             movimientoContrario(padre);
         } else {
             Mensaje ms = new Mensaje();
-            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes poner este tipo de carta en este mazo.");
+            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes poner tu carta en este lugar.");
         }
     }
 

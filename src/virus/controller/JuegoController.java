@@ -464,8 +464,8 @@ public class JuegoController extends Controller implements Initializable {
             new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner un virus en tus propias cartas");
         }
     }
-    private Boolean noVirus(CartaDto carta) {
-        return !carta.getTipoCarta().equals("Virus");
+    private Boolean virus(CartaDto carta) {
+        return carta.getTipoCarta().equals("Virus");
     }
 
     /*
@@ -725,7 +725,7 @@ public class JuegoController extends Controller implements Initializable {
                                         if (jugador.getCartas1().isEmpty()) {
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
                                         } else if (!jugador.getCartas1().isEmpty() && !jugador.getCartas1().get(0).getColor().equals(cartaAux.getColor())) {
-                                             if(noVirus(cartaAux)){
+                                             if(virus(cartaAux)){
                                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner un virus en tu propio mazo");
                                             }else{
                                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
@@ -748,7 +748,7 @@ public class JuegoController extends Controller implements Initializable {
                                         if (jugador.getCartas2().isEmpty()) {
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
                                         } else if (!jugador.getCartas2().isEmpty() && !jugador.getCartas2().get(0).getColor().equals(cartaAux.getColor())) {
-                                            if(noVirus(cartaAux)){
+                                            if(virus(cartaAux)){
                                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner un virus en tu propio mazo");
                                             }else{
                                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
@@ -771,7 +771,7 @@ public class JuegoController extends Controller implements Initializable {
                                         if (jugador.getCartas3().isEmpty()) {
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
                                         } else if (!jugador.getCartas3().isEmpty() && !jugador.getCartas3().get(0).getColor().equals(cartaAux.getColor())) {
-                                             if(noVirus(cartaAux)){
+                                             if(virus(cartaAux)){
                                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner un virus en tu propio mazo");
                                             }else{
                                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
@@ -795,7 +795,7 @@ public class JuegoController extends Controller implements Initializable {
                                         if (jugador.getCartas4().isEmpty()) {
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
                                         } else if (!jugador.getCartas4().isEmpty() && !jugador.getCartas4().get(0).getColor().equals(cartaAux.getColor())) {
-                                           if(noVirus(cartaAux)){
+                                           if(virus(cartaAux)){
                                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner un virus en tu propio mazo");
                                             }else{
                                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
@@ -819,7 +819,7 @@ public class JuegoController extends Controller implements Initializable {
                                         if (jugador.getCartas5().isEmpty()) {
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
                                         } else if (!jugador.getCartas5().isEmpty() && !jugador.getCartas5().get(0).getColor().equals(cartaAux.getColor())) {
-                                            if(noVirus(cartaAux)){
+                                            if(virus(cartaAux)){
                                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner un virus en tu propio mazo");
                                             }else{
                                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");

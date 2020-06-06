@@ -442,7 +442,8 @@ public class JuegoController extends Controller implements Initializable {
                 || cartaAux.getTipoCarta().equals("Transplante")
                 || cartaAux.getTipoCarta().equals("Contagio")
                 || cartaAux.getTipoCarta().equals("Ladron")
-                || cartaAux.getTipoCarta().equals("Error")) {
+                || cartaAux.getTipoCarta().equals("Error")
+                || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
             movimientoContrario(padre);
         } else {
             Mensaje ms = new Mensaje();

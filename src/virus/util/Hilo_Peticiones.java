@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -106,21 +107,25 @@ public class Hilo_Peticiones extends Thread {
                             ObjectInputStream objectInputStream = new ObjectInputStream(respuesta2);
                             CartaDto carta = (CartaDto) objectInputStream.readObject();
                             JugadorDto jugadorAux = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get();
-                            System.out.println("HIJO  "+ hijo+"    PADRE    "+padre);
                             switch (hijo) {
                                 case "0":
+                                    CambioEstado(carta, jugadorAux.getCartas1());
                                     jugadorAux.getCartas1().add(carta);
                                     break;
                                 case "1":
+                                    CambioEstado(carta, jugadorAux.getCartas2());
                                     jugadorAux.getCartas2().add(carta);
                                     break;
                                 case "2":
+                                    CambioEstado(carta, jugadorAux.getCartas3());
                                     jugadorAux.getCartas3().add(carta);
                                     break;
                                 case "3":
+                                    CambioEstado(carta, jugadorAux.getCartas4());
                                     jugadorAux.getCartas4().add(carta);
                                     break;
                                 case "4":
+                                    CambioEstado(carta, jugadorAux.getCartas5());
                                     jugadorAux.getCartas5().add(carta);
                                     break;
                                 default:
@@ -187,13 +192,14 @@ public class Hilo_Peticiones extends Thread {
                                 jugadorAux.setTurno(jugadorDto.getTurno());
                                 jugadorDto = jugadorAux;
                                 AppContext.getInstance().set("JugadorDto", jugadorAux);
-                            } /*else {
+                            }
+                            /*else {
                                 jugadorDto.setTurno(false);
                                 AppContext.getInstance().set("JugadorDto", jugadorDto);
                             }*/
                             break;
                         }
-                        
+
                         case "partidaFinalizada":
                             break;
                         default:
@@ -214,6 +220,55 @@ public class Hilo_Peticiones extends Thread {
             FlowController.getInstance().goView("Inicio");
         });
         //Cierra todos los procesos que queden pendientes
+    }
+
+    public void CambioEstado(CartaDto carta, ArrayList<CartaDto> mazo) {
+        if ((carta.getTipoCarta().equals("Medicina") || carta.getTipoCarta().equals("Medicina_Comodin")) && mazo.stream().filter(x -> x.getTipoCarta().equals("Medicina")
+                || x.getTipoCarta().equals("Medicina_Comodin")).count() == 0) {//Vacunar
+            mazo.get(0).setEstado("Vacunado");
+            System.out.println("estado del organo ahora es Vacunado");
+            /*
+             *cambia el estado de la carta a vacunado y ahora se necesitan 2 virus para infectar el organo
+             */
+        } else if ((carta.getTipoCarta().equals("Medicina") || carta.getTipoCarta().equals("Medicina_Comodin")) && mazo.stream().filter(x -> x.getTipoCarta().equals("Virus")
+                || x.getTipoCarta().equals("Virus_Comodin")).count() == 1) {//Curar
+            mazo.get(0).setEstado("Curado");
+            System.out.println("estado del organo ahora es Curado");
+            /*
+             *hay un virus en el organo, entonces una vez que ponemos la medicina, se mandan ambas cartas a la pila de descarte
+             */
+        } else if ((carta.getTipoCarta().equals("Medicina") || carta.getTipoCarta().equals("Medicina_Comodin")) && mazo.stream().filter(x -> x.getTipoCarta().equals("Medicina")
+                || x.getTipoCarta().equals("Medicina_Comodin")).count() == 1) {//Inmunizar
+            mazo.get(0).setEstado("Inmunizado");
+            System.out.println("estado del organo ahora es Inmunizado");
+            /*si ya el órgano cuenta con una medicina, esta segunda medicina logrará
+             *proteger para siempre contra el ataque de cualquier virus y no podrá ser destruido ni
+             *afectado por cartas de tratamiento. Cuando el órgano se inmuniza las cartas de medicina
+             *se giran 90 grados sobre el órgano para indicar que está inmune.
+             */
+        } else if ((carta.getTipoCarta().equals("Virus_Comodin") || carta.getTipoCarta().equals("Virus")) && mazo.stream().filter(x -> x.getTipoCarta().equals("Virus")
+                || x.getTipoCarta().equals("Virus_Comodin")).count() == 0) {//Infectar
+            mazo.get(0).setEstado("Infectado");
+            System.out.println("estado del organo ahora es Infectado");
+            //se cambia el estado del organo a infectado y
+        } else if ((carta.getTipoCarta().equals("Virus_Comodin") || carta.getTipoCarta().equals("Virus")) && mazo.stream().filter(x -> x.getTipoCarta().equals("Virus")
+                || x.getTipoCarta().equals("Virus_Comodin")).count() == 1) {//Extirpar
+            mazo.get(0).setEstado("Extripar");
+            System.out.println("estado del organo ahora es Extripado");
+            /*si un segundo virus es colocado sobre un órgano ya infectado, este órgano
+             *será destruido y las tres cartas (el órgano y los 2 virus) serán enviadas a la pila de
+             *descarte.
+             */
+        } else if ((carta.getTipoCarta().equals("Virus_Comodin") || carta.getTipoCarta().equals("Virus")) && mazo.stream().filter(x -> x.getTipoCarta().equals("Medicina")
+                || x.getTipoCarta().equals("Medicina_Comodin")).count() == 1) {//Destruir vacuna
+            mazo.get(0).setEstado("Destruir");
+            System.out.println("estado del organo ahora es Destruido");
+            /*
+             *si sobre un órgano se encuentra una carta de medicina y se le aplica
+             *un virus del mismo color, ambas cartas (la medicina y el virus) serán enviadas a la pila
+             *de descarte
+             */
+        }
     }
 
     public void IniciarHilo() {

@@ -250,6 +250,7 @@ public class Hilo_Peticiones extends Thread {
                 || x.getTipoCarta().equals("Medicina_Comodin")).count() == 1) {//Inmunizar
             mazo.get(0).setEstado("Inmunizado");
             inmune = true;
+            
             System.out.println("estado del organo ahora es Inmunizado");
             /*si ya el órgano cuenta con una medicina, esta segunda medicina logrará
              *proteger para siempre contra el ataque de cualquier virus y no podrá ser destruido ni

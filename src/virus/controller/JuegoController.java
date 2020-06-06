@@ -527,7 +527,8 @@ public class JuegoController extends Controller implements Initializable {
                                     if (cartaAux.getTipoCarta().equals("Transplante")
                                             || cartaAux.getTipoCarta().equals("Contagio")
                                             || cartaAux.getTipoCarta().equals("Ladron")
-                                            || cartaAux.getTipoCarta().equals("Error") || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
+                                            || cartaAux.getTipoCarta().equals("Error") 
+                                            || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
                                         String IP2 = partida.getJugadores().get(1).getIP();
                                         enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
                                     } else {
@@ -547,7 +548,8 @@ public class JuegoController extends Controller implements Initializable {
                                     if (cartaAux.getTipoCarta().equals("Transplante")
                                             || cartaAux.getTipoCarta().equals("Contagio")
                                             || cartaAux.getTipoCarta().equals("Ladron")
-                                            || cartaAux.getTipoCarta().equals("Error") || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
+                                            || cartaAux.getTipoCarta().equals("Error") 
+                                            || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
                                         String IP3 = partida.getJugadores().get(2).getIP();
                                         enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP3);
                                     } else {
@@ -567,7 +569,8 @@ public class JuegoController extends Controller implements Initializable {
                                     if (cartaAux.getTipoCarta().equals("Transplante")
                                             || cartaAux.getTipoCarta().equals("Contagio")
                                             || cartaAux.getTipoCarta().equals("Ladron")
-                                            || cartaAux.getTipoCarta().equals("Error") || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
+                                            || cartaAux.getTipoCarta().equals("Error") 
+                                            || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
                                         String IP4 = partida.getJugadores().get(3).getIP();
                                         enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP4);
                                     } else {
@@ -587,7 +590,8 @@ public class JuegoController extends Controller implements Initializable {
                                     if (cartaAux.getTipoCarta().equals("Transplante")
                                             || cartaAux.getTipoCarta().equals("Contagio")
                                             || cartaAux.getTipoCarta().equals("Ladron")
-                                            || cartaAux.getTipoCarta().equals("Error") || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
+                                            || cartaAux.getTipoCarta().equals("Error") 
+                                            || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
                                         String IP5 = partida.getJugadores().get(4).getIP();
                                         enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP5);
                                     } else {
@@ -607,7 +611,8 @@ public class JuegoController extends Controller implements Initializable {
                                     if (cartaAux.getTipoCarta().equals("Transplante")
                                             || cartaAux.getTipoCarta().equals("Contagio")
                                             || cartaAux.getTipoCarta().equals("Ladron")
-                                            || cartaAux.getTipoCarta().equals("Error") || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
+                                            || cartaAux.getTipoCarta().equals("Error") 
+                                            || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
                                         String IP6 = partida.getJugadores().get(5).getIP();
                                         enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP6);
                                     } else {

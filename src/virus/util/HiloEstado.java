@@ -32,19 +32,22 @@ public class HiloEstado {
         @Override
         public void run() {
             tic++;
+            System.out.println("TIC "+ tic);
             if (tic == 5) {
-                timer.cancel();
-                task.cancel();
+
                 Platform.runLater(() -> {
-                    System.out.println(pane.getChildren().remove(pane.getChildren().size() - 1));
-                    System.out.println(pane.getChildren().remove(pane.getChildren().size() - 1));
-                    tic =0;
+                    System.out.println("HOLAAAAAAAAAAAAAAAAA " + pane.getChildren().remove(pane.getChildren().size() - 1));
+                    System.out.println("PLOKAAAAAAAAAAAAAAQQ" + pane.getChildren().remove(pane.getChildren().size() - 1));
+                    timer.cancel();
+                    task.cancel();
+                    tic = 0;
                 });
             }
         }
     };
 
     public void correrHilo(Pane pane) {
+        System.out.println("PLOKKK");
         this.pane = pane;
         timer.schedule(task, 10, 1000);
     }

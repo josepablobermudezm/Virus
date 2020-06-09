@@ -79,4 +79,5 @@ public class Hilo extends Thread {
         pantallaCarga.finalizado = true;
         FlowController.getInstance().goView("Juego");
     }
+    
 }

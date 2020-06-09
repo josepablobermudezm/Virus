@@ -170,7 +170,7 @@ public class Hilo_Peticiones extends Thread {
                                         ImageView imageAux = new ImageView("virus/resources/" + carta.getImagen());
                                         //imageAux.setRotate(90.0);
                                         imageAux.setFitHeight(81);
-                                        imageAux.setFitWidth(58.3);
+                                        imageAux.setFitWidth(58);
                                         imageAux.setTranslateX(0);
                                         imageAux.setTranslateY(0);
                                         switch (hijo) {

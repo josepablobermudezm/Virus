@@ -16,28 +16,28 @@
             <AnchorPane id="fondo_juego" fx:id="fondo_juego" prefHeight="665.0" prefWidth="1074.0" stylesheets="@newCascadeStyleSheet.css">
                <children>
                   <Label layoutX="12.0" layoutY="611.0" onMouseClicked="#Salir" styleClass="lbl2" text="Salir" />
-                  <Label fx:id="user" layoutX="15.0" layoutY="234.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
-                  <Label fx:id="user2" layoutX="752.0" layoutY="234.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
+                  <Label fx:id="user" layoutX="223.0" layoutY="234.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
+                  <Label fx:id="user2" layoutX="814.0" layoutY="234.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
                   <Label fx:id="user3" layoutX="749.0" layoutY="24.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
                   <Label fx:id="user4" layoutX="16.0" layoutY="24.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
                   <Label fx:id="user5" layoutX="15.0" layoutY="438.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
                   <Label fx:id="user6" layoutX="752.0" layoutY="438.0" prefHeight="40.0" prefWidth="232.0" styleClass="lbl" text="" />
-                  <HBox fx:id="hvox" layoutX="15.0" layoutY="280.0" prefHeight="108.0" prefWidth="513.75" spacing="35.0" visible="false">
+                  <HBox fx:id="hvox" layoutX="15.0" layoutY="280.0" prefHeight="81.0" prefWidth="440.0" spacing="35.0" visible="false">
                      <children>
-                        <Pane maxWidth="-Infinity" prefHeight="108.0" prefWidth="77.75" />
-                        <Pane maxWidth="-Infinity" prefHeight="108.0" prefWidth="77.75" />
-                        <Pane maxWidth="-Infinity" prefHeight="108.0" prefWidth="77.75" />
-                        <Pane maxWidth="-Infinity" prefHeight="108.0" prefWidth="77.75" />
-                        <Pane maxWidth="-Infinity" prefHeight="108.0" prefWidth="77.75" />
+                        <Pane maxWidth="-Infinity" prefHeight="81.0" prefWidth="58.3" />
+                        <Pane maxWidth="-Infinity" prefHeight="81.0" prefWidth="58.3" />
+                        <Pane maxWidth="-Infinity" prefHeight="81.0" prefWidth="58.3" />
+                        <Pane maxWidth="-Infinity" prefHeight="81.0" prefWidth="58.3" />
+                        <Pane maxWidth="-Infinity" prefHeight="81.0" prefWidth="58.3" />
                      </children>
                   </HBox>
-                  <HBox fx:id="hvox2" layoutX="752.0" layoutY="282.0" prefHeight="108.0" prefWidth="513.75" spacing="35.0" visible="false">
+                  <HBox fx:id="hvox2" layoutX="826.0" layoutY="282.0" prefHeight="81.0" prefWidth="440.0" spacing="35.0" visible="false">
                      <children>
-                        <Pane prefHeight="108.0" prefWidth="77.75" />
-                        <Pane prefWidth="77.75" />
-                        <Pane prefWidth="77.75" />
-                        <Pane prefWidth="77.75" />
-                        <Pane prefWidth="77.75" />
+                        <Pane prefHeight="81.0" prefWidth="58.3" />
+                        <Pane prefHeight="81.0" prefWidth="58.3" />
+                        <Pane prefHeight="81.0" prefWidth="58.3" />
+                        <Pane prefHeight="81.0" prefWidth="58.3" />
+                        <Pane prefHeight="81.0" prefWidth="58.3" />
                      </children>
                   </HBox>
                   <HBox fx:id="hvox3" layoutX="749.0" layoutY="71.0" prefHeight="108.0" prefWidth="513.75" spacing="35.0" visible="false">
@@ -76,14 +76,14 @@
                         <Pane prefHeight="108.0" prefWidth="77.75" />
                      </children>
                   </HBox>
-                  <HBox layoutX="555.0" layoutY="281.0" styleClass="hVoxActivo">
+                  <HBox layoutX="568.0" layoutY="283.0" prefHeight="81.0" prefWidth="61.0" styleClass="hVoxActivo">
                      <children>
-                        <ImageView fx:id="imgDesechada" fitHeight="107.25" fitWidth="74.75" onMouseClicked="#CartaDesechada" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS" />
+                        <ImageView fx:id="imgDesechada" fitHeight="81.0" fitWidth="58.3" onMouseClicked="#CartaDesechada" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
-                  <HBox layoutX="650.0" layoutY="281.0" styleClass="hVoxActivo">
+                  <HBox layoutX="640.0" layoutY="282.0" styleClass="hVoxActivo">
                      <children>
-                        <ImageView fx:id="CartaBocaAbajoimg" fitHeight="107.25" fitWidth="74.75" onMouseClicked="#CartadeMazo" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                        <ImageView fx:id="CartaBocaAbajoimg" fitHeight="84.0" fitWidth="58.3" onMouseClicked="#CartadeMazo" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                            <image>
                               <Image url="@../resources/cartaBocaAbajo.png" />
                            </image>

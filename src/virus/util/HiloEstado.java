@@ -32,12 +32,13 @@ public class HiloEstado {
         @Override
         public void run() {
             tic++;
-            if (tic == 2) {
+            if (tic == 5) {
                 timer.cancel();
                 task.cancel();
                 Platform.runLater(() -> {
-                    pane.getChildren().remove(pane.getChildren().size() - 1);
-                    pane.getChildren().remove(pane.getChildren().size() - 1);
+                    System.out.println(pane.getChildren().remove(pane.getChildren().size() - 1));
+                    System.out.println(pane.getChildren().remove(pane.getChildren().size() - 1));
+                    tic =0;
                 });
             }
         }

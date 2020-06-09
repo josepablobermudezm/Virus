@@ -204,8 +204,9 @@ public class Hilo_Peticiones extends Thread {
                                         Pane pane = ((Pane) ((HBox) t).getChildren().get(i));
                                         
                                         if (estado.equals("Curado") || estado.equals("Inmunizado")) {
-                                            
+                                            System.out.println("PLOKKKKKKKKKKKKKKKKKKKKKKKK");
                                             new Mensaje().show(Alert.AlertType.INFORMATION,"Información de Juego", "Órgano curado");
+                                            
                                             HiloEstado hilo = new HiloEstado();
                                             hilo.correrHilo(pane);
                                         }

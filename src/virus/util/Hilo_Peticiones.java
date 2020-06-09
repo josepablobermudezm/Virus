@@ -212,7 +212,9 @@ public class Hilo_Peticiones extends Thread {
                                     if (estado.equals("Curado") || estado.equals("Inmunizado")) {
                                         System.out.println("ESTADO 6" + estado);
                                         System.out.println("PLOKKKKKKKKKKKKKKKKKKKKKKKK");
-                                        new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Órgano curado");
+                                        Platform.runLater(() -> {
+                                            new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Órgano curado");
+                                        });
 
                                         HiloEstado hilo = new HiloEstado();
                                         hilo.correrHilo(pane);

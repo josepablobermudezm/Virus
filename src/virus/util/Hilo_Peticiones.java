@@ -111,30 +111,42 @@ public class Hilo_Peticiones extends Thread {
                             ObjectInputStream objectInputStream = new ObjectInputStream(respuesta2);
                             CartaDto carta = (CartaDto) objectInputStream.readObject();
                             JugadorDto jugadorAux = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get();
+                            System.out.println("ESTADO 1 " + estado);
                             switch (hijo) {
                                 case "0":
+                                    System.out.println("ESTADO 2 SWITCH 1.0" + estado);
                                     CambioEstado(carta, jugadorAux.getCartas1());
+                                    System.out.println("ESTADO 2 SWITCH 1.1" + estado);
                                     jugadorAux.getCartas1().add(carta);
                                     break;
                                 case "1":
+                                    System.out.println("ESTADO 2 SWITCH 2.0" + estado);
                                     CambioEstado(carta, jugadorAux.getCartas2());
+                                    System.out.println("ESTADO 2 SWITCH 2.1" + estado);
                                     jugadorAux.getCartas2().add(carta);
                                     break;
                                 case "2":
+                                    System.out.println("ESTADO 2 SWITCH 3.0" + estado);
                                     CambioEstado(carta, jugadorAux.getCartas3());
+                                    System.out.println("ESTADO 2 SWITCH 3.1" + estado);
                                     jugadorAux.getCartas3().add(carta);
                                     break;
                                 case "3":
+                                    System.out.println("ESTADO 2 SWITCH 4.0" + estado);
                                     CambioEstado(carta, jugadorAux.getCartas4());
+                                    System.out.println("ESTADO 2 SWITCH 4.1" + estado);
                                     jugadorAux.getCartas4().add(carta);
                                     break;
                                 case "4":
+                                    System.out.println("ESTADO 2 SWITCH 5.0" + estado);
                                     CambioEstado(carta, jugadorAux.getCartas5());
+                                    System.out.println("ESTADO 2 SWITCH 5.1" + estado);
                                     jugadorAux.getCartas5().add(carta);
                                     break;
                                 default:
                                     break;
                             }
+                            System.out.println("ESTADO 3" + estado);
                             /*
                             Preguntamos si ya termino el juegoS
                              */
@@ -159,45 +171,58 @@ public class Hilo_Peticiones extends Thread {
                             anchorPane.getChildren().forEach((t) -> {
                                 if (t.getId() != null && t.getId().equals(padre)) {
                                     int i = Integer.valueOf(hijo);
-                                    Platform.runLater(() -> {
-                                        Pane pane = ((Pane) ((HBox) t).getChildren().get(i));
-                                        if (inmune) {
-                                            pane.setRotate(90.0);
-                                            pane.setLayoutX(pane.getLayoutX() + 25.0);
-                                            inmune = false;
-                                        }
+                                    System.out.println("ESTADO XDD" + estado);
+                                    System.out.println("ESTADO XDD2.00" + estado);
+                                    Pane pane = ((Pane) ((HBox) t).getChildren().get(i));
+                                    if (inmune) {
+                                        pane.setRotate(90.0);
+                                        pane.setLayoutX(pane.getLayoutX() + 25.0);
+                                        inmune = false;
+                                    }
 
-                                        ImageView imageAux = new ImageView("virus/resources/" + carta.getImagen());
-                                        //imageAux.setRotate(90.0);
-                                        imageAux.setFitHeight(81);
-                                        imageAux.setFitWidth(58);
-                                        imageAux.setTranslateX(0);
-                                        imageAux.setTranslateY(0);
-                                        switch (hijo) {
-                                            case "0":
-                                                imageAux.setLayoutY(pane.getLayoutY() + (jugadorAux.getCartas1().size() - 1) * 25);
-                                                break;
-                                            case "1":
-                                                imageAux.setLayoutY(pane.getLayoutY() + (jugadorAux.getCartas2().size() - 1) * 25);
-                                                break;
-                                            case "2":
-                                                imageAux.setLayoutY(pane.getLayoutY() + (jugadorAux.getCartas3().size() - 1) * 25);
-                                                break;
-                                            case "3":
-                                                imageAux.setLayoutY(pane.getLayoutY() + (jugadorAux.getCartas4().size() - 1) * 25);
-                                                break;
-                                            case "4":
-                                                imageAux.setLayoutY(pane.getLayoutY() + (jugadorAux.getCartas5().size() - 1) * 25);
-                                                break;
-                                            default:
-                                                break;
-                                        }
+                                    ImageView imageAux = new ImageView("virus/resources/" + carta.getImagen());
+                                    //imageAux.setRotate(90.0);
+                                    imageAux.setFitHeight(81);
+                                    imageAux.setFitWidth(58);
+                                    imageAux.setTranslateX(0);
+                                    imageAux.setTranslateY(0);
+                                    switch (hijo) {
+                                        case "0":
+                                            imageAux.setLayoutY(pane.getLayoutY() + (jugadorAux.getCartas1().size() - 1) * 25);
+                                            break;
+                                        case "1":
+                                            imageAux.setLayoutY(pane.getLayoutY() + (jugadorAux.getCartas2().size() - 1) * 25);
+                                            break;
+                                        case "2":
+                                            imageAux.setLayoutY(pane.getLayoutY() + (jugadorAux.getCartas3().size() - 1) * 25);
+                                            break;
+                                        case "3":
+                                            imageAux.setLayoutY(pane.getLayoutY() + (jugadorAux.getCartas4().size() - 1) * 25);
+                                            break;
+                                        case "4":
+                                            imageAux.setLayoutY(pane.getLayoutY() + (jugadorAux.getCartas5().size() - 1) * 25);
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    Platform.runLater(() -> {
                                         pane.getChildren().add(imageAux);
                                     });
+                                    System.out.println("ESTADO 5" + estado);
+                                    if (estado.equals("Curado") || estado.equals("Inmunizado")) {
+                                        System.out.println("ESTADO 6" + estado);
+                                        System.out.println("PLOKKKKKKKKKKKKKKKKKKKKKKKK");
+                                        new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Órgano curado");
+
+                                        HiloEstado hilo = new HiloEstado();
+                                        hilo.correrHilo(pane);
+                                    }
+                                    System.out.println("ESTADO 7" + estado);
+
                                 }
                             });
-
-                            anchorPane.getChildren().forEach(t -> {
+                            System.out.println("ESTADO 8" + estado);
+                            /*anchorPane.getChildren().forEach(t -> {
                                 if (t.getId() != null && t.getId().equals(padre)) {
                                     int i = Integer.valueOf(hijo);
                                      System.out.println("PLOKKKKKKKKKKKKKKKKKKKKKKKK AASASASS");
@@ -215,7 +240,8 @@ public class Hilo_Peticiones extends Thread {
                                         }
                                     });
                                 }
-                            });
+                            });*/
+
                             estado = "";
 
                             if (cont == 4) {
@@ -286,12 +312,12 @@ public class Hilo_Peticiones extends Thread {
             inmune = true;
             estado = "Inmunizado";
             System.out.println("estado del organo ahora es Inmunizado");
-            
+
             ArrayList removidas = (ArrayList<CartaDto>) mazo.stream().
                     filter(x -> x.getTipoCarta().equals("Medicina") || x.getTipoCarta().
                     equals("Medicina_Comodin")).collect(Collectors.toList());
             mazo.removeAll(removidas);
-            
+
             /*si ya el órgano cuenta con una medicina, esta segunda medicina logrará
              *proteger para siempre contra el ataque de cualquier virus y no podrá ser destruido ni
              *afectado por cartas de tratamiento. Cuando el órgano se inmuniza las cartas de medicina

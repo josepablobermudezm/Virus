@@ -58,7 +58,7 @@ public class Hilo_Peticiones extends Thread {
     String mensajeRecibido = "";
     String nombreGanador = "";
     private Boolean inmune = false;
-    private String estado = "";
+    public static String estado = "";
 
     @Override
     public void run() {
@@ -200,15 +200,18 @@ public class Hilo_Peticiones extends Thread {
                             anchorPane.getChildren().forEach(t -> {
                                 if (t.getId() != null && t.getId().equals(padre)) {
                                     int i = Integer.valueOf(hijo);
+                                     System.out.println("PLOKKKKKKKKKKKKKKKKKKKKKKKK AASASASS");
                                     Platform.runLater(() -> {
                                         Pane pane = ((Pane) ((HBox) t).getChildren().get(i));
-                                        
+                                        System.out.println("ESTADO :  "+ estado);
                                         if (estado.equals("Curado") || estado.equals("Inmunizado")) {
                                             System.out.println("PLOKKKKKKKKKKKKKKKKKKKKKKKK");
                                             new Mensaje().show(Alert.AlertType.INFORMATION,"Información de Juego", "Órgano curado");
                                             
                                             HiloEstado hilo = new HiloEstado();
                                             hilo.correrHilo(pane);
+                                        }else{
+                                            System.out.println("XDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
                                         }
                                     });
                                 }
@@ -321,7 +324,7 @@ public class Hilo_Peticiones extends Thread {
              *de descarte
              */
         } else {
-            estado = "";
+            //estado = "";
         }
     }
 

@@ -292,8 +292,8 @@ public class JuegoController extends Controller implements Initializable {
         image7.setId("carta1");
         vBox.getStyleClass().clear();
         vBox.getStyleClass().add("hVoxActivo");
-        image7.setFitHeight(107.25);
-        image7.setFitWidth(74.75);
+        image7.setFitHeight(81);
+        image7.setFitWidth(58.3);
         vBox.setLayoutX(535);
         vBox.setLayoutY(510);
         image7.setOnMouseClicked(seleccionarCarta);
@@ -304,8 +304,8 @@ public class JuegoController extends Controller implements Initializable {
         image8.setId("carta2");
         vBox2.getStyleClass().clear();
         vBox2.getStyleClass().add("hVoxActivo");
-        image8.setFitHeight(107.25);
-        image8.setFitWidth(74.75);
+        image8.setFitHeight(81);
+        image8.setFitWidth(58.3);
         vBox2.setLayoutX(vBox.getLayoutX() + 102.5);
         vBox2.setLayoutY(510);
         image8.setOnMouseClicked(seleccionarCarta);
@@ -316,8 +316,8 @@ public class JuegoController extends Controller implements Initializable {
         image9.setId("carta3");
         vBox3.getStyleClass().clear();
         vBox3.getStyleClass().add("hVoxActivo");
-        image9.setFitHeight(107.25);
-        image9.setFitWidth(74.75);
+        image9.setFitHeight(81);
+        image9.setFitWidth(58.3);
         vBox3.setLayoutX(vBox2.getLayoutX() + 102.5);
         vBox3.setLayoutY(510);
         image9.setOnMouseClicked(seleccionarCarta);

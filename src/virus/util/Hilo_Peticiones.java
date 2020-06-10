@@ -138,23 +138,23 @@ public class Hilo_Peticiones extends Thread {
                             Preguntamos si ya termino el juegoS
                              */
                             int cont = 0;
-                            if ((!jugadorAux.getCartas1().isEmpty()) ? jugadorAux.getCartas1().get(0).getEstado().equals("Sano") 
+                            if ((!jugadorAux.getCartas1().isEmpty()) ? jugadorAux.getCartas1().get(0).getEstado().equals("Sano")
                                     || jugadorAux.getCartas1().get(0).getEstado().equals("Inmunizado") : false) {
                                 cont++;
                             }
                             if ((!jugadorAux.getCartas2().isEmpty()) ? jugadorAux.getCartas2().get(0).getEstado().equals("Sano")
-                                    || jugadorAux.getCartas2().get(0).getEstado().equals("Inmunizado"): false) {
+                                    || jugadorAux.getCartas2().get(0).getEstado().equals("Inmunizado") : false) {
                                 cont++;
                             }
-                            if ((!jugadorAux.getCartas3().isEmpty()) ? jugadorAux.getCartas3().get(0).getEstado().equals("Sano") 
+                            if ((!jugadorAux.getCartas3().isEmpty()) ? jugadorAux.getCartas3().get(0).getEstado().equals("Sano")
                                     || jugadorAux.getCartas3().get(0).getEstado().equals("Inmunizado") : false) {
                                 cont++;
                             }
-                            if ((!jugadorAux.getCartas4().isEmpty()) ? jugadorAux.getCartas4().get(0).getEstado().equals("Sano") 
+                            if ((!jugadorAux.getCartas4().isEmpty()) ? jugadorAux.getCartas4().get(0).getEstado().equals("Sano")
                                     || jugadorAux.getCartas4().get(0).getEstado().equals("Inmunizado") : false) {
                                 cont++;
                             }
-                            if ((!jugadorAux.getCartas5().isEmpty()) ? jugadorAux.getCartas5().get(0).getEstado().equals("Sano") 
+                            if ((!jugadorAux.getCartas5().isEmpty()) ? jugadorAux.getCartas5().get(0).getEstado().equals("Sano")
                                     || jugadorAux.getCartas5().get(0).getEstado().equals("Inmunizado") : false) {
                                 cont++;
                             }
@@ -199,18 +199,18 @@ public class Hilo_Peticiones extends Thread {
                                         switch (estado) {
                                             case "Inmunizado":
                                                 Platform.runLater(() -> {
-                                                    //pane.setRotate(90.0);
-                                                    //pane.setLayoutX(pane.getLayoutX() + 25.0);
                                                     pane.getChildren().get(pane.getChildren().size() - 1).setRotate(-90);
-                                                    pane.getChildren().get(pane.getChildren().size() - 1).setLayoutY(pane.getChildren().get(pane.getChildren().size() - 1).getLayoutY()+25);
-                                                    
+                                                    pane.getChildren().get(pane.getChildren().size() - 1).setLayoutY(pane.getChildren().get(pane.getChildren().size() - 1).getLayoutY() + 25);
+
                                                     pane.getChildren().get(pane.getChildren().size() - 2).setRotate(-90);
-                                                    pane.getChildren().get(pane.getChildren().size() - 2).setLayoutY(pane.getChildren().get(pane.getChildren().size() - 2).getLayoutY()-15);
+                                                    pane.getChildren().get(pane.getChildren().size() - 2).setLayoutY(pane.getChildren().get(pane.getChildren().size() - 2).getLayoutY() - 15);
                                                     new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Inmunizado");
                                                 });
                                                 break;
                                             case "Extirpado":
                                                 Platform.runLater(() -> {
+                                                    ImageView auxImg = (ImageView) pane.getChildren().get(pane.getChildren().size() - 3);
+                                                    imageView.setImage(auxImg.getImage());
                                                     pane.getChildren().remove(pane.getChildren().size() - 1);
                                                     pane.getChildren().remove(pane.getChildren().size() - 1);
                                                     pane.getChildren().remove(pane.getChildren().size() - 1);
@@ -219,6 +219,8 @@ public class Hilo_Peticiones extends Thread {
                                                 break;
                                             case "Sano":
                                                 Platform.runLater(() -> {
+                                                    ImageView auxImg = (ImageView) pane.getChildren().get(pane.getChildren().size() - 2);
+                                                    imageView.setImage(auxImg.getImage());
                                                     pane.getChildren().remove(pane.getChildren().size() - 1);
                                                     pane.getChildren().remove(pane.getChildren().size() - 1);
                                                     new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Sano");
@@ -294,8 +296,11 @@ public class Hilo_Peticiones extends Thread {
                     || x.getTipoCarta().equals("Virus_Comodin")).collect(Collectors.toList());
             estado = "Sano";
             removidas.stream().forEach((t) -> {
-                System.out.println("TIPO " + t.getTipoCarta());
+                t.setEstado("Sano");
             });
+
+            partidaDto.getDesechadas().addAll(removidas);
+
             mazo.removeAll(removidas);
             /*
              *hay un virus en el organo, entonces una vez que ponemos la medicina, se mandan ambas cartas a la pila de descarte
@@ -307,15 +312,20 @@ public class Hilo_Peticiones extends Thread {
             mazo.get(0).setEstado("Inmunizado");
             estado = "Inmunizado";
 
-            ArrayList<CartaDto> removidas = (ArrayList<CartaDto>) mazo.stream().
+            /* ArrayList<CartaDto> removidas = (ArrayList<CartaDto>) mazo.stream().
                     filter(x -> x.getTipoCarta().equals("Medicina") || x.getTipoCarta().
                     equals("Medicina_Comodin")).collect(Collectors.toList());
             removidas.stream().forEach((t) -> {
                 System.out.println("TIPO " + t.getTipoCarta());
             });
-            mazo.removeAll(removidas);
+            removidas.stream().forEach((t) -> {
+                t.setEstado("Sano");
+            });
+            
+            partidaDto.getDesechadas().addAll(removidas);
+            mazo.removeAll(removidas);*/
 
-            /*si ya el órgano cuenta con una medicina, esta segunda medicina logrará
+ /*si ya el órgano cuenta con una medicina, esta segunda medicina logrará
              *proteger para siempre contra el ataque de cualquier virus y no podrá ser destruido ni
              *afectado por cartas de tratamiento. Cuando el órgano se inmuniza las cartas de medicina
              *se giran 90 grados sobre el órgano para indicar que está inmune.

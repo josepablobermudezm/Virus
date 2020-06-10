@@ -24,9 +24,9 @@
 
 .hVoxActivo2{
     -fx-border-color:#6684ff; 
-    -fx-border-width: 1; 
+    -fx-border-width: 5; 
     -fx-border-style: solid;
-    -fx-border-radius: 8px;
+    -fx-border-radius: 5px;
 }
 
 .hVoxActivo:hover{

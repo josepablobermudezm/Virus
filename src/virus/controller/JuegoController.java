@@ -462,8 +462,8 @@ public class JuegoController extends Controller implements Initializable {
 
     private void noVirus(String padre, String hijo) {
         if (!cartaAux.getTipoCarta().equals("Virus") && !cartaAux.getTipoCarta().equals("Virus_Comodin")) {
-            movimientoInmune(hijo, padre, "propio", "");
-            //movimiento(padre, hijo);
+            //movimientoInmune(hijo, padre, "propio", "");
+            movimiento(padre, hijo);
         } else {
             new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner un virus en tus propias cartas");
         }
@@ -526,8 +526,8 @@ public class JuegoController extends Controller implements Initializable {
                                         || cartaAux.getTipoCarta().equals("Error")
                                         || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
                                     String IP2 = partida.getJugadores().get(0).getIP();
-                                    movimientoInmune(hijo, padre, "", IP2);
-                                    //enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
+                                    //movimientoInmune(hijo, padre, "", IP2);
+                                    enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
                                 } else {
                                     if (!jug1C.get(0).getColor().equals(cartaAux.getColor())) {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
@@ -550,8 +550,8 @@ public class JuegoController extends Controller implements Initializable {
                                         || cartaAux.getTipoCarta().equals("Error")
                                         || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
                                     String IP2 = partida.getJugadores().get(1).getIP();
-                                    movimientoInmune(hijo, padre, "", IP2);
-                                    //enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
+                                    //movimientoInmune(hijo, padre, "", IP2);
+                                    enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
                                 } else {
                                     if (!jug2C.get(0).getColor().equals(cartaAux.getColor())) {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
@@ -575,8 +575,8 @@ public class JuegoController extends Controller implements Initializable {
                                         || cartaAux.getTipoCarta().equals("Error")
                                         || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
                                     String IP2 = partida.getJugadores().get(2).getIP();
-                                    movimientoInmune(hijo, padre, "", IP2);
-                                    //enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
+                                    //movimientoInmune(hijo, padre, "", IP2);
+                                    enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
                                 } else {
                                     if (!jug3C.get(0).getColor().equals(cartaAux.getColor())) {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
@@ -600,8 +600,8 @@ public class JuegoController extends Controller implements Initializable {
                                         || cartaAux.getTipoCarta().equals("Error")
                                         || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
                                     String IP2 = partida.getJugadores().get(3).getIP();
-                                    movimientoInmune(hijo, padre, "", IP2);
-                                    //enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
+                                    //movimientoInmune(hijo, padre, "", IP2);
+                                    enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
                                 } else {
                                     if (!jug4C.get(0).getColor().equals(cartaAux.getColor())) {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
@@ -625,8 +625,8 @@ public class JuegoController extends Controller implements Initializable {
                                         || cartaAux.getTipoCarta().equals("Error")
                                         || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
                                     String IP2 = partida.getJugadores().get(4).getIP();
-                                    movimientoInmune(hijo, padre, "", IP2);
-                                    //enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
+                                    //movimientoInmune(hijo, padre, "", IP2);
+                                    enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
                                 } else {
                                     if (!jug5C.get(0).getColor().equals(cartaAux.getColor())) {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
@@ -650,8 +650,8 @@ public class JuegoController extends Controller implements Initializable {
                                         || cartaAux.getTipoCarta().equals("Error")
                                         || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
                                     String IP2 = partida.getJugadores().get(5).getIP();
-                                    movimientoInmune(hijo, padre, "", IP2);
-                                    //enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
+                                    //movimientoInmune(hijo, padre, "", IP2);
+                                    enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
                                 } else {
                                     if (!jug6C.get(0).getColor().equals(cartaAux.getColor())) {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
@@ -804,40 +804,40 @@ public class JuegoController extends Controller implements Initializable {
                             switch (hijo) {
                                 case "0":
                                     if (jugador.getCartas1().isEmpty()) {
-                                        movimientoInmune(hijo, padre, "propio", "");
-                                        //movimiento(padre, hijo);
+                                        ////movimientoInmune(hijo, padre, "propio", "");
+                                        movimiento(padre, hijo);
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner otro órgano en este campo");
                                     }
                                     break;
                                 case "1":
                                     if (jugador.getCartas2().isEmpty()) {
-                                        movimientoInmune(hijo, padre, "propio", "");
-                                        //movimiento(padre, hijo);
+                                        ////movimientoInmune(hijo, padre, "propio", "");
+                                        movimiento(padre, hijo);
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner otro órgano en este campo");
                                     }
                                     break;
                                 case "2":
                                     if (jugador.getCartas3().isEmpty()) {
-                                        movimientoInmune(hijo, padre, "propio", "");
-                                        //movimiento(padre, hijo);
+                                        ////movimientoInmune(hijo, padre, "propio", "");
+                                        movimiento(padre, hijo);
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner otro órgano en este campo");
                                     }
                                     break;
                                 case "3":
                                     if (jugador.getCartas4().isEmpty()) {
-                                        movimientoInmune(hijo, padre, "propio", "");
-                                        //movimiento(padre, hijo);
+                                        //movimientoInmune(hijo, padre, "propio", "");
+                                        movimiento(padre, hijo);
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner otro órgano en este campo");
                                     }
                                     break;
                                 case "4":
                                     if (jugador.getCartas5().isEmpty()) {
-                                        movimientoInmune(hijo, padre, "propio", "");
-                                        //movimiento(padre, hijo);
+                                        //movimientoInmune(hijo, padre, "propio", "");
+                                        movimiento(padre, hijo);
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner otro órgano en este campo");
                                     }

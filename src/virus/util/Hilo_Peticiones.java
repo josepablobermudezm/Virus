@@ -200,7 +200,6 @@ public class Hilo_Peticiones extends Thread {
                                             case "Inmunizado":
                                                 Platform.runLater(() -> {
                                                     pane.getChildren().get(pane.getChildren().size() - 1).setRotate(90);
-                                                    pane.getChildren().get(pane.getChildren().size() - 1).setLayoutY(pane.getChildren().get(pane.getChildren().size() - 1).getLayoutY() + 25);
 
                                                     pane.getChildren().get(pane.getChildren().size() - 2).setRotate(90);
                                                     new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Inmunizado");

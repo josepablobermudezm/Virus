@@ -117,6 +117,9 @@ public class JuegoController extends Controller implements Initializable {
     public Boolean modoOrgano = false;
     public Boolean unSoloOrgano = false;
     public static Hilo_Peticiones peticiones;
+    public VBox vBox;
+    public VBox vBox2;
+    public VBox vBox3;
 
     /**
      * Initializes the controller class.
@@ -286,7 +289,7 @@ public class JuegoController extends Controller implements Initializable {
             nombres.get(i).setText(jugadores.get(i).getNombre());
         }
 
-        VBox vBox = new VBox();
+        vBox = new VBox();
         image7 = new ImageView("virus/resources/" + carta1.getImagen());
         image7.setId("carta1");
         vBox.getStyleClass().clear();
@@ -298,7 +301,7 @@ public class JuegoController extends Controller implements Initializable {
         image7.setOnMouseClicked(seleccionarCarta);
         vBox.getChildren().add(image7);
 
-        VBox vBox2 = new VBox();
+        vBox2 = new VBox();
         image8 = new ImageView("virus/resources/" + carta2.getImagen());
         image8.setId("carta2");
         vBox2.getStyleClass().clear();
@@ -310,7 +313,7 @@ public class JuegoController extends Controller implements Initializable {
         image8.setOnMouseClicked(seleccionarCarta);
         vBox2.getChildren().add(image8);
 
-        VBox vBox3 = new VBox();
+        vBox3 = new VBox();
         image9 = new ImageView("virus/resources/" + carta3.getImagen());
         image9.setId("carta3");
         vBox3.getStyleClass().clear();
@@ -415,13 +418,31 @@ public class JuegoController extends Controller implements Initializable {
                 switch (((ImageView) event.getSource()).getId()) {
                     case "carta3":
                         cartaAux = carta3;
+                        vBox.getStyleClass().clear();
+                        vBox.getStyleClass().add("hVoxActivo2");
+                        vBox2.getStyleClass().clear();
+                        vBox2.getStyleClass().add("hVoxActivo");
+                        vBox3.getStyleClass().clear();
+                        vBox3.getStyleClass().add("hVoxActivo");
                         break;
                     case "carta2":
                         cartaAux = carta2;
+                        vBox.getStyleClass().clear();
+                        vBox.getStyleClass().add("hVoxActivo");
+                        vBox2.getStyleClass().clear();
+                        vBox2.getStyleClass().add("hVoxActivo2");
+                        vBox3.getStyleClass().clear();
+                        vBox3.getStyleClass().add("hVoxActivo");
                         break;
                     default:
                         //carta 1
                         cartaAux = carta1;
+                        vBox.getStyleClass().clear();
+                        vBox.getStyleClass().add("hVoxActivo");
+                        vBox2.getStyleClass().clear();
+                        vBox2.getStyleClass().add("hVoxActivo");
+                        vBox3.getStyleClass().clear();
+                        vBox3.getStyleClass().add("hVoxActivo2");
                         break;
                 }
             } else {
@@ -1152,6 +1173,12 @@ public class JuegoController extends Controller implements Initializable {
             System.out.println(jugador.getMazo().remove(cartaAux));//removemos la carta del mazo del  jugador 
             imageViewDesechada.setImage(null);
             cartaAux = null;
+            vBox.getStyleClass().clear();
+            vBox.getStyleClass().add("hVoxActivo");
+            vBox2.getStyleClass().clear();
+            vBox2.getStyleClass().add("hVoxActivo");
+            vBox3.getStyleClass().clear();
+            vBox3.getStyleClass().add("hVoxActivo");
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -1183,12 +1210,17 @@ public class JuegoController extends Controller implements Initializable {
             socket2.close();
             imageViewDesechada.setImage(null);
             System.out.println(jugador.getMazo().remove(cartaAux));//removemos la carta del mazo del  jugador 
-
-            //AppContext.getInstance().set("JugadorDto", jugador);
+            vBox.getStyleClass().clear();
+            vBox.getStyleClass().add("hVoxActivo");
+            vBox2.getStyleClass().clear();
+            vBox2.getStyleClass().add("hVoxActivo");
+            vBox3.getStyleClass().clear();
+            vBox3.getStyleClass().add("hVoxActivo");
             cartaAux = null;
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+
     }
 
     public void cambiarTurnoAux() {
@@ -1234,7 +1266,6 @@ public class JuegoController extends Controller implements Initializable {
     private void CartadeMazo(MouseEvent event) {
         if (!findePartida) {
             cartaAux = null;
-
             if (jugador.getTurno()) {
                 if (jugador.getMazo().size() < 3 && (image9.getImage() == null || image8.getImage() == null
                         || image7.getImage() == null)) {
@@ -1257,5 +1288,11 @@ public class JuegoController extends Controller implements Initializable {
             Mensaje ms = new Mensaje();
             ms.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");
         }
+        vBox.getStyleClass().clear();
+        vBox.getStyleClass().add("hVoxActivo");
+        vBox2.getStyleClass().clear();
+        vBox2.getStyleClass().add("hVoxActivo");
+        vBox3.getStyleClass().clear();
+        vBox3.getStyleClass().add("hVoxActivo");
     }
 }

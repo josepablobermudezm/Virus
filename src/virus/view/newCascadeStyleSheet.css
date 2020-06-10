@@ -1,3 +1,4 @@
+
 #Titulo{
     -fx-text-fill: gray;
     -fx-font-size : 100pt;
@@ -20,6 +21,14 @@
     -fx-border-style: solid;
     -fx-border-radius: 5px;
 }
+
+.hVoxActivo2{
+    -fx-border-color:green; 
+    -fx-border-width: 1; 
+    -fx-border-style: solid;
+    -fx-border-radius: 5px;
+}
+
 .hVoxActivo:hover{
     -fx-border-color:gray; 
     -fx-border-width: 2; 

@@ -323,16 +323,8 @@ public class Hilo_Peticiones extends Thread {
                 || x.getTipoCarta().equals("Medicina_Comodin")).count() == 0
                 && mazo.stream().filter(x -> x.getTipoCarta().equals("Virus")
                 || x.getTipoCarta().equals("Virus_Comodin")).count() == 2) {//Extirpar
-            mazo.get(0).setEstado("Extirpado");
+            mazo.clear();
             estado = "Extirpado";
-
-            ArrayList<CartaDto> removidas = (ArrayList<CartaDto>) mazo.stream().
-                    filter(x -> x.getTipoCarta().equals("Virus") || x.getTipoCarta().equals("Virus_Comodin")).
-                    collect(Collectors.toList());
-            removidas.stream().forEach((t) -> {
-                System.out.println("TIPO " + t.getTipoCarta());
-            });
-            mazo.removeAll(removidas);
 
             /*si un segundo virus es colocado sobre un órgano ya infectado, este órgano
              *será destruido y las tres cartas (el órgano y los 2 virus) serán enviadas a la pila de

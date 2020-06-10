@@ -1085,15 +1085,14 @@ public class JuegoController extends Controller implements Initializable {
                 objectoutputstream.writeObject(partida.getDesechadas());
                 carta = (CartaDto) objectInputStream.readObject();
 
-                /*socket = new Socket(IP_Servidor, 44440);
-                mensaje = new DataOutputStream(socket.getOutputStream());*/
-                //DataInputStream respuesta = new DataInputStream(socket.getInputStream());
+                socket = new Socket(IP_Servidor, 44440);
+                mensaje = new DataOutputStream(socket.getOutputStream());
+                DataInputStream respuesta = new DataInputStream(socket.getInputStream());
                 //Enviamos un mensaje
                 mensaje.writeUTF("mazoTerminado");
-                entrada = new DataInputStream(socket.getInputStream());
-                entrada.readUTF();
+                respuesta.readUTF();
                 //Cerramos la conexión
-                //socket.close();
+                socket.close();
 
                 /*Platform.runLater(() -> {
                     desechadas.setImage(null);

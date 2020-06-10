@@ -684,12 +684,13 @@ public class JuegoController extends Controller implements Initializable {
                         if ((cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
                                 || cartaAux.getTipoCarta().equals("Cerebro") || cartaAux.getTipoCarta().equals("Hueso")
                                 || cartaAux.getTipoCarta().equals("Organo_Comodin")) && jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty() && jugador.getCartas5().isEmpty()) {
+                            System.out.println("ENTRO CDD");
                             movimiento(padre, hijo);
-                        } else if (cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
+                        } else if ((cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
                                 || cartaAux.getTipoCarta().equals("Cerebro") || cartaAux.getTipoCarta().equals("Hueso")
-                                || cartaAux.getTipoCarta().equals("Organo_Comodin") && (!jugador.getCartas1().isEmpty() //Organo en los campos vacios
+                                || cartaAux.getTipoCarta().equals("Organo_Comodin")) && (!jugador.getCartas1().isEmpty() //Organo en los campos vacios
                                 ? !cartaAux.getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta())
-                                : true)
+                                : true) 
                                 && (!jugador.getCartas2().isEmpty()
                                 ? !cartaAux.getTipoCarta().equals(jugador.getCartas2().get(0).getTipoCarta())
                                 : true)
@@ -702,6 +703,7 @@ public class JuegoController extends Controller implements Initializable {
                                 && (!jugador.getCartas5().isEmpty()
                                 ? !cartaAux.getTipoCarta().equals(jugador.getCartas5().get(0).getTipoCarta())
                                 : true)) {
+                            System.out.println("ENTRO");
                             //Verifica que el organo que se desea poner no este lleno con un organo 
                             switch (hijo) {
                                 case "0":
@@ -741,8 +743,10 @@ public class JuegoController extends Controller implements Initializable {
                                     break;
                             }
                         } else {//Cualquier otro movimiento
+                            System.out.println("ENTRO 2");
                             switch (hijo) {
                                 case "0":
+                                    
                                     if (!jugador.getCartas1().isEmpty() && (jugador.getCartas1().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin") || jugador.getCartas1().get(0).getTipoCarta().equals("Organo_Comodin"))) {
                                         if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
                                                 && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")

@@ -215,8 +215,18 @@ public class Hilo_Peticiones extends Thread {
                                             }
                                             pane.getChildren().remove(pane.getChildren().size() - 1);
                                             pane.getChildren().remove(pane.getChildren().size() - 1);
-                                            new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", estado);
+
                                         });
+                                        if (estado.equals("Curado")) {
+                                            Platform.runLater(() -> {
+                                                new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Curado");
+                                            });
+                                        }else if(estado.equals("Inmunizado")){
+                                            Platform.runLater(() -> {
+                                                new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Inmunizado");
+                                            });
+                                        }
+
                                         /*System.out.println("ESTADO 6" + estado);
                                         System.out.println("PLOKKKKKKKKKKKKKKKKKKKKKKKK");
                                         HiloEstado hilo = new HiloEstado();

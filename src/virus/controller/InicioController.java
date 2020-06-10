@@ -26,6 +26,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import virus.model.CartaDto;
 import virus.model.JugadorDto;
 import virus.util.AppContext;
@@ -47,12 +48,13 @@ public class InicioController extends Controller implements Initializable {
     private TextField txtServidor;
     @FXML
     private TextField txtJugador;
-
+    private static Stage stageA;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        stageA = this.stage;
     }
 
     @Override
@@ -69,7 +71,7 @@ public class InicioController extends Controller implements Initializable {
     private void Jugar(MouseEvent event) {
         if (!txtIP.getText().isEmpty() && !txtJugador.getText().isEmpty() && !txtServidor.getText().isEmpty()) {
             enviarTexto(txtJugador.getText(), txtIP.getText(), txtServidor.getText());
-
+            
         }
     }
 
@@ -120,8 +122,8 @@ public class InicioController extends Controller implements Initializable {
             socket.close();
             Hilo hilo = new Hilo();
             hilo.start();
-
-            FlowController.getInstance().goViewInWindowTransparent("VistaCargando");
+            FlowController.getInstance().goViewInWindowModal("VistaCargando",false);
+            //FlowController.getInstance().goViewInWindowTransparent("VistaCargando");
         } catch (IOException e) {
             System.out.println(e.getMessage());
         } catch (ClassNotFoundException ex) {

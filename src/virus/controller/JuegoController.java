@@ -439,7 +439,6 @@ public class JuegoController extends Controller implements Initializable {
                         }
                         break;
                     default:
-                        //carta 1
                         cartaAux = carta1;
                         if (imageViewDesechada.getImage() != null) {
                             vBox.getStyleClass().clear();

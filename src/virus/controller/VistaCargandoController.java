@@ -34,16 +34,9 @@ public class VistaCargandoController extends Controller {
 
     @Override
     public void initialize() {
-        //Limpio de nuevo la vista para que se pueda cargar la vista nuevamente
-        Image imgLogo;
-        try {
-            imgLogo = new Image("/virus/resources/fondoJuego1.jpg");
-            omg11.setImage(imgLogo);
-        } catch (Exception e) {
-        }
+        
         FlowController.getInstance().initialize();
         if (this.getStage() != null) {
-            
             pantallaCarga hilo = new pantallaCarga(lblCorreos, this.stage);
             hilo.correrHilo();
         }

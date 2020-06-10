@@ -43,9 +43,7 @@ public class Hilo extends Thread {
             ServerSocket serverSocket;
             String mensajeRecibido;
             serverSocket = new ServerSocket(44440);
-            System.out.println("Esperando una conexión...");
             socket = serverSocket.accept();
-            System.out.println("Un cliente se ha conectado...");
             // Para los canales de entrada y salida de datos
             entrada = new DataInputStream(socket.getInputStream());
 
@@ -54,13 +52,10 @@ public class Hilo extends Thread {
             ObjectInputStream objectInputStream = new ObjectInputStream(entrada);
             //ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
             // make a bunch of messages to send.
-            System.out.println("Sending messages to the ServerSocket");
-
-            System.out.println("Confirmando conexion al cliente....");
+            
 
             // Para recibir el mensaje
             mensajeRecibido = entrada.readUTF();
-            System.out.println(mensajeRecibido);
             
             try {
                 ArrayList<JugadorDto> jugadores;

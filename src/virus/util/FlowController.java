@@ -205,7 +205,7 @@ public class FlowController {
 
     }
 
-    public void goViewInWindowModal(String viewName, Stage parentStage, Boolean resizable) {
+    public void goViewInWindowModal(String viewName, Boolean resizable) {
         FXMLLoader loader = getLoader(viewName);
         Controller controller = loader.getController();
         controller.initialize();
@@ -222,23 +222,25 @@ public class FlowController {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(parentStage);
+        stage.initOwner(this.mainStage);
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.centerOnScreen();
         stage.showAndWait();
 
     }
 
-    public void goViewInWindowModalCorreo(String viewName, Stage parentStage, Boolean resizable) {
+    public void goViewInWindowModalCarga(String viewName, Stage parentStage, Boolean resizable) {
         FXMLLoader loader = getLoader(viewName);
         Controller controller = loader.getController();
         Stage stage = new Stage();
-        stage.getIcons().add(new Image("/clinicauna/resources/medicine.png"));
-        stage.setTitle("Clinica UNA");
+        stage.getIcons().add(new Image(Virus.class.getResourceAsStream("resources/icon.png")));
+        stage.setTitle("Virus");
         stage.setResizable(resizable);
 
         stage.setOnHidden((WindowEvent event) -> {
             controller.getStage().getScene().setRoot(new Pane());
             controller.setStage(null);
+            FlowController.getInstance().initialize();
         });
 
         controller.setStage(stage);

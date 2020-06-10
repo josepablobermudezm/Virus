@@ -286,7 +286,7 @@ public class JuegoController extends Controller implements Initializable {
         for (int i = 0; i < jugadores.size(); i++) {
             nombres.get(i).setText(jugadores.get(i).getNombre());
         }
-
+        
         VBox vBox = new VBox();
         image7 = new ImageView("virus/resources/" + carta1.getImagen());
         image7.setId("carta1");
@@ -439,27 +439,249 @@ public class JuegoController extends Controller implements Initializable {
     VBox boxVacio = null;
 
     private void movimientoAdvXJug(String padre) {
+        System.out.println("mensaje afuera de movimientoAdvXJug");
         if (cartaAux.getTipoCarta().equals("Virus")
                 || cartaAux.getTipoCarta().equals("Transplante")
                 || cartaAux.getTipoCarta().equals("Contagio")
                 || cartaAux.getTipoCarta().equals("Ladron")
                 || cartaAux.getTipoCarta().equals("Error")
                 || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
+            System.out.println("mensaje ADENTRO de movimientoAdvXJug");
             movimientoContrario(padre);
         } else {
+            System.out.println("mensaje en el ELSE de movimientoAdvXJug");
             Mensaje ms = new Mensaje();
             ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes poner tu carta en este lugar.");
         }
     }
 
     private void movimiento(String padre, String hijo) {
-
+        
         enviarCartaJuegoSocket("movimientoJugador", padre, hijo, jugador.getIP());
         modoOrgano = true;
         unSoloOrgano = true;
     }
 
-    private void inmune(String hijo, String padre, String movimiento, String IP) {
+    private void noVirus(String padre, String hijo) {
+        if (!cartaAux.getTipoCarta().equals("Virus") && !cartaAux.getTipoCarta().equals("Virus_Comodin")) {
+            movimientoInmune(hijo, padre, "propio", "");
+                                        //movimiento(padre, hijo);
+        } else {
+            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner un virus en tus propias cartas");
+        }
+    }
+
+    private Boolean virus(CartaDto carta) {
+        return carta.getTipoCarta().equals("Virus") || carta.getTipoCarta().equals("Virus_Comodin");
+    }
+
+    /*
+    *Retorna el valor del indice del pane hijo
+     */
+    private String hijo(String padre) {
+        String i = "";
+        for (Node t : fondo_juego.getChildren()) {
+            if (t.getId() != null && t.getId().equals(padre)) {
+                for (Node v : ((HBox) t).getChildren()) {
+                    if (v.equals(paneAuxiliar)) {
+                        i = String.valueOf(((HBox) t).getChildren().indexOf(v));
+                    }
+                }
+            }
+        }
+        return i;
+    }
+
+    private ArrayList<CartaDto> cartasRival(JugadorDto rival, Integer indice) {
+        switch (indice) {
+            case 0:
+                return rival.getCartas1();
+            case 1:
+                return rival.getCartas2();
+            case 2:
+                return rival.getCartas3();
+            case 3:
+                return rival.getCartas4();
+            case 4:
+                return rival.getCartas5();
+            default:
+                return null;
+        }
+    }
+
+    private void movimientoContrario(String padre) {
+        if (!findePartida) {
+            if (!unSoloOrgano) {
+                if (!modoDesechar) {
+                    hijo = "";
+                    hijo = hijo(padre);
+                    Integer iHijo = Integer.valueOf(hijo);
+                    switch (padre) {
+                        case "hvox":
+                            ArrayList<CartaDto> jug1C = cartasRival(partida.getJugadores().get(0), iHijo);
+                            if (!jug1C.isEmpty()) {
+                                if (jug1C.get(0).getColor().equals(cartaAux.getColor())
+                                        || jug1C.get(0).getTipoCarta().equals("Organo_Comodin")
+                                        || cartaAux.getTipoCarta().equals("Transplante")
+                                        || cartaAux.getTipoCarta().equals("Contagio")
+                                        || cartaAux.getTipoCarta().equals("Ladron")
+                                        || cartaAux.getTipoCarta().equals("Error")
+                                        || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
+                                    String IP2 = partida.getJugadores().get(0).getIP();
+                                    movimientoInmune(hijo, padre,"", IP2);
+                                    //enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
+                                } else {
+                                    if (!jug1C.get(0).getColor().equals(cartaAux.getColor())) {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                    } else {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+                                    }
+                                }
+                            } else {
+                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner tu carta en este lugar");
+                            }
+                            break;
+                        case "hvox2":
+                            ArrayList<CartaDto> jug2C = cartasRival(partida.getJugadores().get(1), iHijo);
+                            if (!jug2C.isEmpty()) {
+                                if (jug2C.get(0).getColor().equals(cartaAux.getColor()) 
+                                        || jug2C.get(0).getTipoCarta().equals("Organo_Comodin")
+                                        || cartaAux.getTipoCarta().equals("Transplante")
+                                        || cartaAux.getTipoCarta().equals("Contagio")
+                                        || cartaAux.getTipoCarta().equals("Ladron")
+                                        || cartaAux.getTipoCarta().equals("Error")
+                                        || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
+                                    String IP2 = partida.getJugadores().get(1).getIP();
+                                    movimientoInmune(hijo, padre,"", IP2);
+                                    //enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
+                                } else {
+                                    if (!jug2C.get(0).getColor().equals(cartaAux.getColor())) {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                    } else {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+
+                                    }
+                                }
+                            } else {
+                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner tu carta en este lugar");
+                            }
+                            break;
+                        case "hvox3":
+                            ArrayList<CartaDto> jug3C = cartasRival(partida.getJugadores().get(2), iHijo);
+                            if (!jug3C.isEmpty()) {
+                                if (jug3C.get(0).getColor().equals(cartaAux.getColor()) 
+                                        || jug3C.get(0).getTipoCarta().equals("Organo_Comodin")
+                                        || cartaAux.getTipoCarta().equals("Transplante")
+                                        || cartaAux.getTipoCarta().equals("Contagio")
+                                        || cartaAux.getTipoCarta().equals("Ladron")
+                                        || cartaAux.getTipoCarta().equals("Error")
+                                        || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
+                                    String IP2 = partida.getJugadores().get(2).getIP();
+                                    movimientoInmune(hijo, padre,"", IP2);    
+                                    //enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
+                                } else {
+                                    if (!jug3C.get(0).getColor().equals(cartaAux.getColor())) {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                    } else {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+
+                                    }
+                                }
+                            } else {
+                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner tu carta en este lugar");
+                            }
+                            break;
+                        case "hvox4":
+                            ArrayList<CartaDto> jug4C = cartasRival(partida.getJugadores().get(3), iHijo);
+                            if (!jug4C.isEmpty()) {
+                                if (jug4C.get(0).getColor().equals(cartaAux.getColor()) 
+                                        || jug4C.get(0).getTipoCarta().equals("Organo_Comodin")
+                                        || cartaAux.getTipoCarta().equals("Transplante")
+                                        || cartaAux.getTipoCarta().equals("Contagio")
+                                        || cartaAux.getTipoCarta().equals("Ladron")
+                                        || cartaAux.getTipoCarta().equals("Error")
+                                        || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
+                                    String IP2 = partida.getJugadores().get(3).getIP();
+                                movimientoInmune(hijo, padre,"", IP2);    
+                                //enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
+                                } else {
+                                    if (!jug4C.get(0).getColor().equals(cartaAux.getColor())) {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                    } else {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+
+                                    }
+                                }
+                            } else {
+                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner tu carta en este lugar");
+                            }
+                            break;
+                        case "hvox5":
+                            ArrayList<CartaDto> jug5C = cartasRival(partida.getJugadores().get(4), iHijo);
+                            if (!jug5C.isEmpty()) {
+                                if (jug5C.get(0).getColor().equals(cartaAux.getColor()) 
+                                        || jug5C.get(0).getTipoCarta().equals("Organo_Comodin")
+                                        || cartaAux.getTipoCarta().equals("Transplante")
+                                        || cartaAux.getTipoCarta().equals("Contagio")
+                                        || cartaAux.getTipoCarta().equals("Ladron")
+                                        || cartaAux.getTipoCarta().equals("Error")
+                                        || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
+                                    String IP2 = partida.getJugadores().get(4).getIP();
+                                    movimientoInmune(hijo, padre,"", IP2);
+                                    //enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
+                                } else {
+                                    if (!jug5C.get(0).getColor().equals(cartaAux.getColor())) {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                    } else {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+
+                                    }
+                                }
+                            } else {
+                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner tu carta en este lugar");
+                            }
+                            break;
+                        case "hbox6":
+                            ArrayList<CartaDto> jug6C = cartasRival(partida.getJugadores().get(5), iHijo);
+                            if (!jug6C.isEmpty()) {
+                                if (jug6C.get(0).getColor().equals(cartaAux.getColor()) 
+                                        || jug6C.get(0).getTipoCarta().equals("Organo_Comodin")
+                                        || cartaAux.getTipoCarta().equals("Transplante")
+                                        || cartaAux.getTipoCarta().equals("Contagio")
+                                        || cartaAux.getTipoCarta().equals("Ladron")
+                                        || cartaAux.getTipoCarta().equals("Error")
+                                        || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
+                                    String IP2 = partida.getJugadores().get(5).getIP();
+                                    movimientoInmune(hijo, padre,"", IP2);
+                                    //enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
+                                } else {
+                                    if (!jug6C.get(0).getColor().equals(cartaAux.getColor())) {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                    } else {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+                                    }
+                                }
+                            } else {
+                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner tu carta en este lugar");
+                            }
+                            break;
+                        default:
+                    }
+                } else {
+                    Mensaje ms = new Mensaje();
+                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes agregar un órgano si ya botaste cartas");
+                }
+            } else {
+                Mensaje msj = new Mensaje();
+                msj.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes agregar un órgano si has agregado uno previamente");//.l.
+            }
+        } else {
+            Mensaje msj = new Mensaje();
+            msj.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");//.l.
+        }
+    }
+
+    private void movimientoInmune(String hijo, String padre, String movimiento, String IP) {
 
         switch (hijo) {
             case "0":
@@ -467,6 +689,7 @@ public class JuegoController extends Controller implements Initializable {
                     if (movimiento.equals("propio")) {
                         movimiento(hijo, padre);
                     } else {
+                        
                         enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP);
                     }
 
@@ -534,221 +757,7 @@ public class JuegoController extends Controller implements Initializable {
                 break;
         }
     }
-
-    private void noVirus(String padre, String hijo) {
-        if (!cartaAux.getTipoCarta().equals("Virus") && !cartaAux.getTipoCarta().equals("Virus_Comodin")) {
-            inmune(hijo, padre, "propio", "");
-        } else {
-            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner un virus en tus propias cartas");
-        }
-    }
-
-    private Boolean virus(CartaDto carta) {
-        return carta.getTipoCarta().equals("Virus") || carta.getTipoCarta().equals("Virus_Comodin");
-    }
-
-    /*
-    *Retorna el valor del indice del pane hijo
-     */
-    private String hijo(String padre) {
-        String i = "";
-        for (Node t : fondo_juego.getChildren()) {
-            if (t.getId() != null && t.getId().equals(padre)) {
-                for (Node v : ((HBox) t).getChildren()) {
-                    if (v.equals(paneAuxiliar)) {
-                        i = String.valueOf(((HBox) t).getChildren().indexOf(v));
-                    }
-                }
-            }
-        }
-        return i;
-    }
-
-    private ArrayList<CartaDto> cartasRival(JugadorDto rival, Integer indice) {
-        switch (indice) {
-            case 0:
-                return rival.getCartas1();
-            case 1:
-                return rival.getCartas2();
-            case 2:
-                return rival.getCartas3();
-            case 3:
-                return rival.getCartas4();
-            case 4:
-                return rival.getCartas5();
-            default:
-                return null;
-        }
-    }
-
-    private void movimientoContrario(String padre) {
-        if (!findePartida) {
-            if (!unSoloOrgano) {
-                if (!modoDesechar) {
-                    hijo = "";
-                    hijo = hijo(padre);
-                    Integer iHijo = Integer.valueOf(hijo);
-                    switch (padre) {
-                        case "hvox":
-                            ArrayList<CartaDto> jug1C = cartasRival(partida.getJugadores().get(0), iHijo);
-                            if (!jug1C.isEmpty()) {
-                                if (jug1C.get(0).getColor().equals(cartaAux.getColor())
-                                        || jug1C.get(0).getTipoCarta().equals("Organo_Comodin")
-                                        || cartaAux.getTipoCarta().equals("Transplante")
-                                        || cartaAux.getTipoCarta().equals("Contagio")
-                                        || cartaAux.getTipoCarta().equals("Ladron")
-                                        || cartaAux.getTipoCarta().equals("Error")
-                                        || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
-                                    String IP2 = partida.getJugadores().get(0).getIP();
-
-                                    inmune(hijo, padre, "", IP2);
-                                } else {
-                                    if (!jug1C.get(0).getColor().equals(cartaAux.getColor())) {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
-                                    } else {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
-                                    }
-                                }
-                            } else {
-                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner tu carta en este lugar");
-                            }
-                            break;
-                        case "hvox2":
-                            ArrayList<CartaDto> jug2C = cartasRival(partida.getJugadores().get(1), iHijo);
-                            if (!jug2C.isEmpty()) {
-                                if (jug2C.get(0).getColor().equals(cartaAux.getColor())
-                                        || jug2C.get(0).getTipoCarta().equals("Organo_Comodin")
-                                        || cartaAux.getTipoCarta().equals("Transplante")
-                                        || cartaAux.getTipoCarta().equals("Contagio")
-                                        || cartaAux.getTipoCarta().equals("Ladron")
-                                        || cartaAux.getTipoCarta().equals("Error")
-                                        || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
-                                    String IP2 = partida.getJugadores().get(1).getIP();
-                                    inmune(hijo, padre, "", IP2);
-                                } else {
-                                    if (!jug2C.get(0).getColor().equals(cartaAux.getColor())) {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
-                                    } else {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
-
-                                    }
-                                }
-                            } else {
-                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner tu carta en este lugar");
-                            }
-                            break;
-                        case "hvox3":
-                            ArrayList<CartaDto> jug3C = cartasRival(partida.getJugadores().get(2), iHijo);
-                            if (!jug3C.isEmpty()) {
-                                if (jug3C.get(0).getColor().equals(cartaAux.getColor())
-                                        || jug3C.get(0).getTipoCarta().equals("Organo_Comodin")
-                                        || cartaAux.getTipoCarta().equals("Transplante")
-                                        || cartaAux.getTipoCarta().equals("Contagio")
-                                        || cartaAux.getTipoCarta().equals("Ladron")
-                                        || cartaAux.getTipoCarta().equals("Error")
-                                        || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
-                                    String IP2 = partida.getJugadores().get(2).getIP();
-                                    inmune(hijo, padre, "", IP2);
-                                } else {
-                                    if (!jug3C.get(0).getColor().equals(cartaAux.getColor())) {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
-                                    } else {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
-
-                                    }
-                                }
-                            } else {
-                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner tu carta en este lugar");
-                            }
-                            break;
-                        case "hvox4":
-                            ArrayList<CartaDto> jug4C = cartasRival(partida.getJugadores().get(3), iHijo);
-                            if (!jug4C.isEmpty()) {
-                                if (jug4C.get(0).getColor().equals(cartaAux.getColor())
-                                        || jug4C.get(0).getTipoCarta().equals("Organo_Comodin")
-                                        || cartaAux.getTipoCarta().equals("Transplante")
-                                        || cartaAux.getTipoCarta().equals("Contagio")
-                                        || cartaAux.getTipoCarta().equals("Ladron")
-                                        || cartaAux.getTipoCarta().equals("Error")
-                                        || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
-                                    String IP2 = partida.getJugadores().get(3).getIP();
-                                    inmune(hijo, padre, "", IP2);
-                                } else {
-                                    if (!jug4C.get(0).getColor().equals(cartaAux.getColor())) {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
-                                    } else {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
-
-                                    }
-                                }
-                            } else {
-                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner tu carta en este lugar");
-                            }
-                            break;
-                        case "hvox5":
-                            ArrayList<CartaDto> jug5C = cartasRival(partida.getJugadores().get(4), iHijo);
-                            if (!jug5C.isEmpty()) {
-                                if (jug5C.get(0).getColor().equals(cartaAux.getColor())
-                                        || jug5C.get(0).getTipoCarta().equals("Organo_Comodin")
-                                        || cartaAux.getTipoCarta().equals("Transplante")
-                                        || cartaAux.getTipoCarta().equals("Contagio")
-                                        || cartaAux.getTipoCarta().equals("Ladron")
-                                        || cartaAux.getTipoCarta().equals("Error")
-                                        || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
-                                    String IP2 = partida.getJugadores().get(4).getIP();
-                                    inmune(hijo, padre, "", IP2);
-                                    // enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
-                                } else {
-                                    if (!jug5C.get(0).getColor().equals(cartaAux.getColor())) {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
-                                    } else {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
-
-                                    }
-                                }
-                            } else {
-                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner tu carta en este lugar");
-                            }
-                            break;
-                        case "hbox6":
-                            ArrayList<CartaDto> jug6C = cartasRival(partida.getJugadores().get(5), iHijo);
-                            if (!jug6C.isEmpty()) {
-                                if (jug6C.get(0).getColor().equals(cartaAux.getColor())
-                                        || jug6C.get(0).getTipoCarta().equals("Organo_Comodin")
-                                        || cartaAux.getTipoCarta().equals("Transplante")
-                                        || cartaAux.getTipoCarta().equals("Contagio")
-                                        || cartaAux.getTipoCarta().equals("Ladron")
-                                        || cartaAux.getTipoCarta().equals("Error")
-                                        || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
-                                    String IP2 = partida.getJugadores().get(5).getIP();
-                                    inmune(hijo, padre, "", IP2);
-                                } else {
-                                    if (!jug6C.get(0).getColor().equals(cartaAux.getColor())) {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
-                                    } else {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
-                                    }
-                                }
-                            } else {
-                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner tu carta en este lugar");
-                            }
-                            break;
-                        default:
-                    }
-                } else {
-                    Mensaje ms = new Mensaje();
-                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes agregar un órgano si ya botaste cartas");
-                }
-            } else {
-                Mensaje msj = new Mensaje();
-                msj.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes agregar un órgano si has agregado uno previamente");//.l.
-            }
-        } else {
-            Mensaje msj = new Mensaje();
-            msj.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");//.l.
-        }
-    }
-
+    
     private void movimiento(String padre) {
         if (!findePartida) {
             if (!unSoloOrgano) {
@@ -764,8 +773,8 @@ public class JuegoController extends Controller implements Initializable {
                         } else if ((cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
                                 || cartaAux.getTipoCarta().equals("Cerebro") || cartaAux.getTipoCarta().equals("Hueso")
                                 || cartaAux.getTipoCarta().equals("Organo_Comodin")) && (!jugador.getCartas1().isEmpty() //Organo en los campos vacios
-                                ? !cartaAux.getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta())
-                                : true)
+                                ? !cartaAux.getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta() )
+                                : true) 
                                 && (!jugador.getCartas2().isEmpty()
                                 ? !cartaAux.getTipoCarta().equals(jugador.getCartas2().get(0).getTipoCarta())
                                 : true)
@@ -782,36 +791,40 @@ public class JuegoController extends Controller implements Initializable {
                             switch (hijo) {
                                 case "0":
                                     if (jugador.getCartas1().isEmpty()) {
-
-                                        inmune(hijo, padre, "propio", "");
+                                        movimientoInmune(hijo, padre, "propio", "");
+                                        //movimiento(padre, hijo);
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner otro órgano en este campo");
                                     }
                                     break;
                                 case "1":
                                     if (jugador.getCartas2().isEmpty()) {
-                                        inmune(hijo, padre, "propio", "");
+                                        movimientoInmune(hijo, padre, "propio", "");
+                                        //movimiento(padre, hijo);
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner otro órgano en este campo");
                                     }
                                     break;
                                 case "2":
                                     if (jugador.getCartas3().isEmpty()) {
-                                        inmune(hijo, padre, "propio", "");
+                                        movimientoInmune(hijo, padre, "propio", "");
+                                        //movimiento(padre, hijo);
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner otro órgano en este campo");
                                     }
                                     break;
                                 case "3":
                                     if (jugador.getCartas4().isEmpty()) {
-                                        inmune(hijo, padre, "propio", "");
+                                        movimientoInmune(hijo, padre, "propio", "");
+                                        //movimiento(padre, hijo);
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner otro órgano en este campo");
                                     }
                                     break;
                                 case "4":
                                     if (jugador.getCartas5().isEmpty()) {
-                                        inmune(hijo, padre, "propio", "");
+                                        movimientoInmune(hijo, padre, "propio", "");
+                                        //movimiento(padre, hijo);
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner otro órgano en este campo");
                                     }
@@ -820,6 +833,7 @@ public class JuegoController extends Controller implements Initializable {
                         } else {//Cualquier otro movimiento
                             switch (hijo) {
                                 case "0":
+                                    
                                     if (!jugador.getCartas1().isEmpty() && (jugador.getCartas1().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin") || jugador.getCartas1().get(0).getTipoCarta().equals("Organo_Comodin"))) {
                                         if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
                                                 && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")

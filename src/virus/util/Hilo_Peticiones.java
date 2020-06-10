@@ -113,23 +113,23 @@ public class Hilo_Peticiones extends Thread {
                             switch (hijo) {
                                 case "0":
                                     jugadorAux.getCartas1().add(carta);
-                                    CambioEstado(carta, jugadorAux.getCartas1());
+                                    CambioEstado(jugadorAux.getCartas1());
                                     break;
                                 case "1":
                                     jugadorAux.getCartas2().add(carta);
-                                    CambioEstado(carta, jugadorAux.getCartas2());
+                                    CambioEstado(jugadorAux.getCartas2());
                                     break;
                                 case "2":
                                     jugadorAux.getCartas3().add(carta);
-                                    CambioEstado(carta, jugadorAux.getCartas3());
+                                    CambioEstado(jugadorAux.getCartas3());
                                     break;
                                 case "3":
                                     jugadorAux.getCartas4().add(carta);
-                                    CambioEstado(carta, jugadorAux.getCartas4());
+                                    CambioEstado(jugadorAux.getCartas4());
                                     break;
                                 case "4":
                                     jugadorAux.getCartas5().add(carta);
-                                    CambioEstado(carta, jugadorAux.getCartas5());
+                                    CambioEstado(jugadorAux.getCartas5());
                                     break;
                                 default:
                                     break;
@@ -264,7 +264,7 @@ public class Hilo_Peticiones extends Thread {
         //Cierra todos los procesos que queden pendientes
     }
 
-    public void CambioEstado(CartaDto carta, ArrayList<CartaDto> mazo) {
+    public void CambioEstado(ArrayList<CartaDto> mazo) {
         if (mazo.stream().filter(x -> x.getTipoCarta().equals("Medicina")
                 || x.getTipoCarta().equals("Medicina_Comodin")).count() == 1
                 && mazo.stream().filter(x -> x.getTipoCarta().equals("Virus")

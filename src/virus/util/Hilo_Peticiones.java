@@ -139,28 +139,28 @@ public class Hilo_Peticiones extends Thread {
                              */
                             int cont = 0;
                             if ((!jugadorAux.getCartas1().isEmpty()) ? jugadorAux.getCartas1().get(0).getEstado().equals("Sano")
-                                    || jugadorAux.getCartas1().get(0).getEstado().equals("Inmunizado") 
+                                    || jugadorAux.getCartas1().get(0).getEstado().equals("Inmunizado")
                                     || jugadorAux.getCartas1().get(0).getEstado().equals("Vacunado") : false) {
                                 cont++;
                             }
                             if ((!jugadorAux.getCartas2().isEmpty()) ? jugadorAux.getCartas2().get(0).getEstado().equals("Sano")
-                                    || jugadorAux.getCartas2().get(0).getEstado().equals("Inmunizado") 
-                                    || jugadorAux.getCartas2().get(0).getEstado().equals("Vacunado"): false) {
+                                    || jugadorAux.getCartas2().get(0).getEstado().equals("Inmunizado")
+                                    || jugadorAux.getCartas2().get(0).getEstado().equals("Vacunado") : false) {
                                 cont++;
                             }
                             if ((!jugadorAux.getCartas3().isEmpty()) ? jugadorAux.getCartas3().get(0).getEstado().equals("Sano")
-                                    || jugadorAux.getCartas3().get(0).getEstado().equals("Inmunizado") 
-                                    || jugadorAux.getCartas3().get(0).getEstado().equals("Vacunado"): false) {
+                                    || jugadorAux.getCartas3().get(0).getEstado().equals("Inmunizado")
+                                    || jugadorAux.getCartas3().get(0).getEstado().equals("Vacunado") : false) {
                                 cont++;
                             }
                             if ((!jugadorAux.getCartas4().isEmpty()) ? jugadorAux.getCartas4().get(0).getEstado().equals("Sano")
                                     || jugadorAux.getCartas4().get(0).getEstado().equals("Inmunizado")
-                                    || jugadorAux.getCartas4().get(0).getEstado().equals("Vacunado"): false) {
+                                    || jugadorAux.getCartas4().get(0).getEstado().equals("Vacunado") : false) {
                                 cont++;
                             }
                             if ((!jugadorAux.getCartas5().isEmpty()) ? jugadorAux.getCartas5().get(0).getEstado().equals("Sano")
-                                    || jugadorAux.getCartas5().get(0).getEstado().equals("Inmunizado") 
-                                    || jugadorAux.getCartas5().get(0).getEstado().equals("Vacunado"): false) {
+                                    || jugadorAux.getCartas5().get(0).getEstado().equals("Inmunizado")
+                                    || jugadorAux.getCartas5().get(0).getEstado().equals("Vacunado") : false) {
                                 cont++;
                             }
                             //Introduce las cartas jugadas en las vistas de los usuarios
@@ -237,10 +237,11 @@ public class Hilo_Peticiones extends Thread {
                             estado = "";
 
                             if (cont == 4) {
-                                findePartida = true;
+                                //findePartida = true;
                                 mensajeRecibido = "partidaFinalizada";
-                                salida.writeUTF("partidaFinalizada");
-                                entrada.readUTF();
+                                /*salida.writeUTF("partidaFinalizada");
+                                entrada.readUTF();*/
+                                System.out.println("FINALIZADOOOO");
                                 nombreGanador = jugadorAux.getNombre();
                             } else if (jugadorAux.getIP().equals(jugadorDto.getIP())) {
                                 jugadorAux.setMazo(jugadorDto.getMazo());
@@ -257,11 +258,11 @@ public class Hilo_Peticiones extends Thread {
 
                         case "mazoTerminado":
                             Platform.runLater(() -> {
-                                new Mensaje().show(Alert.AlertType.INFORMATION,"Información de juego","Barajando pila de Descarte");
+                                new Mensaje().show(Alert.AlertType.INFORMATION, "Información de juego", "Barajando pila de Descarte");
                                 imgDesechadas.setImage(null);
                             });
                             partidaDto.getDesechadas().clear();
-                            
+
                             break;
                         default:
                             break;
@@ -275,11 +276,21 @@ public class Hilo_Peticiones extends Thread {
                 Logger.getLogger(JuegoController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        try {
+            serverSocket = new ServerSocket(44440);
+            socket = serverSocket.accept();
+            entrada = new DataInputStream(socket.getInputStream());
+            salida = new DataOutputStream(socket.getOutputStream());
+            salida.writeUTF("partidaFinalizada");
+            entrada.readUTF();
+        } catch (IOException e) {
+            System.out.println("XDD"+e.getMessage());
+        }
 
-        Platform.runLater(() -> {
+        //Platform.runLater(() -> {
             new Mensaje().showModal(Alert.AlertType.INFORMATION, "¡VICTORIA!", this.imgDesechadas.getScene().getWindow(), nombreGanador + " ha ganado el juego");
             FlowController.getInstance().goView("Inicio");
-        });
+        //});
         //Cierra todos los procesos que queden pendientes
     }
 

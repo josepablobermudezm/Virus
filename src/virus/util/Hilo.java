@@ -51,11 +51,10 @@ public class Hilo extends Thread {
 
             ObjectInputStream objectInputStream = new ObjectInputStream(entrada);
             //ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            // make a bunch of messages to send.
             
 
             // Para recibir el mensaje
-            mensajeRecibido = entrada.readUTF();
+            entrada.readUTF();
             
             try {
                 ArrayList<JugadorDto> jugadores;
@@ -69,6 +68,7 @@ public class Hilo extends Thread {
 
             serverSocket.close();
         } catch (IOException IO) {
+            System.out.println("SE CAYO");
             System.out.println(IO.getMessage());
         }
         

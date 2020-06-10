@@ -139,23 +139,28 @@ public class Hilo_Peticiones extends Thread {
                              */
                             int cont = 0;
                             if ((!jugadorAux.getCartas1().isEmpty()) ? jugadorAux.getCartas1().get(0).getEstado().equals("Sano")
-                                    || jugadorAux.getCartas1().get(0).getEstado().equals("Inmunizado") : false) {
+                                    || jugadorAux.getCartas1().get(0).getEstado().equals("Inmunizado") 
+                                    || jugadorAux.getCartas1().get(0).getEstado().equals("Vacunado") : false) {
                                 cont++;
                             }
                             if ((!jugadorAux.getCartas2().isEmpty()) ? jugadorAux.getCartas2().get(0).getEstado().equals("Sano")
-                                    || jugadorAux.getCartas2().get(0).getEstado().equals("Inmunizado") : false) {
+                                    || jugadorAux.getCartas2().get(0).getEstado().equals("Inmunizado") 
+                                    || jugadorAux.getCartas2().get(0).getEstado().equals("Vacunado"): false) {
                                 cont++;
                             }
                             if ((!jugadorAux.getCartas3().isEmpty()) ? jugadorAux.getCartas3().get(0).getEstado().equals("Sano")
-                                    || jugadorAux.getCartas3().get(0).getEstado().equals("Inmunizado") : false) {
+                                    || jugadorAux.getCartas3().get(0).getEstado().equals("Inmunizado") 
+                                    || jugadorAux.getCartas3().get(0).getEstado().equals("Vacunado"): false) {
                                 cont++;
                             }
                             if ((!jugadorAux.getCartas4().isEmpty()) ? jugadorAux.getCartas4().get(0).getEstado().equals("Sano")
-                                    || jugadorAux.getCartas4().get(0).getEstado().equals("Inmunizado") : false) {
+                                    || jugadorAux.getCartas4().get(0).getEstado().equals("Inmunizado")
+                                    || jugadorAux.getCartas4().get(0).getEstado().equals("Vacunado"): false) {
                                 cont++;
                             }
                             if ((!jugadorAux.getCartas5().isEmpty()) ? jugadorAux.getCartas5().get(0).getEstado().equals("Sano")
-                                    || jugadorAux.getCartas5().get(0).getEstado().equals("Inmunizado") : false) {
+                                    || jugadorAux.getCartas5().get(0).getEstado().equals("Inmunizado") 
+                                    || jugadorAux.getCartas5().get(0).getEstado().equals("Vacunado"): false) {
                                 cont++;
                             }
                             //Introduce las cartas jugadas en las vistas de los usuarios

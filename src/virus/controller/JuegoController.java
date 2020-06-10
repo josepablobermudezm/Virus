@@ -140,7 +140,6 @@ public class JuegoController extends Controller implements Initializable {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
                     x.getStyleClass().add("hVoxActivo");
-
                 });
                 hvox2.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
@@ -518,7 +517,7 @@ public class JuegoController extends Controller implements Initializable {
                         case "hvox":
                             ArrayList<CartaDto> jug1C = cartasRival(partida.getJugadores().get(0), iHijo);
                             if (!jug1C.isEmpty()) {
-                                if (jug1C.get(0).getColor().equals(cartaAux.getColor())
+                                if (!jug1C.get(0).getEstado().equals("Inmunizado") && jug1C.get(0).getColor().equals(cartaAux.getColor())
                                         || jug1C.get(0).getTipoCarta().equals("Organo_Comodin")
                                         || cartaAux.getTipoCarta().equals("Transplante")
                                         || cartaAux.getTipoCarta().equals("Contagio")
@@ -529,7 +528,9 @@ public class JuegoController extends Controller implements Initializable {
                                     //movimientoInmune(hijo, padre, "", IP2);
                                     enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
                                 } else {
-                                    if (!jug1C.get(0).getColor().equals(cartaAux.getColor())) {
+                                    if (jug1C.get(0).getEstado().equals("Inmunizado")) {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
+                                    } else if (!jug1C.get(0).getColor().equals(cartaAux.getColor())) {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
@@ -542,7 +543,7 @@ public class JuegoController extends Controller implements Initializable {
                         case "hvox2":
                             ArrayList<CartaDto> jug2C = cartasRival(partida.getJugadores().get(1), iHijo);
                             if (!jug2C.isEmpty()) {
-                                if (jug2C.get(0).getColor().equals(cartaAux.getColor())
+                                if (!jug2C.get(0).getEstado().equals("Inmunizado") && jug2C.get(0).getColor().equals(cartaAux.getColor())
                                         || jug2C.get(0).getTipoCarta().equals("Organo_Comodin")
                                         || cartaAux.getTipoCarta().equals("Transplante")
                                         || cartaAux.getTipoCarta().equals("Contagio")
@@ -553,7 +554,9 @@ public class JuegoController extends Controller implements Initializable {
                                     //movimientoInmune(hijo, padre, "", IP2);
                                     enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
                                 } else {
-                                    if (!jug2C.get(0).getColor().equals(cartaAux.getColor())) {
+                                    if (jug2C.get(0).getEstado().equals("Inmunizado")) {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
+                                    } else if (!jug2C.get(0).getColor().equals(cartaAux.getColor())) {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
@@ -567,7 +570,7 @@ public class JuegoController extends Controller implements Initializable {
                         case "hvox3":
                             ArrayList<CartaDto> jug3C = cartasRival(partida.getJugadores().get(2), iHijo);
                             if (!jug3C.isEmpty()) {
-                                if (jug3C.get(0).getColor().equals(cartaAux.getColor())
+                                if (!jug3C.get(0).getEstado().equals("Inmunizado") && jug3C.get(0).getColor().equals(cartaAux.getColor())
                                         || jug3C.get(0).getTipoCarta().equals("Organo_Comodin")
                                         || cartaAux.getTipoCarta().equals("Transplante")
                                         || cartaAux.getTipoCarta().equals("Contagio")
@@ -578,7 +581,9 @@ public class JuegoController extends Controller implements Initializable {
                                     //movimientoInmune(hijo, padre, "", IP2);
                                     enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
                                 } else {
-                                    if (!jug3C.get(0).getColor().equals(cartaAux.getColor())) {
+                                    if (jug3C.get(0).getEstado().equals("Inmunizado")) {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
+                                    } else if (!jug3C.get(0).getColor().equals(cartaAux.getColor())) {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
@@ -592,7 +597,7 @@ public class JuegoController extends Controller implements Initializable {
                         case "hvox4":
                             ArrayList<CartaDto> jug4C = cartasRival(partida.getJugadores().get(3), iHijo);
                             if (!jug4C.isEmpty()) {
-                                if (jug4C.get(0).getColor().equals(cartaAux.getColor())
+                                if (!jug4C.get(0).getEstado().equals("Inmunizado") && jug4C.get(0).getColor().equals(cartaAux.getColor())
                                         || jug4C.get(0).getTipoCarta().equals("Organo_Comodin")
                                         || cartaAux.getTipoCarta().equals("Transplante")
                                         || cartaAux.getTipoCarta().equals("Contagio")
@@ -603,7 +608,9 @@ public class JuegoController extends Controller implements Initializable {
                                     //movimientoInmune(hijo, padre, "", IP2);
                                     enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
                                 } else {
-                                    if (!jug4C.get(0).getColor().equals(cartaAux.getColor())) {
+                                    if (jug4C.get(0).getEstado().equals("Inmunizado")) {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
+                                    } else if (!jug4C.get(0).getColor().equals(cartaAux.getColor())) {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
@@ -617,7 +624,7 @@ public class JuegoController extends Controller implements Initializable {
                         case "hvox5":
                             ArrayList<CartaDto> jug5C = cartasRival(partida.getJugadores().get(4), iHijo);
                             if (!jug5C.isEmpty()) {
-                                if (jug5C.get(0).getColor().equals(cartaAux.getColor())
+                                if (!jug5C.get(0).getEstado().equals("Inmunizado") && jug5C.get(0).getColor().equals(cartaAux.getColor())
                                         || jug5C.get(0).getTipoCarta().equals("Organo_Comodin")
                                         || cartaAux.getTipoCarta().equals("Transplante")
                                         || cartaAux.getTipoCarta().equals("Contagio")
@@ -628,7 +635,9 @@ public class JuegoController extends Controller implements Initializable {
                                     //movimientoInmune(hijo, padre, "", IP2);
                                     enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
                                 } else {
-                                    if (!jug5C.get(0).getColor().equals(cartaAux.getColor())) {
+                                    if (jug5C.get(0).getEstado().equals("Inmunizado")) {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
+                                    } else if (!jug5C.get(0).getColor().equals(cartaAux.getColor())) {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
@@ -642,7 +651,7 @@ public class JuegoController extends Controller implements Initializable {
                         case "hbox6":
                             ArrayList<CartaDto> jug6C = cartasRival(partida.getJugadores().get(5), iHijo);
                             if (!jug6C.isEmpty()) {
-                                if (jug6C.get(0).getColor().equals(cartaAux.getColor())
+                                if (!jug6C.get(0).getEstado().equals("Inmunizado") && jug6C.get(0).getColor().equals(cartaAux.getColor())
                                         || jug6C.get(0).getTipoCarta().equals("Organo_Comodin")
                                         || cartaAux.getTipoCarta().equals("Transplante")
                                         || cartaAux.getTipoCarta().equals("Contagio")
@@ -653,7 +662,9 @@ public class JuegoController extends Controller implements Initializable {
                                     //movimientoInmune(hijo, padre, "", IP2);
                                     enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
                                 } else {
-                                    if (!jug6C.get(0).getColor().equals(cartaAux.getColor())) {
+                                    if (jug6C.get(0).getEstado().equals("Inmunizado")) {
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
+                                    } else if (!jug6C.get(0).getColor().equals(cartaAux.getColor())) {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
@@ -679,7 +690,7 @@ public class JuegoController extends Controller implements Initializable {
         }
     }
 
-    private void movimientoInmune(String hijo, String padre, String movimiento, String IP) {
+    /*private void movimientoInmune(String hijo, String padre, String movimiento, String IP) {
 
         switch (hijo) {
             case "0":
@@ -769,8 +780,7 @@ public class JuegoController extends Controller implements Initializable {
                 }
                 break;
         }
-    }
-
+    }*/
     private void movimiento(String padre) {
         if (!findePartida) {
             if (!unSoloOrgano) {
@@ -847,7 +857,11 @@ public class JuegoController extends Controller implements Initializable {
                             switch (hijo) {
                                 case "0":
 
-                                    if (!jugador.getCartas1().isEmpty() && (jugador.getCartas1().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin") || jugador.getCartas1().get(0).getTipoCarta().equals("Organo_Comodin"))) {
+                                    if (!jugador.getCartas1().isEmpty()
+                                            && !jugador.getCartas1().get(0).getEstado().equals("Inmunizado")
+                                            && (jugador.getCartas1().get(0).getColor().equals(cartaAux.getColor())
+                                            || cartaAux.getTipoCarta().equals("Medicina_Comodin")
+                                            || jugador.getCartas1().get(0).getTipoCarta().equals("Organo_Comodin"))) {
                                         if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
                                                 && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")
                                                 && !cartaAux.getTipoCarta().equals("Organo_Comodin")) {
@@ -862,7 +876,12 @@ public class JuegoController extends Controller implements Initializable {
                                             if (virus(cartaAux)) {
                                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner un virus en tu propio mazo");
                                             } else {
-                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                                if (jugador.getCartas1().get(0).getEstado().equals("Inmunizado")) {
+                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
+                                                } else {
+                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+
+                                                }
                                             }
                                         } else {
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
@@ -870,7 +889,9 @@ public class JuegoController extends Controller implements Initializable {
                                     }
                                     break;
                                 case "1":
-                                    if (!jugador.getCartas2().isEmpty() && (jugador.getCartas2().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin") || jugador.getCartas2().get(0).getTipoCarta().equals("Organo_Comodin"))) {
+                                    if (!jugador.getCartas2().isEmpty()
+                                            && !jugador.getCartas2().get(0).getEstado().equals("Inmunizado")
+                                            && (jugador.getCartas2().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin") || jugador.getCartas2().get(0).getTipoCarta().equals("Organo_Comodin"))) {
                                         if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
                                                 && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")
                                                 && !cartaAux.getTipoCarta().equals("Organo_Comodin")) {
@@ -885,7 +906,12 @@ public class JuegoController extends Controller implements Initializable {
                                             if (virus(cartaAux)) {
                                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner un virus en tu propio mazo");
                                             } else {
-                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                                if (jugador.getCartas2().get(0).getEstado().equals("Inmunizado")) {
+                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
+                                                } else {
+                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+
+                                                }
                                             }
                                         } else {
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
@@ -893,7 +919,9 @@ public class JuegoController extends Controller implements Initializable {
                                     }
                                     break;
                                 case "2":
-                                    if (!jugador.getCartas3().isEmpty() && (jugador.getCartas3().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin") || jugador.getCartas3().get(0).getTipoCarta().equals("Organo_Comodin"))) {
+                                    if (!jugador.getCartas3().isEmpty()
+                                            && !jugador.getCartas3().get(0).getEstado().equals("Inmunizado")
+                                            && (jugador.getCartas3().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin") || jugador.getCartas3().get(0).getTipoCarta().equals("Organo_Comodin"))) {
                                         if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
                                                 && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")
                                                 && !cartaAux.getTipoCarta().equals("Organo_Comodin")) {
@@ -908,7 +936,12 @@ public class JuegoController extends Controller implements Initializable {
                                             if (virus(cartaAux)) {
                                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner un virus en tu propio mazo");
                                             } else {
-                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                                if (jugador.getCartas3().get(0).getEstado().equals("Inmunizado")) {
+                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
+                                                } else {
+                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+
+                                                }
                                             }
                                         } else {
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
@@ -917,7 +950,9 @@ public class JuegoController extends Controller implements Initializable {
                                     break;
 
                                 case "3":
-                                    if (!jugador.getCartas4().isEmpty() && (jugador.getCartas4().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin") || jugador.getCartas4().get(0).getTipoCarta().equals("Organo_Comodin"))) {
+                                    if (!jugador.getCartas4().isEmpty()
+                                            && !jugador.getCartas4().get(0).getEstado().equals("Inmunizado")
+                                            && (jugador.getCartas4().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin") || jugador.getCartas4().get(0).getTipoCarta().equals("Organo_Comodin"))) {
                                         if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
                                                 && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")
                                                 && !cartaAux.getTipoCarta().equals("Organo_Comodin")) {
@@ -932,7 +967,12 @@ public class JuegoController extends Controller implements Initializable {
                                             if (virus(cartaAux)) {
                                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner un virus en tu propio mazo");
                                             } else {
-                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                                if (jugador.getCartas4().get(0).getEstado().equals("Inmunizado")) {
+                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
+                                                } else {
+                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+
+                                                }
                                             }
                                         } else {
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
@@ -941,7 +981,9 @@ public class JuegoController extends Controller implements Initializable {
                                     break;
 
                                 case "4":
-                                    if (!jugador.getCartas5().isEmpty() && (jugador.getCartas5().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin") || jugador.getCartas5().get(0).getTipoCarta().equals("Organo_Comodin"))) {
+                                    if (!jugador.getCartas5().isEmpty()
+                                            && !jugador.getCartas5().get(0).getEstado().equals("Inmunizado")
+                                            && (jugador.getCartas5().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin") || jugador.getCartas5().get(0).getTipoCarta().equals("Organo_Comodin"))) {
                                         if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
                                                 && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")
                                                 && !cartaAux.getTipoCarta().equals("Organo_Comodin")) {
@@ -956,7 +998,12 @@ public class JuegoController extends Controller implements Initializable {
                                             if (virus(cartaAux)) {
                                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner un virus en tu propio mazo");
                                             } else {
-                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                                if (jugador.getCartas5().get(0).getEstado().equals("Inmunizado")) {
+                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
+                                                } else {
+                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+
+                                                }
                                             }
                                         } else {
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");

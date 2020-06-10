@@ -72,6 +72,8 @@ public class FlowController {
     public void InitializeFlow(Stage stage, ResourceBundle idioma) {
         getInstance();
         this.mainStage = stage;
+        this.mainStage.getIcons().add(new Image(Virus.class.getResourceAsStream("resources/icon.png")));
+        
         this.idioma = idioma;
     }
 
@@ -119,7 +121,7 @@ public class FlowController {
         controller.setStage(stage);
         controller.initialize();
         stage.initStyle(StageStyle.TRANSPARENT);
-        //stage.getIcons().add(new Image(Virus.class.getResourceAsStream("resources/pharmacy.png")));
+        stage.getIcons().add(new Image(Virus.class.getResourceAsStream("resources/icon.png")));
         stage.setTitle("Virus");
 //        stage.setMinWidth(630);
 //        stage.setMinHeight(420);
@@ -169,24 +171,7 @@ public class FlowController {
         }
         stage.setOnHidden((WindowEvent event) -> {
             System.exit(0);
-            /*Socket socket;
-            if (jugador != null) {
-                try {
-                    socket = new Socket(jugador.getIPS(), 44440);
-                    DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
-                    DataInputStream entrada = new DataInputStream(socket.getInputStream());
-                    System.out.println("Connected Text!kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
-                    mensaje.writeUTF("partidaFinalizada");
-                    String mensajeRecibido;
-                    mensajeRecibido = entrada.readUTF();
-                    System.out.println(mensajeRecibido + "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
-                    socket.close();
-                    System.exit(0);
-                } catch (IOException ex) {
-                    Logger.getLogger(FlowController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            System.out.println("UN MENSAJE AFUERA DE ESE IF");*/
+            
         });
         
     }
@@ -204,7 +189,7 @@ public class FlowController {
         Controller controller = loader.getController();
         controller.initialize();
         Stage stage = new Stage();
-        stage.getIcons().add(new Image("/clinicauna/resources/medicine.png"));
+        stage.getIcons().add(new Image(Virus.class.getResourceAsStream("resources/icon.png")));
         stage.setTitle("Clinica UNA");
         stage.setOnHidden((WindowEvent event) -> {
             controller.getStage().getScene().setRoot(new Pane());
@@ -224,7 +209,7 @@ public class FlowController {
         Controller controller = loader.getController();
         controller.initialize();
         Stage stage = new Stage();
-
+        stage.getIcons().add(new Image(Virus.class.getResourceAsStream("resources/icon.png")));
         stage.setResizable(resizable);
         stage.setOnHidden((WindowEvent event) -> {
             controller.getStage().getScene().setRoot(new Pane());

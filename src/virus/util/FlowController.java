@@ -171,7 +171,6 @@ public class FlowController {
         }
         stage.setOnHidden((WindowEvent event) -> {
             System.exit(0);
-            
         });
         
     }

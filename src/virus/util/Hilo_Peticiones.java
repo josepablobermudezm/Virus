@@ -112,24 +112,24 @@ public class Hilo_Peticiones extends Thread {
                             JugadorDto jugadorAux = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get();
                             switch (hijo) {
                                 case "0":
-                                    CambioEstado(carta, jugadorAux.getCartas1());
                                     jugadorAux.getCartas1().add(carta);
+                                    CambioEstado(carta, jugadorAux.getCartas1());
                                     break;
                                 case "1":
-                                    CambioEstado(carta, jugadorAux.getCartas2());
                                     jugadorAux.getCartas2().add(carta);
+                                    CambioEstado(carta, jugadorAux.getCartas2());
                                     break;
                                 case "2":
-                                    CambioEstado(carta, jugadorAux.getCartas3());
                                     jugadorAux.getCartas3().add(carta);
+                                    CambioEstado(carta, jugadorAux.getCartas3());
                                     break;
                                 case "3":
-                                    CambioEstado(carta, jugadorAux.getCartas4());
                                     jugadorAux.getCartas4().add(carta);
+                                    CambioEstado(carta, jugadorAux.getCartas4());
                                     break;
                                 case "4":
-                                    CambioEstado(carta, jugadorAux.getCartas5());
                                     jugadorAux.getCartas5().add(carta);
+                                    CambioEstado(carta, jugadorAux.getCartas5());
                                     break;
                                 default:
                                     break;
@@ -265,39 +265,45 @@ public class Hilo_Peticiones extends Thread {
     }
 
     public void CambioEstado(CartaDto carta, ArrayList<CartaDto> mazo) {
-        if ((carta.getTipoCarta().equals("Medicina") || carta.getTipoCarta().equals("Medicina_Comodin")) && mazo.stream().filter(x -> x.getTipoCarta().equals("Medicina")
-                || x.getTipoCarta().equals("Medicina_Comodin")).count() == 0 && mazo.stream().filter(x -> x.getTipoCarta().equals("Virus")
+        if (mazo.stream().filter(x -> x.getTipoCarta().equals("Medicina")
+                || x.getTipoCarta().equals("Medicina_Comodin")).count() == 1
+                && mazo.stream().filter(x -> x.getTipoCarta().equals("Virus")
                 || x.getTipoCarta().equals("Virus_Comodin")).count() == 0) {//Vacunar
             estado = "Vacunado";
             mazo.get(0).setEstado("Vacunado");
             /*
              *cambia el estado de la carta a vacunado y ahora se necesitan 2 virus para infectar el organo
              */
-        } else if ((carta.getTipoCarta().equals("Medicina") || carta.getTipoCarta().equals("Medicina_Comodin")) && mazo.stream().filter(x -> x.getTipoCarta().equals("Virus")
+        } else if (mazo.stream().filter(x -> x.getTipoCarta().equals("Medicina")
+                || x.getTipoCarta().equals("Medicina_Comodin")).count() == 1
+                && mazo.stream().filter(x -> x.getTipoCarta().equals("Virus")
                 || x.getTipoCarta().equals("Virus_Comodin")).count() == 1) {//Curar
             mazo.get(0).setEstado("Sano");
-            
-            ArrayList <CartaDto> removidas = (ArrayList<CartaDto>) mazo.stream().
+
+            ArrayList<CartaDto> removidas = (ArrayList<CartaDto>) mazo.stream().
                     filter(x -> x.getTipoCarta().equals("Medicina") || x.getTipoCarta().
-                    equals("Medicina_Comodin") || x.getTipoCarta().equals("Virus") || x.getTipoCarta().equals("Virus_Comodin")).collect(Collectors.toList());
+                    equals("Medicina_Comodin") || x.getTipoCarta().equals("Virus")
+                    || x.getTipoCarta().equals("Virus_Comodin")).collect(Collectors.toList());
             estado = "Sano";
             removidas.stream().forEach((t) -> {
-                System.out.println("TIPO "+ t.getTipoCarta());
+                System.out.println("TIPO " + t.getTipoCarta());
             });
             mazo.removeAll(removidas);
             /*
              *hay un virus en el organo, entonces una vez que ponemos la medicina, se mandan ambas cartas a la pila de descarte
              */
-        } else if ((carta.getTipoCarta().equals("Medicina") || carta.getTipoCarta().equals("Medicina_Comodin")) && mazo.stream().filter(x -> x.getTipoCarta().equals("Medicina")
-                || x.getTipoCarta().equals("Medicina_Comodin")).count() == 1) {//Inmunizar
+        } else if (mazo.stream().filter(x -> x.getTipoCarta().equals("Medicina")
+                || x.getTipoCarta().equals("Medicina_Comodin")).count() == 2
+                && mazo.stream().filter(x -> x.getTipoCarta().equals("Virus")
+                || x.getTipoCarta().equals("Virus_Comodin")).count() == 0) {//Inmunizar
             mazo.get(0).setEstado("Inmunizado");
             estado = "Inmunizado";
 
-            ArrayList <CartaDto> removidas = (ArrayList<CartaDto>) mazo.stream().
+            ArrayList<CartaDto> removidas = (ArrayList<CartaDto>) mazo.stream().
                     filter(x -> x.getTipoCarta().equals("Medicina") || x.getTipoCarta().
                     equals("Medicina_Comodin")).collect(Collectors.toList());
             removidas.stream().forEach((t) -> {
-                System.out.println("TIPO "+ t.getTipoCarta());
+                System.out.println("TIPO " + t.getTipoCarta());
             });
             mazo.removeAll(removidas);
 
@@ -306,22 +312,25 @@ public class Hilo_Peticiones extends Thread {
              *afectado por cartas de tratamiento. Cuando el órgano se inmuniza las cartas de medicina
              *se giran 90 grados sobre el órgano para indicar que está inmune.
              */
-        } else if ((carta.getTipoCarta().equals("Virus_Comodin") || carta.getTipoCarta().equals("Virus")) && mazo.stream().filter(x -> x.getTipoCarta().equals("Virus")
-                || x.getTipoCarta().equals("Virus_Comodin")).count() == 0 && mazo.stream().filter(x -> x.getTipoCarta().equals("Medicina")
+        } else if (mazo.stream().filter(x -> x.getTipoCarta().equals("Virus")
+                || x.getTipoCarta().equals("Virus_Comodin")).count() == 1
+                && mazo.stream().filter(x -> x.getTipoCarta().equals("Medicina")
                 || x.getTipoCarta().equals("Medicina_Comodin")).count() == 0) {//Infectar
             mazo.get(0).setEstado("Infectado");
             estado = "Infectado";
             //se cambia el estado del organo a infectado y
-        } else if ((carta.getTipoCarta().equals("Virus_Comodin") || carta.getTipoCarta().equals("Virus")) && mazo.stream().filter(x -> x.getTipoCarta().equals("Virus")
-                || x.getTipoCarta().equals("Virus_Comodin")).count() == 1) {//Extirpar
+        } else if (mazo.stream().filter(x -> x.getTipoCarta().equals("Medicina")
+                || x.getTipoCarta().equals("Medicina_Comodin")).count() == 0
+                && mazo.stream().filter(x -> x.getTipoCarta().equals("Virus")
+                || x.getTipoCarta().equals("Virus_Comodin")).count() == 2) {//Extirpar
             mazo.get(0).setEstado("Extirpado");
             estado = "Extirpado";
 
-            ArrayList <CartaDto> removidas= (ArrayList<CartaDto>) mazo.stream().
-                    filter(x -> x.getTipoCarta().equals("Medicina") || x.getTipoCarta().
-                    equals("Medicina_Comodin") || x.getTipoCarta().equals("Virus") || x.getTipoCarta().equals("Virus_Comodin")).collect(Collectors.toList());
+            ArrayList<CartaDto> removidas = (ArrayList<CartaDto>) mazo.stream().
+                    filter(x -> x.getTipoCarta().equals("Virus") || x.getTipoCarta().equals("Virus_Comodin")).
+                    collect(Collectors.toList());
             removidas.stream().forEach((t) -> {
-                System.out.println("TIPO "+ t.getTipoCarta());
+                System.out.println("TIPO " + t.getTipoCarta());
             });
             mazo.removeAll(removidas);
 
@@ -329,7 +338,7 @@ public class Hilo_Peticiones extends Thread {
              *será destruido y las tres cartas (el órgano y los 2 virus) serán enviadas a la pila de
              *descarte.
              */
-        } else if ((carta.getTipoCarta().equals("Virus_Comodin") || carta.getTipoCarta().equals("Virus")) && mazo.stream().filter(x -> x.getTipoCarta().equals("Medicina")
+        } /*else if ((carta.getTipoCarta().equals("Virus_Comodin") || carta.getTipoCarta().equals("Virus")) && mazo.stream().filter(x -> x.getTipoCarta().equals("Medicina")
                 || x.getTipoCarta().equals("Medicina_Comodin")).count() == 1) {//Destruir vacuna
             mazo.get(0).setEstado("Sano");
             estado = "Sano";
@@ -345,8 +354,8 @@ public class Hilo_Peticiones extends Thread {
              *si sobre un órgano se encuentra una carta de medicina y se le aplica
              *un virus del mismo color, ambas cartas (la medicina y el virus) serán enviadas a la pila
              *de descarte
-             */
-        } else {
+             
+        } */ else {
             //estado = "";
         }
     }

@@ -174,7 +174,6 @@ public class Hilo_Peticiones extends Thread {
                                     System.out.println("ESTADO XDD" + estado);
                                     System.out.println("ESTADO XDD2.00" + estado);
                                     Pane pane = ((Pane) ((HBox) t).getChildren().get(i));
-                                    
 
                                     ImageView imageAux = new ImageView("virus/resources/" + carta.getImagen());
                                     //imageAux.setRotate(90.0);
@@ -201,17 +200,27 @@ public class Hilo_Peticiones extends Thread {
                                         default:
                                             break;
                                     }
-                                    
+
                                     Platform.runLater(() -> {
                                         pane.getChildren().add(imageAux);
                                     });
-                                    
+
                                     System.out.println("ESTADO 5" + estado);
                                     if (estado.equals("Curado") || estado.equals("Inmunizado")) {
-                                        System.out.println("ESTADO 6" + estado);
+                                        Platform.runLater(() -> {
+                                            if (inmune) {
+                                                pane.setRotate(90.0);
+                                                pane.setLayoutX(pane.getLayoutX() + 25.0);
+                                                inmune = false;
+                                            }
+                                            pane.getChildren().remove(pane.getChildren().size() - 1);
+                                            pane.getChildren().remove(pane.getChildren().size() - 1);
+                                            new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", estado);
+                                        });
+                                        /*System.out.println("ESTADO 6" + estado);
                                         System.out.println("PLOKKKKKKKKKKKKKKKKKKKKKKKK");
                                         HiloEstado hilo = new HiloEstado();
-                                        hilo.correrHilo(pane, inmune, estado);
+                                        hilo.correrHilo(pane, inmune, estado);*/
                                     }
                                     System.out.println("ESTADO 7" + estado);
 

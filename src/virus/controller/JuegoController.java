@@ -140,7 +140,6 @@ public class JuegoController extends Controller implements Initializable {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
                     x.getStyleClass().add("hVoxActivo");
-
                 });
                 hvox2.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);

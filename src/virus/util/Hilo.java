@@ -71,6 +71,7 @@ public class Hilo extends Thread {
         } catch (IOException IO) {
             System.out.println(IO.getMessage());
         }
+        
         pantallaCarga.finalizado = true;
         FlowController.getInstance().goView("Juego");
     }

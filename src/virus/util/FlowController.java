@@ -208,7 +208,7 @@ public class FlowController {
     public void goViewInWindowModal(String viewName, Boolean resizable) {
         FXMLLoader loader = getLoader(viewName);
         Controller controller = loader.getController();
-        controller.initialize();
+        
         Stage stage = new Stage();
         stage.getIcons().add(new Image(Virus.class.getResourceAsStream("resources/icon.png")));
         stage.setResizable(resizable);
@@ -218,6 +218,7 @@ public class FlowController {
             FlowController.getInstance().initialize();
         });
         controller.setStage(stage);
+        controller.initialize();
         Parent root = loader.getRoot();
         Scene scene = new Scene(root);
         stage.setScene(scene);

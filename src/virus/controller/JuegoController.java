@@ -1056,15 +1056,10 @@ public class JuegoController extends Controller implements Initializable {
             }
         } else {
             Mensaje msj = new Mensaje();
-            msj.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");//.l.
+            msj.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");
         }
     }
 
-    @FXML
-    private void Salir(MouseEvent event
-    ) {
-        FlowController.getInstance().goView("Menu");
-    }
 
     @Override
     public void initialize() {

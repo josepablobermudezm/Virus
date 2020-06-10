@@ -66,6 +66,7 @@ public class Hilo_Peticiones extends Thread {
                 serverSocket = new ServerSocket(44440);
                 socket = serverSocket.accept();
                 entrada = new DataInputStream(socket.getInputStream());
+                salida = new DataOutputStream(socket.getOutputStream());
                 mensajeRecibido = entrada.readUTF();
                 if (null != mensajeRecibido) {
                     switch (mensajeRecibido) {
@@ -77,14 +78,13 @@ public class Hilo_Peticiones extends Thread {
                             Platform.runLater(() -> {
                                 imageView.setImage(new Image("virus/resources/" + carta.getImagen()));
                             });
-                            //IniciarHilo();
                             break;
                         }
                         case "cambioTurno":
                             String IP = entrada.readUTF();
                             /*
-                        *    Si nuestro jugador es el que se ha recibido desde el servidor es porque
-                        *   es el turno del mismo
+                            *Si nuestro jugador es el que se ha recibido desde el servidor es porque
+                            *es el turno del mismo
                              */
                             if (jugadorDto.getIP().equals(IP)) {
                                 jugadorDto.setTurno(true);
@@ -230,9 +230,7 @@ public class Hilo_Peticiones extends Thread {
                                                 });
                                                 break;
                                         }
-
                                     }
-
                                 }
                             });
 
@@ -241,6 +239,8 @@ public class Hilo_Peticiones extends Thread {
                             if (cont == 4) {
                                 findePartida = true;
                                 mensajeRecibido = "partidaFinalizada";
+                                salida.writeUTF("partidaFinalizada");
+                                entrada.readUTF();
                                 nombreGanador = jugadorAux.getNombre();
                             } else if (jugadorAux.getIP().equals(jugadorDto.getIP())) {
                                 jugadorAux.setMazo(jugadorDto.getMazo());

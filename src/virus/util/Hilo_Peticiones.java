@@ -57,8 +57,6 @@ public class Hilo_Peticiones extends Thread {
     ServerSocket serverSocket;
     String mensajeRecibido = "";
     String nombreGanador = "";
-    private Boolean inmune = false;
-    private Boolean extirpar = false;
     public static String estado = "";
 
     @Override
@@ -112,42 +110,30 @@ public class Hilo_Peticiones extends Thread {
                             ObjectInputStream objectInputStream = new ObjectInputStream(respuesta2);
                             CartaDto carta = (CartaDto) objectInputStream.readObject();
                             JugadorDto jugadorAux = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get();
-                            System.out.println("ESTADO 1 " + estado);
                             switch (hijo) {
                                 case "0":
-                                    System.out.println("ESTADO 2 SWITCH 1.0" + estado);
                                     CambioEstado(carta, jugadorAux.getCartas1());
-                                    System.out.println("ESTADO 2 SWITCH 1.1" + estado);
                                     jugadorAux.getCartas1().add(carta);
                                     break;
                                 case "1":
-                                    System.out.println("ESTADO 2 SWITCH 2.0" + estado);
                                     CambioEstado(carta, jugadorAux.getCartas2());
-                                    System.out.println("ESTADO 2 SWITCH 2.1" + estado);
                                     jugadorAux.getCartas2().add(carta);
                                     break;
                                 case "2":
-                                    System.out.println("ESTADO 2 SWITCH 3.0" + estado);
                                     CambioEstado(carta, jugadorAux.getCartas3());
-                                    System.out.println("ESTADO 2 SWITCH 3.1" + estado);
                                     jugadorAux.getCartas3().add(carta);
                                     break;
                                 case "3":
-                                    System.out.println("ESTADO 2 SWITCH 4.0" + estado);
                                     CambioEstado(carta, jugadorAux.getCartas4());
-                                    System.out.println("ESTADO 2 SWITCH 4.1" + estado);
                                     jugadorAux.getCartas4().add(carta);
                                     break;
                                 case "4":
-                                    System.out.println("ESTADO 2 SWITCH 5.0" + estado);
                                     CambioEstado(carta, jugadorAux.getCartas5());
-                                    System.out.println("ESTADO 2 SWITCH 5.1" + estado);
                                     jugadorAux.getCartas5().add(carta);
                                     break;
                                 default:
                                     break;
                             }
-                            System.out.println("ESTADO 3" + estado);
                             /*
                             Preguntamos si ya termino el juegoS
                              */
@@ -172,8 +158,6 @@ public class Hilo_Peticiones extends Thread {
                             anchorPane.getChildren().forEach((t) -> {
                                 if (t.getId() != null && t.getId().equals(padre)) {
                                     int i = Integer.valueOf(hijo);
-                                    System.out.println("ESTADO XDD" + estado);
-                                    System.out.println("ESTADO XDD2.00" + estado);
                                     Pane pane = ((Pane) ((HBox) t).getChildren().get(i));
 
                                     ImageView imageAux = new ImageView("virus/resources/" + carta.getImagen());
@@ -206,62 +190,49 @@ public class Hilo_Peticiones extends Thread {
                                         pane.getChildren().add(imageAux);
                                     });
 
-                                    System.out.println("ESTADO 5" + estado);
-                                    if (estado.equals("Curado") || estado.equals("Inmunizado")) {
+                                    if (estado.equals("Curado") || estado.equals("Inmunizado") || estado.equals("Extirpado")) {
                                         Platform.runLater(() -> {
-                                            if (inmune) {
-                                                pane.setRotate(90.0);
-                                                pane.setLayoutX(pane.getLayoutX() + 25.0);
-                                                inmune = false;
-                                            }
-                                            if (extirpar) {
-                                                pane.getChildren().remove(pane.getChildren().size() - 1);
-                                                pane.getChildren().remove(pane.getChildren().size() - 1);
-                                                pane.getChildren().remove(pane.getChildren().size() - 1);
-                                            } else {
-                                                pane.getChildren().remove(pane.getChildren().size() - 1);
-                                                pane.getChildren().remove(pane.getChildren().size() - 1);
-                                            }
+
+                                           
                                         });
-                                        if (estado.equals("Curado")) {
-                                            Platform.runLater(() -> {
-                                                new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Curado");
-                                            });
-                                        } else if (estado.equals("Inmunizado")) {
-                                            Platform.runLater(() -> {
-                                                new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Inmunizado");
-                                            });
+                                        switch (estado) {
+                                            case "Curado":
+                                                Platform.runLater(() -> {
+                                                    pane.setRotate(90.0);
+                                                    pane.setLayoutX(pane.getLayoutX() + 25.0);
+                                                    pane.getChildren().remove(pane.getChildren().size() - 1);
+                                                    pane.getChildren().remove(pane.getChildren().size() - 1);
+                                                    new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Curado");
+                                                });
+                                                break;
+                                            case "Inmunizado":
+                                                Platform.runLater(() -> {
+                                                    pane.getChildren().remove(pane.getChildren().size() - 1);
+                                                    pane.getChildren().remove(pane.getChildren().size() - 1);
+                                                    new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Inmunizado");
+                                                });
+                                                break;
+                                            case "Extirpado":
+                                                Platform.runLater(() -> {
+                                                    pane.getChildren().remove(pane.getChildren().size() - 1);
+                                                    pane.getChildren().remove(pane.getChildren().size() - 1);
+                                                    pane.getChildren().remove(pane.getChildren().size() - 1);
+                                                    new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Extirpado");
+                                                });
+                                                break;
+                                            case "Sanado":
+                                                Platform.runLater(() -> {
+                                                    pane.getChildren().remove(pane.getChildren().size() - 1);
+                                                    pane.getChildren().remove(pane.getChildren().size() - 1);
+                                                    new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Sanado");
+                                                });
+                                                break;
                                         }
 
-                                        /*System.out.println("ESTADO 6" + estado);
-                                        System.out.println("PLOKKKKKKKKKKKKKKKKKKKKKKKK");
-                                        HiloEstado hilo = new HiloEstado();
-                                        hilo.correrHilo(pane, inmune, estado);*/
                                     }
-                                    System.out.println("ESTADO 7" + estado);
 
                                 }
                             });
-                            System.out.println("ESTADO 8" + estado);
-                            /*anchorPane.getChildren().forEach(t -> {
-                                if (t.getId() != null && t.getId().equals(padre)) {
-                                    int i = Integer.valueOf(hijo);
-                                     System.out.println("PLOKKKKKKKKKKKKKKKKKKKKKKKK AASASASS");
-                                    Platform.runLater(() -> {
-                                        Pane pane = ((Pane) ((HBox) t).getChildren().get(i));
-                                        System.out.println("ESTADO :  "+ estado);
-                                        if (estado.equals("Curado") || estado.equals("Inmunizado")) {
-                                            System.out.println("PLOKKKKKKKKKKKKKKKKKKKKKKKK");
-                                            new Mensaje().show(Alert.AlertType.INFORMATION,"Información de Juego", "Órgano curado");
-                                            
-                                            HiloEstado hilo = new HiloEstado();
-                                            hilo.correrHilo(pane);
-                                        }else{
-                                            System.out.println("XDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
-                                        }
-                                    });
-                                }
-                            });*/
 
                             estado = "";
 
@@ -310,7 +281,6 @@ public class Hilo_Peticiones extends Thread {
                 || x.getTipoCarta().equals("Virus_Comodin")).count() == 0) {//Vacunar
             estado = "Vacunado";
             mazo.get(0).setEstado("Vacunado");
-            System.out.println("estado del organo ahora es Vacunado");
             /*
              *cambia el estado de la carta a vacunado y ahora se necesitan 2 virus para infectar el organo
              */
@@ -322,17 +292,13 @@ public class Hilo_Peticiones extends Thread {
                     equals("Medicina_Comodin") || x.getTipoCarta().equals("Virus") || x.getTipoCarta().equals("Virus_Comodin")).collect(Collectors.toList());
             estado = "Curado";
             mazo.removeAll(removidas);
-            System.out.println(mazo.size());
-            System.out.println("estado del organo ahora es Curado");
             /*
              *hay un virus en el organo, entonces una vez que ponemos la medicina, se mandan ambas cartas a la pila de descarte
              */
         } else if ((carta.getTipoCarta().equals("Medicina") || carta.getTipoCarta().equals("Medicina_Comodin")) && mazo.stream().filter(x -> x.getTipoCarta().equals("Medicina")
                 || x.getTipoCarta().equals("Medicina_Comodin")).count() == 1) {//Inmunizar
             mazo.get(0).setEstado("Inmunizado");
-            inmune = true;
             estado = "Inmunizado";
-            System.out.println("estado del organo ahora es Inmunizado");
 
             ArrayList removidas = (ArrayList<CartaDto>) mazo.stream().
                     filter(x -> x.getTipoCarta().equals("Medicina") || x.getTipoCarta().
@@ -349,13 +315,11 @@ public class Hilo_Peticiones extends Thread {
                 || x.getTipoCarta().equals("Medicina_Comodin")).count() == 0) {//Infectar
             mazo.get(0).setEstado("Infectado");
             estado = "Infectado";
-            System.out.println("estado del organo ahora es Infectado");
             //se cambia el estado del organo a infectado y
         } else if ((carta.getTipoCarta().equals("Virus_Comodin") || carta.getTipoCarta().equals("Virus")) && mazo.stream().filter(x -> x.getTipoCarta().equals("Virus")
                 || x.getTipoCarta().equals("Virus_Comodin")).count() == 1) {//Extirpar
             mazo.get(0).setEstado("Extirpado");
             estado = "Extirpado";
-            System.out.println("estado del organo ahora es Extripado");
 
             ArrayList removidas = (ArrayList<CartaDto>) mazo.stream().
                     filter(x -> x.getTipoCarta().equals("Medicina") || x.getTipoCarta().
@@ -370,8 +334,6 @@ public class Hilo_Peticiones extends Thread {
                 || x.getTipoCarta().equals("Medicina_Comodin")).count() == 1) {//Destruir vacuna
             mazo.get(0).setEstado("Sana");
             estado = "destruir";
-            extirpar = true;
-            System.out.println("estado del organo ahora es Sana después de destruir");
 
             ArrayList removidas = (ArrayList<CartaDto>) mazo.stream().
                     filter(x -> x.getTipoCarta().equals("Medicina") || x.getTipoCarta().

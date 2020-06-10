@@ -58,6 +58,7 @@ public class Hilo_Peticiones extends Thread {
     String mensajeRecibido = "";
     String nombreGanador = "";
     private Boolean inmune = false;
+    private Boolean extirpar = false;
     public static String estado = "";
 
     @Override
@@ -213,15 +214,20 @@ public class Hilo_Peticiones extends Thread {
                                                 pane.setLayoutX(pane.getLayoutX() + 25.0);
                                                 inmune = false;
                                             }
-                                            pane.getChildren().remove(pane.getChildren().size() - 1);
-                                            pane.getChildren().remove(pane.getChildren().size() - 1);
-
+                                            if (extirpar) {
+                                                pane.getChildren().remove(pane.getChildren().size() - 1);
+                                                pane.getChildren().remove(pane.getChildren().size() - 1);
+                                                pane.getChildren().remove(pane.getChildren().size() - 1);
+                                            } else {
+                                                pane.getChildren().remove(pane.getChildren().size() - 1);
+                                                pane.getChildren().remove(pane.getChildren().size() - 1);
+                                            }
                                         });
                                         if (estado.equals("Curado")) {
                                             Platform.runLater(() -> {
                                                 new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Curado");
                                             });
-                                        }else if(estado.equals("Inmunizado")){
+                                        } else if (estado.equals("Inmunizado")) {
                                             Platform.runLater(() -> {
                                                 new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Inmunizado");
                                             });
@@ -350,6 +356,12 @@ public class Hilo_Peticiones extends Thread {
             mazo.get(0).setEstado("Extirpado");
             estado = "Extirpado";
             System.out.println("estado del organo ahora es Extripado");
+
+            ArrayList removidas = (ArrayList<CartaDto>) mazo.stream().
+                    filter(x -> x.getTipoCarta().equals("Medicina") || x.getTipoCarta().
+                    equals("Medicina_Comodin") || x.getTipoCarta().equals("Virus") || x.getTipoCarta().equals("Virus_Comodin")).collect(Collectors.toList());
+            mazo.removeAll(removidas);
+
             /*si un segundo virus es colocado sobre un órgano ya infectado, este órgano
              *será destruido y las tres cartas (el órgano y los 2 virus) serán enviadas a la pila de
              *descarte.
@@ -357,8 +369,14 @@ public class Hilo_Peticiones extends Thread {
         } else if ((carta.getTipoCarta().equals("Virus_Comodin") || carta.getTipoCarta().equals("Virus")) && mazo.stream().filter(x -> x.getTipoCarta().equals("Medicina")
                 || x.getTipoCarta().equals("Medicina_Comodin")).count() == 1) {//Destruir vacuna
             mazo.get(0).setEstado("Sana");
-            estado = "Sana";
+            estado = "destruir";
+            extirpar = true;
             System.out.println("estado del organo ahora es Sana después de destruir");
+
+            ArrayList removidas = (ArrayList<CartaDto>) mazo.stream().
+                    filter(x -> x.getTipoCarta().equals("Medicina") || x.getTipoCarta().
+                    equals("Medicina_Comodin") || x.getTipoCarta().equals("Virus") || x.getTipoCarta().equals("Virus_Comodin")).collect(Collectors.toList());
+            mazo.removeAll(removidas);
             /*
              *si sobre un órgano se encuentra una carta de medicina y se le aplica
              *un virus del mismo color, ambas cartas (la medicina y el virus) serán enviadas a la pila

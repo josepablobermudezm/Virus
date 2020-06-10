@@ -30,7 +30,8 @@ public class HiloEstado {
     private int tic = 0;
     private Pane pane;
     Boolean inmune;
-    String estado ="";
+    Boolean extirpar;
+    String estado = "";
     TimerTask task = new TimerTask() {
         @Override
         public void run() {
@@ -44,8 +45,15 @@ public class HiloEstado {
                         pane.setLayoutX(pane.getLayoutX() + 25.0);
                         inmune = false;
                     }
-                    pane.getChildren().remove(pane.getChildren().size() - 1);
-                    pane.getChildren().remove(pane.getChildren().size() - 1);
+                    if (extirpar) {
+                        pane.getChildren().remove(pane.getChildren().size() - 1);
+                        pane.getChildren().remove(pane.getChildren().size() - 1);
+                        pane.getChildren().remove(pane.getChildren().size() - 1);
+                    } else {
+                        pane.getChildren().remove(pane.getChildren().size() - 1);
+                        pane.getChildren().remove(pane.getChildren().size() - 1);
+                    }
+
                     new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", estado);
                     timer.cancel();
                     task.cancel();

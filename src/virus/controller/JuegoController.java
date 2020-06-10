@@ -1059,7 +1059,6 @@ public class JuegoController extends Controller implements Initializable {
         }
     }
 
-
     @Override
     public void initialize() {
 
@@ -1085,7 +1084,17 @@ public class JuegoController extends Controller implements Initializable {
                 ObjectOutputStream objectoutputstream = new ObjectOutputStream(outputstream);
                 objectoutputstream.writeObject(partida.getDesechadas());
                 carta = (CartaDto) objectInputStream.readObject();
+
+                /*socket = new Socket(IP_Servidor, 44440);
+                mensaje = new DataOutputStream(socket.getOutputStream());*/
+                //DataInputStream respuesta = new DataInputStream(socket.getInputStream());
+                //Enviamos un mensaje
                 mensaje.writeUTF("mazoTerminado");
+                entrada = new DataInputStream(socket.getInputStream());
+                entrada.readUTF();
+                //Cerramos la conexión
+                //socket.close();
+
                 /*Platform.runLater(() -> {
                     desechadas.setImage(null);
                 });*/
@@ -1196,7 +1205,7 @@ public class JuegoController extends Controller implements Initializable {
             socket2.close();
             imageViewDesechada.setImage(null);
             jugador.getMazo().remove(cartaAux);//removemos la carta del mazo del  jugador 
-            
+
             vBox.getStyleClass().clear();
             vBox.getStyleClass().add("hVoxActivo");
             vBox2.getStyleClass().clear();

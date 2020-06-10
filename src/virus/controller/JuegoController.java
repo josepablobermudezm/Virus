@@ -464,7 +464,6 @@ public class JuegoController extends Controller implements Initializable {
     VBox boxVacio = null;
 
     private void movimientoAdvXJug(String padre) {
-        System.out.println("mensaje afuera de movimientoAdvXJug");
         if (cartaAux.getTipoCarta().equals("Virus")
                 || cartaAux.getTipoCarta().equals("Transplante")
                 || cartaAux.getTipoCarta().equals("Contagio")
@@ -1071,30 +1070,25 @@ public class JuegoController extends Controller implements Initializable {
             Socket socket = new Socket(IP_Servidor, 44440);
             DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
             //DataInputStream respuesta = new DataInputStream(socket.getInputStream());
-            System.out.println("Connected Text!");
             //Enviamos un mensaje
             mensaje.writeUTF("pedirCartas");
-            String mensajeRecibido = "";
             DataInputStream entrada = new DataInputStream(socket.getInputStream());
-            mensajeRecibido = entrada.readUTF();
-            System.out.println(mensajeRecibido);
+            entrada.readUTF();
             //Cerramos la conexión
             socket.close();
             Socket socket2 = new Socket(IP_Servidor, 44440);
-            System.out.println("Connected Text!");
             DataInputStream respuesta2 = new DataInputStream(socket2.getInputStream());
             ObjectInputStream objectInputStream = new ObjectInputStream(respuesta2);
             CartaDto carta = (CartaDto) objectInputStream.readObject();
             if (carta == null) {
                 OutputStream outputstream = socket2.getOutputStream();
                 ObjectOutputStream objectoutputstream = new ObjectOutputStream(outputstream);
-                partida.getDesechadas().stream().forEach(x -> System.out.print(x.getTipoCarta()));
                 objectoutputstream.writeObject(partida.getDesechadas());
-                partida.getDesechadas().clear();
                 carta = (CartaDto) objectInputStream.readObject();
-                Platform.runLater(() -> {
+                mensaje.writeUTF("mazoTerminado");
+                /*Platform.runLater(() -> {
                     desechadas.setImage(null);
-                });
+                });*/
             }
             if (image7.getImage() == null) {
                 image7.setImage(new Image("virus/resources/" + carta.getImagen()));
@@ -1114,9 +1108,9 @@ public class JuegoController extends Controller implements Initializable {
         } catch (UnknownHostException e) {
             System.out.println("El host no existe o no está activo.");
         } catch (IOException e) {
-            System.out.println(e + "serás?");
+            System.out.println(e);
         } catch (ClassNotFoundException e) {
-            System.out.println(e + "o tú serás?");
+            System.out.println(e);
         }
     }
 
@@ -1156,21 +1150,17 @@ public class JuegoController extends Controller implements Initializable {
             Socket socket = new Socket(jugador.getIPS(), 44440);
             DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
             DataInputStream entrada = new DataInputStream(socket.getInputStream());
-            System.out.println("Connected Text!");
             mensaje.writeUTF(Mensaje);
             String mensajeRecibido = "";
             mensajeRecibido = entrada.readUTF();
-            System.out.println(mensajeRecibido);
             socket.close();
 
             Socket socket2 = new Socket(jugador.getIPS(), 44440);
             OutputStream outputStream = socket2.getOutputStream();
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-            System.out.println("Sending messages to the ServerSocket");
             objectOutputStream.writeObject(cartaAux);
-            System.out.println("Closing socket and terminating program.");
             socket2.close();
-            System.out.println(jugador.getMazo().remove(cartaAux));//removemos la carta del mazo del  jugador 
+            jugador.getMazo().remove(cartaAux);//removemos la carta del mazo del  jugador 
             imageViewDesechada.setImage(null);
             cartaAux = null;
             vBox.getStyleClass().clear();
@@ -1190,26 +1180,23 @@ public class JuegoController extends Controller implements Initializable {
             Socket socket = new Socket(jugador.getIPS(), 44440);
             DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
             DataInputStream entrada = new DataInputStream(socket.getInputStream());
-            System.out.println("Connected Text!");
             mensaje.writeUTF(Mensaje);
             String mensajeRecibido = "";
             mensajeRecibido = entrada.readUTF();
-            System.out.println(mensajeRecibido);
             socket.close();
             Socket socket2 = new Socket(jugador.getIPS(), 44440);
             OutputStream outputStream = socket2.getOutputStream();
             DataOutputStream mensaje2 = new DataOutputStream(socket2.getOutputStream());
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-            System.out.println("Sending messages to the ServerSocket");
             objectOutputStream.writeObject(cartaAux);
             mensaje2.writeUTF(padre);
             mensaje2.writeUTF(hijo);
             //Envia la IP del jugador destino que ha hecho este jugador
             mensaje2.writeUTF(IP);
-            System.out.println("Closing socket and terminating program.");
             socket2.close();
             imageViewDesechada.setImage(null);
-            System.out.println(jugador.getMazo().remove(cartaAux));//removemos la carta del mazo del  jugador 
+            jugador.getMazo().remove(cartaAux);//removemos la carta del mazo del  jugador 
+            
             vBox.getStyleClass().clear();
             vBox.getStyleClass().add("hVoxActivo");
             vBox2.getStyleClass().clear();
@@ -1231,7 +1218,6 @@ public class JuegoController extends Controller implements Initializable {
                         Socket socket = new Socket(jugador.getIPS(), 44440);
                         DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
                         DataInputStream entrada = new DataInputStream(socket.getInputStream());
-                        System.out.println("Connected Text!");
                         mensaje.writeUTF("cambioTurno");
                         mensajeRecibido = entrada.readUTF();
                         socket.close();

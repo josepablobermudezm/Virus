@@ -36,7 +36,7 @@ import virus.model.PartidaDto;
 public class Hilo_Peticiones extends Thread {
 
     private PartidaDto partidaDto;
-    private ImageView imageView;
+    private ImageView imgDesechadas;
     private JugadorDto jugadorDto;
     private Label turno;
     private AnchorPane anchorPane;
@@ -45,7 +45,7 @@ public class Hilo_Peticiones extends Thread {
     public Hilo_Peticiones(PartidaDto partida, ImageView image, JugadorDto jugador, Label label, AnchorPane anchorPane) {
         super();
         partidaDto = partida;
-        imageView = image;
+        imgDesechadas = image;
         jugadorDto = jugador;
         turno = label;
         this.anchorPane = anchorPane;
@@ -76,7 +76,7 @@ public class Hilo_Peticiones extends Thread {
                             CartaDto carta = (CartaDto) objectInputStream.readObject();
                             partidaDto.getDesechadas().add(carta);
                             Platform.runLater(() -> {
-                                imageView.setImage(new Image("virus/resources/" + carta.getImagen()));
+                                imgDesechadas.setImage(new Image("virus/resources/" + carta.getImagen()));
                             });
                             break;
                         }
@@ -213,7 +213,7 @@ public class Hilo_Peticiones extends Thread {
                                             case "Extirpado":
                                                 Platform.runLater(() -> {
                                                     ImageView auxImg = (ImageView) pane.getChildren().get(pane.getChildren().size() - 1);
-                                                    imageView.setImage(auxImg.getImage());
+                                                    imgDesechadas.setImage(auxImg.getImage());
                                                     pane.getChildren().remove(pane.getChildren().size() - 1);
                                                     pane.getChildren().remove(pane.getChildren().size() - 1);
                                                     pane.getChildren().remove(pane.getChildren().size() - 1);
@@ -223,7 +223,7 @@ public class Hilo_Peticiones extends Thread {
                                             case "Sano":
                                                 Platform.runLater(() -> {
                                                     ImageView auxImg = (ImageView) pane.getChildren().get(pane.getChildren().size() - 1);
-                                                    imageView.setImage(auxImg.getImage());
+                                                    imgDesechadas.setImage(auxImg.getImage());
                                                     pane.getChildren().remove(pane.getChildren().size() - 1);
                                                     pane.getChildren().remove(pane.getChildren().size() - 1);
                                                     new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Sano");
@@ -255,7 +255,13 @@ public class Hilo_Peticiones extends Thread {
                             break;
                         }
 
-                        case "partidaFinalizada":
+                        case "mazoTerminado":
+                            Platform.runLater(() -> {
+                                new Mensaje().show(Alert.AlertType.INFORMATION,"Información de juego","Barajando pila de Descarte");
+                                imgDesechadas.setImage(null);
+                            });
+                            partidaDto.getDesechadas().clear();
+                            
                             break;
                         default:
                             break;
@@ -271,7 +277,7 @@ public class Hilo_Peticiones extends Thread {
         }
 
         Platform.runLater(() -> {
-            new Mensaje().showModal(Alert.AlertType.INFORMATION, "¡VICTORIA!", this.imageView.getScene().getWindow(), nombreGanador + " ha ganado el juego");
+            new Mensaje().showModal(Alert.AlertType.INFORMATION, "¡VICTORIA!", this.imgDesechadas.getScene().getWindow(), nombreGanador + " ha ganado el juego");
             FlowController.getInstance().goView("Inicio");
         });
         //Cierra todos los procesos que queden pendientes
@@ -374,7 +380,7 @@ public class Hilo_Peticiones extends Thread {
     }
 
     public void IniciarHilo() {
-        Hilo_Peticiones hilo = new Hilo_Peticiones(partidaDto, imageView, jugadorDto, turno, anchorPane);
+        Hilo_Peticiones hilo = new Hilo_Peticiones(partidaDto, imgDesechadas, jugadorDto, turno, anchorPane);
         hilo.start();
     }
 }

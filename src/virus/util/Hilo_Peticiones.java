@@ -209,7 +209,7 @@ public class Hilo_Peticiones extends Thread {
                                                 break;
                                             case "Extirpado":
                                                 Platform.runLater(() -> {
-                                                    ImageView auxImg = (ImageView) pane.getChildren().get(pane.getChildren().size() - 3);
+                                                    ImageView auxImg = (ImageView) pane.getChildren().get(pane.getChildren().size() - 1);
                                                     imageView.setImage(auxImg.getImage());
                                                     pane.getChildren().remove(pane.getChildren().size() - 1);
                                                     pane.getChildren().remove(pane.getChildren().size() - 1);
@@ -219,7 +219,7 @@ public class Hilo_Peticiones extends Thread {
                                                 break;
                                             case "Sano":
                                                 Platform.runLater(() -> {
-                                                    ImageView auxImg = (ImageView) pane.getChildren().get(pane.getChildren().size() - 2);
+                                                    ImageView auxImg = (ImageView) pane.getChildren().get(pane.getChildren().size() - 1);
                                                     imageView.setImage(auxImg.getImage());
                                                     pane.getChildren().remove(pane.getChildren().size() - 1);
                                                     pane.getChildren().remove(pane.getChildren().size() - 1);

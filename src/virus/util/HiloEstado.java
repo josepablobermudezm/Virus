@@ -36,7 +36,7 @@ public class HiloEstado {
         public void run() {
             tic++;
             System.out.println("TIC " + tic);
-            if (tic == 3) {
+            if (tic == 5) {
 
                 Platform.runLater(() -> {
                     if (inmune) {

@@ -201,6 +201,7 @@ public class Hilo_Peticiones extends Thread {
                                         default:
                                             break;
                                     }
+                                    
                                     Platform.runLater(() -> {
                                         pane.getChildren().add(imageAux);
                                     });

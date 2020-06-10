@@ -276,10 +276,14 @@ public class Hilo_Peticiones extends Thread {
         } else if ((carta.getTipoCarta().equals("Medicina") || carta.getTipoCarta().equals("Medicina_Comodin")) && mazo.stream().filter(x -> x.getTipoCarta().equals("Virus")
                 || x.getTipoCarta().equals("Virus_Comodin")).count() == 1) {//Curar
             mazo.get(0).setEstado("Sano");
-            ArrayList removidas = (ArrayList<CartaDto>) mazo.stream().
+            
+            ArrayList <CartaDto> removidas = (ArrayList<CartaDto>) mazo.stream().
                     filter(x -> x.getTipoCarta().equals("Medicina") || x.getTipoCarta().
                     equals("Medicina_Comodin") || x.getTipoCarta().equals("Virus") || x.getTipoCarta().equals("Virus_Comodin")).collect(Collectors.toList());
             estado = "Sano";
+            removidas.stream().forEach((t) -> {
+                System.out.println("TIPO "+ t.getTipoCarta());
+            });
             mazo.removeAll(removidas);
             /*
              *hay un virus en el organo, entonces una vez que ponemos la medicina, se mandan ambas cartas a la pila de descarte
@@ -289,9 +293,12 @@ public class Hilo_Peticiones extends Thread {
             mazo.get(0).setEstado("Inmunizado");
             estado = "Inmunizado";
 
-            ArrayList removidas = (ArrayList<CartaDto>) mazo.stream().
+            ArrayList <CartaDto> removidas = (ArrayList<CartaDto>) mazo.stream().
                     filter(x -> x.getTipoCarta().equals("Medicina") || x.getTipoCarta().
                     equals("Medicina_Comodin")).collect(Collectors.toList());
+            removidas.stream().forEach((t) -> {
+                System.out.println("TIPO "+ t.getTipoCarta());
+            });
             mazo.removeAll(removidas);
 
             /*si ya el órgano cuenta con una medicina, esta segunda medicina logrará
@@ -310,9 +317,12 @@ public class Hilo_Peticiones extends Thread {
             mazo.get(0).setEstado("Extirpado");
             estado = "Extirpado";
 
-            ArrayList removidas = (ArrayList<CartaDto>) mazo.stream().
+            ArrayList <CartaDto> removidas= (ArrayList<CartaDto>) mazo.stream().
                     filter(x -> x.getTipoCarta().equals("Medicina") || x.getTipoCarta().
                     equals("Medicina_Comodin") || x.getTipoCarta().equals("Virus") || x.getTipoCarta().equals("Virus_Comodin")).collect(Collectors.toList());
+            removidas.stream().forEach((t) -> {
+                System.out.println("TIPO "+ t.getTipoCarta());
+            });
             mazo.removeAll(removidas);
 
             /*si un segundo virus es colocado sobre un órgano ya infectado, este órgano
@@ -324,9 +334,12 @@ public class Hilo_Peticiones extends Thread {
             mazo.get(0).setEstado("Sano");
             estado = "Sano";
 
-            ArrayList removidas = (ArrayList<CartaDto>) mazo.stream().
+            ArrayList <CartaDto> removidas = (ArrayList<CartaDto>) mazo.stream().
                     filter(x -> x.getTipoCarta().equals("Medicina") || x.getTipoCarta().
                     equals("Medicina_Comodin") || x.getTipoCarta().equals("Virus") || x.getTipoCarta().equals("Virus_Comodin")).collect(Collectors.toList());
+            removidas.stream().forEach(t -> {
+                System.out.println("TIPO :"+t.getTipoCarta());
+            });
             mazo.removeAll(removidas);
             /*
              *si sobre un órgano se encuentra una carta de medicina y se le aplica

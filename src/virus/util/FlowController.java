@@ -71,7 +71,9 @@ public class FlowController {
 
     public void InitializeFlow(Stage stage, ResourceBundle idioma) {
         getInstance();
+        
         this.mainStage = stage;
+        this.mainStage.setTitle("Virus");
         this.mainStage.getIcons().add(new Image(Virus.class.getResourceAsStream("resources/icon.png")));
         
         this.idioma = idioma;
@@ -189,7 +191,7 @@ public class FlowController {
         controller.initialize();
         Stage stage = new Stage();
         stage.getIcons().add(new Image(Virus.class.getResourceAsStream("resources/icon.png")));
-        stage.setTitle("Clinica UNA");
+        stage.setTitle("Virus");
         stage.setOnHidden((WindowEvent event) -> {
             controller.getStage().getScene().setRoot(new Pane());
             controller.setStage(null);

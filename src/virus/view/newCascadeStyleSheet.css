@@ -23,8 +23,8 @@
 }
 
 .hVoxActivo2{
-    -fx-border-color:#6684ff; 
-    -fx-border-width: 5; 
+    -fx-border-color:#3c54ba; 
+    -fx-border-width: 2; 
     -fx-border-style: solid;
     -fx-border-radius: 5px;
 }

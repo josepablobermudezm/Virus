@@ -199,10 +199,10 @@ public class Hilo_Peticiones extends Thread {
                                         switch (estado) {
                                             case "Inmunizado":
                                                 Platform.runLater(() -> {
-                                                    pane.getChildren().get(pane.getChildren().size() - 1).setRotate(-90);
+                                                    pane.getChildren().get(pane.getChildren().size() - 1).setRotate(90);
                                                     pane.getChildren().get(pane.getChildren().size() - 1).setLayoutY(pane.getChildren().get(pane.getChildren().size() - 1).getLayoutY() + 25);
 
-                                                    pane.getChildren().get(pane.getChildren().size() - 2).setRotate(-90);
+                                                    pane.getChildren().get(pane.getChildren().size() - 2).setRotate(90);
                                                     pane.getChildren().get(pane.getChildren().size() - 2).setLayoutY(pane.getChildren().get(pane.getChildren().size() - 2).getLayoutY() - 15);
                                                     new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Inmunizado");
                                                 });

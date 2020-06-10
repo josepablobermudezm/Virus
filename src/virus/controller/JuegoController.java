@@ -418,31 +418,37 @@ public class JuegoController extends Controller implements Initializable {
                 switch (((ImageView) event.getSource()).getId()) {
                     case "carta3":
                         cartaAux = carta3;
-                        vBox.getStyleClass().clear();
-                        vBox.getStyleClass().add("hVoxActivo2");
-                        vBox2.getStyleClass().clear();
-                        vBox2.getStyleClass().add("hVoxActivo");
-                        vBox3.getStyleClass().clear();
-                        vBox3.getStyleClass().add("hVoxActivo");
+                        if (imageViewDesechada.getImage() != null) {
+                            vBox.getStyleClass().clear();
+                            vBox.getStyleClass().add("hVoxActivo");
+                            vBox2.getStyleClass().clear();
+                            vBox2.getStyleClass().add("hVoxActivo");
+                            vBox3.getStyleClass().clear();
+                            vBox3.getStyleClass().add("hVoxActivo2");
+                        }
                         break;
                     case "carta2":
                         cartaAux = carta2;
-                        vBox.getStyleClass().clear();
-                        vBox.getStyleClass().add("hVoxActivo");
-                        vBox2.getStyleClass().clear();
-                        vBox2.getStyleClass().add("hVoxActivo2");
-                        vBox3.getStyleClass().clear();
-                        vBox3.getStyleClass().add("hVoxActivo");
+                        if (imageViewDesechada.getImage() != null) {
+                            vBox.getStyleClass().clear();
+                            vBox.getStyleClass().add("hVoxActivo");
+                            vBox2.getStyleClass().clear();
+                            vBox2.getStyleClass().add("hVoxActivo2");
+                            vBox3.getStyleClass().clear();
+                            vBox3.getStyleClass().add("hVoxActivo");
+                        }
                         break;
                     default:
                         //carta 1
                         cartaAux = carta1;
-                        vBox.getStyleClass().clear();
-                        vBox.getStyleClass().add("hVoxActivo");
-                        vBox2.getStyleClass().clear();
-                        vBox2.getStyleClass().add("hVoxActivo");
-                        vBox3.getStyleClass().clear();
-                        vBox3.getStyleClass().add("hVoxActivo2");
+                        if (imageViewDesechada.getImage() != null) {
+                            vBox.getStyleClass().clear();
+                            vBox.getStyleClass().add("hVoxActivo2");
+                            vBox2.getStyleClass().clear();
+                            vBox2.getStyleClass().add("hVoxActivo");
+                            vBox3.getStyleClass().clear();
+                            vBox3.getStyleClass().add("hVoxActivo");
+                        }
                         break;
                 }
             } else {

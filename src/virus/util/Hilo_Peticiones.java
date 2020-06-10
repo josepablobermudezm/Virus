@@ -138,19 +138,24 @@ public class Hilo_Peticiones extends Thread {
                             Preguntamos si ya termino el juegoS
                              */
                             int cont = 0;
-                            if ((!jugadorAux.getCartas1().isEmpty()) ? jugadorAux.getCartas1().get(0).getEstado().equals("Sano") : false) {
+                            if ((!jugadorAux.getCartas1().isEmpty()) ? jugadorAux.getCartas1().get(0).getEstado().equals("Sano") 
+                                    || jugadorAux.getCartas1().get(0).getEstado().equals("Inmunizado") : false) {
                                 cont++;
                             }
-                            if ((!jugadorAux.getCartas2().isEmpty()) ? jugadorAux.getCartas2().get(0).getEstado().equals("Sano") : false) {
+                            if ((!jugadorAux.getCartas2().isEmpty()) ? jugadorAux.getCartas2().get(0).getEstado().equals("Sano")
+                                    || jugadorAux.getCartas2().get(0).getEstado().equals("Inmunizado"): false) {
                                 cont++;
                             }
-                            if ((!jugadorAux.getCartas3().isEmpty()) ? jugadorAux.getCartas3().get(0).getEstado().equals("Sano") : false) {
+                            if ((!jugadorAux.getCartas3().isEmpty()) ? jugadorAux.getCartas3().get(0).getEstado().equals("Sano") 
+                                    || jugadorAux.getCartas3().get(0).getEstado().equals("Inmunizado") : false) {
                                 cont++;
                             }
-                            if ((!jugadorAux.getCartas4().isEmpty()) ? jugadorAux.getCartas4().get(0).getEstado().equals("Sano") : false) {
+                            if ((!jugadorAux.getCartas4().isEmpty()) ? jugadorAux.getCartas4().get(0).getEstado().equals("Sano") 
+                                    || jugadorAux.getCartas4().get(0).getEstado().equals("Inmunizado") : false) {
                                 cont++;
                             }
-                            if ((!jugadorAux.getCartas5().isEmpty()) ? jugadorAux.getCartas5().get(0).getEstado().equals("Sano") : false) {
+                            if ((!jugadorAux.getCartas5().isEmpty()) ? jugadorAux.getCartas5().get(0).getEstado().equals("Sano") 
+                                    || jugadorAux.getCartas5().get(0).getEstado().equals("Inmunizado") : false) {
                                 cont++;
                             }
                             //Introduce las cartas jugadas en las vistas de los usuarios
@@ -194,10 +199,10 @@ public class Hilo_Peticiones extends Thread {
                                         switch (estado) {
                                             case "Inmunizado":
                                                 Platform.runLater(() -> {
-                                                    pane.setRotate(90.0);
+                                                    //pane.setRotate(90.0);
                                                     pane.setLayoutX(pane.getLayoutX() + 25.0);
-                                                    pane.getChildren().remove(pane.getChildren().size() - 1);
-                                                    pane.getChildren().remove(pane.getChildren().size() - 1);
+                                                    pane.getChildren().get(pane.getChildren().size() - 1).setRotate(90);
+                                                    pane.getChildren().remove(pane.getChildren().size() - 2).setRotate(90);
                                                     new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Inmunizado");
                                                 });
                                                 break;

@@ -124,6 +124,12 @@ public class Hilo_Peticiones extends Thread {
                             *Si nuestro jugador es el que se ha recibido desde el servidor es porque
                             *es el turno del mismo
                              */
+                            partidaDto.getJugadores().stream().forEach((t) -> {
+                                if(!t.getIP().equals(IP)){
+                                    t.setTurno(false);
+                                }
+                            });
+                            
                             if (jugadorDto.getIP().equals(IP)) {
                                 jugadorDto.setTurno(true);
                                 Platform.runLater(() -> {

@@ -127,6 +127,8 @@ public class Hilo_Peticiones extends Thread {
                             partidaDto.getJugadores().stream().forEach((t) -> {
                                 if(!t.getIP().equals(IP)){
                                     t.setTurno(false);
+                                }else{
+                                    t.setTurno(true);
                                 }
                             });
                             

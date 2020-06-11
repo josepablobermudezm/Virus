@@ -120,7 +120,7 @@ public class JuegoController extends Controller implements Initializable {
     public VBox vBox;
     public VBox vBox2;
     public VBox vBox3;
-
+    private ArrayList <ImageView> mazoImg = new ArrayList();
     /**
      * Initializes the controller class.
      */
@@ -324,14 +324,20 @@ public class JuegoController extends Controller implements Initializable {
         vBox3.setLayoutY(510);
         image9.setOnMouseClicked(seleccionarCarta);
         vBox3.getChildren().add(image9);
-
+        /*
+        Agrega imagenes del mazo del usuario
+        */
+        mazoImg.add(image7);
+        mazoImg.add(image8);
+        mazoImg.add(image9);
+        
         fondo_juego.getChildren().add(vBox);
         fondo_juego.getChildren().add(vBox2);
         fondo_juego.getChildren().add(vBox3);
 
         //Introduce los jugadores a la partida
         partida.setJugadores(jugadores);
-        peticiones = new Hilo_Peticiones(partida, imgDesechada, jugador, lbl_JTurno, fondo_juego);
+        peticiones = new Hilo_Peticiones(partida, imgDesechada, jugador, lbl_JTurno, fondo_juego, mazoImg);
         peticiones.start();
 
         desechadas = imgDesechada;
@@ -1129,8 +1135,23 @@ public class JuegoController extends Controller implements Initializable {
                 if (!recogioCarta) {
                     if (jugador.getTurno()) {
                         if (cartaAux != null) {
-                            desecharCarta("desecharCarta");
-                            modoDesechar = true;
+                            switch (cartaAux.getTipoCarta()) {
+                                case "Transplante":
+                                    break;
+                                case "Ladron":
+                                    break;
+                                case "Contagio":
+                                    break;
+                                case "Guante":
+                                    break;
+                                case "Error":
+                                    break;
+                                default:
+                                    modoDesechar = true;
+                                    
+                                    desecharCarta("desecharCarta");
+                                    break;
+                            }
                         } else {
                             Mensaje msj = new Mensaje();
                             msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");

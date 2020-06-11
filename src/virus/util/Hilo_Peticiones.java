@@ -41,14 +41,16 @@ public class Hilo_Peticiones extends Thread {
     private Label turno;
     private AnchorPane anchorPane;
     public static Boolean findePartida = false;
+    private ArrayList <ImageView> mazoImg;
 
-    public Hilo_Peticiones(PartidaDto partida, ImageView image, JugadorDto jugador, Label label, AnchorPane anchorPane) {
+    public Hilo_Peticiones(PartidaDto partida, ImageView image, JugadorDto jugador, Label label, AnchorPane anchorPane, ArrayList <ImageView> mazoImg) {
         super();
         partidaDto = partida;
         imgDesechadas = image;
         jugadorDto = jugador;
         turno = label;
         this.anchorPane = anchorPane;
+        this.mazoImg = mazoImg;
     }
 
     DataInputStream entrada;
@@ -74,6 +76,30 @@ public class Hilo_Peticiones extends Thread {
                             DataInputStream respuesta2 = new DataInputStream(socket.getInputStream());
                             ObjectInputStream objectInputStream = new ObjectInputStream(respuesta2);
                             CartaDto carta = (CartaDto) objectInputStream.readObject();
+
+                            if (carta.getTipoCarta().equals("Guante")) {
+                                JugadorDto jugador = partidaDto.getJugadores().stream().
+                                        filter(x -> x.getTurno()).findAny().get();           
+                                
+                                partidaDto.getJugadores().stream().forEach(x -> {
+                                    if (!x.getIP().equals(jugador.getIP())) {
+                                        if(jugadorDto.getIP().equals(x.getIP())){
+                                            mazoImg.stream().forEach((t) -> {
+                                                Platform.runLater(() -> {
+                                                    t.setImage(null);
+                                                });
+                                            });
+                                            Platform.runLater(() -> {
+                                                new Mensaje().show(Alert.AlertType.INFORMATION,"Información de Juego","Tratamiento Guante de Látex aplicado");
+                                            });
+                                        }
+                                        
+                                        partidaDto.getDesechadas().addAll(x.getMazo());
+                                        x.getMazo().clear();
+                                    }
+                                });
+                            }
+
                             partidaDto.getDesechadas().add(carta);
                             Platform.runLater(() -> {
                                 imgDesechadas.setImage(new Image("virus/resources/" + carta.getImagen()));
@@ -139,28 +165,28 @@ public class Hilo_Peticiones extends Thread {
                              */
                             int cont = 0;
                             if ((!jugadorAux.getCartas1().isEmpty()) ? jugadorAux.getCartas1().get(0).getEstado().equals("Sano")
-                                    || jugadorAux.getCartas1().get(0).getEstado().equals("Inmunizado") 
+                                    || jugadorAux.getCartas1().get(0).getEstado().equals("Inmunizado")
                                     || jugadorAux.getCartas1().get(0).getEstado().equals("Vacunado") : false) {
                                 cont++;
                             }
                             if ((!jugadorAux.getCartas2().isEmpty()) ? jugadorAux.getCartas2().get(0).getEstado().equals("Sano")
-                                    || jugadorAux.getCartas2().get(0).getEstado().equals("Inmunizado") 
-                                    || jugadorAux.getCartas2().get(0).getEstado().equals("Vacunado"): false) {
+                                    || jugadorAux.getCartas2().get(0).getEstado().equals("Inmunizado")
+                                    || jugadorAux.getCartas2().get(0).getEstado().equals("Vacunado") : false) {
                                 cont++;
                             }
                             if ((!jugadorAux.getCartas3().isEmpty()) ? jugadorAux.getCartas3().get(0).getEstado().equals("Sano")
-                                    || jugadorAux.getCartas3().get(0).getEstado().equals("Inmunizado") 
-                                    || jugadorAux.getCartas3().get(0).getEstado().equals("Vacunado"): false) {
+                                    || jugadorAux.getCartas3().get(0).getEstado().equals("Inmunizado")
+                                    || jugadorAux.getCartas3().get(0).getEstado().equals("Vacunado") : false) {
                                 cont++;
                             }
                             if ((!jugadorAux.getCartas4().isEmpty()) ? jugadorAux.getCartas4().get(0).getEstado().equals("Sano")
                                     || jugadorAux.getCartas4().get(0).getEstado().equals("Inmunizado")
-                                    || jugadorAux.getCartas4().get(0).getEstado().equals("Vacunado"): false) {
+                                    || jugadorAux.getCartas4().get(0).getEstado().equals("Vacunado") : false) {
                                 cont++;
                             }
                             if ((!jugadorAux.getCartas5().isEmpty()) ? jugadorAux.getCartas5().get(0).getEstado().equals("Sano")
-                                    || jugadorAux.getCartas5().get(0).getEstado().equals("Inmunizado") 
-                                    || jugadorAux.getCartas5().get(0).getEstado().equals("Vacunado"): false) {
+                                    || jugadorAux.getCartas5().get(0).getEstado().equals("Inmunizado")
+                                    || jugadorAux.getCartas5().get(0).getEstado().equals("Vacunado") : false) {
                                 cont++;
                             }
                             //Introduce las cartas jugadas en las vistas de los usuarios
@@ -258,11 +284,11 @@ public class Hilo_Peticiones extends Thread {
 
                         case "mazoTerminado":
                             Platform.runLater(() -> {
-                                new Mensaje().show(Alert.AlertType.INFORMATION,"Información de juego","Barajando pila de Descarte");
+                                new Mensaje().show(Alert.AlertType.INFORMATION, "Información de juego", "Barajando pila de Descarte");
                                 imgDesechadas.setImage(null);
                             });
                             partidaDto.getDesechadas().clear();
-                            
+
                             break;
                         default:
                             break;
@@ -381,7 +407,7 @@ public class Hilo_Peticiones extends Thread {
     }
 
     public void IniciarHilo() {
-        Hilo_Peticiones hilo = new Hilo_Peticiones(partidaDto, imgDesechadas, jugadorDto, turno, anchorPane);
+        Hilo_Peticiones hilo = new Hilo_Peticiones(partidaDto, imgDesechadas, jugadorDto, turno, anchorPane,mazoImg);
         hilo.start();
     }
 }

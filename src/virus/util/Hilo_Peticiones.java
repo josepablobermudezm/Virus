@@ -80,33 +80,31 @@ public class Hilo_Peticiones extends Thread {
                             if (carta.getTipoCarta().equals("Guante")) {
                                 JugadorDto jugador = partidaDto.getJugadores().stream().
                                         filter(x -> x.getTurno()).findAny().get();
-                                System.out.println("PRIMER LISTA");
+                                System.out.println("PRIMER LISTA" + jugador.getIP());
                                 partidaDto.getJugadores().stream().forEach(x -> {
                                     x.getMazo().stream().forEach((t) -> {
-                                        System.out.println("IP "+ x.getIP()+"  "+t.getTipoCarta());
+                                        System.out.println("IP " + x.getIP() + "  " + t.getTipoCarta());
                                     });
                                     if (!x.getIP().equals(jugador.getIP())) {
-                                        
+
                                         if (jugadorDto.getIP().equals(x.getIP())) {
                                             jugadorDto.getMazo().clear();
+                                            partidaDto.getDesechadas().addAll(x.getMazo());
+                                            x.getMazo().clear();
                                             mazoImg.stream().forEach((t) -> {
                                                 Platform.runLater(() -> {
                                                     t.setImage(null);
                                                 });
                                             });
                                         }
-                                        
-                                        partidaDto.getDesechadas().addAll(x.getMazo());
-                                        x.getMazo().clear();
+
                                     }
-                                    
-                                    
-                                    
+
                                 });
                                 System.out.println("SEGUNDA LISTA");
                                 partidaDto.getJugadores().stream().forEach(x -> {
                                     x.getMazo().stream().forEach((t) -> {
-                                        System.out.println("IP "+ x.getIP()+"  "+t.getTipoCarta());
+                                        System.out.println("IP " + x.getIP() + "  " + t.getTipoCarta());
                                     });
                                 });
                                 Platform.runLater(() -> {

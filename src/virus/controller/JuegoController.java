@@ -120,7 +120,8 @@ public class JuegoController extends Controller implements Initializable {
     public VBox vBox;
     public VBox vBox2;
     public VBox vBox3;
-    private ArrayList <ImageView> mazoImg = new ArrayList();
+    private ArrayList<ImageView> mazoImg = new ArrayList();
+
     /**
      * Initializes the controller class.
      */
@@ -326,11 +327,11 @@ public class JuegoController extends Controller implements Initializable {
         vBox3.getChildren().add(image9);
         /*
         Agrega imagenes del mazo del usuario
-        */
+         */
         mazoImg.add(image7);
         mazoImg.add(image8);
         mazoImg.add(image9);
-        
+
         fondo_juego.getChildren().add(vBox);
         fondo_juego.getChildren().add(vBox2);
         fondo_juego.getChildren().add(vBox3);
@@ -1137,18 +1138,23 @@ public class JuegoController extends Controller implements Initializable {
                         if (cartaAux != null) {
                             switch (cartaAux.getTipoCarta()) {
                                 case "Transplante":
+                                    desecharCarta("desecharCarta");
                                     break;
                                 case "Ladron":
+                                    desecharCarta("desecharCarta");
                                     break;
                                 case "Contagio":
+                                    desecharCarta("desecharCarta");
                                     break;
                                 case "Guante":
+                                    desecharCarta("desecharCarta");
                                     break;
                                 case "Error":
+                                    desecharCarta("desecharCarta");
                                     break;
                                 default:
                                     modoDesechar = true;
-                                    
+
                                     desecharCarta("desecharCarta");
                                     break;
                             }
@@ -1209,23 +1215,26 @@ public class JuegoController extends Controller implements Initializable {
             Socket socket = new Socket(jugador.getIPS(), 44440);
             DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
             DataInputStream entrada = new DataInputStream(socket.getInputStream());
+            System.out.println("Connected Text!");
             mensaje.writeUTF(Mensaje);
             String mensajeRecibido = "";
             mensajeRecibido = entrada.readUTF();
+            System.out.println(mensajeRecibido);
             socket.close();
             Socket socket2 = new Socket(jugador.getIPS(), 44440);
             OutputStream outputStream = socket2.getOutputStream();
             DataOutputStream mensaje2 = new DataOutputStream(socket2.getOutputStream());
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+            System.out.println("Sending messages to the ServerSocket");
             objectOutputStream.writeObject(cartaAux);
             mensaje2.writeUTF(padre);
             mensaje2.writeUTF(hijo);
             //Envia la IP del jugador destino que ha hecho este jugador
             mensaje2.writeUTF(IP);
+            System.out.println("Closing socket and terminating program.");
             socket2.close();
             imageViewDesechada.setImage(null);
-            jugador.getMazo().remove(cartaAux);//removemos la carta del mazo del  jugador 
-
+            System.out.println(jugador.getMazo().remove(cartaAux));//removemos la carta del mazo del  jugador 
             vBox.getStyleClass().clear();
             vBox.getStyleClass().add("hVoxActivo");
             vBox2.getStyleClass().clear();
@@ -1236,7 +1245,6 @@ public class JuegoController extends Controller implements Initializable {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
     public void cambiarTurnoAux() {

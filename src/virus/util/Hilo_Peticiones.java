@@ -78,6 +78,7 @@ public class Hilo_Peticiones extends Thread {
                             CartaDto carta = (CartaDto) objectInputStream.readObject();
 
                             if (carta.getTipoCarta().equals("Guante")) {
+                                System.out.println("ENTRO GUANTE");
                                 JugadorDto jugador = partidaDto.getJugadores().stream().
                                         filter(x -> x.getTurno()).findAny().get();           
                                 

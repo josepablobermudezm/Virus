@@ -41,9 +41,9 @@ public class Hilo_Peticiones extends Thread {
     private Label turno;
     private AnchorPane anchorPane;
     public static Boolean findePartida = false;
-    private ArrayList <ImageView> mazoImg;
+    private ArrayList<ImageView> mazoImg;
 
-    public Hilo_Peticiones(PartidaDto partida, ImageView image, JugadorDto jugador, Label label, AnchorPane anchorPane, ArrayList <ImageView> mazoImg) {
+    public Hilo_Peticiones(PartidaDto partida, ImageView image, JugadorDto jugador, Label label, AnchorPane anchorPane, ArrayList<ImageView> mazoImg) {
         super();
         partidaDto = partida;
         imgDesechadas = image;
@@ -78,26 +78,39 @@ public class Hilo_Peticiones extends Thread {
                             CartaDto carta = (CartaDto) objectInputStream.readObject();
 
                             if (carta.getTipoCarta().equals("Guante")) {
-                                System.out.println("ENTRO GUANTE");
                                 JugadorDto jugador = partidaDto.getJugadores().stream().
-                                        filter(x -> x.getTurno()).findAny().get();           
-                                
+                                        filter(x -> x.getTurno()).findAny().get();
+                                System.out.println("PRIMER LISTA");
                                 partidaDto.getJugadores().stream().forEach(x -> {
+                                    x.getMazo().stream().forEach((t) -> {
+                                        System.out.println("IP "+ x.getIP()+"  "+t.getTipoCarta());
+                                    });
                                     if (!x.getIP().equals(jugador.getIP())) {
-                                        if(jugadorDto.getIP().equals(x.getIP())){
+                                        
+                                        if (jugadorDto.getIP().equals(x.getIP())) {
+                                            jugadorDto.getMazo().clear();
                                             mazoImg.stream().forEach((t) -> {
                                                 Platform.runLater(() -> {
                                                     t.setImage(null);
                                                 });
-                                            });
-                                            Platform.runLater(() -> {
-                                                new Mensaje().show(Alert.AlertType.INFORMATION,"Información de Juego","Tratamiento Guante de Látex aplicado");
                                             });
                                         }
                                         
                                         partidaDto.getDesechadas().addAll(x.getMazo());
                                         x.getMazo().clear();
                                     }
+                                    
+                                    
+                                    
+                                });
+                                System.out.println("SEGUNDA LISTA");
+                                partidaDto.getJugadores().stream().forEach(x -> {
+                                    x.getMazo().stream().forEach((t) -> {
+                                        System.out.println("IP "+ x.getIP()+"  "+t.getTipoCarta());
+                                    });
+                                });
+                                Platform.runLater(() -> {
+                                    new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Tratamiento Guante de Látex aplicado");
                                 });
                             }
 
@@ -408,7 +421,7 @@ public class Hilo_Peticiones extends Thread {
     }
 
     public void IniciarHilo() {
-        Hilo_Peticiones hilo = new Hilo_Peticiones(partidaDto, imgDesechadas, jugadorDto, turno, anchorPane,mazoImg);
+        Hilo_Peticiones hilo = new Hilo_Peticiones(partidaDto, imgDesechadas, jugadorDto, turno, anchorPane, mazoImg);
         hilo.start();
     }
 }

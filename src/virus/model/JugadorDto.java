@@ -75,6 +75,7 @@ public class JugadorDto implements Serializable{
     }
 
     public ArrayList<CartaDto> getMazo() {
+        
         return mazo;
     }
 

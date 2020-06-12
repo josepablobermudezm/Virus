@@ -575,10 +575,6 @@ public class JuegoController extends Controller implements Initializable {
 
     private void movimientoAdvXJug(String padre) {
         if (cartaAux.getTipoCarta().equals("Virus")
-                || cartaAux.getTipoCarta().equals("Transplante")
-                || cartaAux.getTipoCarta().equals("Contagio")
-                || cartaAux.getTipoCarta().equals("Ladron")
-                || cartaAux.getTipoCarta().equals("Error")
                 || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
             movimientoContrario(padre);
         } else {
@@ -1289,7 +1285,7 @@ public class JuegoController extends Controller implements Initializable {
             mensajeRecibido = entrada.readUTF();
             System.out.println(mensajeRecibido);
             socket.close();
-            
+
             Socket socket2 = new Socket(jugador.getIPS(), 44440);
             System.out.println("Connected Text!");
             DataOutputStream mensaje2 = new DataOutputStream(socket2.getOutputStream());
@@ -1298,7 +1294,7 @@ public class JuegoController extends Controller implements Initializable {
             mensaje2.writeUTF(IP);
             System.out.println("Mensjaes enviados");
             socket2.close();
-            
+
             ladron = false;
         } catch (IOException e) {
             System.out.println(e.getMessage());

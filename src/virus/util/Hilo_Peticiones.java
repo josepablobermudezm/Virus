@@ -312,44 +312,44 @@ public class Hilo_Peticiones extends Thread {
                             String padre = input.readUTF();
                             String hijo = input.readUTF();
                             String IPJugador = input.readUTF();
-                            ArrayList<CartaDto> cartaAux = new ArrayList();
+                            ArrayList<CartaDto> cartas = new ArrayList();
                             switch (padre) {
                                 case "hvox":
-                                    cartaAux = cartasRival(partidaDto.getJugadores().get(0), Integer.valueOf(hijo));
+                                    cartas = cartasRival(partidaDto.getJugadores().get(0), Integer.valueOf(hijo));
                                     break;
                                 case "hvox2":
-                                    cartaAux = cartasRival(partidaDto.getJugadores().get(1), Integer.valueOf(hijo));
+                                    cartas = cartasRival(partidaDto.getJugadores().get(1), Integer.valueOf(hijo));
                                     break;
                                 case "hvox3":
-                                    cartaAux = cartasRival(partidaDto.getJugadores().get(2), Integer.valueOf(hijo));
+                                    cartas = cartasRival(partidaDto.getJugadores().get(2), Integer.valueOf(hijo));
                                     break;
                                 case "hvox4":
-                                    cartaAux = cartasRival(partidaDto.getJugadores().get(3), Integer.valueOf(hijo));
+                                    cartas = cartasRival(partidaDto.getJugadores().get(3), Integer.valueOf(hijo));
                                     break;
                                 case "hvox5":
-                                    cartaAux = cartasRival(partidaDto.getJugadores().get(4), Integer.valueOf(hijo));
+                                    cartas = cartasRival(partidaDto.getJugadores().get(4), Integer.valueOf(hijo));
                                     break;
                                 case "hbox6":
-                                    cartaAux = cartasRival(partidaDto.getJugadores().get(5), Integer.valueOf(hijo));
+                                    cartas = cartasRival(partidaDto.getJugadores().get(5), Integer.valueOf(hijo));
                                     break;
                                 default:
                                     break;
                             }
                             int valor = 0;
                             if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().getCartas1().isEmpty()) {
-                                partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().setCartas1(cartaAux);
+                                partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().setCartas1(cartas);
                                 valor = 0;
                             } else if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().getCartas2().isEmpty()) {
-                                partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().setCartas2(cartaAux);
+                                partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().setCartas2(cartas);
                                 valor = 1;
                             } else if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().getCartas3().isEmpty()) {
-                                partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().setCartas3(cartaAux);
+                                partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().setCartas3(cartas);
                                 valor = 2;
                             } else if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().getCartas4().isEmpty()) {
-                                partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().setCartas4(cartaAux);
+                                partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().setCartas4(cartas);
                                 valor = 3;
                             } else if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().getCartas5().isEmpty()) {
-                                partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().setCartas5(cartaAux);
+                                partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().setCartas5(cartas);
                                 valor = 4;
                             }
 
@@ -433,7 +433,11 @@ public class Hilo_Peticiones extends Thread {
     private ArrayList<CartaDto> cartasRival(JugadorDto rival, Integer indice) {
         switch (indice) {
             case 0:
-                ArrayList<CartaDto> auxList = rival.getCartas1();
+                ArrayList<CartaDto> auxList = new ArrayList();
+                        rival.getCartas1().stream().forEach((t) -> {
+                            System.out.println("TIPO CARTA "+ t.getTipoCarta());
+                            auxList.add(t);
+                        });
                 rival.getCartas1().clear();
                 return auxList;
             case 1:

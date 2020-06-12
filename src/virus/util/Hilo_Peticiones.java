@@ -371,8 +371,13 @@ public class Hilo_Peticiones extends Thread {
                                     paneAux1 = ((Pane) ((HBox) t).getChildren().get(i));
                                 }
                             });
+                            
                             Platform.runLater(() -> {
-                                ArrayList<Node> nodos = (ArrayList<Node>) paneAux2.getChildren();
+                                
+                                ArrayList<Node> nodos = new ArrayList();
+                                paneAux2.getChildren().stream().forEach((t) -> {
+                                    nodos.add(t);
+                                });
                                 paneAux2.getChildren().clear();
                                 paneAux1.getChildren().addAll(nodos);
                             });

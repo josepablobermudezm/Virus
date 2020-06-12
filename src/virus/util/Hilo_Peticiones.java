@@ -312,7 +312,7 @@ public class Hilo_Peticiones extends Thread {
                             String padre = input.readUTF();
                             String hijo = input.readUTF();
                             String IPJugador = input.readUTF();
-                            ArrayList<CartaDto> cartaAux = new ArrayList<CartaDto>();
+                            ArrayList<CartaDto> cartaAux = new ArrayList();
                             switch (padre) {
                                 case "hvox":
                                     cartaAux = cartasRival(partidaDto.getJugadores().get(0), Integer.valueOf(hijo));

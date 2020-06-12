@@ -58,11 +58,12 @@ public class Hilo_Peticiones extends Thread {
     Socket socket;
     ServerSocket serverSocket;
     String mensajeRecibido = "";
-    String nombreGanador = "";
+
     public static String estado = "";
 
     @Override
     public void run() {
+        
         while (!mensajeRecibido.equals("partidaFinalizada")) {
             try {
                 serverSocket = new ServerSocket(44440);
@@ -80,11 +81,7 @@ public class Hilo_Peticiones extends Thread {
                             if (carta.getTipoCarta().equals("Guante")) {
                                 JugadorDto jugador = partidaDto.getJugadores().stream().
                                         filter(x -> x.getTurno()).findAny().get();
-                                System.out.println("PRIMER LISTA" + jugador.getIP());
                                 partidaDto.getJugadores().stream().forEach(x -> {
-                                    x.getMazo().stream().forEach((t) -> {
-                                        System.out.println("IP " + x.getIP() + "  " + t.getTipoCarta());
-                                    });
                                     if (!x.getIP().equals(jugador.getIP())) {
 
                                         if (jugadorDto.getIP().equals(x.getIP())) {
@@ -101,15 +98,11 @@ public class Hilo_Peticiones extends Thread {
                                     }
 
                                 });
-                                System.out.println("SEGUNDA LISTA");
-                                partidaDto.getJugadores().stream().forEach(x -> {
-                                    x.getMazo().stream().forEach((t) -> {
-                                        System.out.println("IP " + x.getIP() + "  " + t.getTipoCarta());
-                                    });
-                                });
                                 Platform.runLater(() -> {
                                     new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Tratamiento Guante de Látex aplicado");
                                 });
+                            }else if(carta.getTipoCarta().equals("Ladron")){
+                                
                             }
 
                             partidaDto.getDesechadas().add(carta);
@@ -125,13 +118,13 @@ public class Hilo_Peticiones extends Thread {
                             *es el turno del mismo
                              */
                             partidaDto.getJugadores().stream().forEach((t) -> {
-                                if(!t.getIP().equals(IP)){
+                                if (!t.getIP().equals(IP)) {
                                     t.setTurno(false);
-                                }else{
+                                } else {
                                     t.setTurno(true);
                                 }
                             });
-                            
+
                             if (jugadorDto.getIP().equals(IP)) {
                                 jugadorDto.setTurno(true);
                                 Platform.runLater(() -> {
@@ -285,10 +278,11 @@ public class Hilo_Peticiones extends Thread {
                             if (cont == 4) {
                                 //findePartida = true;
                                 mensajeRecibido = "partidaFinalizada";
-                                salida.writeUTF("partidaFinalizada");
-                                entrada.readUTF();
-                                System.out.println("FINALIZADOOOO");
-                                nombreGanador = jugadorAux.getNombre();
+                                jugadorDto = jugadorAux;
+                                /*salida.writeUTF("partidaFinalizada");
+                                entrada.readUTF();*/
+                                //nombreGanador = jugadorAux.getNombre();
+                                
                             } else if (jugadorAux.getIP().equals(jugadorDto.getIP())) {
                                 jugadorAux.setMazo(jugadorDto.getMazo());
                                 jugadorAux.setTurno(jugadorDto.getTurno());
@@ -322,11 +316,14 @@ public class Hilo_Peticiones extends Thread {
                 Logger.getLogger(JuegoController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        
+        final String nombreGanador = jugadorDto.getNombre();
+        
         Platform.runLater(() -> {
-            new Mensaje().showModal(Alert.AlertType.INFORMATION, "¡VICTORIA!", this.imgDesechadas.getScene().getWindow(), nombreGanador + " ha ganado el juego");
+            new Mensaje().showModal(Alert.AlertType.INFORMATION, "¡VICTORIA!", this.imgDesechadas.getScene().getWindow(),nombreGanador  + " ha ganado el juego");
             FlowController.getInstance().goView("Inicio");
         });
+
         //Cierra todos los procesos que queden pendientes
     }
 

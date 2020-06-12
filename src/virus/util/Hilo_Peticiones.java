@@ -60,10 +60,12 @@ public class Hilo_Peticiones extends Thread {
     String mensajeRecibido = "";
 
     public static String estado = "";
+    public static Pane paneAux1 = null;
+    public static Pane paneAux2 = null;
 
     @Override
     public void run() {
-        
+
         while (!mensajeRecibido.equals("partidaFinalizada")) {
             try {
                 serverSocket = new ServerSocket(44440);
@@ -101,8 +103,8 @@ public class Hilo_Peticiones extends Thread {
                                 Platform.runLater(() -> {
                                     new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Tratamiento Guante de Látex aplicado");
                                 });
-                            }else if(carta.getTipoCarta().equals("Ladron")){
-                                
+                            } else if (carta.getTipoCarta().equals("Ladron")) {
+
                             }
 
                             partidaDto.getDesechadas().add(carta);
@@ -282,7 +284,7 @@ public class Hilo_Peticiones extends Thread {
                                 /*salida.writeUTF("partidaFinalizada");
                                 entrada.readUTF();*/
                                 //nombreGanador = jugadorAux.getNombre();
-                                
+
                             } else if (jugadorAux.getIP().equals(jugadorDto.getIP())) {
                                 jugadorAux.setMazo(jugadorDto.getMazo());
                                 jugadorAux.setTurno(jugadorDto.getTurno());
@@ -304,27 +306,150 @@ public class Hilo_Peticiones extends Thread {
                             partidaDto.getDesechadas().clear();
 
                             break;
+                        case "Ladron":
+                            DataInputStream input;
+                            input = new DataInputStream(socket.getInputStream());
+                            String padre = input.readUTF();
+                            String hijo = input.readUTF();
+                            String IPJugador = input.readUTF();
+                            ArrayList<CartaDto> cartaAux = new ArrayList<CartaDto>();
+                            switch (padre) {
+                                case "hvox":
+                                    cartaAux = cartasRival(partidaDto.getJugadores().get(0), Integer.valueOf(hijo));
+                                    break;
+                                case "hvox2":
+                                    cartaAux = cartasRival(partidaDto.getJugadores().get(1), Integer.valueOf(hijo));
+                                    break;
+                                case "hvox3":
+                                    cartaAux = cartasRival(partidaDto.getJugadores().get(2), Integer.valueOf(hijo));
+                                    break;
+                                case "hvox4":
+                                    cartaAux = cartasRival(partidaDto.getJugadores().get(3), Integer.valueOf(hijo));
+                                    break;
+                                case "hvox5":
+                                    cartaAux = cartasRival(partidaDto.getJugadores().get(4), Integer.valueOf(hijo));
+                                    break;
+                                case "hbox6":
+                                    cartaAux = cartasRival(partidaDto.getJugadores().get(5), Integer.valueOf(hijo));
+                                    break;
+                                default:
+                                    break;
+                            }
+                            int valor = 0;
+                            if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().getCartas1().isEmpty()) {
+                                partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().setCartas1(cartaAux);
+                                valor = 0;
+                            } else if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().getCartas2().isEmpty()) {
+                                partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().setCartas2(cartaAux);
+                                valor = 1;
+                            } else if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().getCartas3().isEmpty()) {
+                                partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().setCartas3(cartaAux);
+                                valor = 2;
+                            } else if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().getCartas4().isEmpty()) {
+                                partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().setCartas4(cartaAux);
+                                valor = 3;
+                            } else if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().getCartas5().isEmpty()) {
+                                partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().setCartas5(cartaAux);
+                                valor = 4;
+                            }
+
+                            if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().getIP().equals(jugadorDto.getIP())) {
+                                jugadorDto = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get();
+                                AppContext.getInstance().set("JugadorDto", jugadorDto);
+                            }
+
+                            int variableU = partidaDto.getJugadores().indexOf(partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get());
+                            String idHBox = hBoxJugador(variableU);
+
+                            //aquí agregamos el órgano visualmente
+                            anchorPane.getChildren().forEach((t) -> {
+                                if (t.getId() != null && t.getId().equals(padre)) {
+                                    int i = Integer.valueOf(hijo);
+                                    paneAux2 = ((Pane) ((HBox) t).getChildren().get(i));
+                                } else if (t.getId() != null && t.getId().equals(idHBox)) {
+                                    int i = variableU;
+                                    paneAux1 = ((Pane) ((HBox) t).getChildren().get(i));
+                                }
+                            });
+                            Platform.runLater(() -> {
+                                ArrayList<Node> nodos = (ArrayList<Node>) paneAux2.getChildren();
+                                paneAux2.getChildren().clear();
+                                paneAux1.getChildren().addAll(nodos);
+                            });
+                            break;
                         default:
                             break;
                     }
                 }
                 serverSocket.close();
-
             } catch (IOException IO) {
                 System.out.println(IO.getMessage());
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(JuegoController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         final String nombreGanador = jugadorDto.getNombre();
-        
+
         Platform.runLater(() -> {
-            new Mensaje().showModal(Alert.AlertType.INFORMATION, "¡VICTORIA!", this.imgDesechadas.getScene().getWindow(),nombreGanador  + " ha ganado el juego");
+            new Mensaje().showModal(Alert.AlertType.INFORMATION, "¡VICTORIA!", this.imgDesechadas.getScene().getWindow(), nombreGanador + " ha ganado el juego");
             FlowController.getInstance().goView("Inicio");
         });
 
         //Cierra todos los procesos que queden pendientes
+    }
+
+    //retornamos el hBox del jugador
+    public String hBoxJugador(int variableU) {
+        String variable = "";
+        switch (variableU) {
+            case 0:
+                variable = "hvox";
+                break;
+            case 1:
+                variable = "hvox2";
+                break;
+            case 2:
+                variable = "hvox3";
+                break;
+            case 3:
+                variable = "hvox4";
+                break;
+            case 4:
+                variable = "hvox5";
+                break;
+            case 5:
+                variable = "hbox6";
+                break;
+        }
+        return variable;
+    }
+
+    private ArrayList<CartaDto> cartasRival(JugadorDto rival, Integer indice) {
+        switch (indice) {
+            case 0:
+                ArrayList<CartaDto> auxList = rival.getCartas1();
+                rival.getCartas1().clear();
+                return auxList;
+            case 1:
+                ArrayList<CartaDto> auxList2 = rival.getCartas2();
+                rival.getCartas2().clear();
+                return auxList2;
+            case 2:
+                ArrayList<CartaDto> auxList3 = rival.getCartas3();
+                rival.getCartas3().clear();
+                return auxList3;
+            case 3:
+                ArrayList<CartaDto> auxList4 = rival.getCartas4();
+                rival.getCartas4().clear();
+                return auxList4;
+            case 4:
+                ArrayList<CartaDto> auxList5 = rival.getCartas5();
+                rival.getCartas5().clear();
+                return auxList5;
+            default:
+                return null;
+        }
     }
 
     public void CambioEstado(ArrayList<CartaDto> mazo) {

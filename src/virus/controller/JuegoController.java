@@ -471,8 +471,41 @@ public class JuegoController extends Controller implements Initializable {
         }
     };
 
-    void moveLadron(String padre, String hijo, ArrayList <CartaDto> cartas) {
-        
+    void moveLadron(String padre, String hijo, ArrayList<CartaDto> cartas) {
+        if (!cartas.isEmpty()) {
+            if (!cartas.get(0).getEstado().equals("Inmunizado")) {
+                if ((cartas.get(0).getTipoCarta().equals("Corazon") || cartas.get(0).getTipoCarta().equals("Estomago")
+                        || cartas.get(0).getTipoCarta().equals("Cerebro") || cartas.get(0).getTipoCarta().equals("Hueso")
+                        || cartas.get(0).getTipoCarta().equals("Organo_Comodin")) && jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty() && jugador.getCartas5().isEmpty()) {
+                    enviarCartaLadronSocket("Ladron", padre, hijo, jugador.getIP());
+                } else if ((cartas.get(0).getTipoCarta().equals("Corazon") || cartas.get(0).getTipoCarta().equals("Estomago")
+                        || cartas.get(0).getTipoCarta().equals("Cerebro") || cartas.get(0).getTipoCarta().equals("Hueso")
+                        || cartas.get(0).getTipoCarta().equals("Organo_Comodin")) && (!jugador.getCartas1().isEmpty() //Organo en los campos vacios
+                        ? !cartas.get(0).getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta())
+                        : true)
+                        && (!jugador.getCartas2().isEmpty()
+                        ? !cartas.get(0).getTipoCarta().equals(jugador.getCartas2().get(0).getTipoCarta())
+                        : true)
+                        && (!jugador.getCartas3().isEmpty()
+                        ? !cartas.get(0).getTipoCarta().equals(jugador.getCartas3().get(0).getTipoCarta())
+                        : true)
+                        && (!jugador.getCartas4().isEmpty()
+                        ? !cartas.get(0).getTipoCarta().equals(jugador.getCartas4().get(0).getTipoCarta())
+                        : true)
+                        && (!jugador.getCartas5().isEmpty()
+                        ? !cartas.get(0).getTipoCarta().equals(jugador.getCartas5().get(0).getTipoCarta())
+                        : true)) {
+                    enviarCartaLadronSocket("Ladron", padre, hijo, jugador.getIP());
+                } else {
+                    new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes seleccionar esta carta");
+                }
+            } else {
+                new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes robar órganos inmunizados");
+            }
+
+        } else {
+            new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta pila no posee cartas en ella.");
+        }
     }
 
     EventHandler<MouseEvent> seleccionarCarta = event -> {
@@ -780,97 +813,6 @@ public class JuegoController extends Controller implements Initializable {
         }
     }
 
-    /*private void movimientoInmune(String hijo, String padre, String movimiento, String IP) {
-
-        switch (hijo) {
-            case "0":
-                if (movimiento.equals("propio")) {
-                    if (!jugador.getCartas1().isEmpty() && !jugador.getCartas1().get(0).getTipoCarta().equals("Inmunizado")) {
-                        movimiento(hijo, padre);
-                    } else {
-                        if (jugador.getCartas1().get(0).getTipoCarta().equals("Inmunizado")) {
-                            new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "El órgano está inmunizado");
-                        }
-                    }
-                } else {
-                    fondo_juego.getChildren().forEach((t) -> {
-                        if (t.getId() != null && t.getId().equals(padre)) {
-                            int i = Integer.valueOf(hijo);
-                            Pane pane = ((Pane) ((HBox) t).getChildren().get(i));
-                        }
-                    });
-                    
-                    if (!jugador.getCartas1().isEmpty() && !jugador.getCartas1().get(0).getTipoCarta().equals("Inmunizado")) {
-                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP);
-                    } else {
-                        if (jugador.getCartas1().get(0).getTipoCarta().equals("Inmunizado")) {
-                            new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "El órgano está inmunizado");
-                        }
-                    }
-                    //partida.getJugadores().get(0)
-                    
-                }
-
-                break;
-
-            case "1":
-                if (!jugador.getCartas2().isEmpty() && !jugador.getCartas2().get(0).getTipoCarta().equals("Inmunizado")) {
-                    if (movimiento.equals("propio")) {
-                        movimiento(hijo, padre);
-                    } else {
-                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP);
-                    }
-
-                } else {
-                    if (jugador.getCartas2().get(0).getTipoCarta().equals("Inmunizado")) {
-                        new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "El órgano está inmunizado");
-                    }
-                }
-                break;
-            case "2":
-                if (!jugador.getCartas3().isEmpty() && !jugador.getCartas3().get(0).getTipoCarta().equals("Inmunizado")) {
-                    if (movimiento.equals("propio")) {
-                        movimiento(hijo, padre);
-                    } else {
-                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP);
-                    }
-
-                } else {
-                    if (jugador.getCartas3().get(0).getTipoCarta().equals("Inmunizado")) {
-                        new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "El órgano está inmunizado");
-                    }
-                }
-                break;
-            case "3":
-                if (!jugador.getCartas4().isEmpty() && !jugador.getCartas4().get(0).getTipoCarta().equals("Inmunizado")) {
-                    if (movimiento.equals("propio")) {
-                        movimiento(hijo, padre);
-                    } else {
-                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP);
-                    }
-
-                } else {
-                    if (jugador.getCartas4().get(0).getTipoCarta().equals("Inmunizado")) {
-                        new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "El órgano está inmunizado");
-                    }
-                }
-                break;
-            case "4":
-                if (!jugador.getCartas5().isEmpty() && !jugador.getCartas5().get(0).getTipoCarta().equals("Inmunizado")) {
-                    if (movimiento.equals("propio")) {
-                        movimiento(hijo, padre);
-                    } else {
-                        enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP);
-                    }
-
-                } else {
-                    if (jugador.getCartas5().get(0).getTipoCarta().equals("Inmunizado")) {
-                        new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "El órgano está inmunizado");
-                    }
-                }
-                break;
-        }
-    }*/
     private void movimiento(String padre) {
         if (!findePartida) {
             if (!unSoloOrgano) {
@@ -1201,6 +1143,10 @@ public class JuegoController extends Controller implements Initializable {
                                     break;
                                 case "Ladron":
                                     ladron = true;
+                                    if (!jugador.getCartas1().isEmpty() && !jugador.getCartas2().isEmpty() && !jugador.getCartas3().isEmpty() && !jugador.getCartas4().isEmpty() && !jugador.getCartas5().isEmpty()) {
+                                        ladron = false;
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta carta no tendrá efecto porque no tienes campos disponibles");
+                                    }
                                     desecharCarta("desecharCarta");
                                     break;
                                 case "Contagio":
@@ -1268,7 +1214,6 @@ public class JuegoController extends Controller implements Initializable {
         }
     }
 
-    //Envía las cartas a los jugadores
     public void enviarCartaJuegoSocket(String Mensaje, String padre, String hijo, String IP) {
         try {
             Socket socket = new Socket(jugador.getIPS(), 44440);
@@ -1301,6 +1246,31 @@ public class JuegoController extends Controller implements Initializable {
             vBox3.getStyleClass().clear();
             vBox3.getStyleClass().add("hVoxActivo");
             cartaAux = null;
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    //Envía las cartas a los jugadores
+    public void enviarCartaLadronSocket(String Mensaje, String padre, String hijo, String IP) {
+        try {
+            Socket socket = new Socket(jugador.getIPS(), 44440);
+            DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
+            DataInputStream entrada = new DataInputStream(socket.getInputStream());
+            System.out.println("Connected Text!");
+            mensaje.writeUTF(Mensaje);
+            String mensajeRecibido = "";
+            mensajeRecibido = entrada.readUTF();
+            System.out.println(mensajeRecibido);
+            socket.close();
+            Socket socket2 = new Socket(jugador.getIPS(), 44440);
+            OutputStream outputStream = socket2.getOutputStream();
+            DataOutputStream mensaje2 = new DataOutputStream(socket2.getOutputStream());
+            mensaje2.writeUTF(padre);
+            mensaje2.writeUTF(hijo);
+            mensaje2.writeUTF(IP);
+            socket2.close();
+            ladron = false;
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

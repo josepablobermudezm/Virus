@@ -549,8 +549,14 @@ public class JuegoController extends Controller implements Initializable {
                         break;
                 }
             } else {
-                Mensaje ms = new Mensaje();
-                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Espera a tu turno");
+                if (ladron) {
+                    Mensaje ms = new Mensaje();
+                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Estás en modo ladron");
+                } else {
+                    Mensaje ms = new Mensaje();
+                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Espera a tu turno");
+                }
+
             }
         } else {
             Mensaje ms = new Mensaje();
@@ -1133,7 +1139,7 @@ public class JuegoController extends Controller implements Initializable {
     @FXML
     private void CartaDesechada(MouseEvent event) {
         if (!findePartida) {
-            if (ladron) {
+            if (!ladron) {
                 if (!modoOrgano) {
                     if (!recogioCarta) {
                         if (jugador.getTurno()) {
@@ -1149,7 +1155,7 @@ public class JuegoController extends Controller implements Initializable {
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta carta no tendrá efecto porque no tienes campos disponibles");
                                         } else {
                                             Mensaje ms = new Mensaje();
-                                            ms.show(Alert.AlertType.INFORMATION,"Información de Juego", "Estás en modo ladron");
+                                            ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Estás en modo ladron");
                                         }
                                         desecharCarta("desecharCarta");
                                         break;

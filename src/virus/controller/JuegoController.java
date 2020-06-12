@@ -474,13 +474,9 @@ public class JuegoController extends Controller implements Initializable {
     void moveLadron(String padre, String hijo, ArrayList<CartaDto> cartas) {
         if (!cartas.isEmpty()) {
             if (!cartas.get(0).getEstado().equals("Inmunizado")) {
-                if ((cartas.get(0).getTipoCarta().equals("Corazon") || cartas.get(0).getTipoCarta().equals("Estomago")
-                        || cartas.get(0).getTipoCarta().equals("Cerebro") || cartas.get(0).getTipoCarta().equals("Hueso")
-                        || cartas.get(0).getTipoCarta().equals("Organo_Comodin")) && jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty() && jugador.getCartas5().isEmpty()) {
+                if (jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty() && jugador.getCartas5().isEmpty()) {
                     enviarCartaLadronSocket("Ladron", padre, hijo, jugador.getIP());
-                } else if ((cartas.get(0).getTipoCarta().equals("Corazon") || cartas.get(0).getTipoCarta().equals("Estomago")
-                        || cartas.get(0).getTipoCarta().equals("Cerebro") || cartas.get(0).getTipoCarta().equals("Hueso")
-                        || cartas.get(0).getTipoCarta().equals("Organo_Comodin")) && (!jugador.getCartas1().isEmpty() //Organo en los campos vacios
+                } else if ((!jugador.getCartas1().isEmpty() //Organo en los campos vacios
                         ? !cartas.get(0).getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta())
                         : true)
                         && (!jugador.getCartas2().isEmpty()
@@ -619,16 +615,22 @@ public class JuegoController extends Controller implements Initializable {
     }
 
     private ArrayList<CartaDto> cartasRival(JugadorDto rival, Integer indice) {
+        System.out.println("IP "+ rival.getIP());
         switch (indice) {
             case 0:
+                System.out.println("TAMANO 1 "+ rival.getCartas1().size());
                 return rival.getCartas1();
             case 1:
+                System.out.println("TAMANO 2 "+ rival.getCartas2().size());
                 return rival.getCartas2();
             case 2:
+                System.out.println("TAMANO 3 "+ rival.getCartas3().size());
                 return rival.getCartas3();
             case 3:
+                System.out.println("TAMANO 4 "+ rival.getCartas4().size());
                 return rival.getCartas4();
             case 4:
+                System.out.println("TAMANO 5 "+ rival.getCartas5().size());
                 return rival.getCartas5();
             default:
                 return null;

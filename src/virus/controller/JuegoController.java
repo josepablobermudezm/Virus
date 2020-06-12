@@ -1133,51 +1133,59 @@ public class JuegoController extends Controller implements Initializable {
     @FXML
     private void CartaDesechada(MouseEvent event) {
         if (!findePartida) {
-            if (!modoOrgano) {
-                if (!recogioCarta) {
-                    if (jugador.getTurno()) {
-                        if (cartaAux != null) {
-                            switch (cartaAux.getTipoCarta()) {
-                                case "Transplante":
-                                    desecharCarta("desecharCarta");
-                                    break;
-                                case "Ladron":
-                                    ladron = true;
-                                    if (!jugador.getCartas1().isEmpty() && !jugador.getCartas2().isEmpty() && !jugador.getCartas3().isEmpty() && !jugador.getCartas4().isEmpty() && !jugador.getCartas5().isEmpty()) {
-                                        ladron = false;
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta carta no tendrá efecto porque no tienes campos disponibles");
-                                    }
-                                    desecharCarta("desecharCarta");
-                                    break;
-                                case "Contagio":
-                                    desecharCarta("desecharCarta");
-                                    break;
-                                case "Guante":
-                                    desecharCarta("desecharCarta");
-                                    break;
-                                case "Error":
-                                    desecharCarta("desecharCarta");
-                                    break;
-                                default:
-                                    modoDesechar = true;
-                                    desecharCarta("desecharCarta");
-                                    break;
+            if (ladron) {
+                if (!modoOrgano) {
+                    if (!recogioCarta) {
+                        if (jugador.getTurno()) {
+                            if (cartaAux != null) {
+                                switch (cartaAux.getTipoCarta()) {
+                                    case "Transplante":
+                                        desecharCarta("desecharCarta");
+                                        break;
+                                    case "Ladron":
+                                        ladron = true;
+                                        if (!jugador.getCartas1().isEmpty() && !jugador.getCartas2().isEmpty() && !jugador.getCartas3().isEmpty() && !jugador.getCartas4().isEmpty() && !jugador.getCartas5().isEmpty()) {
+                                            ladron = false;
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta carta no tendrá efecto porque no tienes campos disponibles");
+                                        } else {
+                                            Mensaje ms = new Mensaje();
+                                            ms.show(Alert.AlertType.INFORMATIONF, "Información de Juego", "Estás en modo ladron");
+                                        }
+                                        desecharCarta("desecharCarta");
+                                        break;
+                                    case "Contagio":
+                                        desecharCarta("desecharCarta");
+                                        break;
+                                    case "Guante":
+                                        desecharCarta("desecharCarta");
+                                        break;
+                                    case "Error":
+                                        desecharCarta("desecharCarta");
+                                        break;
+                                    default:
+                                        modoDesechar = true;
+                                        desecharCarta("desecharCarta");
+                                        break;
+                                }
+                            } else {
+                                Mensaje msj = new Mensaje();
+                                msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
                             }
                         } else {
-                            Mensaje msj = new Mensaje();
-                            msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
+                            Mensaje ms = new Mensaje();
+                            ms.show(Alert.AlertType.WARNING, "Información de Juego", "Espera a tu turno");
                         }
                     } else {
                         Mensaje ms = new Mensaje();
-                        ms.show(Alert.AlertType.WARNING, "Información de Juego", "Espera a tu turno");
+                        ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes desechar una carta en este momento");
                     }
                 } else {
                     Mensaje ms = new Mensaje();
-                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes desechar una carta en este momento");
+                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes desechar una carta si ya botaste un organo");
                 }
             } else {
                 Mensaje ms = new Mensaje();
-                ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes desechar una carta si ya botaste un organo");
+                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Estás en modo ladron");
             }
         } else {
             Mensaje ms = new Mensaje();

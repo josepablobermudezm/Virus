@@ -412,21 +412,22 @@ public class JuegoController extends Controller implements Initializable {
                 } else {//Movimiento de ladron
                     JugadorDto jugadorAux = partida.getJugadores().stream().
                             filter(x -> x.getTurno()).findAny().get();
-                    
+
                     paneAuxiliar = (Pane) event.getSource();
                     String padre = paneAuxiliar.getParent().getId();
-                    int i = indexJugador(padre);
+                    int i = partida.getJugadores().indexOf(jugadorAux);
+                    int intHijo = indexJugador(padre);
                     switch (i) {
                         case 0:
                             if (!padre.equals("hvox")) {//cuando es su propio movimiento                                
-                                moveLadron(padre, String.valueOf(i), cartasRival(partida.getJugadores().get(0), i));
+                                moveLadron(padre, String.valueOf(intHijo), cartasRival(partida.getJugadores().get(0), intHijo));
                             } else {
                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes seleccionar tu propio mazo");
                             }
                             break;
                         case 1:
                             if (!padre.equals("hvox2")) {
-                                moveLadron(padre, String.valueOf(i), cartasRival(partida.getJugadores().get(1), i));
+                                moveLadron(padre, String.valueOf(intHijo), cartasRival(partida.getJugadores().get(1), intHijo));
                             } else {
                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes seleccionar tu propio mazo");
                             }
@@ -434,28 +435,28 @@ public class JuegoController extends Controller implements Initializable {
 
                         case 2:
                             if (!padre.equals("hvox3")) {
-                                moveLadron(padre, String.valueOf(i), cartasRival(partida.getJugadores().get(2), i));
+                                moveLadron(padre, String.valueOf(intHijo), cartasRival(partida.getJugadores().get(2), intHijo));
                             } else {
                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes seleccionar tu propio mazo");
                             }
                             break;
                         case 3:
                             if (!padre.equals("hvox4")) {
-                                moveLadron(padre, String.valueOf(i), cartasRival(partida.getJugadores().get(3), i));
+                                moveLadron(padre, String.valueOf(intHijo), cartasRival(partida.getJugadores().get(3), intHijo));
                             } else {
                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes seleccionar tu propio mazo");
                             }
                             break;
                         case 4:
                             if (!padre.equals("hvox5")) {
-                                moveLadron(padre, String.valueOf(i), cartasRival(partida.getJugadores().get(4), i));
+                                moveLadron(padre, String.valueOf(intHijo), cartasRival(partida.getJugadores().get(4), intHijo));
                             } else {
                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes seleccionar tu propio mazo");
                             }
                             break;
                         case 5:
                             if (!padre.equals("hbox6")) {
-                                moveLadron(padre, String.valueOf(i), cartasRival(partida.getJugadores().get(5), i));
+                                moveLadron(padre, String.valueOf(intHijo), cartasRival(partida.getJugadores().get(5), intHijo));
                             } else {
                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes seleccionar tu propio mazo");
                             }

@@ -62,7 +62,7 @@ public class Hilo_Peticiones extends Thread {
     public static String estado = "";
     public static Pane paneAux1 = null;
     public static Pane paneAux2 = null;
-
+    private static int valor = 0;
     @Override
     public void run() {
 
@@ -312,49 +312,50 @@ public class Hilo_Peticiones extends Thread {
                             String padre = input.readUTF();
                             String hijo = input.readUTF();
                             String IPJugador = input.readUTF();
-                            ArrayList<CartaDto> cartaAux = new ArrayList();
+                            ArrayList<CartaDto> cartas = new ArrayList();
+                            String IPActual=partidaDto.getJugadores().stream().filter(x->x.getTurno()).findAny().get().getIP();
                             switch (padre) {
                                 case "hvox":
-                                    cartaAux = cartasRival(partidaDto.getJugadores().get(0), Integer.valueOf(hijo));
+                                    cartas = cartasRival(partidaDto.getJugadores().get(0), Integer.valueOf(hijo));
                                     break;
                                 case "hvox2":
-                                    cartaAux = cartasRival(partidaDto.getJugadores().get(1), Integer.valueOf(hijo));
+                                    cartas = cartasRival(partidaDto.getJugadores().get(1), Integer.valueOf(hijo));
                                     break;
                                 case "hvox3":
-                                    cartaAux = cartasRival(partidaDto.getJugadores().get(2), Integer.valueOf(hijo));
+                                    cartas = cartasRival(partidaDto.getJugadores().get(2), Integer.valueOf(hijo));
                                     break;
                                 case "hvox4":
-                                    cartaAux = cartasRival(partidaDto.getJugadores().get(3), Integer.valueOf(hijo));
+                                    cartas = cartasRival(partidaDto.getJugadores().get(3), Integer.valueOf(hijo));
                                     break;
                                 case "hvox5":
-                                    cartaAux = cartasRival(partidaDto.getJugadores().get(4), Integer.valueOf(hijo));
+                                    cartas = cartasRival(partidaDto.getJugadores().get(4), Integer.valueOf(hijo));
                                     break;
                                 case "hbox6":
-                                    cartaAux = cartasRival(partidaDto.getJugadores().get(5), Integer.valueOf(hijo));
+                                    cartas = cartasRival(partidaDto.getJugadores().get(5), Integer.valueOf(hijo));
                                     break;
                                 default:
                                     break;
                             }
-                            int valor = 0;
-                            if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().getCartas1().isEmpty()) {
-                                partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().setCartas1(cartaAux);
+                            
+                            if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPActual)).findAny().get().getCartas1().isEmpty()) {
+                                partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPActual)).findAny().get().setCartas1(cartas);
                                 valor = 0;
-                            } else if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().getCartas2().isEmpty()) {
-                                partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().setCartas2(cartaAux);
+                            } else if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPActual)).findAny().get().getCartas2().isEmpty()) {
+                                partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPActual)).findAny().get().setCartas2(cartas);
                                 valor = 1;
-                            } else if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().getCartas3().isEmpty()) {
-                                partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().setCartas3(cartaAux);
+                            } else if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPActual)).findAny().get().getCartas3().isEmpty()) {
+                                partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPActual)).findAny().get().setCartas3(cartas);
                                 valor = 2;
-                            } else if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().getCartas4().isEmpty()) {
-                                partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().setCartas4(cartaAux);
+                            } else if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPActual)).findAny().get().getCartas4().isEmpty()) {
+                                partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPActual)).findAny().get().setCartas4(cartas);
                                 valor = 3;
-                            } else if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().getCartas5().isEmpty()) {
-                                partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().setCartas5(cartaAux);
+                            } else if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPActual)).findAny().get().getCartas5().isEmpty()) {
+                                partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPActual)).findAny().get().setCartas5(cartas);
                                 valor = 4;
                             }
 
-                            if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get().getIP().equals(jugadorDto.getIP())) {
-                                jugadorDto = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJugador)).findAny().get();
+                            if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPActual)).findAny().get().getIP().equals(jugadorDto.getIP())) {
+                                jugadorDto = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPActual)).findAny().get();
                                 AppContext.getInstance().set("JugadorDto", jugadorDto);
                             }
 
@@ -367,13 +368,13 @@ public class Hilo_Peticiones extends Thread {
                                     int i = Integer.valueOf(hijo);
                                     paneAux2 = ((Pane) ((HBox) t).getChildren().get(i));
                                 } else if (t.getId() != null && t.getId().equals(idHBox)) {
-                                    int i = variableU;
+                                    int i = valor;
                                     paneAux1 = ((Pane) ((HBox) t).getChildren().get(i));
                                 }
                             });
-                            
+
                             Platform.runLater(() -> {
-                                
+
                                 ArrayList<Node> nodos = new ArrayList();
                                 paneAux2.getChildren().stream().forEach((t) -> {
                                     nodos.add(t);
@@ -433,23 +434,43 @@ public class Hilo_Peticiones extends Thread {
     private ArrayList<CartaDto> cartasRival(JugadorDto rival, Integer indice) {
         switch (indice) {
             case 0:
-                ArrayList<CartaDto> auxList = rival.getCartas1();
+                ArrayList<CartaDto> auxList = new ArrayList();
+                rival.getCartas1().stream().forEach((t) -> {
+                    System.out.println("TIPO CARTA " + t.getTipoCarta());
+                    auxList.add(t);
+                });
                 rival.getCartas1().clear();
                 return auxList;
             case 1:
-                ArrayList<CartaDto> auxList2 = rival.getCartas2();
+                ArrayList<CartaDto> auxList2 = new ArrayList();
+                rival.getCartas2().stream().forEach((t) -> {
+                    System.out.println("TIPO CARTA " + t.getTipoCarta());
+                    auxList2.add(t);
+                });
                 rival.getCartas2().clear();
                 return auxList2;
             case 2:
-                ArrayList<CartaDto> auxList3 = rival.getCartas3();
+                ArrayList<CartaDto> auxList3 = new ArrayList();
+                rival.getCartas3().stream().forEach((t) -> {
+                    System.out.println("TIPO CARTA " + t.getTipoCarta());
+                    auxList3.add(t);
+                });
                 rival.getCartas3().clear();
                 return auxList3;
             case 3:
-                ArrayList<CartaDto> auxList4 = rival.getCartas4();
+                ArrayList<CartaDto> auxList4 = new ArrayList();
+                rival.getCartas4().stream().forEach((t) -> {
+                    System.out.println("TIPO CARTA " + t.getTipoCarta());
+                    auxList4.add(t);
+                });
                 rival.getCartas4().clear();
                 return auxList4;
             case 4:
-                ArrayList<CartaDto> auxList5 = rival.getCartas5();
+                ArrayList<CartaDto> auxList5 = new ArrayList();
+                rival.getCartas5().stream().forEach((t) -> {
+                    System.out.println("TIPO CARTA " + t.getTipoCarta());
+                    auxList5.add(t);
+                });
                 rival.getCartas5().clear();
                 return auxList5;
             default:

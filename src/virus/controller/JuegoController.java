@@ -1132,9 +1132,9 @@ public class JuegoController extends Controller implements Initializable {
                                             ladron = false;
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta carta no tendrá efecto porque no tienes campos disponibles");
                                         } else {
-                                            if (partida.getJugadores().stream().allMatch(x -> !x.getCartas1().isEmpty()
-                                                    && !x.getCartas2().isEmpty() && !x.getCartas3().isEmpty() && !x.getCartas4().isEmpty()
-                                                    && !x.getCartas5().isEmpty())) {
+                                            if (partida.getJugadores().stream().filter(x->!x.getIP().equals(jugador.getIP())).allMatch(x -> (x.getCartas1().isEmpty()
+                                                    && x.getCartas2().isEmpty() && x.getCartas3().isEmpty() && x.getCartas4().isEmpty()
+                                                    && x.getCartas5().isEmpty()))){
                                                 ladron = false;
                                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta carta no tendrá efecto porque no tienes campos disponibles");
                                             } else {

@@ -411,10 +411,11 @@ public class JuegoController extends Controller implements Initializable {
                     }
                 } else {//Movimiento de ladron
                     JugadorDto jugadorAux = partida.getJugadores().stream().
-                            filter(x -> x.getIP().equals(jugador.getIP())).findAny().get();
-                    int i = partida.getJugadores().indexOf(jugadorAux);
+                            filter(x -> x.getTurno()).findAny().get();
+                    
                     paneAuxiliar = (Pane) event.getSource();
                     String padre = paneAuxiliar.getParent().getId();
+                    int i = indexJugador(padre);
                     switch (i) {
                         case 0:
                             if (!padre.equals("hvox")) {//cuando es su propio movimiento                                
@@ -470,6 +471,31 @@ public class JuegoController extends Controller implements Initializable {
             ms.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");
         }
     };
+
+    public int indexJugador(String variableU) {
+        int variable = 0;
+        switch (variableU) {
+            case "hvox":
+                variable = 0;
+                break;
+            case "hvox2":
+                variable = 1;
+                break;
+            case "hvox3":
+                variable = 2;
+                break;
+            case "hvox4":
+                variable = 3;
+                break;
+            case "hvox5":
+                variable = 4;
+                break;
+            case "hbox6":
+                variable = 5;
+                break;
+        }
+        return variable;
+    }
 
     void moveLadron(String padre, String hijo, ArrayList<CartaDto> cartas) {
         if (!cartas.isEmpty()) {
@@ -615,22 +641,22 @@ public class JuegoController extends Controller implements Initializable {
     }
 
     private ArrayList<CartaDto> cartasRival(JugadorDto rival, Integer indice) {
-        System.out.println("IP "+ rival.getIP());
+        System.out.println("IP " + rival.getIP());
         switch (indice) {
             case 0:
-                System.out.println("TAMANO 1 "+ rival.getCartas1().size());
+                System.out.println("TAMANO 1 " + rival.getCartas1().size());
                 return rival.getCartas1();
             case 1:
-                System.out.println("TAMANO 2 "+ rival.getCartas2().size());
+                System.out.println("TAMANO 2 " + rival.getCartas2().size());
                 return rival.getCartas2();
             case 2:
-                System.out.println("TAMANO 3 "+ rival.getCartas3().size());
+                System.out.println("TAMANO 3 " + rival.getCartas3().size());
                 return rival.getCartas3();
             case 3:
-                System.out.println("TAMANO 4 "+ rival.getCartas4().size());
+                System.out.println("TAMANO 4 " + rival.getCartas4().size());
                 return rival.getCartas4();
             case 4:
-                System.out.println("TAMANO 5 "+ rival.getCartas5().size());
+                System.out.println("TAMANO 5 " + rival.getCartas5().size());
                 return rival.getCartas5();
             default:
                 return null;

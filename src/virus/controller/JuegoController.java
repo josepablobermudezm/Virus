@@ -413,57 +413,34 @@ public class JuegoController extends Controller implements Initializable {
                     JugadorDto jugadorAux = partida.getJugadores().stream().
                             filter(x -> x.getTurno()).findAny().get();
 
+                    partida.getJugadores().get(1).getCartas2().size();
+
                     paneAuxiliar = (Pane) event.getSource();
                     String padre = paneAuxiliar.getParent().getId();
                     String hijoAux = hijo(padre);
                     Integer iHijo = Integer.valueOf(hijoAux);
-                   // ArrayList<CartaDto> jug1C = cartasRival(partida.getJugadores().get(0), iHijo);
-                    
+                    // ArrayList<CartaDto> jug1C = cartasRival(partida.getJugadores().get(0), iHijo);
+
                     /*int i = partida.getJugadores().indexOf(jugadorAux);
                     int intHijo = indexJugador(padre);*/
-                    switch (iHijo) {
-                        case 0:
-                            if (!padre.equals("hvox")) {//cuando es su propio movimiento                                
-                                moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(0), iHijo));
-                            } else {
-                                new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes seleccionar tu propio mazo");
-                            }
+                    switch (padre) {
+                        case "hvox":
+                            moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(0), iHijo));
                             break;
-                        case 1:
-                            if (!padre.equals("hvox2")) {
-                                moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(1), iHijo));
-                            } else {
-                                new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes seleccionar tu propio mazo");
-                            }
+                        case "hvox2":
+                            moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(1), iHijo));
                             break;
-
-                        case 2:
-                            if (!padre.equals("hvox3")) {
-                                moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(2), iHijo));
-                            } else {
-                                new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes seleccionar tu propio mazo");
-                            }
+                        case "hvox3":
+                            moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(2), iHijo));
                             break;
-                        case 3:
-                            if (!padre.equals("hvox4")) {
-                                moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(3), iHijo));
-                            } else {
-                                new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes seleccionar tu propio mazo");
-                            }
+                        case "hvox4":
+                            moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(3), iHijo));
                             break;
-                        case 4:
-                            if (!padre.equals("hvox5")) {
-                                moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(4), iHijo));
-                            } else {
-                                new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes seleccionar tu propio mazo");
-                            }
+                        case "hvox5":
+                            moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(4), iHijo));
                             break;
-                        case 5:
-                            if (!padre.equals("hbox6")) {
-                                moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(5), iHijo));
-                            } else {
-                                new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes seleccionar tu propio mazo");
-                            }
+                        case "hbox6":
+                            moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(5), iHijo));
                             break;
                     }
                 }

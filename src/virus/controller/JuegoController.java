@@ -418,14 +418,14 @@ public class JuegoController extends Controller implements Initializable {
                     switch (i) {
                         case 0:
                             if (!padre.equals("hvox")) {//cuando es su propio movimiento                                
-                                movimientoLadron(padre, String.valueOf(i), cartasRival(partida.getJugadores().get(0), i));
+                                moveLadron(padre, String.valueOf(i), cartasRival(partida.getJugadores().get(0), i));
                             } else {
                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes seleccionar tu propio mazo");
                             }
                             break;
                         case 1:
                             if (!padre.equals("hvox2")) {
-                                movimientoLadron(padre, String.valueOf(i), cartasRival(partida.getJugadores().get(1), i));
+                                moveLadron(padre, String.valueOf(i), cartasRival(partida.getJugadores().get(1), i));
                             } else {
                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes seleccionar tu propio mazo");
                             }
@@ -433,28 +433,28 @@ public class JuegoController extends Controller implements Initializable {
 
                         case 2:
                             if (!padre.equals("hvox3")) {
-                                movimientoLadron(padre, String.valueOf(i), cartasRival(partida.getJugadores().get(2), i));
+                                moveLadron(padre, String.valueOf(i), cartasRival(partida.getJugadores().get(2), i));
                             } else {
                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes seleccionar tu propio mazo");
                             }
                             break;
                         case 3:
                             if (!padre.equals("hvox4")) {
-                                movimientoLadron(padre, String.valueOf(i), cartasRival(partida.getJugadores().get(3), i));
+                                moveLadron(padre, String.valueOf(i), cartasRival(partida.getJugadores().get(3), i));
                             } else {
                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes seleccionar tu propio mazo");
                             }
                             break;
                         case 4:
                             if (!padre.equals("hvox5")) {
-                                movimientoLadron(padre, String.valueOf(i), cartasRival(partida.getJugadores().get(4), i));
+                                moveLadron(padre, String.valueOf(i), cartasRival(partida.getJugadores().get(4), i));
                             } else {
                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes seleccionar tu propio mazo");
                             }
                             break;
                         case 5:
                             if (!padre.equals("hbox6")) {
-                                movimientoLadron(padre, String.valueOf(i), cartasRival(partida.getJugadores().get(5), i));
+                                moveLadron(padre, String.valueOf(i), cartasRival(partida.getJugadores().get(5), i));
                             } else {
                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes seleccionar tu propio mazo");
                             }
@@ -471,8 +471,8 @@ public class JuegoController extends Controller implements Initializable {
         }
     };
 
-    void movimientoLadron(String padre, String hijo) {
-
+    void moveLadron(String padre, String hijo, ArrayList <CartaDto> cartas) {
+        
     }
 
     EventHandler<MouseEvent> seleccionarCarta = event -> {

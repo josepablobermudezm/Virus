@@ -1149,7 +1149,7 @@ public class JuegoController extends Controller implements Initializable {
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta carta no tendrá efecto porque no tienes campos disponibles");
                                         } else {
                                             Mensaje ms = new Mensaje();
-                                            ms.show(Alert.AlertType.INFORMATIONF, "Información de Juego", "Estás en modo ladron");
+                                            ms.show(Alert.AlertType.INFORMATION,"Información de Juego", "Estás en modo ladron");
                                         }
                                         desecharCarta("desecharCarta");
                                         break;

@@ -654,13 +654,9 @@ public class JuegoController extends Controller implements Initializable {
                         case "hvox":
                             ArrayList<CartaDto> jug1C = cartasRival(partida.getJugadores().get(0), iHijo);
                             if (!jug1C.isEmpty()) {
-                                if (!jug1C.get(0).getEstado().equals("Inmunizado") && jug1C.get(0).getColor().equals(cartaAux.getColor())
-                                        || jug1C.get(0).getTipoCarta().equals("Organo_Comodin")
-                                        || cartaAux.getTipoCarta().equals("Transplante")
-                                        || cartaAux.getTipoCarta().equals("Contagio")
-                                        || cartaAux.getTipoCarta().equals("Ladron")
-                                        || cartaAux.getTipoCarta().equals("Error")
-                                        || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
+                                if (!jug1C.get(0).getEstado().equals("Inmunizado")
+                                        && jug1C.get(0).getColor().equals(cartaAux.getColor())
+                                        || jug1C.get(0).getTipoCarta().equals("Organo_Comodin")) {
                                     String IP2 = partida.getJugadores().get(0).getIP();
                                     //movimientoInmune(hijo, padre, "", IP2);
                                     enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
@@ -681,12 +677,7 @@ public class JuegoController extends Controller implements Initializable {
                             ArrayList<CartaDto> jug2C = cartasRival(partida.getJugadores().get(1), iHijo);
                             if (!jug2C.isEmpty()) {
                                 if (!jug2C.get(0).getEstado().equals("Inmunizado") && jug2C.get(0).getColor().equals(cartaAux.getColor())
-                                        || jug2C.get(0).getTipoCarta().equals("Organo_Comodin")
-                                        || cartaAux.getTipoCarta().equals("Transplante")
-                                        || cartaAux.getTipoCarta().equals("Contagio")
-                                        || cartaAux.getTipoCarta().equals("Ladron")
-                                        || cartaAux.getTipoCarta().equals("Error")
-                                        || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
+                                        || jug2C.get(0).getTipoCarta().equals("Organo_Comodin")) {
                                     String IP2 = partida.getJugadores().get(1).getIP();
                                     //movimientoInmune(hijo, padre, "", IP2);
                                     enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
@@ -708,12 +699,7 @@ public class JuegoController extends Controller implements Initializable {
                             ArrayList<CartaDto> jug3C = cartasRival(partida.getJugadores().get(2), iHijo);
                             if (!jug3C.isEmpty()) {
                                 if (!jug3C.get(0).getEstado().equals("Inmunizado") && jug3C.get(0).getColor().equals(cartaAux.getColor())
-                                        || jug3C.get(0).getTipoCarta().equals("Organo_Comodin")
-                                        || cartaAux.getTipoCarta().equals("Transplante")
-                                        || cartaAux.getTipoCarta().equals("Contagio")
-                                        || cartaAux.getTipoCarta().equals("Ladron")
-                                        || cartaAux.getTipoCarta().equals("Error")
-                                        || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
+                                        || jug3C.get(0).getTipoCarta().equals("Organo_Comodin")) {
                                     String IP2 = partida.getJugadores().get(2).getIP();
                                     //movimientoInmune(hijo, padre, "", IP2);
                                     enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
@@ -735,12 +721,7 @@ public class JuegoController extends Controller implements Initializable {
                             ArrayList<CartaDto> jug4C = cartasRival(partida.getJugadores().get(3), iHijo);
                             if (!jug4C.isEmpty()) {
                                 if (!jug4C.get(0).getEstado().equals("Inmunizado") && jug4C.get(0).getColor().equals(cartaAux.getColor())
-                                        || jug4C.get(0).getTipoCarta().equals("Organo_Comodin")
-                                        || cartaAux.getTipoCarta().equals("Transplante")
-                                        || cartaAux.getTipoCarta().equals("Contagio")
-                                        || cartaAux.getTipoCarta().equals("Ladron")
-                                        || cartaAux.getTipoCarta().equals("Error")
-                                        || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
+                                        || jug4C.get(0).getTipoCarta().equals("Organo_Comodin")) {
                                     String IP2 = partida.getJugadores().get(3).getIP();
                                     //movimientoInmune(hijo, padre, "", IP2);
                                     enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
@@ -762,12 +743,7 @@ public class JuegoController extends Controller implements Initializable {
                             ArrayList<CartaDto> jug5C = cartasRival(partida.getJugadores().get(4), iHijo);
                             if (!jug5C.isEmpty()) {
                                 if (!jug5C.get(0).getEstado().equals("Inmunizado") && jug5C.get(0).getColor().equals(cartaAux.getColor())
-                                        || jug5C.get(0).getTipoCarta().equals("Organo_Comodin")
-                                        || cartaAux.getTipoCarta().equals("Transplante")
-                                        || cartaAux.getTipoCarta().equals("Contagio")
-                                        || cartaAux.getTipoCarta().equals("Ladron")
-                                        || cartaAux.getTipoCarta().equals("Error")
-                                        || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
+                                        || jug5C.get(0).getTipoCarta().equals("Organo_Comodin")) {
                                     String IP2 = partida.getJugadores().get(4).getIP();
                                     //movimientoInmune(hijo, padre, "", IP2);
                                     enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
@@ -778,7 +754,6 @@ public class JuegoController extends Controller implements Initializable {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
-
                                     }
                                 }
                             } else {
@@ -789,12 +764,7 @@ public class JuegoController extends Controller implements Initializable {
                             ArrayList<CartaDto> jug6C = cartasRival(partida.getJugadores().get(5), iHijo);
                             if (!jug6C.isEmpty()) {
                                 if (!jug6C.get(0).getEstado().equals("Inmunizado") && jug6C.get(0).getColor().equals(cartaAux.getColor())
-                                        || jug6C.get(0).getTipoCarta().equals("Organo_Comodin")
-                                        || cartaAux.getTipoCarta().equals("Transplante")
-                                        || cartaAux.getTipoCarta().equals("Contagio")
-                                        || cartaAux.getTipoCarta().equals("Ladron")
-                                        || cartaAux.getTipoCarta().equals("Error")
-                                        || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
+                                        || jug6C.get(0).getTipoCarta().equals("Organo_Comodin")) {
                                     String IP2 = partida.getJugadores().get(5).getIP();
                                     //movimientoInmune(hijo, padre, "", IP2);
                                     enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
@@ -1162,8 +1132,16 @@ public class JuegoController extends Controller implements Initializable {
                                             ladron = false;
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta carta no tendrá efecto porque no tienes campos disponibles");
                                         } else {
-                                            Mensaje ms = new Mensaje();
-                                            ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Estás en modo ladron");
+                                            if (partida.getJugadores().stream().allMatch(x -> !x.getCartas1().isEmpty()
+                                                    && !x.getCartas2().isEmpty() && !x.getCartas3().isEmpty() && !x.getCartas4().isEmpty()
+                                                    && !x.getCartas5().isEmpty())) {
+                                                ladron = false;
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta carta no tendrá efecto porque no tienes campos disponibles");
+                                            } else {
+                                                Mensaje ms = new Mensaje();
+                                                ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Estás en modo ladron");
+                                            }
+
                                         }
                                         desecharCarta("desecharCarta");
                                         break;

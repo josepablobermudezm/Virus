@@ -1278,7 +1278,6 @@ public class JuegoController extends Controller implements Initializable {
             System.out.println(mensajeRecibido);
             socket.close();
             Socket socket2 = new Socket(jugador.getIPS(), 44440);
-            OutputStream outputStream = socket2.getOutputStream();
             DataOutputStream mensaje2 = new DataOutputStream(socket2.getOutputStream());
             mensaje2.writeUTF(padre);
             mensaje2.writeUTF(hijo);
@@ -1309,8 +1308,15 @@ public class JuegoController extends Controller implements Initializable {
                         modoOrgano = false;
                         unSoloOrgano = false;
                         cartaAux = null;
-
+                        ladron = false;
                         jugador.setTurno(false);
+
+                        vBox.getStyleClass().clear();
+                        vBox.getStyleClass().add("hVoxActivo");
+                        vBox2.getStyleClass().clear();
+                        vBox2.getStyleClass().add("hVoxActivo");
+                        vBox3.getStyleClass().clear();
+                        vBox3.getStyleClass().add("hVoxActivo");
                     } catch (IOException e) {
                         System.out.println(e.getMessage());
                     }
@@ -1332,33 +1338,32 @@ public class JuegoController extends Controller implements Initializable {
     private void CartadeMazo(MouseEvent event) {
         if (!findePartida) {
             cartaAux = null;
-            if (jugador.getTurno()) {
-                if (jugador.getMazo().size() < 3 && (image9.getImage() == null || image8.getImage() == null
-                        || image7.getImage() == null)) {
-                    recogioCarta = true;
-                    ObtenerCarta(jugador.getIPS());
-                    if (jugador.getMazo().size() == 3) {
-                        cambiarTurnoAux();
+            if (!ladron) {
+                if (jugador.getTurno()) {
+                    if (jugador.getMazo().size() < 3 && (image9.getImage() == null || image8.getImage() == null
+                            || image7.getImage() == null)) {
+                        recogioCarta = true;
+                        ObtenerCarta(jugador.getIPS());
+                        if (jugador.getMazo().size() == 3) {
+                            cambiarTurnoAux();
+                            Mensaje ms = new Mensaje();
+                            ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Cambio de turno");
+                        }
+                    } else {
                         Mensaje ms = new Mensaje();
-                        ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Cambio de turno");
+                        ms.show(Alert.AlertType.WARNING, "Información de Juego", "Usted ya tiene su mazo completo");
                     }
                 } else {
                     Mensaje ms = new Mensaje();
-                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Usted ya tiene su mazo completo");
+                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Espera a tu tuno");
                 }
             } else {
                 Mensaje ms = new Mensaje();
-                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Espera a tu tuno");
+                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Estás en modo ladron");
             }
         } else {
             Mensaje ms = new Mensaje();
             ms.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");
         }
-        vBox.getStyleClass().clear();
-        vBox.getStyleClass().add("hVoxActivo");
-        vBox2.getStyleClass().clear();
-        vBox2.getStyleClass().add("hVoxActivo");
-        vBox3.getStyleClass().clear();
-        vBox3.getStyleClass().add("hVoxActivo");
     }
 }

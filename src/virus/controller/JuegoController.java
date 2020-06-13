@@ -595,7 +595,7 @@ public class JuegoController extends Controller implements Initializable {
             movimientoContrario(padre);
         } else {
             if (modoTratamiento) {
-                new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción, porque ya hiciste tu movimiento");
+                new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción, porque ya hiciste tu movimiento3");
             } else {
                 Mensaje ms = new Mensaje();
                 ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes poner tu carta en este lugar.");
@@ -1053,7 +1053,7 @@ public class JuegoController extends Controller implements Initializable {
                         ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes agregar un órgano si ya botaste cartas");
                     }
                 } else {
-                    new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción, porque ya hiciste tu movimiento");
+                    new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción, porque ya hiciste tu movimiento1");
                 }
             } else {
                 Mensaje msj = new Mensaje();
@@ -1209,7 +1209,7 @@ public class JuegoController extends Controller implements Initializable {
                                 ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes desechar una carta en este momento");
                             }
                         } else {
-                            new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción, porque ya hiciste tu movimiento");
+                            new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción, porque ya hiciste tu movimiento2");
                         }
                     } else {
                         Mensaje ms = new Mensaje();

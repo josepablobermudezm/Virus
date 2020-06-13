@@ -1141,33 +1141,53 @@ public class JuegoController extends Controller implements Initializable {
                                     if (cartaAux != null) {
                                         switch (cartaAux.getTipoCarta()) {
                                             case "Transplante":
-                                                modoTratamiento = true;
-                                                desecharCarta("desecharCarta");
+                                                if (!modoDesechar) {
+                                                    modoTratamiento = true;
+                                                    desecharCarta("desecharCarta");
+                                                } else {
+                                                    new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "No puedes realizar esta acción, porque ya hiciste desechaste cartas");
+                                                }
                                                 break;
                                             case "Ladron":
-                                                modoTratamiento = true;
-                                                movientoLadron();
-                                                desecharCarta("desecharCarta");
+                                                if (!modoDesechar) {
+                                                    modoTratamiento = true;
+                                                    movientoLadron();
+                                                    desecharCarta("desecharCarta");
+                                                } else {
+                                                    new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "No puedes realizar esta acción, porque ya hiciste desechaste cartas");
+                                                }
                                                 break;
                                             case "Contagio":
-                                                modoTratamiento = true;
-                                                desecharCarta("desecharCarta");
+                                                if (!modoDesechar) {
+                                                    modoTratamiento = true;
+                                                    desecharCarta("desecharCarta");
+                                                } else {
+                                                    new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "No puedes realizar esta acción, porque ya hiciste desechaste cartas");
+                                                }
                                                 break;
                                             case "Guante":
-                                                modoTratamiento = true;
-                                                desecharCarta("desecharCarta");
+                                                if (!modoDesechar) {
+                                                    modoTratamiento = true;
+                                                    desecharCarta("desecharCarta");
+                                                } else {
+                                                    new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "No puedes realizar esta acción, porque ya hiciste desechaste cartas");
+                                                }
                                                 break;
                                             case "Error":
-                                                modoTratamiento = true;
-                                                errorMedico = true;
-                                                if (partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugador.getIP())).
-                                                        allMatch(x -> (x.getCartas1().isEmpty()
-                                                        && x.getCartas2().isEmpty() && x.getCartas3().isEmpty() && x.getCartas4().isEmpty()
-                                                        && x.getCartas5().isEmpty()))) {
-                                                    errorMedico = false;
-                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
+                                                if (!modoDesechar) {
+                                                    modoTratamiento = true;
+                                                    errorMedico = true;
+                                                    if (partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugador.getIP())).
+                                                            allMatch(x -> (x.getCartas1().isEmpty()
+                                                            && x.getCartas2().isEmpty() && x.getCartas3().isEmpty() && x.getCartas4().isEmpty()
+                                                            && x.getCartas5().isEmpty()))) {
+                                                        errorMedico = false;
+                                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
+                                                    } else {
+                                                        new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Error Médico");
+                                                    }
                                                 } else {
-                                                    new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Error Médico");
+                                                    new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "No puedes realizar esta acción, porque ya hiciste desechaste cartas");
                                                 }
                                                 desecharCarta("desecharCarta");
                                                 break;

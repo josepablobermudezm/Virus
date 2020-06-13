@@ -63,6 +63,7 @@ public class Hilo_Peticiones extends Thread {
     public static Pane paneAux1 = null;
     public static Pane paneAux2 = null;
     private static int valor = 0;
+
     @Override
     public void run() {
 
@@ -313,7 +314,7 @@ public class Hilo_Peticiones extends Thread {
                             String hijo = input.readUTF();
                             String IPJugador = input.readUTF();
                             ArrayList<CartaDto> cartas = new ArrayList();
-                            String IPActual=partidaDto.getJugadores().stream().filter(x->x.getTurno()).findAny().get().getIP();
+                            String IPActual = partidaDto.getJugadores().stream().filter(x -> x.getTurno()).findAny().get().getIP();
                             switch (padre) {
                                 case "hvox":
                                     cartas = cartasRival(partidaDto.getJugadores().get(0), Integer.valueOf(hijo));
@@ -336,7 +337,7 @@ public class Hilo_Peticiones extends Thread {
                                 default:
                                     break;
                             }
-                            
+
                             if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPActual)).findAny().get().getCartas1().isEmpty()) {
                                 partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPActual)).findAny().get().setCartas1(cartas);
                                 valor = 0;
@@ -382,6 +383,48 @@ public class Hilo_Peticiones extends Thread {
                                 paneAux2.getChildren().clear();
                                 paneAux1.getChildren().addAll(nodos);
                             });
+
+                            /*
+                            Preguntamos si ya termino el juegoS
+                             */
+                            int cont = 0;
+                            JugadorDto jugadorAux = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPActual)).findAny().get();
+                            if ((!jugadorAux.getCartas1().isEmpty()) ? jugadorAux.getCartas1().get(0).getEstado().equals("Sano")
+                                    || jugadorAux.getCartas1().get(0).getEstado().equals("Inmunizado")
+                                    || jugadorAux.getCartas1().get(0).getEstado().equals("Vacunado") : false) {
+                                cont++;
+                            }
+                            if ((!jugadorAux.getCartas2().isEmpty()) ? jugadorAux.getCartas2().get(0).getEstado().equals("Sano")
+                                    || jugadorAux.getCartas2().get(0).getEstado().equals("Inmunizado")
+                                    || jugadorAux.getCartas2().get(0).getEstado().equals("Vacunado") : false) {
+                                cont++;
+                            }
+                            if ((!jugadorAux.getCartas3().isEmpty()) ? jugadorAux.getCartas3().get(0).getEstado().equals("Sano")
+                                    || jugadorAux.getCartas3().get(0).getEstado().equals("Inmunizado")
+                                    || jugadorAux.getCartas3().get(0).getEstado().equals("Vacunado") : false) {
+                                cont++;
+                            }
+                            if ((!jugadorAux.getCartas4().isEmpty()) ? jugadorAux.getCartas4().get(0).getEstado().equals("Sano")
+                                    || jugadorAux.getCartas4().get(0).getEstado().equals("Inmunizado")
+                                    || jugadorAux.getCartas4().get(0).getEstado().equals("Vacunado") : false) {
+                                cont++;
+                            }
+                            if ((!jugadorAux.getCartas5().isEmpty()) ? jugadorAux.getCartas5().get(0).getEstado().equals("Sano")
+                                    || jugadorAux.getCartas5().get(0).getEstado().equals("Inmunizado")
+                                    || jugadorAux.getCartas5().get(0).getEstado().equals("Vacunado") : false) {
+                                cont++;
+                            }
+
+                            if (cont == 4) {
+                                //findePartida = true;
+                                mensajeRecibido = "partidaFinalizada";
+                                jugadorDto = jugadorAux;
+                                /*salida.writeUTF("partidaFinalizada");
+                                entrada.readUTF();*/
+                                //nombreGanador = jugadorAux.getNombre();
+
+                            }
+
                             break;
                         default:
                             break;

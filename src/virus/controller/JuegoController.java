@@ -1152,6 +1152,8 @@ public class JuegoController extends Controller implements Initializable {
                                                 && x.getCartas5().isEmpty()))) {
                                             errorMedico = false;
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
+                                        } else {
+                                            new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Error Médico");
                                         }
 
                                         desecharCarta("desecharCarta");

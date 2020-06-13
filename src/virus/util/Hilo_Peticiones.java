@@ -66,6 +66,7 @@ public class Hilo_Peticiones extends Thread {
     private static HBox jug1 = null;
     private static HBox jug2 = null;
     private static String IPJ2;
+
     @Override
     public void run() {
 
@@ -486,9 +487,40 @@ public class Hilo_Peticiones extends Thread {
 
                             if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJ1)).findAny().get().getIP().equals(jugadorDto.getIP())) {
                                 jugadorDto = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJ1)).findAny().get();
+                                jugadorDto.getCartas1().forEach(x -> {
+                                    System.out.println(x.getTipoCarta());
+                                });
+                                jugadorDto.getCartas2().forEach(x -> {
+                                    System.out.println(x.getTipoCarta());
+                                });
+                                jugadorDto.getCartas3().forEach(x -> {
+                                    System.out.println(x.getTipoCarta());
+                                });
+                                jugadorDto.getCartas4().forEach(x -> {
+                                    System.out.println(x.getTipoCarta());
+                                });
+                                jugadorDto.getCartas5().forEach(x -> {
+                                    System.out.println(x.getTipoCarta());
+                                });
+
                                 AppContext.getInstance().set("JugadorDto", jugadorDto);
                             } else if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJ2)).findAny().get().getIP().equals(jugadorDto.getIP())) {
                                 jugadorDto = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJ2)).findAny().get();
+                                jugadorDto.getCartas1().forEach(x -> {
+                                    System.out.println(x.getTipoCarta());
+                                });
+                                jugadorDto.getCartas2().forEach(x -> {
+                                    System.out.println(x.getTipoCarta());
+                                });
+                                jugadorDto.getCartas3().forEach(x -> {
+                                    System.out.println(x.getTipoCarta());
+                                });
+                                jugadorDto.getCartas4().forEach(x -> {
+                                    System.out.println(x.getTipoCarta());
+                                });
+                                jugadorDto.getCartas5().forEach(x -> {
+                                    System.out.println(x.getTipoCarta());
+                                });
                                 AppContext.getInstance().set("JugadorDto", jugadorDto);
                             }
 

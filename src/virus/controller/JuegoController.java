@@ -354,7 +354,7 @@ public class JuegoController extends Controller implements Initializable {
         if (!findePartida) {
             jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
             if (jugador.getTurno()) {
-                if (!ladron || !errorMedico) {
+                if (!ladron && !errorMedico) {
                     if (cartaAux != null) {
                         JugadorDto jugadorAux = partida.getJugadores().stream().
                                 filter(x -> x.getIP().equals(jugador.getIP())).findAny().get();
@@ -934,7 +934,6 @@ public class JuegoController extends Controller implements Initializable {
                                                     new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
                                                 } else {
                                                     new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
-
                                                 }
                                             }
                                         } else {

@@ -622,22 +622,16 @@ public class JuegoController extends Controller implements Initializable {
     }
 
     private ArrayList<CartaDto> cartasRival(JugadorDto rival, Integer indice) {
-        System.out.println("IP " + rival.getIP());
         switch (indice) {
             case 0:
-                System.out.println("TAMANO 1 " + rival.getCartas1().size());
                 return rival.getCartas1();
             case 1:
-                System.out.println("TAMANO 2 " + rival.getCartas2().size());
                 return rival.getCartas2();
             case 2:
-                System.out.println("TAMANO 3 " + rival.getCartas3().size());
                 return rival.getCartas3();
             case 3:
-                System.out.println("TAMANO 4 " + rival.getCartas4().size());
                 return rival.getCartas4();
             case 4:
-                System.out.println("TAMANO 5 " + rival.getCartas5().size());
                 return rival.getCartas5();
             default:
                 return null;
@@ -656,8 +650,8 @@ public class JuegoController extends Controller implements Initializable {
                             ArrayList<CartaDto> jug1C = cartasRival(partida.getJugadores().get(0), iHijo);
                             if (!jug1C.isEmpty()) {
                                 if (!jug1C.get(0).getEstado().equals("Inmunizado")
-                                        && jug1C.get(0).getColor().equals(cartaAux.getColor())
-                                        || jug1C.get(0).getTipoCarta().equals("Organo_Comodin")) {
+                                        && (jug1C.get(0).getColor().equals(cartaAux.getColor())
+                                        || jug1C.get(0).getTipoCarta().equals("Organo_Comodin") || cartaAux.getTipoCarta().equals("Virus_Comodin"))) {
                                     String IP2 = partida.getJugadores().get(0).getIP();
                                     //movimientoInmune(hijo, padre, "", IP2);
                                     enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
@@ -677,8 +671,8 @@ public class JuegoController extends Controller implements Initializable {
                         case "hvox2":
                             ArrayList<CartaDto> jug2C = cartasRival(partida.getJugadores().get(1), iHijo);
                             if (!jug2C.isEmpty()) {
-                                if (!jug2C.get(0).getEstado().equals("Inmunizado") && jug2C.get(0).getColor().equals(cartaAux.getColor())
-                                        || jug2C.get(0).getTipoCarta().equals("Organo_Comodin")) {
+                                if (!jug2C.get(0).getEstado().equals("Inmunizado") && (jug2C.get(0).getColor().equals(cartaAux.getColor())
+                                        || jug2C.get(0).getTipoCarta().equals("Organo_Comodin") || cartaAux.getTipoCarta().equals("Virus_Comodin"))) {
                                     String IP2 = partida.getJugadores().get(1).getIP();
                                     //movimientoInmune(hijo, padre, "", IP2);
                                     enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
@@ -699,8 +693,8 @@ public class JuegoController extends Controller implements Initializable {
                         case "hvox3":
                             ArrayList<CartaDto> jug3C = cartasRival(partida.getJugadores().get(2), iHijo);
                             if (!jug3C.isEmpty()) {
-                                if (!jug3C.get(0).getEstado().equals("Inmunizado") && jug3C.get(0).getColor().equals(cartaAux.getColor())
-                                        || jug3C.get(0).getTipoCarta().equals("Organo_Comodin")) {
+                                if (!jug3C.get(0).getEstado().equals("Inmunizado") && (jug3C.get(0).getColor().equals(cartaAux.getColor())
+                                        || jug3C.get(0).getTipoCarta().equals("Organo_Comodin") || cartaAux.getTipoCarta().equals("Virus_Comodin"))) {
                                     String IP2 = partida.getJugadores().get(2).getIP();
                                     //movimientoInmune(hijo, padre, "", IP2);
                                     enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
@@ -721,8 +715,8 @@ public class JuegoController extends Controller implements Initializable {
                         case "hvox4":
                             ArrayList<CartaDto> jug4C = cartasRival(partida.getJugadores().get(3), iHijo);
                             if (!jug4C.isEmpty()) {
-                                if (!jug4C.get(0).getEstado().equals("Inmunizado") && jug4C.get(0).getColor().equals(cartaAux.getColor())
-                                        || jug4C.get(0).getTipoCarta().equals("Organo_Comodin")) {
+                                if (!jug4C.get(0).getEstado().equals("Inmunizado") && (jug4C.get(0).getColor().equals(cartaAux.getColor())
+                                        || jug4C.get(0).getTipoCarta().equals("Organo_Comodin") || cartaAux.getTipoCarta().equals("Virus_Comodin"))) {
                                     String IP2 = partida.getJugadores().get(3).getIP();
                                     //movimientoInmune(hijo, padre, "", IP2);
                                     enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);
@@ -743,8 +737,8 @@ public class JuegoController extends Controller implements Initializable {
                         case "hvox5":
                             ArrayList<CartaDto> jug5C = cartasRival(partida.getJugadores().get(4), iHijo);
                             if (!jug5C.isEmpty()) {
-                                if (!jug5C.get(0).getEstado().equals("Inmunizado") && jug5C.get(0).getColor().equals(cartaAux.getColor())
-                                        || jug5C.get(0).getTipoCarta().equals("Organo_Comodin")) {
+                                if (!jug5C.get(0).getEstado().equals("Inmunizado") && (jug5C.get(0).getColor().equals(cartaAux.getColor())
+                                        || jug5C.get(0).getTipoCarta().equals("Organo_Comodin") || cartaAux.getTipoCarta().equals("Virus_Comodin"))) {
                                     String IP2 = partida.getJugadores().get(4).getIP();
                                     //movimientoInmune(hijo, padre, "", IP2);
                                     enviarCartaJuegoSocket("movimientoJugador", padre, hijo, IP2);

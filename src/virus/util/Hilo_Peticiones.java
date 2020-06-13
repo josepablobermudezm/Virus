@@ -556,7 +556,7 @@ public class Hilo_Peticiones extends Thread {
         partidaDto.getJugadores().get(i).getCartas1().clear();
         //Annado las nuevas cartas a cada jugador
         jugador.getCartas1().addAll(cartasJ2);
-        partidaDto.getJugadores().get(i).getCartas1().addAll(cartasJ2);
+        partidaDto.getJugadores().get(i).getCartas1().addAll(cartasJ1);
         //Segunda Lista
         //Limpiamos las listas auxiliares
         cartasJ1.clear();
@@ -569,7 +569,7 @@ public class Hilo_Peticiones extends Thread {
         partidaDto.getJugadores().get(i).getCartas2().clear();
         //Annado las nuevas cartas a cada jugador
         jugador.getCartas2().addAll(cartasJ2);
-        partidaDto.getJugadores().get(i).getCartas2().addAll(cartasJ2);
+        partidaDto.getJugadores().get(i).getCartas2().addAll(cartasJ1);
         //Tercer Lista
         //Limpiamos las listas auxiliares
         cartasJ1.clear();
@@ -582,7 +582,7 @@ public class Hilo_Peticiones extends Thread {
         partidaDto.getJugadores().get(i).getCartas3().clear();
         //Annado las nuevas cartas a cada jugador
         jugador.getCartas3().addAll(cartasJ2);
-        partidaDto.getJugadores().get(i).getCartas3().addAll(cartasJ2);
+        partidaDto.getJugadores().get(i).getCartas3().addAll(cartasJ1);
         //Cuarta Lista
         //Limpiamos las listas auxiliares
         cartasJ1.clear();
@@ -595,7 +595,7 @@ public class Hilo_Peticiones extends Thread {
         partidaDto.getJugadores().get(i).getCartas4().clear();
         //Annado las nuevas cartas a cada jugador
         jugador.getCartas4().addAll(cartasJ2);
-        partidaDto.getJugadores().get(i).getCartas4().addAll(cartasJ2);
+        partidaDto.getJugadores().get(i).getCartas4().addAll(cartasJ1);
         //Quinta Lista
         //Limpiamos las listas auxiliares
         cartasJ1.clear();
@@ -608,7 +608,7 @@ public class Hilo_Peticiones extends Thread {
         partidaDto.getJugadores().get(i).getCartas5().clear();
         //Annado las nuevas cartas a cada jugador
         jugador.getCartas5().addAll(cartasJ2);
-        partidaDto.getJugadores().get(i).getCartas5().addAll(cartasJ2);
+        partidaDto.getJugadores().get(i).getCartas5().addAll(cartasJ1);
         
         
         System.out.println("JUGADOR 1");

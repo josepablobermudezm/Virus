@@ -1145,7 +1145,7 @@ public class JuegoController extends Controller implements Initializable {
                                                     modoTratamiento = true;
                                                     desecharCarta("desecharCarta");
                                                 } else {
-                                                    new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "No puedes realizar esta acción, porque ya hiciste desechaste cartas");
+                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción, porque ya desechaste cartas");
                                                 }
                                                 break;
                                             case "Ladron":
@@ -1154,7 +1154,7 @@ public class JuegoController extends Controller implements Initializable {
                                                     movientoLadron();
                                                     desecharCarta("desecharCarta");
                                                 } else {
-                                                    new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "No puedes realizar esta acción, porque ya hiciste desechaste cartas");
+                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción, porque ya desechaste cartas");
                                                 }
                                                 break;
                                             case "Contagio":
@@ -1162,7 +1162,7 @@ public class JuegoController extends Controller implements Initializable {
                                                     modoTratamiento = true;
                                                     desecharCarta("desecharCarta");
                                                 } else {
-                                                    new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "No puedes realizar esta acción, porque ya hiciste desechaste cartas");
+                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción, porque ya desechaste cartas");
                                                 }
                                                 break;
                                             case "Guante":
@@ -1170,7 +1170,7 @@ public class JuegoController extends Controller implements Initializable {
                                                     modoTratamiento = true;
                                                     desecharCarta("desecharCarta");
                                                 } else {
-                                                    new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "No puedes realizar esta acción, porque ya hiciste desechaste cartas");
+                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción, porque ya desechaste cartas");
                                                 }
                                                 break;
                                             case "Error":
@@ -1184,10 +1184,10 @@ public class JuegoController extends Controller implements Initializable {
                                                         errorMedico = false;
                                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
                                                     } else {
-                                                        new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Error Médico");
+                                                        new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Error Médico, selecciona el mazo de un jugador");
                                                     }
                                                 } else {
-                                                    new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "No puedes realizar esta acción, porque ya hiciste desechaste cartas");
+                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción, porque ya desechaste cartas");
                                                 }
                                                 desecharCarta("desecharCarta");
                                                 break;
@@ -1299,7 +1299,7 @@ public class JuegoController extends Controller implements Initializable {
                     new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
                 } else {
                     Mensaje ms = new Mensaje();
-                    ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Estás en modo ladron");
+                    ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Estás en modo ladron, selecciona el órgano de otro jugador");
                 }
 
             }

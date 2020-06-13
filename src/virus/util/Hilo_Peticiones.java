@@ -63,6 +63,8 @@ public class Hilo_Peticiones extends Thread {
     public static Pane paneAux1 = null;
     public static Pane paneAux2 = null;
     private static int valor = 0;
+    private static HBox jug1 = null;
+    private static HBox jug2 = null;
 
     @Override
     public void run() {
@@ -416,20 +418,95 @@ public class Hilo_Peticiones extends Thread {
                             }
 
                             if (cont == 4) {
-                                //findePartida = true;
                                 mensajeRecibido = "partidaFinalizada";
                                 jugadorDto = jugadorAux;
-                                /*salida.writeUTF("partidaFinalizada");
-                                entrada.readUTF();*/
-                                //nombreGanador = jugadorAux.getNombre();
-
                             }
 
+                            break;
+                        case "errorMedico":
+                            DataInputStream entrada;
+                            entrada = new DataInputStream(socket.getInputStream());
+                            String hBoxRival = entrada.readUTF();
+
+                            JugadorDto jugador = partidaDto.getJugadores().stream().filter(x -> x.getTurno()).findAny().get();
+                            int i = partidaDto.getJugadores().indexOf(jugador);
+                            String hBoxJugActual = "";
+                            switch (i) {
+                                case 0:
+                                    hBoxJugActual = "hvox";
+                                    break;
+                                case 1:
+                                    hBoxJugActual = "hvox2";
+                                    break;
+                                case 2:
+                                    hBoxJugActual = "hvox3";
+                                    break;
+                                case 3:
+                                    hBoxJugActual = "hvox4";
+                                    break;
+                                case 4:
+                                    hBoxJugActual = "hvox5";
+                                    break;
+                                case 5:
+                                    hBoxJugActual = "hbox6";
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                            switch (hBoxRival) {
+                                case "hvox":
+                                    intercambioJuego(jugador, 0);
+                                    break;
+                                case "hvox2":
+                                    intercambioJuego(jugador, 1);
+                                    break;
+                                case "hvox3":
+                                    intercambioJuego(jugador, 2);
+                                    break;
+                                case "hvox4":
+                                    intercambioJuego(jugador, 3);
+                                    break;
+                                case "hvox5":
+                                    intercambioJuego(jugador, 4);
+                                    break;
+                                case "hbox6":
+                                    intercambioJuego(jugador, 5);
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                            //aquí se se seleccionan los hbox que van a ser intercambiados
+                            for (Node t : anchorPane.getChildren()) {
+                                if (t.getId() != null && t.getId().equals(hBoxRival)) {
+                                    jug2 = ((HBox) t);
+                                } else if (t.getId() != null && t.getId().equals(hBoxJugActual)) {
+                                    jug1 = ((HBox) t);
+                                }
+                            }
+
+                            Platform.runLater(() -> {
+
+                                ArrayList<Node> nodosJ1 = new ArrayList();
+                                ArrayList<Node> nodosJ2 = new ArrayList();
+                                jug1.getChildren().stream().forEach((t) -> {
+                                    nodosJ1.add(t);
+                                });
+                                jug2.getChildren().stream().forEach((t) -> {
+                                    nodosJ2.add(t);
+                                });
+                                jug1.getChildren().clear();
+                                jug1.getChildren().addAll(nodosJ2);
+                                jug2.getChildren().clear();
+                                jug2.getChildren().addAll(nodosJ1);
+                            });
                             break;
                         default:
                             break;
                     }
                 }
+
                 serverSocket.close();
             } catch (IOException IO) {
                 System.out.println(IO.getMessage());
@@ -446,6 +523,72 @@ public class Hilo_Peticiones extends Thread {
         });
 
         //Cierra todos los procesos que queden pendientes
+    }
+
+    private void intercambioJuego(JugadorDto jugador, int i) {
+        ArrayList<CartaDto> cartasJ1 = new ArrayList();
+        ArrayList<CartaDto> cartasJ2 = new ArrayList();
+        //Creo dos listas auxiliares para almacenar las cartas
+        cartasJ1.addAll(jugador.getCartas1());
+        cartasJ2.addAll(partidaDto.getJugadores().get(i).getCartas1());
+        //Limpio la listas de las cartas de los jugadores
+        jugador.getCartas1().clear();
+        partidaDto.getJugadores().get(i).getCartas1().clear();
+        //Annado las nuevas cartas a cada jugador
+        jugador.getCartas1().addAll(cartasJ2);
+        partidaDto.getJugadores().get(i).getCartas1().addAll(cartasJ2);
+        //Segunda Lista
+        //Limpiamos las listas auxiliares
+        cartasJ1.clear();
+        cartasJ2.clear();
+        //Se annade las nuevas cartas
+        cartasJ1.addAll(jugador.getCartas2());
+        cartasJ2.addAll(partidaDto.getJugadores().get(i).getCartas2());
+        //Limpio la listas de las cartas de los jugadores
+        jugador.getCartas2().clear();
+        partidaDto.getJugadores().get(i).getCartas2().clear();
+        //Annado las nuevas cartas a cada jugador
+        jugador.getCartas2().addAll(cartasJ2);
+        partidaDto.getJugadores().get(i).getCartas2().addAll(cartasJ2);
+        //Tercer Lista
+        //Limpiamos las listas auxiliares
+        cartasJ1.clear();
+        cartasJ2.clear();
+        //Se annade las nuevas cartas
+        cartasJ1.addAll(jugador.getCartas3());
+        cartasJ2.addAll(partidaDto.getJugadores().get(i).getCartas3());
+        //Limpio la listas de las cartas de los jugadores
+        jugador.getCartas3().clear();
+        partidaDto.getJugadores().get(i).getCartas3().clear();
+        //Annado las nuevas cartas a cada jugador
+        jugador.getCartas3().addAll(cartasJ2);
+        partidaDto.getJugadores().get(i).getCartas3().addAll(cartasJ2);
+        //Cuarta Lista
+        //Limpiamos las listas auxiliares
+        cartasJ1.clear();
+        cartasJ2.clear();
+        //Se annade las nuevas cartas
+        cartasJ1.addAll(jugador.getCartas4());
+        cartasJ2.addAll(partidaDto.getJugadores().get(i).getCartas4());
+        //Limpio la listas de las cartas de los jugadores
+        jugador.getCartas4().clear();
+        partidaDto.getJugadores().get(i).getCartas4().clear();
+        //Annado las nuevas cartas a cada jugador
+        jugador.getCartas4().addAll(cartasJ2);
+        partidaDto.getJugadores().get(i).getCartas4().addAll(cartasJ2);
+        //Quinta Lista
+        //Limpiamos las listas auxiliares
+        cartasJ1.clear();
+        cartasJ2.clear();
+        //Se annade las nuevas cartas
+        cartasJ1.addAll(jugador.getCartas5());
+        cartasJ2.addAll(partidaDto.getJugadores().get(i).getCartas5());
+        //Limpio la listas de las cartas de los jugadores
+        jugador.getCartas5().clear();
+        partidaDto.getJugadores().get(i).getCartas5().clear();
+        //Annado las nuevas cartas a cada jugador
+        jugador.getCartas5().addAll(cartasJ2);
+        partidaDto.getJugadores().get(i).getCartas5().addAll(cartasJ2);
     }
 
     //retornamos el hBox del jugador
@@ -479,7 +622,6 @@ public class Hilo_Peticiones extends Thread {
             case 0:
                 ArrayList<CartaDto> auxList = new ArrayList();
                 rival.getCartas1().stream().forEach((t) -> {
-                    System.out.println("TIPO CARTA " + t.getTipoCarta());
                     auxList.add(t);
                 });
                 rival.getCartas1().clear();
@@ -487,7 +629,6 @@ public class Hilo_Peticiones extends Thread {
             case 1:
                 ArrayList<CartaDto> auxList2 = new ArrayList();
                 rival.getCartas2().stream().forEach((t) -> {
-                    System.out.println("TIPO CARTA " + t.getTipoCarta());
                     auxList2.add(t);
                 });
                 rival.getCartas2().clear();
@@ -495,7 +636,6 @@ public class Hilo_Peticiones extends Thread {
             case 2:
                 ArrayList<CartaDto> auxList3 = new ArrayList();
                 rival.getCartas3().stream().forEach((t) -> {
-                    System.out.println("TIPO CARTA " + t.getTipoCarta());
                     auxList3.add(t);
                 });
                 rival.getCartas3().clear();
@@ -503,7 +643,6 @@ public class Hilo_Peticiones extends Thread {
             case 3:
                 ArrayList<CartaDto> auxList4 = new ArrayList();
                 rival.getCartas4().stream().forEach((t) -> {
-                    System.out.println("TIPO CARTA " + t.getTipoCarta());
                     auxList4.add(t);
                 });
                 rival.getCartas4().clear();
@@ -511,7 +650,6 @@ public class Hilo_Peticiones extends Thread {
             case 4:
                 ArrayList<CartaDto> auxList5 = new ArrayList();
                 rival.getCartas5().stream().forEach((t) -> {
-                    System.out.println("TIPO CARTA " + t.getTipoCarta());
                     auxList5.add(t);
                 });
                 rival.getCartas5().clear();
@@ -558,21 +696,7 @@ public class Hilo_Peticiones extends Thread {
                 || x.getTipoCarta().equals("Virus_Comodin")).count() == 0) {//Inmunizar
             mazo.get(0).setEstado("Inmunizado");
             estado = "Inmunizado";
-
-            /* ArrayList<CartaDto> removidas = (ArrayList<CartaDto>) mazo.stream().
-                    filter(x -> x.getTipoCarta().equals("Medicina") || x.getTipoCarta().
-                    equals("Medicina_Comodin")).collect(Collectors.toList());
-            removidas.stream().forEach((t) -> {
-                System.out.println("TIPO " + t.getTipoCarta());
-            });
-            removidas.stream().forEach((t) -> {
-                t.setEstado("Sano");
-            });
-            
-            partidaDto.getDesechadas().addAll(removidas);
-            mazo.removeAll(removidas);*/
-
- /*si ya el órgano cuenta con una medicina, esta segunda medicina logrará
+            /*si ya el órgano cuenta con una medicina, esta segunda medicina logrará
              *proteger para siempre contra el ataque de cualquier virus y no podrá ser destruido ni
              *afectado por cartas de tratamiento. Cuando el órgano se inmuniza las cartas de medicina
              *se giran 90 grados sobre el órgano para indicar que está inmune.
@@ -595,25 +719,10 @@ public class Hilo_Peticiones extends Thread {
              *será destruido y las tres cartas (el órgano y los 2 virus) serán enviadas a la pila de
              *descarte.
              */
-        } /*else if ((carta.getTipoCarta().equals("Virus_Comodin") || carta.getTipoCarta().equals("Virus")) && mazo.stream().filter(x -> x.getTipoCarta().equals("Medicina")
-                || x.getTipoCarta().equals("Medicina_Comodin")).count() == 1) {//Destruir vacuna
-            mazo.get(0).setEstado("Sano");
-            estado = "Sano";
-
-            ArrayList <CartaDto> removidas = (ArrayList<CartaDto>) mazo.stream().
-                    filter(x -> x.getTipoCarta().equals("Medicina") || x.getTipoCarta().
-                    equals("Medicina_Comodin") || x.getTipoCarta().equals("Virus") || x.getTipoCarta().equals("Virus_Comodin")).collect(Collectors.toList());
-            removidas.stream().forEach(t -> {
-                System.out.println("TIPO :"+t.getTipoCarta());
-            });
-            mazo.removeAll(removidas);
-            /*
+ /*
              *si sobre un órgano se encuentra una carta de medicina y se le aplica
              *un virus del mismo color, ambas cartas (la medicina y el virus) serán enviadas a la pila
-             *de descarte
-             
-        } */ else {
-            //estado = "";
+             *de descarte*/
         }
     }
 

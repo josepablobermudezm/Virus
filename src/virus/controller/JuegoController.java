@@ -123,6 +123,7 @@ public class JuegoController extends Controller implements Initializable {
     public VBox vBox3;
     private ArrayList<ImageView> mazoImg = new ArrayList();
     private boolean ladron = false;
+    private boolean errorMedico = false;
 
     /**
      * Initializes the controller class.
@@ -353,7 +354,7 @@ public class JuegoController extends Controller implements Initializable {
         if (!findePartida) {
             jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
             if (jugador.getTurno()) {
-                if (!ladron) {
+                if (!ladron || !errorMedico) {
                     if (cartaAux != null) {
                         JugadorDto jugadorAux = partida.getJugadores().stream().
                                 filter(x -> x.getIP().equals(jugador.getIP())).findAny().get();
@@ -410,38 +411,53 @@ public class JuegoController extends Controller implements Initializable {
                         Mensaje msj = new Mensaje();
                         msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
                     }
-                } else {//Movimiento de ladron
-                    JugadorDto jugadorAux = partida.getJugadores().stream().
-                            filter(x -> x.getTurno()).findAny().get();
-
-                    partida.getJugadores().get(1).getCartas2().size();
-
+                } else {//Movimiento de ladron o Error Medico
                     paneAuxiliar = (Pane) event.getSource();
                     String padre = paneAuxiliar.getParent().getId();
                     String hijoAux = hijo(padre);
                     Integer iHijo = Integer.valueOf(hijoAux);
-                    // ArrayList<CartaDto> jug1C = cartasRival(partida.getJugadores().get(0), iHijo);
-
-                    /*int i = partida.getJugadores().indexOf(jugadorAux);
-                    int intHijo = indexJugador(padre);*/
                     switch (padre) {
                         case "hvox":
-                            moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(0), iHijo));
+                            if (ladron) {
+                                moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(0), iHijo));
+                            } else if (errorMedico) {
+                                enviarCartaErrorMedicoSocket("errorMedico", padre);
+                            }
                             break;
                         case "hvox2":
-                            moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(1), iHijo));
+                            if (ladron) {
+                                moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(1), iHijo));
+                            } else if (errorMedico) {
+                                enviarCartaErrorMedicoSocket("errorMedico", padre);
+                            }
                             break;
                         case "hvox3":
-                            moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(2), iHijo));
+                            if (ladron) {
+                                moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(2), iHijo));
+                            } else if (errorMedico) {
+                                enviarCartaErrorMedicoSocket("errorMedico", padre);
+                            }
                             break;
                         case "hvox4":
-                            moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(3), iHijo));
+                            if (ladron) {
+                                moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(3), iHijo));
+                            } else if (errorMedico) {
+                                enviarCartaErrorMedicoSocket("errorMedico", padre);
+                            }
                             break;
                         case "hvox5":
-                            moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(4), iHijo));
+                            if (ladron) {
+                                moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(4), iHijo));
+                            } else if (errorMedico) {
+                                enviarCartaErrorMedicoSocket("errorMedico", padre);
+                            }
                             break;
                         case "hbox6":
-                            moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(5), iHijo));
+                            if (ladron) {
+                                moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(5), iHijo));
+                            } else if (errorMedico) {
+                                enviarCartaErrorMedicoSocket("errorMedico", padre);
+                            }
                             break;
                     }
                 }
@@ -457,13 +473,11 @@ public class JuegoController extends Controller implements Initializable {
 
     public int indexJugador(String variableU) {
         int variable = 0;
-        System.out.println("INDEX JUGADOR " + variableU);
         switch (variableU) {
             case "hvox":
                 variable = 0;
                 break;
             case "hvox2":
-                System.out.println("ENTRO " + variableU);
                 variable = 1;
                 break;
             case "hvox3":
@@ -727,7 +741,6 @@ public class JuegoController extends Controller implements Initializable {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
-
                                     }
                                 }
                             } else {
@@ -1122,81 +1135,7 @@ public class JuegoController extends Controller implements Initializable {
                                         desecharCarta("desecharCarta");
                                         break;
                                     case "Ladron":
-                                        ladron = true;
-                                        if (!jugador.getCartas1().isEmpty() && !jugador.getCartas2().isEmpty() && !jugador.getCartas3().isEmpty() && !jugador.getCartas4().isEmpty() && !jugador.getCartas5().isEmpty()) {
-                                            ladron = false;
-                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta carta no tendrá efecto porque no tienes campos disponibles");
-                                        } else {
-                                            if (partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugador.getIP())).
-                                                    allMatch(x -> (x.getCartas1().isEmpty()
-                                                    && x.getCartas2().isEmpty() && x.getCartas3().isEmpty() && x.getCartas4().isEmpty()
-                                                    && x.getCartas5().isEmpty()))) {
-                                                ladron = false;
-                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
-                                            } else {
-                                                ArrayList<JugadorDto> jugadores = (ArrayList<JugadorDto>) partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugador.getIP())).collect(Collectors.toList());
-
-                                                ArrayList<CartaDto> cartasJug = new ArrayList();
-                                                jugadores.stream().map((jug) -> {
-                                                    if (!jug.getCartas1().isEmpty()) {
-                                                        cartasJug.add(jug.getCartas1().get(0));
-                                                    }
-                                                    return jug;
-                                                }).map((jug) -> {
-                                                    if (!jug.getCartas2().isEmpty()) {
-                                                        cartasJug.add(jug.getCartas2().get(0));
-                                                    }
-                                                    return jug;
-                                                }).map((jug) -> {
-                                                    if (!jug.getCartas3().isEmpty()) {
-                                                        cartasJug.add(jug.getCartas3().get(0));
-                                                    }
-                                                    return jug;
-                                                }).map((jug) -> {
-                                                    if (!jug.getCartas5().isEmpty()) {
-                                                        cartasJug.add(jug.getCartas5().get(0));
-                                                    }
-                                                    return jug;
-                                                }).filter((jug) -> (!jug.getCartas4().isEmpty())).forEachOrdered((jug) -> {
-                                                    cartasJug.add(jug.getCartas4().get(0));
-                                                });
-
-                                                Boolean existe = false;
-                                                for (CartaDto carta : cartasJug) {
-                                                    if (!existe) {
-                                                        if (carta.getTipoCarta().equals("Organo_Comodin")) {
-                                                            existe = true;
-                                                        } else {
-                                                            if (!jugador.getCartas1().isEmpty() && !jugador.getCartas1().get(0).getColor().equals(carta.getColor())) {
-                                                                existe = true;
-                                                            }
-                                                            if (!jugador.getCartas2().isEmpty() && !jugador.getCartas2().get(0).getColor().equals(carta.getColor())) {
-                                                                existe = true;
-                                                            }
-                                                            if (!jugador.getCartas3().isEmpty() && !jugador.getCartas3().get(0).getColor().equals(carta.getColor())) {
-                                                                existe = true;
-                                                            }
-                                                            if (!jugador.getCartas4().isEmpty() && !jugador.getCartas4().get(0).getColor().equals(carta.getColor())) {
-                                                                existe = true;
-                                                            }
-                                                            if (!jugador.getCartas5().isEmpty() && !jugador.getCartas5().get(0).getColor().equals(carta.getColor())) {
-                                                                existe = true;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-
-                                                if (!existe) {
-                                                    ladron = false;
-                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
-                                                } else {
-                                                    Mensaje ms = new Mensaje();
-                                                    ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Estás en modo ladron");
-                                                }
-
-                                            }
-
-                                        }
+                                        movientoLadron();
                                         desecharCarta("desecharCarta");
                                         break;
                                     case "Contagio":
@@ -1206,6 +1145,15 @@ public class JuegoController extends Controller implements Initializable {
                                         desecharCarta("desecharCarta");
                                         break;
                                     case "Error":
+                                        errorMedico = true;
+                                        if (partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugador.getIP())).
+                                                allMatch(x -> (x.getCartas1().isEmpty()
+                                                && x.getCartas2().isEmpty() && x.getCartas3().isEmpty() && x.getCartas4().isEmpty()
+                                                && x.getCartas5().isEmpty()))) {
+                                            errorMedico = false;
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
+                                        }
+
                                         desecharCarta("desecharCarta");
                                         break;
                                     default:
@@ -1236,6 +1184,84 @@ public class JuegoController extends Controller implements Initializable {
         } else {
             Mensaje ms = new Mensaje();
             ms.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");
+        }
+    }
+
+    private void movientoLadron() {
+        ladron = true;
+        if (!jugador.getCartas1().isEmpty() && !jugador.getCartas2().isEmpty() && !jugador.getCartas3().isEmpty() && !jugador.getCartas4().isEmpty() && !jugador.getCartas5().isEmpty()) {
+            ladron = false;
+            new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta carta no tendrá efecto porque no tienes campos disponibles");
+        } else {
+            if (partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugador.getIP())).
+                    allMatch(x -> (x.getCartas1().isEmpty()
+                    && x.getCartas2().isEmpty() && x.getCartas3().isEmpty() && x.getCartas4().isEmpty()
+                    && x.getCartas5().isEmpty()))) {
+                ladron = false;
+                new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
+            } else {
+                ArrayList<JugadorDto> jugadores = (ArrayList<JugadorDto>) partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugador.getIP())).collect(Collectors.toList());
+
+                ArrayList<CartaDto> cartasJug = new ArrayList();
+                jugadores.stream().map((jug) -> {
+                    if (!jug.getCartas1().isEmpty()) {
+                        cartasJug.add(jug.getCartas1().get(0));
+                    }
+                    return jug;
+                }).map((jug) -> {
+                    if (!jug.getCartas2().isEmpty()) {
+                        cartasJug.add(jug.getCartas2().get(0));
+                    }
+                    return jug;
+                }).map((jug) -> {
+                    if (!jug.getCartas3().isEmpty()) {
+                        cartasJug.add(jug.getCartas3().get(0));
+                    }
+                    return jug;
+                }).map((jug) -> {
+                    if (!jug.getCartas5().isEmpty()) {
+                        cartasJug.add(jug.getCartas5().get(0));
+                    }
+                    return jug;
+                }).filter((jug) -> (!jug.getCartas4().isEmpty())).forEachOrdered((jug) -> {
+                    cartasJug.add(jug.getCartas4().get(0));
+                });
+
+                Boolean existe = false;
+                for (CartaDto carta : cartasJug) {
+                    if (!existe) {
+                        if (carta.getTipoCarta().equals("Organo_Comodin")) {
+                            existe = true;
+                        } else {
+                            if (!jugador.getCartas1().isEmpty() && !jugador.getCartas1().get(0).getColor().equals(carta.getColor())) {
+                                existe = true;
+                            }
+                            if (!jugador.getCartas2().isEmpty() && !jugador.getCartas2().get(0).getColor().equals(carta.getColor())) {
+                                existe = true;
+                            }
+                            if (!jugador.getCartas3().isEmpty() && !jugador.getCartas3().get(0).getColor().equals(carta.getColor())) {
+                                existe = true;
+                            }
+                            if (!jugador.getCartas4().isEmpty() && !jugador.getCartas4().get(0).getColor().equals(carta.getColor())) {
+                                existe = true;
+                            }
+                            if (!jugador.getCartas5().isEmpty() && !jugador.getCartas5().get(0).getColor().equals(carta.getColor())) {
+                                existe = true;
+                            }
+                        }
+                    }
+                }
+
+                if (!existe) {
+                    ladron = false;
+                    new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
+                } else {
+                    Mensaje ms = new Mensaje();
+                    ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Estás en modo ladron");
+                }
+
+            }
+
         }
     }
 
@@ -1306,7 +1332,7 @@ public class JuegoController extends Controller implements Initializable {
     }
 
     //Envía las cartas a los jugadores
-    public void enviarCartaLadronSocket(String Mensaje, String padre, String hijo, String IP) {
+    private void enviarCartaLadronSocket(String Mensaje, String padre, String hijo, String IP) {
         try {
             Socket socket = new Socket(jugador.getIPS(), 44440);
             DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
@@ -1333,6 +1359,31 @@ public class JuegoController extends Controller implements Initializable {
         }
     }
 
+    private void enviarCartaErrorMedicoSocket(String Mensaje, String padre) {
+        try {
+            Socket socket = new Socket(jugador.getIPS(), 44440);
+            DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
+            DataInputStream entrada = new DataInputStream(socket.getInputStream());
+            System.out.println("Connected Text!");
+            mensaje.writeUTF(Mensaje);
+            String mensajeRecibido = "";
+            mensajeRecibido = entrada.readUTF();
+            System.out.println(mensajeRecibido);
+            socket.close();
+
+            Socket socket2 = new Socket(jugador.getIPS(), 44440);
+            System.out.println("Connected Text!");
+            DataOutputStream mensaje2 = new DataOutputStream(socket2.getOutputStream());
+            mensaje2.writeUTF(padre);
+            System.out.println("Mensjaes enviados");
+            socket2.close();
+
+            errorMedico = false;
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void cambiarTurnoAux() {
         if (!findePartida) {
             if (jugador.getTurno()) {
@@ -1353,6 +1404,7 @@ public class JuegoController extends Controller implements Initializable {
                         unSoloOrgano = false;
                         cartaAux = null;
                         ladron = false;
+                        errorMedico = false;
                         jugador.setTurno(false);
 
                         vBox.getStyleClass().clear();

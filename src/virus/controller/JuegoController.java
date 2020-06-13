@@ -124,6 +124,7 @@ public class JuegoController extends Controller implements Initializable {
     private ArrayList<ImageView> mazoImg = new ArrayList();
     private boolean ladron = false;
     private boolean errorMedico = false;
+    private static boolean modoTratamiento = false;
 
     /**
      * Initializes the controller class.
@@ -590,11 +591,16 @@ public class JuegoController extends Controller implements Initializable {
 
     private void movimientoAdvXJug(String padre) {
         if (cartaAux.getTipoCarta().equals("Virus")
-                || cartaAux.getTipoCarta().equals("Virus_Comodin")) {
+                || cartaAux.getTipoCarta().equals("Virus_Comodin") && !modoTratamiento) {
             movimientoContrario(padre);
         } else {
-            Mensaje ms = new Mensaje();
-            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes poner tu carta en este lugar.");
+            if (modoTratamiento) {
+                new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción, porque ya hiciste tu movimiento");
+            } else {
+                Mensaje ms = new Mensaje();
+                ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes poner tu carta en este lugar.");
+            }
+
         }
     }
 
@@ -697,7 +703,6 @@ public class JuegoController extends Controller implements Initializable {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
-
                                     }
                                 }
                             } else {
@@ -808,244 +813,247 @@ public class JuegoController extends Controller implements Initializable {
     private void movimiento(String padre) {
         if (!findePartida) {
             if (!unSoloOrgano) {
-                if (!modoDesechar) {
-                    if (paneAuxiliar != null) {
-                        hijo = "";
-                        hijo = hijo(padre);
-                        //si es el primer movimiento
-                        if ((cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
-                                || cartaAux.getTipoCarta().equals("Cerebro") || cartaAux.getTipoCarta().equals("Hueso")
-                                || cartaAux.getTipoCarta().equals("Organo_Comodin")) && jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty() && jugador.getCartas5().isEmpty()) {
-                            movimiento(padre, hijo);
-                        } else if ((cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
-                                || cartaAux.getTipoCarta().equals("Cerebro") || cartaAux.getTipoCarta().equals("Hueso")
-                                || cartaAux.getTipoCarta().equals("Organo_Comodin")) && (!jugador.getCartas1().isEmpty() //Organo en los campos vacios
-                                ? !cartaAux.getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta())
-                                : true)
-                                && (!jugador.getCartas2().isEmpty()
-                                ? !cartaAux.getTipoCarta().equals(jugador.getCartas2().get(0).getTipoCarta())
-                                : true)
-                                && (!jugador.getCartas3().isEmpty()
-                                ? !cartaAux.getTipoCarta().equals(jugador.getCartas3().get(0).getTipoCarta())
-                                : true)
-                                && (!jugador.getCartas4().isEmpty()
-                                ? !cartaAux.getTipoCarta().equals(jugador.getCartas4().get(0).getTipoCarta())
-                                : true)
-                                && (!jugador.getCartas5().isEmpty()
-                                ? !cartaAux.getTipoCarta().equals(jugador.getCartas5().get(0).getTipoCarta())
-                                : true)) {
-                            //Verifica que el organo que se desea poner no este lleno con un organo 
-                            switch (hijo) {
-                                case "0":
-                                    if (jugador.getCartas1().isEmpty()) {
-                                        ////movimientoInmune(hijo, padre, "propio", "");
-                                        movimiento(padre, hijo);
-                                    } else {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner otro órgano en este campo");
-                                    }
-                                    break;
-                                case "1":
-                                    if (jugador.getCartas2().isEmpty()) {
-                                        ////movimientoInmune(hijo, padre, "propio", "");
-                                        movimiento(padre, hijo);
-                                    } else {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner otro órgano en este campo");
-                                    }
-                                    break;
-                                case "2":
-                                    if (jugador.getCartas3().isEmpty()) {
-                                        ////movimientoInmune(hijo, padre, "propio", "");
-                                        movimiento(padre, hijo);
-                                    } else {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner otro órgano en este campo");
-                                    }
-                                    break;
-                                case "3":
-                                    if (jugador.getCartas4().isEmpty()) {
-                                        //movimientoInmune(hijo, padre, "propio", "");
-                                        movimiento(padre, hijo);
-                                    } else {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner otro órgano en este campo");
-                                    }
-                                    break;
-                                case "4":
-                                    if (jugador.getCartas5().isEmpty()) {
-                                        //movimientoInmune(hijo, padre, "propio", "");
-                                        movimiento(padre, hijo);
-                                    } else {
-                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner otro órgano en este campo");
-                                    }
-                                    break;
-                            }
-                        } else {//Cualquier otro movimiento
-                            switch (hijo) {
-                                case "0":
-
-                                    if (!jugador.getCartas1().isEmpty()
-                                            && !jugador.getCartas1().get(0).getEstado().equals("Inmunizado")
-                                            && (jugador.getCartas1().get(0).getColor().equals(cartaAux.getColor())
-                                            || cartaAux.getTipoCarta().equals("Medicina_Comodin")
-                                            || jugador.getCartas1().get(0).getTipoCarta().equals("Organo_Comodin"))) {
-                                        if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
-                                                && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")
-                                                && !cartaAux.getTipoCarta().equals("Organo_Comodin")) {
-                                            noVirus(padre, hijo);
-                                        } else {
-                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner un organo encima de otro órgano");
-                                        }
-                                    } else {
+                if (!modoTratamiento) {
+                    if (!modoDesechar) {
+                        if (paneAuxiliar != null) {
+                            hijo = "";
+                            hijo = hijo(padre);
+                            //si es el primer movimiento
+                            if ((cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
+                                    || cartaAux.getTipoCarta().equals("Cerebro") || cartaAux.getTipoCarta().equals("Hueso")
+                                    || cartaAux.getTipoCarta().equals("Organo_Comodin")) && jugador.getCartas1().isEmpty() && jugador.getCartas2().isEmpty() && jugador.getCartas3().isEmpty() && jugador.getCartas4().isEmpty() && jugador.getCartas5().isEmpty()) {
+                                movimiento(padre, hijo);
+                            } else if ((cartaAux.getTipoCarta().equals("Corazon") || cartaAux.getTipoCarta().equals("Estomago")
+                                    || cartaAux.getTipoCarta().equals("Cerebro") || cartaAux.getTipoCarta().equals("Hueso")
+                                    || cartaAux.getTipoCarta().equals("Organo_Comodin")) && (!jugador.getCartas1().isEmpty() //Organo en los campos vacios
+                                    ? !cartaAux.getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta())
+                                    : true)
+                                    && (!jugador.getCartas2().isEmpty()
+                                    ? !cartaAux.getTipoCarta().equals(jugador.getCartas2().get(0).getTipoCarta())
+                                    : true)
+                                    && (!jugador.getCartas3().isEmpty()
+                                    ? !cartaAux.getTipoCarta().equals(jugador.getCartas3().get(0).getTipoCarta())
+                                    : true)
+                                    && (!jugador.getCartas4().isEmpty()
+                                    ? !cartaAux.getTipoCarta().equals(jugador.getCartas4().get(0).getTipoCarta())
+                                    : true)
+                                    && (!jugador.getCartas5().isEmpty()
+                                    ? !cartaAux.getTipoCarta().equals(jugador.getCartas5().get(0).getTipoCarta())
+                                    : true)) {
+                                //Verifica que el organo que se desea poner no este lleno con un organo 
+                                switch (hijo) {
+                                    case "0":
                                         if (jugador.getCartas1().isEmpty()) {
-                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
-                                        } else if (!jugador.getCartas1().isEmpty() && !jugador.getCartas1().get(0).getColor().equals(cartaAux.getColor())) {
-                                            if (virus(cartaAux)) {
-                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner un virus en tu propio mazo");
-                                            } else {
-                                                if (jugador.getCartas1().get(0).getEstado().equals("Inmunizado")) {
-                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
-                                                } else {
-                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
-
-                                                }
-                                            }
+                                            ////movimientoInmune(hijo, padre, "propio", "");
+                                            movimiento(padre, hijo);
                                         } else {
-                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner otro órgano en este campo");
                                         }
-                                    }
-                                    break;
-                                case "1":
-                                    if (!jugador.getCartas2().isEmpty()
-                                            && !jugador.getCartas2().get(0).getEstado().equals("Inmunizado")
-                                            && (jugador.getCartas2().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin") || jugador.getCartas2().get(0).getTipoCarta().equals("Organo_Comodin"))) {
-                                        if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
-                                                && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")
-                                                && !cartaAux.getTipoCarta().equals("Organo_Comodin")) {
-                                            noVirus(padre, hijo);
-                                        } else {
-                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner un organo encima de otro órgano");
-                                        }
-                                    } else {
+                                        break;
+                                    case "1":
                                         if (jugador.getCartas2().isEmpty()) {
-                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
-                                        } else if (!jugador.getCartas2().isEmpty() && !jugador.getCartas2().get(0).getColor().equals(cartaAux.getColor())) {
-                                            if (virus(cartaAux)) {
-                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner un virus en tu propio mazo");
-                                            } else {
-                                                if (jugador.getCartas2().get(0).getEstado().equals("Inmunizado")) {
-                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
-                                                } else {
-                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
-                                                }
-                                            }
+                                            ////movimientoInmune(hijo, padre, "propio", "");
+                                            movimiento(padre, hijo);
                                         } else {
-                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner otro órgano en este campo");
                                         }
-                                    }
-                                    break;
-                                case "2":
-                                    if (!jugador.getCartas3().isEmpty()
-                                            && !jugador.getCartas3().get(0).getEstado().equals("Inmunizado")
-                                            && (jugador.getCartas3().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin") || jugador.getCartas3().get(0).getTipoCarta().equals("Organo_Comodin"))) {
-                                        if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
-                                                && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")
-                                                && !cartaAux.getTipoCarta().equals("Organo_Comodin")) {
-                                            noVirus(padre, hijo);
-                                        } else {
-                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner un organo encima de otro órgano");
-                                        }
-                                    } else {
+                                        break;
+                                    case "2":
                                         if (jugador.getCartas3().isEmpty()) {
-                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
-                                        } else if (!jugador.getCartas3().isEmpty() && !jugador.getCartas3().get(0).getColor().equals(cartaAux.getColor())) {
-                                            if (virus(cartaAux)) {
-                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner un virus en tu propio mazo");
-                                            } else {
-                                                if (jugador.getCartas3().get(0).getEstado().equals("Inmunizado")) {
-                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
-                                                } else {
-                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
-
-                                                }
-                                            }
+                                            ////movimientoInmune(hijo, padre, "propio", "");
+                                            movimiento(padre, hijo);
                                         } else {
-                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner otro órgano en este campo");
                                         }
-                                    }
-                                    break;
-
-                                case "3":
-                                    if (!jugador.getCartas4().isEmpty()
-                                            && !jugador.getCartas4().get(0).getEstado().equals("Inmunizado")
-                                            && (jugador.getCartas4().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin") || jugador.getCartas4().get(0).getTipoCarta().equals("Organo_Comodin"))) {
-                                        if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
-                                                && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")
-                                                && !cartaAux.getTipoCarta().equals("Organo_Comodin")) {
-                                            noVirus(padre, hijo);
-                                        } else {
-                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner un organo encima de otro órgano");
-                                        }
-                                    } else {
+                                        break;
+                                    case "3":
                                         if (jugador.getCartas4().isEmpty()) {
-                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
-                                        } else if (!jugador.getCartas4().isEmpty() && !jugador.getCartas4().get(0).getColor().equals(cartaAux.getColor())) {
-                                            if (virus(cartaAux)) {
-                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner un virus en tu propio mazo");
-                                            } else {
-                                                if (jugador.getCartas4().get(0).getEstado().equals("Inmunizado")) {
-                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
-                                                } else {
-                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
-
-                                                }
-                                            }
+                                            //movimientoInmune(hijo, padre, "propio", "");
+                                            movimiento(padre, hijo);
                                         } else {
-                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner otro órgano en este campo");
                                         }
-                                    }
-                                    break;
-
-                                case "4":
-                                    if (!jugador.getCartas5().isEmpty()
-                                            && !jugador.getCartas5().get(0).getEstado().equals("Inmunizado")
-                                            && (jugador.getCartas5().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin") || jugador.getCartas5().get(0).getTipoCarta().equals("Organo_Comodin"))) {
-                                        if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
-                                                && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")
-                                                && !cartaAux.getTipoCarta().equals("Organo_Comodin")) {
-                                            noVirus(padre, hijo);
-                                        } else {
-                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner un organo encima de otro órgano");
-                                        }
-                                    } else {
+                                        break;
+                                    case "4":
                                         if (jugador.getCartas5().isEmpty()) {
-                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
-                                        } else if (!jugador.getCartas5().isEmpty() && !jugador.getCartas5().get(0).getColor().equals(cartaAux.getColor())) {
-                                            if (virus(cartaAux)) {
-                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner un virus en tu propio mazo");
-                                            } else {
-                                                if (jugador.getCartas5().get(0).getEstado().equals("Inmunizado")) {
-                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
-                                                } else {
-                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                            //movimientoInmune(hijo, padre, "propio", "");
+                                            movimiento(padre, hijo);
+                                        } else {
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner otro órgano en este campo");
+                                        }
+                                        break;
+                                }
+                            } else {//Cualquier otro movimiento
+                                switch (hijo) {
+                                    case "0":
 
-                                                }
+                                        if (!jugador.getCartas1().isEmpty()
+                                                && !jugador.getCartas1().get(0).getEstado().equals("Inmunizado")
+                                                && (jugador.getCartas1().get(0).getColor().equals(cartaAux.getColor())
+                                                || cartaAux.getTipoCarta().equals("Medicina_Comodin")
+                                                || jugador.getCartas1().get(0).getTipoCarta().equals("Organo_Comodin"))) {
+                                            if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
+                                                    && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")
+                                                    && !cartaAux.getTipoCarta().equals("Organo_Comodin")) {
+                                                noVirus(padre, hijo);
+                                            } else {
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner un organo encima de otro órgano");
                                             }
                                         } else {
-                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+                                            if (jugador.getCartas1().isEmpty()) {
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+                                            } else if (!jugador.getCartas1().isEmpty() && !jugador.getCartas1().get(0).getColor().equals(cartaAux.getColor())) {
+                                                if (virus(cartaAux)) {
+                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner un virus en tu propio mazo");
+                                                } else {
+                                                    if (jugador.getCartas1().get(0).getEstado().equals("Inmunizado")) {
+                                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
+                                                    } else {
+                                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+
+                                                    }
+                                                }
+                                            } else {
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+                                            }
                                         }
-                                    }
-                                    break;
-                                /*default:
+                                        break;
+                                    case "1":
+                                        if (!jugador.getCartas2().isEmpty()
+                                                && !jugador.getCartas2().get(0).getEstado().equals("Inmunizado")
+                                                && (jugador.getCartas2().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin") || jugador.getCartas2().get(0).getTipoCarta().equals("Organo_Comodin"))) {
+                                            if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
+                                                    && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")
+                                                    && !cartaAux.getTipoCarta().equals("Organo_Comodin")) {
+                                                noVirus(padre, hijo);
+                                            } else {
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner un organo encima de otro órgano");
+                                            }
+                                        } else {
+                                            if (jugador.getCartas2().isEmpty()) {
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+                                            } else if (!jugador.getCartas2().isEmpty() && !jugador.getCartas2().get(0).getColor().equals(cartaAux.getColor())) {
+                                                if (virus(cartaAux)) {
+                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner un virus en tu propio mazo");
+                                                } else {
+                                                    if (jugador.getCartas2().get(0).getEstado().equals("Inmunizado")) {
+                                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
+                                                    } else {
+                                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                                    }
+                                                }
+                                            } else {
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+                                            }
+                                        }
+                                        break;
+                                    case "2":
+                                        if (!jugador.getCartas3().isEmpty()
+                                                && !jugador.getCartas3().get(0).getEstado().equals("Inmunizado")
+                                                && (jugador.getCartas3().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin") || jugador.getCartas3().get(0).getTipoCarta().equals("Organo_Comodin"))) {
+                                            if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
+                                                    && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")
+                                                    && !cartaAux.getTipoCarta().equals("Organo_Comodin")) {
+                                                noVirus(padre, hijo);
+                                            } else {
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner un organo encima de otro órgano");
+                                            }
+                                        } else {
+                                            if (jugador.getCartas3().isEmpty()) {
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+                                            } else if (!jugador.getCartas3().isEmpty() && !jugador.getCartas3().get(0).getColor().equals(cartaAux.getColor())) {
+                                                if (virus(cartaAux)) {
+                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner un virus en tu propio mazo");
+                                                } else {
+                                                    if (jugador.getCartas3().get(0).getEstado().equals("Inmunizado")) {
+                                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
+                                                    } else {
+                                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+
+                                                    }
+                                                }
+                                            } else {
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+                                            }
+                                        }
+                                        break;
+
+                                    case "3":
+                                        if (!jugador.getCartas4().isEmpty()
+                                                && !jugador.getCartas4().get(0).getEstado().equals("Inmunizado")
+                                                && (jugador.getCartas4().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin") || jugador.getCartas4().get(0).getTipoCarta().equals("Organo_Comodin"))) {
+                                            if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
+                                                    && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")
+                                                    && !cartaAux.getTipoCarta().equals("Organo_Comodin")) {
+                                                noVirus(padre, hijo);
+                                            } else {
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner un organo encima de otro órgano");
+                                            }
+                                        } else {
+                                            if (jugador.getCartas4().isEmpty()) {
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+                                            } else if (!jugador.getCartas4().isEmpty() && !jugador.getCartas4().get(0).getColor().equals(cartaAux.getColor())) {
+                                                if (virus(cartaAux)) {
+                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner un virus en tu propio mazo");
+                                                } else {
+                                                    if (jugador.getCartas4().get(0).getEstado().equals("Inmunizado")) {
+                                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
+                                                    } else {
+                                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+                                                    }
+                                                }
+                                            } else {
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+                                            }
+                                        }
+                                        break;
+
+                                    case "4":
+                                        if (!jugador.getCartas5().isEmpty()
+                                                && !jugador.getCartas5().get(0).getEstado().equals("Inmunizado")
+                                                && (jugador.getCartas5().get(0).getColor().equals(cartaAux.getColor()) || cartaAux.getTipoCarta().equals("Medicina_Comodin") || jugador.getCartas5().get(0).getTipoCarta().equals("Organo_Comodin"))) {
+                                            if (!cartaAux.getTipoCarta().equals("Corazon") && !cartaAux.getTipoCarta().equals("Estomago")
+                                                    && !cartaAux.getTipoCarta().equals("Cerebro") && !cartaAux.getTipoCarta().equals("Hueso")
+                                                    && !cartaAux.getTipoCarta().equals("Organo_Comodin")) {
+                                                noVirus(padre, hijo);
+                                            } else {
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner un organo encima de otro órgano");
+                                            }
+                                        } else {
+                                            if (jugador.getCartas5().isEmpty()) {
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+                                            } else if (!jugador.getCartas5().isEmpty() && !jugador.getCartas5().get(0).getColor().equals(cartaAux.getColor())) {
+                                                if (virus(cartaAux)) {
+                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se puede poner un virus en tu propio mazo");
+                                                } else {
+                                                    if (jugador.getCartas5().get(0).getEstado().equals("Inmunizado")) {
+                                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
+                                                    } else {
+                                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
+
+                                                    }
+                                                }
+                                            } else {
+                                                new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
+                                            }
+                                        }
+                                        break;
+                                    /*default:
                                     Mensaje ms = new Mensaje();
                                     ms.show(Alert.AlertType.WARNING, "Información de Juego", "Ya hay un tipo de organo en este mazo....");
                                     break;*/
+                                }
                             }
+                        } else {
+                            Mensaje ms = new Mensaje();
+                            ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes agregar un órgano en este lugar.");
                         }
                     } else {
                         Mensaje ms = new Mensaje();
-                        ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes agregar un órgano en este lugar.");
+                        ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes agregar un órgano si ya botaste cartas");
                     }
                 } else {
-                    Mensaje ms = new Mensaje();
-                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes agregar un órgano si ya botaste cartas");
+                    new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción, porque ya hiciste tu movimiento");
                 }
             } else {
                 Mensaje msj = new Mensaje();
@@ -1125,58 +1133,71 @@ public class JuegoController extends Controller implements Initializable {
     private void CartaDesechada(MouseEvent event) {
         if (!findePartida) {
             if (!ladron) {
-                if (!modoOrgano) {
-                    if (!recogioCarta) {
-                        if (jugador.getTurno()) {
-                            if (cartaAux != null) {
-                                switch (cartaAux.getTipoCarta()) {
-                                    case "Transplante":
-                                        desecharCarta("desecharCarta");
-                                        break;
-                                    case "Ladron":
-                                        movientoLadron();
-                                        desecharCarta("desecharCarta");
-                                        break;
-                                    case "Contagio":
-                                        desecharCarta("desecharCarta");
-                                        break;
-                                    case "Guante":
-                                        desecharCarta("desecharCarta");
-                                        break;
-                                    case "Error":
-                                        errorMedico = true;
-                                        if (partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugador.getIP())).
-                                                allMatch(x -> (x.getCartas1().isEmpty()
-                                                && x.getCartas2().isEmpty() && x.getCartas3().isEmpty() && x.getCartas4().isEmpty()
-                                                && x.getCartas5().isEmpty()))) {
-                                            errorMedico = false;
-                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
-                                        } else {
-                                            new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Error Médico");
+                if (!errorMedico) {
+                    if (!modoOrgano) {
+                        if (!modoTratamiento) {
+                            if (!recogioCarta) {
+                                if (jugador.getTurno()) {
+                                    if (cartaAux != null) {
+                                        switch (cartaAux.getTipoCarta()) {
+                                            case "Transplante":
+                                                modoTratamiento = true;
+                                                desecharCarta("desecharCarta");
+                                                break;
+                                            case "Ladron":
+                                                modoTratamiento = true;
+                                                movientoLadron();
+                                                desecharCarta("desecharCarta");
+                                                break;
+                                            case "Contagio":
+                                                modoTratamiento = true;
+                                                desecharCarta("desecharCarta");
+                                                break;
+                                            case "Guante":
+                                                modoTratamiento = true;
+                                                desecharCarta("desecharCarta");
+                                                break;
+                                            case "Error":
+                                                modoTratamiento = true;
+                                                errorMedico = true;
+                                                if (partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugador.getIP())).
+                                                        allMatch(x -> (x.getCartas1().isEmpty()
+                                                        && x.getCartas2().isEmpty() && x.getCartas3().isEmpty() && x.getCartas4().isEmpty()
+                                                        && x.getCartas5().isEmpty()))) {
+                                                    errorMedico = false;
+                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
+                                                } else {
+                                                    new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Error Médico");
+                                                }
+                                                desecharCarta("desecharCarta");
+                                                break;
+                                            default:
+                                                modoDesechar = true;
+                                                desecharCarta("desecharCarta");
+                                                break;
                                         }
-
-                                        desecharCarta("desecharCarta");
-                                        break;
-                                    default:
-                                        modoDesechar = true;
-                                        desecharCarta("desecharCarta");
-                                        break;
+                                    } else {
+                                        Mensaje msj = new Mensaje();
+                                        msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
+                                    }
+                                } else {
+                                    Mensaje ms = new Mensaje();
+                                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Espera a tu turno");
                                 }
                             } else {
-                                Mensaje msj = new Mensaje();
-                                msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
+                                Mensaje ms = new Mensaje();
+                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes desechar una carta en este momento");
                             }
                         } else {
-                            Mensaje ms = new Mensaje();
-                            ms.show(Alert.AlertType.WARNING, "Información de Juego", "Espera a tu turno");
+                            new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción, porque ya hiciste tu movimiento");
                         }
                     } else {
                         Mensaje ms = new Mensaje();
-                        ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes desechar una carta en este momento");
+                        ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes desechar una carta si ya botaste un organo");
                     }
                 } else {
                     Mensaje ms = new Mensaje();
-                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes desechar una carta si ya botaste un organo");
+                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Estás en error médico");
                 }
             } else {
                 Mensaje ms = new Mensaje();
@@ -1406,6 +1427,7 @@ public class JuegoController extends Controller implements Initializable {
                         cartaAux = null;
                         ladron = false;
                         errorMedico = false;
+                        modoTratamiento = false;
                         jugador.setTurno(false);
 
                         vBox.getStyleClass().clear();
@@ -1436,23 +1458,28 @@ public class JuegoController extends Controller implements Initializable {
         if (!findePartida) {
             cartaAux = null;
             if (!ladron) {
-                if (jugador.getTurno()) {
-                    if (jugador.getMazo().size() < 3 && (image9.getImage() == null || image8.getImage() == null
-                            || image7.getImage() == null)) {
-                        recogioCarta = true;
-                        ObtenerCarta(jugador.getIPS());
-                        if (jugador.getMazo().size() == 3) {
-                            cambiarTurnoAux();
+                if (!errorMedico) {
+                    if (jugador.getTurno()) {
+                        if (jugador.getMazo().size() < 3 && (image9.getImage() == null || image8.getImage() == null
+                                || image7.getImage() == null)) {
+                            recogioCarta = true;
+                            ObtenerCarta(jugador.getIPS());
+                            if (jugador.getMazo().size() == 3) {
+                                cambiarTurnoAux();
+                                Mensaje ms = new Mensaje();
+                                ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Cambio de turno");
+                            }
+                        } else {
                             Mensaje ms = new Mensaje();
-                            ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Cambio de turno");
+                            ms.show(Alert.AlertType.WARNING, "Información de Juego", "Usted ya tiene su mazo completo");
                         }
                     } else {
                         Mensaje ms = new Mensaje();
-                        ms.show(Alert.AlertType.WARNING, "Información de Juego", "Usted ya tiene su mazo completo");
+                        ms.show(Alert.AlertType.WARNING, "Información de Juego", "Espera a tu tuno");
                     }
                 } else {
                     Mensaje ms = new Mensaje();
-                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Espera a tu tuno");
+                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Estás en error médico");
                 }
             } else {
                 Mensaje ms = new Mensaje();

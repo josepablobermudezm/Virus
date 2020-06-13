@@ -65,7 +65,7 @@ public class Hilo_Peticiones extends Thread {
     private static int valor = 0;
     private static HBox jug1 = null;
     private static HBox jug2 = null;
-
+    private static String IPJ2;
     @Override
     public void run() {
 
@@ -430,6 +430,7 @@ public class Hilo_Peticiones extends Thread {
 
                             JugadorDto jugador = partidaDto.getJugadores().stream().filter(x -> x.getTurno()).findAny().get();
                             int i = partidaDto.getJugadores().indexOf(jugador);
+
                             String hBoxJugActual = "";
                             switch (i) {
                                 case 0:
@@ -453,28 +454,42 @@ public class Hilo_Peticiones extends Thread {
                                 default:
                                     break;
                             }
-
+                            String IPJ1 = jugador.getIP();
                             switch (hBoxRival) {
                                 case "hvox":
+                                    IPJ2 = partidaDto.getJugadores().get(0).getIP();
                                     intercambioJuego(partidaDto.getJugadores().stream().filter(x -> x.getTurno()).findAny().get(), 0);
                                     break;
                                 case "hvox2":
+                                    IPJ2 = partidaDto.getJugadores().get(1).getIP();
                                     intercambioJuego(partidaDto.getJugadores().stream().filter(x -> x.getTurno()).findAny().get(), 1);
                                     break;
                                 case "hvox3":
+                                    IPJ2 = partidaDto.getJugadores().get(2).getIP();
                                     intercambioJuego(partidaDto.getJugadores().stream().filter(x -> x.getTurno()).findAny().get(), 2);
                                     break;
                                 case "hvox4":
+                                    IPJ2 = partidaDto.getJugadores().get(3).getIP();
                                     intercambioJuego(partidaDto.getJugadores().stream().filter(x -> x.getTurno()).findAny().get(), 3);
                                     break;
                                 case "hvox5":
+                                    IPJ2 = partidaDto.getJugadores().get(4).getIP();
                                     intercambioJuego(partidaDto.getJugadores().stream().filter(x -> x.getTurno()).findAny().get(), 4);
                                     break;
                                 case "hbox6":
+                                    IPJ2 = partidaDto.getJugadores().get(5).getIP();
                                     intercambioJuego(partidaDto.getJugadores().stream().filter(x -> x.getTurno()).findAny().get(), 5);
                                     break;
                                 default:
                                     break;
+                            }
+
+                            if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJ1)).findAny().get().getIP().equals(jugadorDto.getIP())) {
+                                jugadorDto = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJ1)).findAny().get();
+                                AppContext.getInstance().set("JugadorDto", jugadorDto);
+                            } else if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJ2)).findAny().get().getIP().equals(jugadorDto.getIP())) {
+                                jugadorDto = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPJ2)).findAny().get();
+                                AppContext.getInstance().set("JugadorDto", jugadorDto);
                             }
 
                             //aquí se se seleccionan los hbox que van a ser intercambiados

@@ -456,22 +456,22 @@ public class Hilo_Peticiones extends Thread {
 
                             switch (hBoxRival) {
                                 case "hvox":
-                                    intercambioJuego(jugador, 0);
+                                    intercambioJuego(partidaDto.getJugadores().stream().filter(x -> x.getTurno()).findAny().get(), 0);
                                     break;
                                 case "hvox2":
-                                    intercambioJuego(jugador, 1);
+                                    intercambioJuego(partidaDto.getJugadores().stream().filter(x -> x.getTurno()).findAny().get(), 1);
                                     break;
                                 case "hvox3":
-                                    intercambioJuego(jugador, 2);
+                                    intercambioJuego(partidaDto.getJugadores().stream().filter(x -> x.getTurno()).findAny().get(), 2);
                                     break;
                                 case "hvox4":
-                                    intercambioJuego(jugador, 3);
+                                    intercambioJuego(partidaDto.getJugadores().stream().filter(x -> x.getTurno()).findAny().get(), 3);
                                     break;
                                 case "hvox5":
-                                    intercambioJuego(jugador, 4);
+                                    intercambioJuego(partidaDto.getJugadores().stream().filter(x -> x.getTurno()).findAny().get(), 4);
                                     break;
                                 case "hbox6":
-                                    intercambioJuego(jugador, 5);
+                                    intercambioJuego(partidaDto.getJugadores().stream().filter(x -> x.getTurno()).findAny().get(), 5);
                                     break;
                                 default:
                                     break;

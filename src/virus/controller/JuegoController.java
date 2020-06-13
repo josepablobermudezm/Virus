@@ -1164,20 +1164,24 @@ public class JuegoController extends Controller implements Initializable {
                                                 Boolean existe = false;
                                                 for (CartaDto carta : cartasJug) {
                                                     if (!existe) {
-                                                        if (!jugador.getCartas1().isEmpty() && !jugador.getCartas1().get(0).getColor().equals(carta.getColor())) {
+                                                        if (carta.getTipoCarta().equals("Organo_Comodin")) {
                                                             existe = true;
-                                                        }
-                                                        if (!jugador.getCartas2().isEmpty() && !jugador.getCartas2().get(0).getColor().equals(carta.getColor())) {
-                                                            existe = true;
-                                                        }
-                                                        if (!jugador.getCartas3().isEmpty() && !jugador.getCartas3().get(0).getColor().equals(carta.getColor())) {
-                                                            existe = true;
-                                                        }
-                                                        if (!jugador.getCartas4().isEmpty() && !jugador.getCartas4().get(0).getColor().equals(carta.getColor())) {
-                                                            existe = true;
-                                                        }
-                                                        if (!jugador.getCartas5().isEmpty() && !jugador.getCartas5().get(0).getColor().equals(carta.getColor())) {
-                                                            existe = true;
+                                                        } else {
+                                                            if (!jugador.getCartas1().isEmpty() && !jugador.getCartas1().get(0).getColor().equals(carta.getColor())) {
+                                                                existe = true;
+                                                            }
+                                                            if (!jugador.getCartas2().isEmpty() && !jugador.getCartas2().get(0).getColor().equals(carta.getColor())) {
+                                                                existe = true;
+                                                            }
+                                                            if (!jugador.getCartas3().isEmpty() && !jugador.getCartas3().get(0).getColor().equals(carta.getColor())) {
+                                                                existe = true;
+                                                            }
+                                                            if (!jugador.getCartas4().isEmpty() && !jugador.getCartas4().get(0).getColor().equals(carta.getColor())) {
+                                                                existe = true;
+                                                            }
+                                                            if (!jugador.getCartas5().isEmpty() && !jugador.getCartas5().get(0).getColor().equals(carta.getColor())) {
+                                                                existe = true;
+                                                            }
                                                         }
                                                     }
                                                 }

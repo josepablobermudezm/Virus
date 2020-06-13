@@ -1235,10 +1235,19 @@ public class JuegoController extends Controller implements Initializable {
             ladron = false;
             new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta carta no tendrá efecto porque no tienes campos disponibles");
         } else {
+            partida.getJugadores().stream().forEach((t) -> {
+                System.out.println("IP JUGADOR "+ t.getIP());
+                System.out.println("1 "+ t.getCartas1().size());
+                System.out.println("2 "+ t.getCartas2().size());
+                System.out.println("3 "+ t.getCartas3().size());
+                System.out.println("4 "+ t.getCartas4().size());
+                System.out.println("5 "+ t.getCartas5().size());
+            });
+            
             if (partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugador.getIP())).
-                    allMatch(x -> (x.getCartas1().isEmpty()
+                    allMatch(x -> x.getCartas1().isEmpty()
                     && x.getCartas2().isEmpty() && x.getCartas3().isEmpty() && x.getCartas4().isEmpty()
-                    && x.getCartas5().isEmpty()))) {
+                    && x.getCartas5().isEmpty())) {
                 ladron = false;
                 new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
             } else {

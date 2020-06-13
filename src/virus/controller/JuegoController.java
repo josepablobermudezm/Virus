@@ -23,6 +23,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -1132,14 +1133,69 @@ public class JuegoController extends Controller implements Initializable {
                                             ladron = false;
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta carta no tendrá efecto porque no tienes campos disponibles");
                                         } else {
-                                            if (partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugador.getIP())).allMatch(x -> (x.getCartas1().isEmpty()
+                                            if (partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugador.getIP())).
+                                                    allMatch(x -> (x.getCartas1().isEmpty()
                                                     && x.getCartas2().isEmpty() && x.getCartas3().isEmpty() && x.getCartas4().isEmpty()
                                                     && x.getCartas5().isEmpty()))) {
                                                 ladron = false;
                                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
                                             } else {
-                                                Mensaje ms = new Mensaje();
-                                                ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Estás en modo ladron");
+                                                ArrayList<JugadorDto> jugadores = (ArrayList<JugadorDto>) partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugador.getIP())).collect(Collectors.toList());
+
+                                                ArrayList<CartaDto> cartasJug = new ArrayList();
+                                                jugadores.stream().map((jug) -> {
+                                                    if (!jug.getCartas1().isEmpty()) {
+                                                        cartasJug.add(jug.getCartas1().get(0));
+                                                    }
+                                                    return jug;
+                                                }).map((jug) -> {
+                                                    if (!jug.getCartas2().isEmpty()) {
+                                                        cartasJug.add(jug.getCartas2().get(0));
+                                                    }
+                                                    return jug;
+                                                }).map((jug) -> {
+                                                    if (!jug.getCartas3().isEmpty()) {
+                                                        cartasJug.add(jug.getCartas3().get(0));
+                                                    }
+                                                    return jug;
+                                                }).map((jug) -> {
+                                                    if (!jug.getCartas5().isEmpty()) {
+                                                        cartasJug.add(jug.getCartas5().get(0));
+                                                    }
+                                                    return jug;
+                                                }).filter((jug) -> (!jug.getCartas4().isEmpty())).forEachOrdered((jug) -> {
+                                                    cartasJug.add(jug.getCartas4().get(0));
+                                                });
+
+                                                Boolean existe = false;
+                                                for (CartaDto carta : cartasJug) {
+                                                    if (!existe) {
+                                                        if (!jugador.getCartas1().isEmpty() && !jugador.getCartas1().get(0).getColor().equals(carta.getColor())) {
+                                                            existe = true;
+                                                        }
+                                                        if (!jugador.getCartas2().isEmpty() && !jugador.getCartas2().get(0).getColor().equals(carta.getColor())) {
+                                                            existe = true;
+                                                        }
+                                                        if (!jugador.getCartas3().isEmpty() && !jugador.getCartas3().get(0).getColor().equals(carta.getColor())) {
+                                                            existe = true;
+                                                        }
+                                                        if (!jugador.getCartas4().isEmpty() && !jugador.getCartas4().get(0).getColor().equals(carta.getColor())) {
+                                                            existe = true;
+                                                        }
+                                                        if (!jugador.getCartas5().isEmpty() && !jugador.getCartas5().get(0).getColor().equals(carta.getColor())) {
+                                                            existe = true;
+                                                        }
+                                                    }
+                                                }
+
+                                                if (!existe) {
+                                                    ladron = false;
+                                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
+                                                } else {
+                                                    Mensaje ms = new Mensaje();
+                                                    ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Estás en modo ladron");
+                                                }
+
                                             }
 
                                         }

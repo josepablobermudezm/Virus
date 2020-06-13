@@ -609,51 +609,6 @@ public class Hilo_Peticiones extends Thread {
         //Annado las nuevas cartas a cada jugador
         jugador.getCartas5().addAll(cartasJ2);
         partidaDto.getJugadores().get(i).getCartas5().addAll(cartasJ1);
-        
-        
-        System.out.println("JUGADOR 1");
-        System.out.println("LISTA 1 ");
-        jugador.getCartas1().forEach(x -> {
-            System.out.println(x.getTipoCarta());
-        });
-        System.out.println("LISTA 2 ");
-        jugador.getCartas2().forEach(x -> {
-            System.out.println(x.getTipoCarta());
-        });
-        System.out.println("LISTA 3 ");
-        jugador.getCartas3().forEach(x -> {
-            System.out.println(x.getTipoCarta());
-        });
-        System.out.println("LISTA 4 ");
-        jugador.getCartas4().forEach(x -> {
-            System.out.println(x.getTipoCarta());
-        });
-        System.out.println("LISTA 5 ");
-        jugador.getCartas5().forEach(x -> {
-            System.out.println(x.getTipoCarta());
-        });
-
-        System.out.println("JUGADOR 2");
-        System.out.println("LISTA 1 ");
-        partidaDto.getJugadores().get(i).getCartas1().forEach(x -> {
-            System.out.println(x.getTipoCarta());
-        });
-        System.out.println("LISTA 2 ");
-        partidaDto.getJugadores().get(i).getCartas2().forEach(x -> {
-            System.out.println(x.getTipoCarta());
-        });
-        System.out.println("LISTA 3 ");
-        partidaDto.getJugadores().get(i).getCartas3().forEach(x -> {
-            System.out.println(x.getTipoCarta());
-        });
-        System.out.println("LISTA 4 ");
-        partidaDto.getJugadores().get(i).getCartas4().forEach(x -> {
-            System.out.println(x.getTipoCarta());
-        });
-        System.out.println("LISTA 5 ");
-        partidaDto.getJugadores().get(i).getCartas5().forEach(x -> {
-            System.out.println(x.getTipoCarta());
-        });
     }
 
     //retornamos el hBox del jugador

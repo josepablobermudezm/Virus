@@ -481,7 +481,9 @@ public class JuegoController extends Controller implements Initializable {
                             hijo2 = hijo(padre2);
                             System.out.println("segundo órgano seleccionado en " + padre2);
                             JugadorDto jugadorAux = (partida.getJugadores().stream().filter(x -> x.getTurno()).findAny().get());
+                            System.out.println("INDICE JUG "+partida.getJugadores().indexOf(jugadorAux));
                             String hBoxJp = padreBox(partida.getJugadores().indexOf(jugadorAux));
+                            System.out.println("HBOXJP "+ hBoxJp);
                             if (padre2.equals(padre1)) {
                                 padre1 = "";
                                 padre2 = "";

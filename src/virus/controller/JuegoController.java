@@ -520,10 +520,12 @@ public class JuegoController extends Controller implements Initializable {
                                 }
 
                                 JugadorDto jugadorAux2 = partida.getJugadores().get(IndiceJugador2);
-
+                                System.out.println("HIJO JUG1 "+ hijo1Aux);
+                                System.out.println("HIJO JUG2 "+ hijo2Aux);
                                 ArrayList<CartaDto> listaJug1 = cartasRival(jugadorAux, hijo1Aux);
                                 ArrayList<CartaDto> listaJug2 = cartasRival(jugadorAux2, hijo2Aux);
-
+                                System.out.println("listaJug1 "+ listaJug1.size());
+                                System.out.println("listaJug2 "+ listaJug2.size());
                                 if (!listaJug1.isEmpty() && !listaJug2.isEmpty()) {
                                     System.out.println("entro 4--");
                                     CartaDto aux1 = listaJug1.get(0);

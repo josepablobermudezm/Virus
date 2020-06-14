@@ -481,9 +481,9 @@ public class JuegoController extends Controller implements Initializable {
                             hijo2 = hijo(padre2);
                             System.out.println("segundo órgano seleccionado en " + padre2);
                             JugadorDto jugadorAux = (partida.getJugadores().stream().filter(x -> x.getTurno()).findAny().get());
-                            System.out.println("INDICE JUG "+partida.getJugadores().indexOf(jugadorAux));
+                            System.out.println("INDICE JUG " + partida.getJugadores().indexOf(jugadorAux));
                             String hBoxJp = padreBox(partida.getJugadores().indexOf(jugadorAux));
-                            System.out.println("HBOXJP "+ hBoxJp);
+                            System.out.println("HBOXJP " + hBoxJp);
                             if (padre2.equals(padre1)) {
                                 padre1 = "";
                                 padre2 = "";
@@ -522,12 +522,12 @@ public class JuegoController extends Controller implements Initializable {
                                 }
 
                                 JugadorDto jugadorAux2 = partida.getJugadores().get(IndiceJugador2);
-                                System.out.println("HIJO JUG1 "+ hijo1Aux);
-                                System.out.println("HIJO JUG2 "+ hijo2Aux);
+                                System.out.println("HIJO JUG1 " + hijo1Aux);
+                                System.out.println("HIJO JUG2 " + hijo2Aux);
                                 ArrayList<CartaDto> listaJug1 = cartasRival(jugadorAux, hijo1Aux);
                                 ArrayList<CartaDto> listaJug2 = cartasRival(jugadorAux2, hijo2Aux);
-                                System.out.println("listaJug1 "+ listaJug1.size());
-                                System.out.println("listaJug2 "+ listaJug2.size());
+                                System.out.println("listaJug1 " + listaJug1.size());
+                                System.out.println("listaJug2 " + listaJug2.size());
                                 if (!listaJug1.isEmpty() && !listaJug2.isEmpty()) {
                                     System.out.println("entro 4--");
                                     CartaDto aux1 = listaJug1.get(0);
@@ -586,6 +586,10 @@ public class JuegoController extends Controller implements Initializable {
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
                                         } else {
                                             System.out.println("entro 9--");
+                                            padre1 = "";
+                                            padre2 = "";
+                                            hijo1 = "";
+                                            hijo2 = "";
                                             movimientoTransplanteSocket(padreAux1, hijoAux1, padreAux2, hijoAux2);
                                         }
                                     }

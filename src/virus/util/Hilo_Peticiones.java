@@ -522,8 +522,100 @@ public class Hilo_Peticiones extends Thread {
                                 jug2.getChildren().addAll(nodosJ1);
                             });
                             break;
+                        case "Transplante":
+                            DataInputStream input2;
+                            input2 = new DataInputStream(socket.getInputStream());
+                            String padre1 = input2.readUTF();
+                            String hijo1 = input2.readUTF();
+                            String padre2 = input2.readUTF();
+                            String hijo2 = input2.readUTF();
+                            ArrayList<CartaDto> cartas1 = new ArrayList();
+                            ArrayList<CartaDto> cartas2 = new ArrayList();
+                            JugadorDto JugadorActual = partidaDto.getJugadores().stream().filter(x -> x.getTurno()).findAny().get();
+                            Integer jugador2 = hBoxJugador(padre2);
+                            Integer jugador1 = hBoxJugador(padre1);
+                            Integer hijo1Aux = Integer.valueOf(hijo1);
+                            Integer hijo2Aux = Integer.valueOf(hijo2);
+
+                            cartas1 = cartas(partidaDto.getJugadores().get(jugador1), hijo1Aux);
+                            cartas2 = cartas(partidaDto.getJugadores().get(jugador2), hijo2Aux);
+
+                            switch (hijo1Aux) {
+                                case 0:
+                                    partidaDto.getJugadores().get(jugador1).getCartas1().clear();
+                                    partidaDto.getJugadores().get(jugador1).getCartas1().addAll(cartas2);
+                                    break;
+                                case 1:
+                                    partidaDto.getJugadores().get(jugador1).getCartas2().clear();
+                                    partidaDto.getJugadores().get(jugador1).getCartas2().addAll(cartas2);
+                                    break;
+                                case 2:
+                                    partidaDto.getJugadores().get(jugador1).getCartas3().clear();
+                                    partidaDto.getJugadores().get(jugador1).getCartas3().addAll(cartas2);
+                                    break;
+                                case 3:
+                                    partidaDto.getJugadores().get(jugador1).getCartas4().clear();
+                                    partidaDto.getJugadores().get(jugador1).getCartas4().addAll(cartas2);
+                                    break;
+                                case 4:
+                                    partidaDto.getJugadores().get(jugador1).getCartas5().clear();
+                                    partidaDto.getJugadores().get(jugador1).getCartas5().addAll(cartas2);
+                                    break;
+                            }
+                            switch (hijo2Aux) {
+                                case 0:
+                                    partidaDto.getJugadores().get(jugador2).getCartas1().clear();
+                                    partidaDto.getJugadores().get(jugador2).getCartas1().addAll(cartas1);
+                                    break;
+                                case 1:
+                                    partidaDto.getJugadores().get(jugador2).getCartas2().clear();
+                                    partidaDto.getJugadores().get(jugador2).getCartas2().addAll(cartas1);
+                                    break;
+                                case 2:
+                                    partidaDto.getJugadores().get(jugador2).getCartas3().clear();
+                                    partidaDto.getJugadores().get(jugador2).getCartas3().addAll(cartas1);
+                                    break;
+                                case 3:
+                                    partidaDto.getJugadores().get(jugador2).getCartas4().clear();
+                                    partidaDto.getJugadores().get(jugador2).getCartas4().addAll(cartas1);
+                                    break;
+                                case 4:
+                                    partidaDto.getJugadores().get(jugador2).getCartas5().clear();
+                                    partidaDto.getJugadores().get(jugador2).getCartas5().addAll(cartas1);
+                                    break;
+                            }
+
+                            anchorPane.getChildren().forEach((t) -> {
+                                if (t.getId() != null && t.getId().equals(padre1)) {
+                                    int i2 = hijo1Aux;
+                                    paneAux2 = ((Pane) ((HBox) t).getChildren().get(i2));
+                                } else if (t.getId() != null && t.getId().equals(padre2)) {
+                                    int i3 = hijo2Aux;
+                                    paneAux1 = ((Pane) ((HBox) t).getChildren().get(i3));
+                                }
+                            });
+
+                            Platform.runLater(() -> {
+                                ArrayList<Node> nodes2 = new ArrayList();
+                                paneAux2.getChildren().stream().forEach((t) -> {
+                                    nodes2.add(t);
+                                });
+                                ArrayList<Node> nodes1 = new ArrayList();
+                                paneAux1.getChildren().stream().forEach((t) -> {
+                                    nodes1.add(t);
+                                });
+
+                                paneAux2.getChildren().clear();
+                                paneAux1.getChildren().clear();
+
+                                paneAux1.getChildren().addAll(nodes2);
+                                paneAux2.getChildren().addAll(nodes1);
+                            });
+
+                            break;
                         default:
                             break;
+
                     }
                 }
 
@@ -635,6 +727,48 @@ public class Hilo_Peticiones extends Thread {
                 break;
         }
         return variable;
+    }
+
+    public Integer hBoxJugador(String variableU) {
+        Integer variable = null;
+        switch (variableU) {
+            case "hvox":
+                variable = 0;
+                break;
+            case "hvox2":
+                variable = 1;
+                break;
+            case "hvox3":
+                variable = 2;
+                break;
+            case "hvox4":
+                variable = 3;
+                break;
+            case "hvox5":
+                variable = 4;
+                break;
+            case "hbox6":
+                variable = 5;
+                break;
+        }
+        return variable;
+    }
+
+    private ArrayList<CartaDto> cartas(JugadorDto rival, Integer indice) {
+        switch (indice) {
+            case 0:
+                return rival.getCartas1();
+            case 1:
+                return rival.getCartas2();
+            case 2:
+                return rival.getCartas3();
+            case 3:
+                return rival.getCartas4();
+            case 4:
+                return rival.getCartas5();
+            default:
+                return null;
+        }
     }
 
     private ArrayList<CartaDto> cartasRival(JugadorDto rival, Integer indice) {

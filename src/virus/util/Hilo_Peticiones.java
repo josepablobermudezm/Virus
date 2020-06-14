@@ -531,7 +531,6 @@ public class Hilo_Peticiones extends Thread {
                             String hijo2 = input2.readUTF();
                             ArrayList<CartaDto> cartas1 = new ArrayList();
                             ArrayList<CartaDto> cartas2 = new ArrayList();
-                            JugadorDto JugadorActual = partidaDto.getJugadores().stream().filter(x -> x.getTurno()).findAny().get();
                             Integer jugador2 = hBoxJugador(padre2);
                             Integer jugador1 = hBoxJugador(padre1);
                             Integer hijo1Aux = Integer.valueOf(hijo1);
@@ -539,17 +538,12 @@ public class Hilo_Peticiones extends Thread {
                             
                             
                             cartas1 = cartas(partidaDto.getJugadores().get(jugador1), hijo1Aux);
-                            System.out.println("CARTA JUGADOR 1 "+ cartas1.get(0).getTipoCarta()+" INDICE "+ jugador1+ " HIJO "+ hijo1Aux);
                             cartas2 = cartas(partidaDto.getJugadores().get(jugador2), hijo2Aux);
-                            System.out.println("CARTA JUGADOR 2 "+ cartas2.get(0).getTipoCarta()+ " INDICE "+ jugador2+ " HIJO "+ hijo2Aux);
-                            System.out.println("SIN CAMBIAR");
                             ArrayList <CartaDto> cartasAux = new ArrayList();
                             cartas1.stream().forEach((t) -> {
                                 cartasAux.add(t);
                             });
-                            /*cartas1.stream().forEach(x->{
-                                System.out.println(x.getTipoCarta());
-                            });*/
+                            
                             switch (hijo1Aux) {
                                 case 0:
                                     partidaDto.getJugadores().get(jugador1).getCartas1().clear();
@@ -596,61 +590,14 @@ public class Hilo_Peticiones extends Thread {
                                     break;
                             }
                             
-                            System.out.println("JUGADOR QUE HIZO EL MOVIENTO");
-                            System.out.println("LISTA 1");
-                            partidaDto.getJugadores().get(jugador1).getCartas1().stream().forEach((t) -> {
-                                System.out.println(t.getTipoCarta());
-                            });
-                            System.out.println("LISTA 2");
-                            partidaDto.getJugadores().get(jugador1).getCartas2().stream().forEach((t) -> {
-                                System.out.println(t.getTipoCarta());
-                            });
-                            System.out.println("LISTA 3");
-                            partidaDto.getJugadores().get(jugador1).getCartas3().stream().forEach((t) -> {
-                                System.out.println(t.getTipoCarta());
-                            });
-                            System.out.println("LISTA 4");
-                            partidaDto.getJugadores().get(jugador1).getCartas4().stream().forEach((t) -> {
-                                System.out.println(t.getTipoCarta());
-                            });
-                            System.out.println("LISTA 5");
-                            partidaDto.getJugadores().get(jugador1).getCartas5().stream().forEach((t) -> {
-                                System.out.println(t.getTipoCarta());
-                            });
-                            
-                            System.out.println("JUGADOR QUE RECIBIO");
-                            System.out.println("LISTA 1");
-                            partidaDto.getJugadores().get(jugador2).getCartas1().stream().forEach((t) -> {
-                                System.out.println(t.getTipoCarta());
-                            });
-                            System.out.println("LISTA 2");
-                            partidaDto.getJugadores().get(jugador2).getCartas2().stream().forEach((t) -> {
-                                System.out.println(t.getTipoCarta());
-                            });
-                            System.out.println("LISTA 3");
-                            partidaDto.getJugadores().get(jugador2).getCartas3().stream().forEach((t) -> {
-                                System.out.println(t.getTipoCarta());
-                            });
-                            System.out.println("LISTA 4");
-                            partidaDto.getJugadores().get(jugador2).getCartas4().stream().forEach((t) -> {
-                                System.out.println(t.getTipoCarta());
-                            });
-                            System.out.println("LISTA 5");
-                            partidaDto.getJugadores().get(jugador2).getCartas5().stream().forEach((t) -> {
-                                System.out.println(t.getTipoCarta());
-                            });
                             
                             
                             if (partidaDto.getJugadores().get(jugador1).getIP().equals(jugadorDto.getIP())) {
                                 jugadorDto = partidaDto.getJugadores().get(jugador1);
-
-                                System.out.println("JUGADOR QUE HIZO LA JUGADA");
-
                                 AppContext.getInstance().set("JugadorDto", jugadorDto);
                             } else if (partidaDto.getJugadores().get(jugador2).getIP().equals(jugadorDto.getIP())) {
                                 jugadorDto = partidaDto.getJugadores().get(jugador2);
                                 AppContext.getInstance().set("JugadorDto", jugadorDto);
-                                System.out.println("JUGADOR QUE SE LA APLICARON");
                             }
 
                             anchorPane.getChildren().forEach((t) -> {
@@ -679,7 +626,43 @@ public class Hilo_Peticiones extends Thread {
                                 paneAux1.getChildren().addAll(nodes2);
                                 paneAux2.getChildren().addAll(nodes1);
                             });
+                            
+                            /*
+                            Preguntamos si ya termino el juegoS
+                             */
+                            int cont3 = 0;
+                            JugadorDto jug = partidaDto.getJugadores().get(jugador1);
+                            if ((!jug.getCartas1().isEmpty()) ? jug.getCartas1().get(0).getEstado().equals("Sano")
+                                    || jug.getCartas1().get(0).getEstado().equals("Inmunizado")
+                                    || jug.getCartas1().get(0).getEstado().equals("Vacunado") : false) {
+                                cont3++;
+                            }
+                            if ((!jug.getCartas2().isEmpty()) ? jug.getCartas2().get(0).getEstado().equals("Sano")
+                                    || jug.getCartas2().get(0).getEstado().equals("Inmunizado")
+                                    || jug.getCartas2().get(0).getEstado().equals("Vacunado") : false) {
+                                cont3++;
+                            }
+                            if ((!jug.getCartas3().isEmpty()) ? jug.getCartas3().get(0).getEstado().equals("Sano")
+                                    || jug.getCartas3().get(0).getEstado().equals("Inmunizado")
+                                    || jug.getCartas3().get(0).getEstado().equals("Vacunado") : false) {
+                                cont3++;
+                            }
+                            if ((!jug.getCartas4().isEmpty()) ? jug.getCartas4().get(0).getEstado().equals("Sano")
+                                    || jug.getCartas4().get(0).getEstado().equals("Inmunizado")
+                                    || jug.getCartas4().get(0).getEstado().equals("Vacunado") : false) {
+                                cont3++;
+                            }
+                            if ((!jug.getCartas5().isEmpty()) ? jug.getCartas5().get(0).getEstado().equals("Sano")
+                                    || jug.getCartas5().get(0).getEstado().equals("Inmunizado")
+                                    || jug.getCartas5().get(0).getEstado().equals("Vacunado") : false) {
+                                cont3++;
+                            }
 
+                            if (cont3 == 4) {
+                                mensajeRecibido = "partidaFinalizada";
+                                jugadorDto = jug;
+                            }
+                            
                             break;
                         default:
                             break;

@@ -57,7 +57,7 @@ import virus.util.Mensaje;
  * @author Jose Pablo Bermudez
  */
 public class JuegoController extends Controller implements Initializable {
-
+    
     @FXML
     private Label user;
     @FXML
@@ -137,11 +137,11 @@ public class JuegoController extends Controller implements Initializable {
         carta1 = jugador.getMazo().get(0);
         carta2 = jugador.getMazo().get(1);
         carta3 = jugador.getMazo().get(2);
-
+        
         user.setText(jugador.getNombre());
-
+        
         ArrayList<JugadorDto> jugadores = (ArrayList<JugadorDto>) AppContext.getInstance().get("Jugadores");
-
+        
         switch (jugadores.size()) {
             case 2:
                 hvox.setVisible(true);
@@ -161,7 +161,7 @@ public class JuegoController extends Controller implements Initializable {
                 hvox.setVisible(true);
                 hvox2.setVisible(true);
                 hvox3.setVisible(true);
-
+                
                 hvox.getChildren().forEach(x -> {
                     x.setOnMouseReleased(movimiento);
                     x.getStyleClass().clear();
@@ -276,26 +276,26 @@ public class JuegoController extends Controller implements Initializable {
             default:
                 break;
         }
-
+        
         if (jugadores.get(0).getIP().equals(jugador.getIP())) {
             jugador.setTurno(true);
         }
-
+        
         lbl_JTurno.setText((jugadores.stream().filter(x -> x.getTurno()).findAny().get()).getNombre());
-
+        
         ArrayList<Label> nombres = new ArrayList();
-
+        
         nombres.add(user);
         nombres.add(user2);
         nombres.add(user3);
         nombres.add(user4);
         nombres.add(user5);
         nombres.add(user6);
-
+        
         for (int i = 0; i < jugadores.size(); i++) {
             nombres.get(i).setText(jugadores.get(i).getNombre());
         }
-
+        
         vBox = new VBox();
         image7 = new ImageView("virus/resources/" + carta1.getImagen());
         image7.setId("carta1");
@@ -307,7 +307,7 @@ public class JuegoController extends Controller implements Initializable {
         vBox.setLayoutY(510);
         image7.setOnMouseClicked(seleccionarCarta);
         vBox.getChildren().add(image7);
-
+        
         vBox2 = new VBox();
         image8 = new ImageView("virus/resources/" + carta2.getImagen());
         image8.setId("carta2");
@@ -319,7 +319,7 @@ public class JuegoController extends Controller implements Initializable {
         vBox2.setLayoutY(510);
         image8.setOnMouseClicked(seleccionarCarta);
         vBox2.getChildren().add(image8);
-
+        
         vBox3 = new VBox();
         image9 = new ImageView("virus/resources/" + carta3.getImagen());
         image9.setId("carta3");
@@ -337,7 +337,7 @@ public class JuegoController extends Controller implements Initializable {
         mazoImg.add(image7);
         mazoImg.add(image8);
         mazoImg.add(image9);
-
+        
         fondo_juego.getChildren().add(vBox);
         fondo_juego.getChildren().add(vBox2);
         fondo_juego.getChildren().add(vBox3);
@@ -346,10 +346,10 @@ public class JuegoController extends Controller implements Initializable {
         partida.setJugadores(jugadores);
         peticiones = new Hilo_Peticiones(partida, imgDesechada, jugador, lbl_JTurno, fondo_juego, mazoImg);
         peticiones.start();
-
+        
         desechadas = imgDesechada;
     }
-
+    
     public String hijo1 = "";
     public String padre1 = "";
     public String hijo2 = "";
@@ -367,7 +367,7 @@ public class JuegoController extends Controller implements Initializable {
                         JugadorDto jugadorAux = partida.getJugadores().stream().
                                 filter(x -> x.getIP().equals(jugador.getIP())).findAny().get();
                         int i = partida.getJugadores().indexOf(jugadorAux);
-
+                        
                         paneAuxiliar = (Pane) event.getSource();
                         String padre = paneAuxiliar.getParent().getId();
                         switch (i) {
@@ -385,7 +385,7 @@ public class JuegoController extends Controller implements Initializable {
                                     movimientoAdvXJug(padre);
                                 }
                                 break;
-
+                            
                             case 2:
                                 if (padre.equals("hvox3")) {
                                     movimiento(padre);
@@ -498,9 +498,9 @@ public class JuegoController extends Controller implements Initializable {
                                 String padreAux2 = "";
                                 String hijoAux1 = "";
                                 String hijoAux2 = "";
-
+                                
                                 System.out.println("entro 1--");
-
+                                
                                 if (padre1.equals(hBoxJp)) {
                                     padreAux1 = padre1;
                                     padreAux2 = padre2;
@@ -520,69 +520,74 @@ public class JuegoController extends Controller implements Initializable {
                                     hijo2Aux = Integer.valueOf(hijo1);
                                     System.out.println("entro 3--");
                                 }
-
+                                
+                                System.out.println("INDICE "+ IndiceJugador2);
                                 JugadorDto jugadorAux2 = partida.getJugadores().get(IndiceJugador2);
-                                System.out.println("HIJO JUG1 " + hijo1Aux);
-                                System.out.println("HIJO JUG2 " + hijo2Aux);
                                 ArrayList<CartaDto> listaJug1 = cartasRival(jugadorAux, hijo1Aux);
                                 ArrayList<CartaDto> listaJug2 = cartasRival(jugadorAux2, hijo2Aux);
-                                System.out.println("listaJug1 " + listaJug1.size());
-                                System.out.println("listaJug2 " + listaJug2.size());
                                 if (!listaJug1.isEmpty() && !listaJug2.isEmpty()) {
-                                    System.out.println("entro 4--");
                                     CartaDto aux1 = listaJug1.get(0);
                                     CartaDto aux2 = listaJug2.get(0);
-
+                                    
                                     if (aux2.getColor().equals(aux1.getColor())) {
                                         movimientoTransplanteSocket(padreAux1, hijoAux1, padreAux2, hijoAux2);
                                         System.out.println("entro 5--");
                                     } else {
                                         System.out.println("entro 6--");
                                         Boolean existeJp = false;
-                                        if (aux2.getTipoCarta().equals("Organo_Comodin")) {
-                                            existeJp = true;
-                                        } else {
-                                            if (!jugadorAux.getCartas1().isEmpty() && !jugadorAux.getCartas1().get(0).getColor().equals(aux2.getColor()) && !jugadorAux.getCartas1().get(0).getTipoCarta().equals("Inmunizado")) {
+                                        
+                                        if (aux2.getEstado().equals("Inmunizado")) {
+                                            if (aux2.getTipoCarta().equals("Organo_Comodin")) {
                                                 existeJp = true;
-                                            }
-                                            if (!jugadorAux.getCartas2().isEmpty() && !jugadorAux.getCartas2().get(0).getColor().equals(aux2.getColor()) && !jugadorAux.getCartas2().get(0).getTipoCarta().equals("Inmunizado")) {
-                                                existeJp = true;
-                                            }
-                                            if (!jugadorAux.getCartas3().isEmpty() && !jugadorAux.getCartas3().get(0).getColor().equals(aux2.getColor()) && !jugadorAux.getCartas3().get(0).getTipoCarta().equals("Inmunizado")) {
-                                                existeJp = true;
-                                            }
-                                            if (!jugadorAux.getCartas4().isEmpty() && !jugadorAux.getCartas4().get(0).getColor().equals(aux2.getColor()) && !jugadorAux.getCartas4().get(0).getTipoCarta().equals("Inmunizado")) {
-                                                existeJp = true;
-                                            }
-                                            if (!jugadorAux.getCartas5().isEmpty() && !jugadorAux.getCartas5().get(0).getColor().equals(aux2.getColor()) && !jugadorAux.getCartas5().get(0).getTipoCarta().equals("Inmunizado")) {
-                                                existeJp = true;
+                                            } else {
+                                                if (!jugadorAux.getCartas1().isEmpty() && !jugadorAux.getCartas1().get(0).getColor().equals(aux2.getColor())) {
+                                                    existeJp = true;
+                                                }
+                                                if (!jugadorAux.getCartas2().isEmpty() && !jugadorAux.getCartas2().get(0).getColor().equals(aux2.getColor())) {
+                                                    existeJp = true;
+                                                }
+                                                if (!jugadorAux.getCartas3().isEmpty() && !jugadorAux.getCartas3().get(0).getColor().equals(aux2.getColor())) {
+                                                    existeJp = true;
+                                                }
+                                                if (!jugadorAux.getCartas4().isEmpty() && !jugadorAux.getCartas4().get(0).getColor().equals(aux2.getColor())) {
+                                                    existeJp = true;
+                                                }
+                                                if (!jugadorAux.getCartas5().isEmpty() && !jugadorAux.getCartas5().get(0).getColor().equals(aux2.getColor())) {
+                                                    existeJp = true;
+                                                }
                                             }
                                         }
-
+                                        
                                         Boolean existeJn = false;
-                                        if (aux1.getTipoCarta().equals("Organo_Comodin")) {
-                                            existeJn = true;
-                                        } else {
-                                            System.out.println("entro 7--");
-                                            if (!jugadorAux2.getCartas1().isEmpty() && !jugadorAux2.getCartas1().get(0).getColor().equals(aux1.getColor()) && !jugadorAux2.getCartas1().get(0).getTipoCarta().equals("Inmunizado")) {
+                                        if (aux1.getEstado().equals("Inmunizado")) {
+                                            if (aux1.getTipoCarta().equals("Organo_Comodin")) {
                                                 existeJn = true;
-                                            }
-                                            if (!jugadorAux2.getCartas2().isEmpty() && !jugadorAux2.getCartas2().get(0).getColor().equals(aux1.getColor()) && !jugadorAux2.getCartas2().get(0).getTipoCarta().equals("Inmunizado")) {
-                                                existeJn = true;
-                                            }
-                                            if (!jugadorAux2.getCartas3().isEmpty() && !jugadorAux2.getCartas3().get(0).getColor().equals(aux1.getColor()) && !jugadorAux2.getCartas3().get(0).getTipoCarta().equals("Inmunizado")) {
-                                                existeJn = true;
-                                            }
-                                            if (!jugadorAux2.getCartas4().isEmpty() && !jugadorAux2.getCartas4().get(0).getColor().equals(aux1.getColor()) && !jugadorAux2.getCartas4().get(0).getTipoCarta().equals("Inmunizado")) {
-                                                existeJn = true;
-                                            }
-                                            if (!jugadorAux2.getCartas5().isEmpty() && !jugadorAux2.getCartas5().get(0).getColor().equals(aux1.getColor()) && !jugadorAux2.getCartas5().get(0).getTipoCarta().equals("Inmunizado")) {
-                                                existeJn = true;
+                                            } else {
+                                                System.out.println("entro 7--");
+                                                if (!jugadorAux2.getCartas1().isEmpty() && !jugadorAux2.getCartas1().get(0).getColor().equals(aux1.getColor()) && !jugadorAux2.getCartas1().get(0).getTipoCarta().equals("Inmunizado")) {
+                                                    existeJn = true;
+                                                }
+                                                if (!jugadorAux2.getCartas2().isEmpty() && !jugadorAux2.getCartas2().get(0).getColor().equals(aux1.getColor()) && !jugadorAux2.getCartas2().get(0).getTipoCarta().equals("Inmunizado")) {
+                                                    existeJn = true;
+                                                }
+                                                if (!jugadorAux2.getCartas3().isEmpty() && !jugadorAux2.getCartas3().get(0).getColor().equals(aux1.getColor()) && !jugadorAux2.getCartas3().get(0).getTipoCarta().equals("Inmunizado")) {
+                                                    existeJn = true;
+                                                }
+                                                if (!jugadorAux2.getCartas4().isEmpty() && !jugadorAux2.getCartas4().get(0).getColor().equals(aux1.getColor()) && !jugadorAux2.getCartas4().get(0).getTipoCarta().equals("Inmunizado")) {
+                                                    existeJn = true;
+                                                }
+                                                if (!jugadorAux2.getCartas5().isEmpty() && !jugadorAux2.getCartas5().get(0).getColor().equals(aux1.getColor()) && !jugadorAux2.getCartas5().get(0).getTipoCarta().equals("Inmunizado")) {
+                                                    existeJn = true;
+                                                }
                                             }
                                         }
                                         if (!existeJn || !existeJp) {
                                             System.out.println("entro 8--");
-                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
+                                            padre1 = "";
+                                            padre2 = "";
+                                            hijo1 = "";
+                                            hijo2 = "";
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Estos órganos no pueden ser intercambiados");
                                         } else {
                                             System.out.println("entro 9--");
                                             padre1 = "";
@@ -616,7 +621,7 @@ public class JuegoController extends Controller implements Initializable {
             ms.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");
         }
     };
-
+    
     public Integer padreBox(String box) {
         switch (box) {
             case "hvox":
@@ -635,7 +640,7 @@ public class JuegoController extends Controller implements Initializable {
                 return null;
         }
     }
-
+    
     public String padreBox(int i) {
         switch (i) {
             case 0:
@@ -654,7 +659,7 @@ public class JuegoController extends Controller implements Initializable {
                 return "";
         }
     }
-
+    
     public int indexJugador(String variableU) {
         int variable = 0;
         switch (variableU) {
@@ -679,7 +684,7 @@ public class JuegoController extends Controller implements Initializable {
         }
         return variable;
     }
-
+    
     void moveLadron(String padre, String hijo, ArrayList<CartaDto> cartas) {
         if (!cartas.isEmpty()) {
             if (!cartas.get(0).getEstado().equals("Inmunizado")) {
@@ -707,12 +712,12 @@ public class JuegoController extends Controller implements Initializable {
             } else {
                 new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes robar órganos inmunizados");
             }
-
+            
         } else {
             new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta pila no posee cartas en ella.");
         }
     }
-
+    
     EventHandler<MouseEvent> seleccionarCarta = event -> {
         if (!findePartida) {
             jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
@@ -761,17 +766,17 @@ public class JuegoController extends Controller implements Initializable {
                     Mensaje ms = new Mensaje();
                     ms.show(Alert.AlertType.WARNING, "Información de Juego", "Espera a tu turno");
                 }
-
+                
             }
         } else {
             Mensaje ms = new Mensaje();
             ms.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");
         }
     };
-
+    
     String hijo = "";
     VBox boxVacio = null;
-
+    
     private void movimientoAdvXJug(String padre) {
         if (cartaAux.getTipoCarta().equals("Virus")
                 || cartaAux.getTipoCarta().equals("Virus_Comodin") && !modoTratamiento) {
@@ -783,17 +788,17 @@ public class JuegoController extends Controller implements Initializable {
                 Mensaje ms = new Mensaje();
                 ms.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes poner tu carta en este lugar.");
             }
-
+            
         }
     }
-
+    
     private void movimiento(String padre, String hijo) {
-
+        
         enviarCartaJuegoSocket("movimientoJugador", padre, hijo, jugador.getIP());
         modoOrgano = true;
         unSoloOrgano = true;
     }
-
+    
     private void noVirus(String padre, String hijo) {
         if (!cartaAux.getTipoCarta().equals("Virus") && !cartaAux.getTipoCarta().equals("Virus_Comodin")) {
             //movimientoInmune(hijo, padre, "propio", "");
@@ -802,7 +807,7 @@ public class JuegoController extends Controller implements Initializable {
             new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No puedes poner un virus en tus propias cartas");
         }
     }
-
+    
     private Boolean virus(CartaDto carta) {
         return carta.getTipoCarta().equals("Virus") || carta.getTipoCarta().equals("Virus_Comodin");
     }
@@ -823,7 +828,7 @@ public class JuegoController extends Controller implements Initializable {
         }
         return i;
     }
-
+    
     private ArrayList<CartaDto> cartasRival(JugadorDto rival, Integer indice) {
         switch (indice) {
             case 0:
@@ -840,7 +845,7 @@ public class JuegoController extends Controller implements Initializable {
                 return null;
         }
     }
-
+    
     private void movimientoContrario(String padre) {
         if (!findePartida) {
             if (!unSoloOrgano) {
@@ -907,7 +912,7 @@ public class JuegoController extends Controller implements Initializable {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
                                     } else {
                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "Movimiento no permitido");
-
+                                        
                                     }
                                 }
                             } else {
@@ -992,7 +997,7 @@ public class JuegoController extends Controller implements Initializable {
             msj.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");//.l.
         }
     }
-
+    
     private void movimiento(String padre) {
         if (!findePartida) {
             if (!unSoloOrgano) {
@@ -1069,7 +1074,7 @@ public class JuegoController extends Controller implements Initializable {
                             } else {//Cualquier otro movimiento
                                 switch (hijo) {
                                     case "0":
-
+                                        
                                         if (!jugador.getCartas1().isEmpty()
                                                 && !jugador.getCartas1().get(0).getEstado().equals("Inmunizado")
                                                 && (jugador.getCartas1().get(0).getColor().equals(cartaAux.getColor())
@@ -1093,7 +1098,7 @@ public class JuegoController extends Controller implements Initializable {
                                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
                                                     } else {
                                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
-
+                                                        
                                                     }
                                                 }
                                             } else {
@@ -1152,7 +1157,7 @@ public class JuegoController extends Controller implements Initializable {
                                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
                                                     } else {
                                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
-
+                                                        
                                                     }
                                                 }
                                             } else {
@@ -1160,7 +1165,7 @@ public class JuegoController extends Controller implements Initializable {
                                             }
                                         }
                                         break;
-
+                                    
                                     case "3":
                                         if (!jugador.getCartas4().isEmpty()
                                                 && !jugador.getCartas4().get(0).getEstado().equals("Inmunizado")
@@ -1190,7 +1195,7 @@ public class JuegoController extends Controller implements Initializable {
                                             }
                                         }
                                         break;
-
+                                    
                                     case "4":
                                         if (!jugador.getCartas5().isEmpty()
                                                 && !jugador.getCartas5().get(0).getEstado().equals("Inmunizado")
@@ -1213,7 +1218,7 @@ public class JuegoController extends Controller implements Initializable {
                                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
                                                     } else {
                                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
-
+                                                        
                                                     }
                                                 }
                                             } else {
@@ -1242,18 +1247,18 @@ public class JuegoController extends Controller implements Initializable {
                 Mensaje msj = new Mensaje();
                 msj.show(Alert.AlertType.WARNING, "Información de Juego", "No puedes agregar un órgano si has agregado uno previamente");//.l.
             }
-
+            
         } else {
             Mensaje msj = new Mensaje();
             msj.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");
         }
     }
-
+    
     @Override
     public void initialize() {
-
+        
     }
-
+    
     public static void ObtenerCarta(String IP_Servidor) {
         try {
             Socket socket = new Socket(IP_Servidor, 44440);
@@ -1274,7 +1279,7 @@ public class JuegoController extends Controller implements Initializable {
                 ObjectOutputStream objectoutputstream = new ObjectOutputStream(outputstream);
                 objectoutputstream.writeObject(partida.getDesechadas());
                 carta = (CartaDto) objectInputStream.readObject();
-
+                
                 socket = new Socket(IP_Servidor, 44440);
                 mensaje = new DataOutputStream(socket.getOutputStream());
                 DataInputStream respuesta = new DataInputStream(socket.getInputStream());
@@ -1298,7 +1303,7 @@ public class JuegoController extends Controller implements Initializable {
                 image9.setImage(new Image("virus/resources/" + carta.getImagen()));
                 carta3 = carta;
             }
-
+            
             jugador.getMazo().add(carta);
 
             //Cerramos la conexión
@@ -1311,7 +1316,7 @@ public class JuegoController extends Controller implements Initializable {
             System.out.println(e);
         }
     }
-
+    
     @FXML
     private void CartaDesechada(MouseEvent event) {
         if (!findePartida) {
@@ -1403,7 +1408,7 @@ public class JuegoController extends Controller implements Initializable {
             ms.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");
         }
     }
-
+    
     public void movimientoTransplante() {
         transplante = true;
         if (partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugador.getIP())).
@@ -1438,7 +1443,7 @@ public class JuegoController extends Controller implements Initializable {
             }).filter((jug) -> (!jug.getCartas4().isEmpty() && !jug.getCartas4().get(0).getEstado().equals("Inmunizado"))).forEachOrdered((JugadorDto jug) -> {
                 cartasJug.add(jug.getCartas4().get(0));
             });
-
+            
             ArrayList<CartaDto> cartasPropias = new ArrayList<>();
             if (!jugador.getCartas1().isEmpty()) {
                 cartasPropias.add(jugador.getCartas1().get(0));
@@ -1481,7 +1486,7 @@ public class JuegoController extends Controller implements Initializable {
                     }
                 }
             }
-
+            
             Boolean existeJn = false;
             for (CartaDto carta : cartasJug) {
                 if (!existeJn) {
@@ -1506,7 +1511,7 @@ public class JuegoController extends Controller implements Initializable {
                     }
                 }
             }
-
+            
             if (!existeJn || !existeJp) {
                 transplante = false;
                 new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
@@ -1516,7 +1521,7 @@ public class JuegoController extends Controller implements Initializable {
             }
         }
     }
-
+    
     public void errorMedicoMetodo() {
         errorMedico = true;
         if (partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugador.getIP())).
@@ -1529,7 +1534,7 @@ public class JuegoController extends Controller implements Initializable {
             new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Error Médico, selecciona el mazo de un jugador");
         }
     }
-
+    
     private void movientoLadron() {
         ladron = true;
         if (!jugador.getCartas1().isEmpty() && !jugador.getCartas2().isEmpty() && !jugador.getCartas3().isEmpty() && !jugador.getCartas4().isEmpty() && !jugador.getCartas5().isEmpty()) {
@@ -1544,7 +1549,7 @@ public class JuegoController extends Controller implements Initializable {
                 new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
             } else {
                 ArrayList<JugadorDto> jugadores = (ArrayList<JugadorDto>) partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugador.getIP())).collect(Collectors.toList());
-
+                
                 ArrayList<CartaDto> cartasJug = new ArrayList();
                 jugadores.stream().map((jug) -> {
                     if (!jug.getCartas1().isEmpty() && !jug.getCartas1().get(0).getEstado().equals("Inmunizado")) {
@@ -1569,7 +1574,7 @@ public class JuegoController extends Controller implements Initializable {
                 }).filter((jug) -> (!jug.getCartas4().isEmpty() && !jug.getCartas4().get(0).getEstado().equals("Inmunizado"))).forEachOrdered((jug) -> {
                     cartasJug.add(jug.getCartas4().get(0));
                 });
-
+                
                 Boolean existe = false;
                 for (CartaDto carta : cartasJug) {
                     if (!existe) {
@@ -1594,7 +1599,7 @@ public class JuegoController extends Controller implements Initializable {
                         }
                     }
                 }
-
+                
                 if (!existe) {
                     ladron = false;
                     new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
@@ -1602,12 +1607,12 @@ public class JuegoController extends Controller implements Initializable {
                     Mensaje ms = new Mensaje();
                     ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Estás en modo ladron, selecciona el órgano de otro jugador");
                 }
-
+                
             }
-
+            
         }
     }
-
+    
     public void desecharCarta(String Mensaje) {
         try {
             Socket socket = new Socket(jugador.getIPS(), 44440);
@@ -1617,7 +1622,7 @@ public class JuegoController extends Controller implements Initializable {
             String mensajeRecibido = "";
             mensajeRecibido = entrada.readUTF();
             socket.close();
-
+            
             Socket socket2 = new Socket(jugador.getIPS(), 44440);
             OutputStream outputStream = socket2.getOutputStream();
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
@@ -1636,7 +1641,7 @@ public class JuegoController extends Controller implements Initializable {
             System.out.println(e.getMessage());
         }
     }
-
+    
     public void enviarCartaJuegoSocket(String Mensaje, String padre, String hijo, String IP) {
         try {
             Socket socket = new Socket(jugador.getIPS(), 44440);
@@ -1686,7 +1691,7 @@ public class JuegoController extends Controller implements Initializable {
             mensajeRecibido = entrada.readUTF();
             System.out.println(mensajeRecibido);
             socket.close();
-
+            
             Socket socket2 = new Socket(jugador.getIPS(), 44440);
             System.out.println("Connected Text!");
             DataOutputStream mensaje2 = new DataOutputStream(socket2.getOutputStream());
@@ -1695,13 +1700,13 @@ public class JuegoController extends Controller implements Initializable {
             mensaje2.writeUTF(IP);
             System.out.println("Mensjaes enviados");
             socket2.close();
-
+            
             ladron = false;
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
-
+    
     public void movimientoTransplanteSocket(String padre1, String hijo1, String padre2, String hijo2) {
         try {
             Socket socket = new Socket(jugador.getIPS(), 44440);
@@ -1713,7 +1718,7 @@ public class JuegoController extends Controller implements Initializable {
             mensajeRecibido = entrada.readUTF();
             System.out.println(mensajeRecibido);
             socket.close();
-
+            
             Socket socket2 = new Socket(jugador.getIPS(), 44440);
             System.out.println("Connected Text!");
             DataOutputStream mensaje2 = new DataOutputStream(socket2.getOutputStream());
@@ -1723,13 +1728,13 @@ public class JuegoController extends Controller implements Initializable {
             mensaje2.writeUTF(hijo2);
             System.out.println("Mensajes enviados");
             socket2.close();
-
+            
             ladron = false;
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
-
+    
     private void enviarCartaErrorMedicoSocket(String Mensaje, String padre) {
         try {
             Socket socket = new Socket(jugador.getIPS(), 44440);
@@ -1741,20 +1746,20 @@ public class JuegoController extends Controller implements Initializable {
             mensajeRecibido = entrada.readUTF();
             System.out.println(mensajeRecibido);
             socket.close();
-
+            
             Socket socket2 = new Socket(jugador.getIPS(), 44440);
             System.out.println("Connected Text!");
             DataOutputStream mensaje2 = new DataOutputStream(socket2.getOutputStream());
             mensaje2.writeUTF(padre);
             System.out.println("Mensjaes enviados");
             socket2.close();
-
+            
             errorMedico = false;
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
-
+    
     public void cambiarTurnoAux() {
         if (!findePartida) {
             if (jugador.getTurno()) {
@@ -1779,7 +1784,7 @@ public class JuegoController extends Controller implements Initializable {
                         modoTratamiento = false;
                         jugador.setTurno(false);
                         transplante = false;
-
+                        
                         vBox.getStyleClass().clear();
                         vBox.getStyleClass().add("hVoxActivo");
                         vBox2.getStyleClass().clear();
@@ -1802,7 +1807,7 @@ public class JuegoController extends Controller implements Initializable {
             ms.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");
         }
     }
-
+    
     @FXML
     private void CartadeMazo(MouseEvent event) {
         if (!findePartida) {

@@ -363,61 +363,66 @@ public class JuegoController extends Controller implements Initializable {
             jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
             if (jugador.getTurno()) {
                 if (!ladron && !errorMedico && !transplante) {
-                    if (cartaAux != null) {
-                        JugadorDto jugadorAux = partida.getJugadores().stream().
-                                filter(x -> x.getIP().equals(jugador.getIP())).findAny().get();
-                        int i = partida.getJugadores().indexOf(jugadorAux);
+                    if (!modoTratamiento) {
+                        if (cartaAux != null) {
+                            JugadorDto jugadorAux = partida.getJugadores().stream().
+                                    filter(x -> x.getIP().equals(jugador.getIP())).findAny().get();
+                            int i = partida.getJugadores().indexOf(jugadorAux);
 
-                        paneAuxiliar = (Pane) event.getSource();
-                        String padre = paneAuxiliar.getParent().getId();
-                        switch (i) {
-                            case 0:
-                                if (padre.equals("hvox")) {//cuando es su propio movimiento
-                                    movimiento(padre);
-                                } else {
-                                    movimientoAdvXJug(padre);//cuando es un movimiento hacia el enemigo
-                                }
-                                break;
-                            case 1:
-                                if (padre.equals("hvox2")) {
-                                    movimiento(padre);
-                                } else {
-                                    movimientoAdvXJug(padre);
-                                }
-                                break;
+                            paneAuxiliar = (Pane) event.getSource();
+                            String padre = paneAuxiliar.getParent().getId();
+                            switch (i) {
+                                case 0:
+                                    if (padre.equals("hvox")) {//cuando es su propio movimiento
+                                        movimiento(padre);
+                                    } else {
+                                        movimientoAdvXJug(padre);//cuando es un movimiento hacia el enemigo
+                                    }
+                                    break;
+                                case 1:
+                                    if (padre.equals("hvox2")) {
+                                        movimiento(padre);
+                                    } else {
+                                        movimientoAdvXJug(padre);
+                                    }
+                                    break;
 
-                            case 2:
-                                if (padre.equals("hvox3")) {
-                                    movimiento(padre);
-                                } else {
-                                    movimientoAdvXJug(padre);
-                                }
-                                break;
-                            case 3:
-                                if (padre.equals("hvox4")) {
-                                    movimiento(padre);
-                                } else {
-                                    movimientoAdvXJug(padre);
-                                }
-                                break;
-                            case 4:
-                                if (padre.equals("hvox5")) {
-                                    movimiento(padre);
-                                } else {
-                                    movimientoAdvXJug(padre);
-                                }
-                                break;
-                            case 5:
-                                if (padre.equals("hbox6")) {
-                                    movimiento(padre);
-                                } else {
-                                    movimientoAdvXJug(padre);
-                                }
-                                break;
+                                case 2:
+                                    if (padre.equals("hvox3")) {
+                                        movimiento(padre);
+                                    } else {
+                                        movimientoAdvXJug(padre);
+                                    }
+                                    break;
+                                case 3:
+                                    if (padre.equals("hvox4")) {
+                                        movimiento(padre);
+                                    } else {
+                                        movimientoAdvXJug(padre);
+                                    }
+                                    break;
+                                case 4:
+                                    if (padre.equals("hvox5")) {
+                                        movimiento(padre);
+                                    } else {
+                                        movimientoAdvXJug(padre);
+                                    }
+                                    break;
+                                case 5:
+                                    if (padre.equals("hbox6")) {
+                                        movimiento(padre);
+                                    } else {
+                                        movimientoAdvXJug(padre);
+                                    }
+                                    break;
+                            }
+                        } else {
+                            Mensaje msj = new Mensaje();
+                            msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
                         }
                     } else {
                         Mensaje msj = new Mensaje();
-                        msj.show(Alert.AlertType.WARNING, "Error con carta", "No has seleccionado la carta");
+                        msj.show(Alert.AlertType.WARNING, "Error con carta", "No puedes realizar este movimiento");
                     }
                 } else {//Movimiento de ladron o Error Medico o transplante
                     if (!transplante) {
@@ -481,9 +486,9 @@ public class JuegoController extends Controller implements Initializable {
                             hijo2 = hijo(padre2);
                             System.out.println("segundo órgano seleccionado en " + padre2);
                             JugadorDto jugadorAux = (partida.getJugadores().stream().filter(x -> x.getTurno()).findAny().get());
-                            System.out.println("INDICE JUG "+partida.getJugadores().indexOf(jugadorAux));
+                            System.out.println("INDICE JUG " + partida.getJugadores().indexOf(jugadorAux));
                             String hBoxJp = padreBox(partida.getJugadores().indexOf(jugadorAux));
-                            System.out.println("HBOXJP "+ hBoxJp);
+                            System.out.println("HBOXJP " + hBoxJp);
                             if (padre2.equals(padre1)) {
                                 padre1 = "";
                                 padre2 = "";
@@ -520,16 +525,11 @@ public class JuegoController extends Controller implements Initializable {
                                     hijo2Aux = Integer.valueOf(hijo1);
                                     System.out.println("entro 3--");
                                 }
-
+                                System.out.println("INDICE " + IndiceJugador2);
                                 JugadorDto jugadorAux2 = partida.getJugadores().get(IndiceJugador2);
-                                System.out.println("HIJO JUG1 "+ hijo1Aux);
-                                System.out.println("HIJO JUG2 "+ hijo2Aux);
                                 ArrayList<CartaDto> listaJug1 = cartasRival(jugadorAux, hijo1Aux);
                                 ArrayList<CartaDto> listaJug2 = cartasRival(jugadorAux2, hijo2Aux);
-                                System.out.println("listaJug1 "+ listaJug1.size());
-                                System.out.println("listaJug2 "+ listaJug2.size());
                                 if (!listaJug1.isEmpty() && !listaJug2.isEmpty()) {
-                                    System.out.println("entro 4--");
                                     CartaDto aux1 = listaJug1.get(0);
                                     CartaDto aux2 = listaJug2.get(0);
 
@@ -539,53 +539,66 @@ public class JuegoController extends Controller implements Initializable {
                                     } else {
                                         System.out.println("entro 6--");
                                         Boolean existeJp = false;
-                                        if (aux2.getTipoCarta().equals("Organo_Comodin")) {
-                                            existeJp = true;
-                                        } else {
-                                            if (!jugadorAux.getCartas1().isEmpty() && !jugadorAux.getCartas1().get(0).getColor().equals(aux2.getColor())) {
+
+                                        if (aux2.getEstado().equals("Inmunizado")) {
+                                            if (aux2.getTipoCarta().equals("Organo_Comodin")) {
                                                 existeJp = true;
-                                            }
-                                            if (!jugadorAux.getCartas2().isEmpty() && !jugadorAux.getCartas2().get(0).getColor().equals(aux2.getColor())) {
-                                                existeJp = true;
-                                            }
-                                            if (!jugadorAux.getCartas3().isEmpty() && !jugadorAux.getCartas3().get(0).getColor().equals(aux2.getColor())) {
-                                                existeJp = true;
-                                            }
-                                            if (!jugadorAux.getCartas4().isEmpty() && !jugadorAux.getCartas4().get(0).getColor().equals(aux2.getColor())) {
-                                                existeJp = true;
-                                            }
-                                            if (!jugadorAux.getCartas5().isEmpty() && !jugadorAux.getCartas5().get(0).getColor().equals(aux2.getColor())) {
-                                                existeJp = true;
+                                            } else {
+                                                if (!jugadorAux.getCartas1().isEmpty() && !jugadorAux.getCartas1().get(0).getColor().equals(aux2.getColor())) {
+                                                    existeJp = true;
+                                                }
+                                                if (!jugadorAux.getCartas2().isEmpty() && !jugadorAux.getCartas2().get(0).getColor().equals(aux2.getColor())) {
+                                                    existeJp = true;
+                                                }
+                                                if (!jugadorAux.getCartas3().isEmpty() && !jugadorAux.getCartas3().get(0).getColor().equals(aux2.getColor())) {
+                                                    existeJp = true;
+                                                }
+                                                if (!jugadorAux.getCartas4().isEmpty() && !jugadorAux.getCartas4().get(0).getColor().equals(aux2.getColor())) {
+                                                    existeJp = true;
+                                                }
+                                                if (!jugadorAux.getCartas5().isEmpty() && !jugadorAux.getCartas5().get(0).getColor().equals(aux2.getColor())) {
+                                                    existeJp = true;
+                                                }
                                             }
                                         }
 
                                         Boolean existeJn = false;
-                                        if (aux1.getTipoCarta().equals("Organo_Comodin")) {
-                                            existeJn = true;
-                                        } else {
-                                            System.out.println("entro 7--");
-                                            if (!jugadorAux2.getCartas1().isEmpty() && !jugadorAux2.getCartas1().get(0).getColor().equals(aux1.getColor())) {
+                                        if (aux1.getEstado().equals("Inmunizado")) {
+                                            if (aux1.getTipoCarta().equals("Organo_Comodin")) {
                                                 existeJn = true;
-                                            }
-                                            if (!jugadorAux2.getCartas2().isEmpty() && !jugadorAux2.getCartas2().get(0).getColor().equals(aux1.getColor())) {
-                                                existeJn = true;
-                                            }
-                                            if (!jugadorAux2.getCartas3().isEmpty() && !jugadorAux2.getCartas3().get(0).getColor().equals(aux1.getColor())) {
-                                                existeJn = true;
-                                            }
-                                            if (!jugadorAux2.getCartas4().isEmpty() && !jugadorAux2.getCartas4().get(0).getColor().equals(aux1.getColor())) {
-                                                existeJn = true;
-                                            }
-                                            if (!jugadorAux2.getCartas5().isEmpty() && !jugadorAux2.getCartas5().get(0).getColor().equals(aux1.getColor())) {
-                                                existeJn = true;
+                                            } else {
+                                                System.out.println("entro 7--");
+                                                if (!jugadorAux2.getCartas1().isEmpty() && !jugadorAux2.getCartas1().get(0).getColor().equals(aux1.getColor()) && !jugadorAux2.getCartas1().get(0).getTipoCarta().equals("Inmunizado")) {
+                                                    existeJn = true;
+                                                }
+                                                if (!jugadorAux2.getCartas2().isEmpty() && !jugadorAux2.getCartas2().get(0).getColor().equals(aux1.getColor()) && !jugadorAux2.getCartas2().get(0).getTipoCarta().equals("Inmunizado")) {
+                                                    existeJn = true;
+                                                }
+                                                if (!jugadorAux2.getCartas3().isEmpty() && !jugadorAux2.getCartas3().get(0).getColor().equals(aux1.getColor()) && !jugadorAux2.getCartas3().get(0).getTipoCarta().equals("Inmunizado")) {
+                                                    existeJn = true;
+                                                }
+                                                if (!jugadorAux2.getCartas4().isEmpty() && !jugadorAux2.getCartas4().get(0).getColor().equals(aux1.getColor()) && !jugadorAux2.getCartas4().get(0).getTipoCarta().equals("Inmunizado")) {
+                                                    existeJn = true;
+                                                }
+                                                if (!jugadorAux2.getCartas5().isEmpty() && !jugadorAux2.getCartas5().get(0).getColor().equals(aux1.getColor()) && !jugadorAux2.getCartas5().get(0).getTipoCarta().equals("Inmunizado")) {
+                                                    existeJn = true;
+                                                }
                                             }
                                         }
                                         if (!existeJn || !existeJp) {
                                             System.out.println("entro 8--");
-                                            transplante = false;
-                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
+                                            padre1 = "";
+                                            padre2 = "";
+                                            hijo1 = "";
+                                            hijo2 = "";
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Estos órganos no pueden ser intercambiados");
                                         } else {
                                             System.out.println("entro 9--");
+                                            padre1 = "";
+                                            padre2 = "";
+                                            hijo1 = "";
+                                            hijo2 = "";
+                                            transplante = false;
                                             movimientoTransplanteSocket(padreAux1, hijoAux1, padreAux2, hijoAux2);
                                         }
                                     }
@@ -634,17 +647,17 @@ public class JuegoController extends Controller implements Initializable {
 
     public String padreBox(int i) {
         switch (i) {
-            case 1:
+            case 0:
                 return "hvox";
-            case 2:
+            case 1:
                 return "hvox2";
-            case 3:
+            case 2:
                 return "hvox3";
-            case 4:
+            case 3:
                 return "hvox4";
-            case 5:
+            case 4:
                 return "hvox5";
-            case 6:
+            case 5:
                 return "hbox6";
             default:
                 return "";
@@ -1532,15 +1545,6 @@ public class JuegoController extends Controller implements Initializable {
             ladron = false;
             new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta carta no tendrá efecto porque no tienes campos disponibles");
         } else {
-            partida.getJugadores().stream().forEach((t) -> {
-                System.out.println("IP JUGADOR " + t.getIP());
-                System.out.println("1 " + t.getCartas1().size());
-                System.out.println("2 " + t.getCartas2().size());
-                System.out.println("3 " + t.getCartas3().size());
-                System.out.println("4 " + t.getCartas4().size());
-                System.out.println("5 " + t.getCartas5().size());
-            });
-
             if (partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugador.getIP())).
                     allMatch(x -> x.getCartas1().isEmpty()
                     && x.getCartas2().isEmpty() && x.getCartas3().isEmpty() && x.getCartas4().isEmpty()

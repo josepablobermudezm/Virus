@@ -539,8 +539,52 @@ public class JuegoController extends Controller implements Initializable {
                                     } else {
                                         System.out.println("entro 6--");
                                         Boolean existeJp = false;
-                                        int contador = 0;
-                                        if (aux2.getEstado().equals("Inmunizado")) {
+                                        if (!aux2.getEstado().equals("Inmunizado")
+                                                && (!jugadorAux.getCartas1().isEmpty() //Organo en los campos vacios
+                                                ? !aux2.getTipoCarta().equals(jugadorAux.getCartas1().get(0).getTipoCarta())
+                                                : true)
+                                                && (!jugadorAux.getCartas2().isEmpty()
+                                                ? !aux2.getTipoCarta().equals(jugadorAux.getCartas2().get(0).getTipoCarta())
+                                                : true)
+                                                && (!jugadorAux.getCartas3().isEmpty()
+                                                ? !aux2.getTipoCarta().equals(jugadorAux.getCartas3().get(0).getTipoCarta())
+                                                : true)
+                                                && (!jugadorAux.getCartas4().isEmpty()
+                                                ? !aux2.getTipoCarta().equals(jugadorAux.getCartas4().get(0).getTipoCarta())
+                                                : true)
+                                                && (!jugadorAux.getCartas5().isEmpty()
+                                                ? !aux2.getTipoCarta().equals(jugadorAux.getCartas5().get(0).getTipoCarta())
+                                                : true)) {
+                                            existeJp = true;
+                                        } else if (aux2.getTipoCarta().equals("Organo_Comodin")) {
+                                            existeJp = true;
+                                        }
+
+                                        Boolean existeJn = false;
+                                        if (!aux1.getEstado().equals("Inmunizado")
+                                                && (!jugadorAux2.getCartas1().isEmpty() //Organo en los campos vacios
+                                                ? !aux1.getTipoCarta().equals(jugadorAux2.getCartas1().get(0).getTipoCarta())
+                                                : true)
+                                                && (!jugadorAux2.getCartas2().isEmpty()
+                                                ? !aux1.getTipoCarta().equals(jugadorAux2.getCartas2().get(0).getTipoCarta())
+                                                : true)
+                                                && (!jugadorAux2.getCartas3().isEmpty()
+                                                ? !aux1.getTipoCarta().equals(jugadorAux2.getCartas3().get(0).getTipoCarta())
+                                                : true)
+                                                && (!jugadorAux2.getCartas4().isEmpty()
+                                                ? !aux1.getTipoCarta().equals(jugadorAux2.getCartas4().get(0).getTipoCarta())
+                                                : true)
+                                                && (!jugadorAux2.getCartas5().isEmpty()
+                                                ? !aux1.getTipoCarta().equals(jugadorAux2.getCartas5().get(0).getTipoCarta())
+                                                : true)) {
+                                            existeJn = true;
+                                        } else if (aux1.getTipoCarta().equals("Organo_Comodin")) {
+                                            existeJn = true;
+                                        }
+
+
+                                        /*int contador = 0;
+                                        if (!aux2.getEstado().equals("Inmunizado")) {
                                             if (aux2.getTipoCarta().equals("Organo_Comodin")) {
                                                 existeJp = true;
                                             } else {
@@ -584,10 +628,8 @@ public class JuegoController extends Controller implements Initializable {
 
                                         if (contador == 5) {
                                             existeJp = true;
-                                        }
-
-                                        Boolean existeJn = false;
-                                        int contador2 = 0;
+                                        }*/
+ /*int contador2 = 0;
                                         if (aux1.getEstado().equals("Inmunizado")) {
                                             if (aux1.getTipoCarta().equals("Organo_Comodin")) {
                                                 existeJn = true;
@@ -632,8 +674,7 @@ public class JuegoController extends Controller implements Initializable {
 
                                         if (contador2 == 5) {
                                             existeJn = true;
-                                        }
-
+                                        }*/
                                         System.out.println("EXISTE JN " + existeJn);
                                         System.out.println("EXISTE JP " + existeJp);
                                         if (!existeJn || !existeJp) {
@@ -1518,7 +1559,27 @@ public class JuegoController extends Controller implements Initializable {
             Boolean existeJp = false;
             for (CartaDto carta : cartasPropias) {
                 for (JugadorDto jugadorAux : jugadores) {
-                    int contador = 0;
+                    if (!carta.getEstado().equals("Inmunizado")
+                            && (!jugadorAux.getCartas1().isEmpty() //Organo en los campos vacios
+                            ? !carta.getTipoCarta().equals(jugadorAux.getCartas1().get(0).getTipoCarta())
+                            : true)
+                            && (!jugadorAux.getCartas2().isEmpty()
+                            ? !carta.getTipoCarta().equals(jugadorAux.getCartas2().get(0).getTipoCarta())
+                            : true)
+                            && (!jugadorAux.getCartas3().isEmpty()
+                            ? !carta.getTipoCarta().equals(jugadorAux.getCartas3().get(0).getTipoCarta())
+                            : true)
+                            && (!jugadorAux.getCartas4().isEmpty()
+                            ? !carta.getTipoCarta().equals(jugadorAux.getCartas4().get(0).getTipoCarta())
+                            : true)
+                            && (!jugador.getCartas5().isEmpty()
+                            ? !carta.getTipoCarta().equals(jugador.getCartas5().get(0).getTipoCarta())
+                            : true)) {
+                        existeJp = true;
+                    } else if (carta.getTipoCarta().equals("Organo_Comodin")) {
+                        existeJp = true;
+                    }
+                    /*int contador = 0;
                     if (carta.getEstado().equals("Inmunizado")) {
                         if (carta.getTipoCarta().equals("Organo_Comodin")) {
                             existeJp = true;
@@ -1563,9 +1624,9 @@ public class JuegoController extends Controller implements Initializable {
 
                     if (contador == 5) {
                         existeJp = true;
-                    }
+                    }*/
 
-                    /* if (carta.getTipoCarta().equals("Organo_Comodin")) {
+ /* if (carta.getTipoCarta().equals("Organo_Comodin")) {
                             existeJp = true;
                         } else {
                             if (!jugadorAux.getCartas1().isEmpty() && !jugadorAux.getCartas1().get(0).getColor().equals(carta.getColor())) {
@@ -1589,6 +1650,27 @@ public class JuegoController extends Controller implements Initializable {
 
             Boolean existeJn = false;
             for (CartaDto carta : cartasJug) {
+                if (!carta.getEstado().equals("Inmunizado")
+                        && (!jugador.getCartas1().isEmpty() //Organo en los campos vacios
+                        ? !carta.getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta())
+                        : true)
+                        && (!jugador.getCartas2().isEmpty()
+                        ? !carta.getTipoCarta().equals(jugador.getCartas2().get(0).getTipoCarta())
+                        : true)
+                        && (!jugador.getCartas3().isEmpty()
+                        ? !carta.getTipoCarta().equals(jugador.getCartas3().get(0).getTipoCarta())
+                        : true)
+                        && (!jugador.getCartas4().isEmpty()
+                        ? !carta.getTipoCarta().equals(jugador.getCartas4().get(0).getTipoCarta())
+                        : true)
+                        && (!jugador.getCartas5().isEmpty()
+                        ? !carta.getTipoCarta().equals(jugador.getCartas5().get(0).getTipoCarta())
+                        : true)) {
+                    existeJn = true;
+                } else if (carta.getTipoCarta().equals("Organo_Comodin")) {
+                    existeJn = true;
+                }
+                /*
                 int contador = 0;
                 if (carta.getEstado().equals("Inmunizado")) {
                     if (carta.getTipoCarta().equals("Organo_Comodin")) {
@@ -1634,9 +1716,9 @@ public class JuegoController extends Controller implements Initializable {
 
                 if (contador == 5) {
                     existeJn = true;
-                }
+                }*/
 
-                /*if (carta.getTipoCarta().equals("Organo_Comodin")) {
+ /*if (carta.getTipoCarta().equals("Organo_Comodin")) {
                         existeJn = true;
                     } else {
                         if (!jugador.getCartas1().isEmpty() && !jugador.getCartas1().get(0).getColor().equals(carta.getColor())) {
@@ -1722,7 +1804,28 @@ public class JuegoController extends Controller implements Initializable {
 
                 Boolean existe = false;
                 for (CartaDto carta : cartasJug) {
-                    int contador = 0;
+                    if (!carta.getEstado().equals("Inmunizado")
+                            && (!jugador.getCartas1().isEmpty() //Organo en los campos vacios
+                            ? !carta.getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta())
+                            : true)
+                            && (!jugador.getCartas2().isEmpty()
+                            ? !carta.getTipoCarta().equals(jugador.getCartas2().get(0).getTipoCarta())
+                            : true)
+                            && (!jugador.getCartas3().isEmpty()
+                            ? !carta.getTipoCarta().equals(jugador.getCartas3().get(0).getTipoCarta())
+                            : true)
+                            && (!jugador.getCartas4().isEmpty()
+                            ? !carta.getTipoCarta().equals(jugador.getCartas4().get(0).getTipoCarta())
+                            : true)
+                            && (!jugador.getCartas5().isEmpty()
+                            ? !carta.getTipoCarta().equals(jugador.getCartas5().get(0).getTipoCarta())
+                            : true)) {
+                        existe = true;
+                    } else if (carta.getTipoCarta().equals("Organo_Comodin")) {
+                        existe = true;
+                    }
+
+                    /*int contador = 0;
                     if (carta.getEstado().equals("Inmunizado")) {
                         if (carta.getTipoCarta().equals("Organo_Comodin")) {
                             existe = true;
@@ -1767,9 +1870,9 @@ public class JuegoController extends Controller implements Initializable {
 
                     if (contador == 5) {
                         existe = true;
-                    }
+                    }*/
 
-                    /*if (carta.getTipoCarta().equals("Organo_Comodin")) {
+ /*if (carta.getTipoCarta().equals("Organo_Comodin")) {
                             existe = true;
                         } else {
                             if (!jugador.getCartas1().isEmpty() && !jugador.getCartas1().get(0).getColor().equals(carta.getColor())) {

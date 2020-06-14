@@ -520,7 +520,6 @@ public class JuegoController extends Controller implements Initializable {
                                     hijo2Aux = Integer.valueOf(hijo1);
                                     System.out.println("entro 3--");
                                 }
-                                
                                 System.out.println("INDICE "+ IndiceJugador2);
                                 JugadorDto jugadorAux2 = partida.getJugadores().get(IndiceJugador2);
                                 ArrayList<CartaDto> listaJug1 = cartasRival(jugadorAux, hijo1Aux);

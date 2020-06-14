@@ -542,7 +542,14 @@ public class Hilo_Peticiones extends Thread {
                             System.out.println("CARTA JUGADOR 1 "+ cartas1.get(0).getTipoCarta()+" INDICE "+ jugador1+ " HIJO "+ hijo1Aux);
                             cartas2 = cartas(partidaDto.getJugadores().get(jugador2), hijo2Aux);
                             System.out.println("CARTA JUGADOR 2 "+ cartas2.get(0).getTipoCarta()+ " INDICE "+ jugador2+ " HIJO "+ hijo2Aux);
-
+                            System.out.println("SIN CAMBIAR");
+                            ArrayList <CartaDto> cartasAux = new ArrayList();
+                            cartas2.stream().forEach((t) -> {
+                                cartasAux.add(t);
+                            });
+                            /*cartas1.stream().forEach(x->{
+                                System.out.println(x.getTipoCarta());
+                            });*/
                             switch (hijo1Aux) {
                                 case 0:
                                     partidaDto.getJugadores().get(jugador1).getCartas1().clear();
@@ -569,23 +576,23 @@ public class Hilo_Peticiones extends Thread {
                             switch (hijo2Aux) {
                                 case 0:
                                     partidaDto.getJugadores().get(jugador2).getCartas1().clear();
-                                    partidaDto.getJugadores().get(jugador2).getCartas1().addAll(cartas1);
+                                    partidaDto.getJugadores().get(jugador2).getCartas1().addAll(cartasAux);
                                     break;
                                 case 1:
                                     partidaDto.getJugadores().get(jugador2).getCartas2().clear();
-                                    partidaDto.getJugadores().get(jugador2).getCartas2().addAll(cartas1);
+                                    partidaDto.getJugadores().get(jugador2).getCartas2().addAll(cartasAux);
                                     break;
                                 case 2:
                                     partidaDto.getJugadores().get(jugador2).getCartas3().clear();
-                                    partidaDto.getJugadores().get(jugador2).getCartas3().addAll(cartas1);
+                                    partidaDto.getJugadores().get(jugador2).getCartas3().addAll(cartasAux);
                                     break;
                                 case 3:
                                     partidaDto.getJugadores().get(jugador2).getCartas4().clear();
-                                    partidaDto.getJugadores().get(jugador2).getCartas4().addAll(cartas1);
+                                    partidaDto.getJugadores().get(jugador2).getCartas4().addAll(cartasAux);
                                     break;
                                 case 4:
                                     partidaDto.getJugadores().get(jugador2).getCartas5().clear();
-                                    partidaDto.getJugadores().get(jugador2).getCartas5().addAll(cartas1);
+                                    partidaDto.getJugadores().get(jugador2).getCartas5().addAll(cartasAux);
                                     break;
                             }
                             

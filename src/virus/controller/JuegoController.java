@@ -474,10 +474,12 @@ public class JuegoController extends Controller implements Initializable {
                             paneAuxiliar = (Pane) event.getSource();
                             padre1 = paneAuxiliar.getParent().getId();
                             hijo1 = hijo(padre1);
+                            System.out.println("primer órgano seleccionado en " + padre1);
                         } else {
                             paneAuxiliar = (Pane) event.getSource();
                             padre2 = paneAuxiliar.getParent().getId();
                             hijo2 = hijo(padre2);
+                            System.out.println("segundo órgano seleccionado en " + padre2);
                             JugadorDto jugadorAux = (partida.getJugadores().stream().filter(x -> x.getTurno()).findAny().get());
                             String hBoxJp = padreBox(partida.getJugadores().indexOf(jugadorAux));
                             if (padre2.equals(padre1)) {
@@ -486,7 +488,7 @@ public class JuegoController extends Controller implements Initializable {
                                 hijo1 = "";
                                 hijo2 = "";
                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puede seleccionar al mismo jugador dos veces, seleccione  de nuevo");
-                            } else if (padre1.equals(hBoxJp) || padre2.equals(hBoxJp)) {
+                            } else if ((padre1.equals(hBoxJp) || padre2.equals(hBoxJp))) {
                                 Integer IndiceJugador2 = 0;
                                 Integer hijo1Aux = 0;
                                 Integer hijo2Aux = 0;
@@ -494,6 +496,8 @@ public class JuegoController extends Controller implements Initializable {
                                 String padreAux2 = "";
                                 String hijoAux1 = "";
                                 String hijoAux2 = "";
+
+                                System.out.println("entro 1--");
 
                                 if (padre1.equals(hBoxJp)) {
                                     padreAux1 = padre1;
@@ -503,6 +507,7 @@ public class JuegoController extends Controller implements Initializable {
                                     IndiceJugador2 = padreBox(padre2);
                                     hijo1Aux = Integer.valueOf(hijo1);
                                     hijo2Aux = Integer.valueOf(hijo2);
+                                    System.out.println("entro 2--");
                                 } else if (padre2.equals(hBoxJp)) {
                                     padreAux1 = padre2;
                                     padreAux2 = padre1;
@@ -511,6 +516,7 @@ public class JuegoController extends Controller implements Initializable {
                                     IndiceJugador2 = padreBox(padre1);
                                     hijo1Aux = Integer.valueOf(hijo2);
                                     hijo2Aux = Integer.valueOf(hijo1);
+                                    System.out.println("entro 3--");
                                 }
 
                                 JugadorDto jugadorAux2 = partida.getJugadores().get(IndiceJugador2);
@@ -519,13 +525,15 @@ public class JuegoController extends Controller implements Initializable {
                                 ArrayList<CartaDto> listaJug2 = cartasRival(jugadorAux2, hijo2Aux);
 
                                 if (!listaJug1.isEmpty() && !listaJug2.isEmpty()) {
-
+                                    System.out.println("entro 4--");
                                     CartaDto aux1 = listaJug1.get(0);
                                     CartaDto aux2 = listaJug2.get(0);
 
                                     if (aux2.getColor().equals(aux1.getColor())) {
                                         movimientoTransplanteSocket(padreAux1, hijoAux1, padreAux2, hijoAux2);
+                                        System.out.println("entro 5--");
                                     } else {
+                                        System.out.println("entro 6--");
                                         Boolean existeJp = false;
                                         if (aux2.getTipoCarta().equals("Organo_Comodin")) {
                                             existeJp = true;
@@ -551,6 +559,7 @@ public class JuegoController extends Controller implements Initializable {
                                         if (aux1.getTipoCarta().equals("Organo_Comodin")) {
                                             existeJn = true;
                                         } else {
+                                            System.out.println("entro 7--");
                                             if (!jugadorAux2.getCartas1().isEmpty() && !jugadorAux2.getCartas1().get(0).getColor().equals(aux1.getColor())) {
                                                 existeJn = true;
                                             }
@@ -568,13 +577,16 @@ public class JuegoController extends Controller implements Initializable {
                                             }
                                         }
                                         if (!existeJn || !existeJp) {
+                                            System.out.println("entro 8--");
                                             transplante = false;
                                             new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
                                         } else {
+                                            System.out.println("entro 9--");
                                             movimientoTransplanteSocket(padreAux1, hijoAux1, padreAux2, hijoAux2);
                                         }
                                     }
                                 } else {
+                                    System.out.println("entro 10--");
                                     padre1 = "";
                                     padre2 = "";
                                     hijo1 = "";
@@ -584,7 +596,6 @@ public class JuegoController extends Controller implements Initializable {
                             } else {
                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No se seleccionó su propio mazo");
                             }
-
                         }
                     }
                 }
@@ -1768,6 +1779,7 @@ public class JuegoController extends Controller implements Initializable {
                         errorMedico = false;
                         modoTratamiento = false;
                         jugador.setTurno(false);
+                        transplante = false;
 
                         vBox.getStyleClass().clear();
                         vBox.getStyleClass().add("hVoxActivo");

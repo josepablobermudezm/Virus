@@ -634,17 +634,17 @@ public class JuegoController extends Controller implements Initializable {
 
     public String padreBox(int i) {
         switch (i) {
-            case 1:
+            case 0:
                 return "hvox";
-            case 2:
+            case 1:
                 return "hvox2";
-            case 3:
+            case 2:
                 return "hvox3";
-            case 4:
+            case 3:
                 return "hvox4";
-            case 5:
+            case 4:
                 return "hvox5";
-            case 6:
+            case 5:
                 return "hbox6";
             default:
                 return "";

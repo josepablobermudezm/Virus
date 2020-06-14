@@ -124,7 +124,7 @@ public class JuegoController extends Controller implements Initializable {
     public VBox vBox3;
     private ArrayList<ImageView> mazoImg = new ArrayList();
     private boolean ladron = false;
-    private boolean transplante = false;
+    private boolean modoTransplante = false;
     private boolean errorMedico = false;
     private static boolean modoTratamiento = false;
 
@@ -362,7 +362,7 @@ public class JuegoController extends Controller implements Initializable {
         if (!findePartida) {
             jugador = (JugadorDto) AppContext.getInstance().get("JugadorDto");
             if (jugador.getTurno()) {
-                if (!ladron && !errorMedico && !transplante) {
+                if (!ladron && !errorMedico && !modoTransplante) {
                     if (!modoTratamiento) {
                         if (cartaAux != null) {
                             JugadorDto jugadorAux = partida.getJugadores().stream().
@@ -425,7 +425,7 @@ public class JuegoController extends Controller implements Initializable {
                         msj.show(Alert.AlertType.WARNING, "Error con carta", "No puedes realizar este movimiento");
                     }
                 } else {//Movimiento de ladron o Error Medico o transplante
-                    if (!transplante) {
+                    if (!modoTransplante) {
                         paneAuxiliar = (Pane) event.getSource();
                         String padre = paneAuxiliar.getParent().getId();
                         String hijoAux = hijo(padre);
@@ -538,7 +538,7 @@ public class JuegoController extends Controller implements Initializable {
                                         padre2 = "";
                                         hijo1 = "";
                                         hijo2 = "";
-                                        transplante = false;
+                                        modoTransplante = false;
                                         movimientoTransplanteSocket(padreAux1, hijoAux1, padreAux2, hijoAux2);
                                     } else {
                                         System.out.println("entro 6--");
@@ -563,7 +563,7 @@ public class JuegoController extends Controller implements Initializable {
                                         } else if (aux2.getTipoCarta().equals("Organo_Comodin")) {
                                             existeJp = true;
                                         }
-                                        
+
                                         Boolean existeJn = false;
                                         if (!aux1.getEstado().equals("Inmunizado")
                                                 && (!jugadorAux2.getCartas1().isEmpty() //Organo en los campos vacios
@@ -601,7 +601,7 @@ public class JuegoController extends Controller implements Initializable {
                                             padre2 = "";
                                             hijo1 = "";
                                             hijo2 = "";
-                                            transplante = false;
+                                            modoTransplante = false;
                                             movimientoTransplanteSocket(padreAux1, hijoAux1, padreAux2, hijoAux2);
                                         }
                                     }
@@ -1417,12 +1417,12 @@ public class JuegoController extends Controller implements Initializable {
     }
 
     public void movimientoTransplante() {
-        transplante = true;
+        modoTransplante = true;
         if (partida.getJugadores().stream().
                 allMatch(x -> x.getCartas1().isEmpty()
                 && x.getCartas2().isEmpty() && x.getCartas3().isEmpty() && x.getCartas4().isEmpty()
                 && x.getCartas5().isEmpty())) {
-            transplante = false;
+            modoTransplante = false;
             new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
         } else {
             Mensaje ms = new Mensaje();
@@ -1691,7 +1691,7 @@ public class JuegoController extends Controller implements Initializable {
                         errorMedico = false;
                         modoTratamiento = false;
                         jugador.setTurno(false);
-                        transplante = false;
+                        modoTransplante = false;
 
                         vBox.getStyleClass().clear();
                         vBox.getStyleClass().add("hVoxActivo");
@@ -1720,33 +1720,38 @@ public class JuegoController extends Controller implements Initializable {
     private void CartadeMazo(MouseEvent event) {
         if (!findePartida) {
             cartaAux = null;
-            if (!ladron) {
-                if (!errorMedico) {
-                    if (jugador.getTurno()) {
-                        if (jugador.getMazo().size() < 3 && (image9.getImage() == null || image8.getImage() == null
-                                || image7.getImage() == null)) {
-                            recogioCarta = true;
-                            ObtenerCarta(jugador.getIPS());
-                            if (jugador.getMazo().size() == 3) {
-                                cambiarTurnoAux();
+            if (!modoTransplante) {
+                if (!ladron) {
+                    if (!errorMedico) {
+                        if (jugador.getTurno()) {
+                            if (jugador.getMazo().size() < 3 && (image9.getImage() == null || image8.getImage() == null
+                                    || image7.getImage() == null)) {
+                                recogioCarta = true;
+                                ObtenerCarta(jugador.getIPS());
+                                if (jugador.getMazo().size() == 3) {
+                                    cambiarTurnoAux();
+                                    Mensaje ms = new Mensaje();
+                                    ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Cambio de turno");
+                                }
+                            } else {
                                 Mensaje ms = new Mensaje();
-                                ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Cambio de turno");
+                                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Usted ya tiene su mazo completo");
                             }
                         } else {
                             Mensaje ms = new Mensaje();
-                            ms.show(Alert.AlertType.WARNING, "Información de Juego", "Usted ya tiene su mazo completo");
+                            ms.show(Alert.AlertType.WARNING, "Información de Juego", "Espera a tu tuno");
                         }
                     } else {
                         Mensaje ms = new Mensaje();
-                        ms.show(Alert.AlertType.WARNING, "Información de Juego", "Espera a tu tuno");
+                        ms.show(Alert.AlertType.WARNING, "Información de Juego", "Estás en error médico");
                     }
                 } else {
                     Mensaje ms = new Mensaje();
-                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Estás en error médico");
+                    ms.show(Alert.AlertType.WARNING, "Información de Juego", "Estás en modo ladron");
                 }
             } else {
                 Mensaje ms = new Mensaje();
-                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Estás en modo ladron");
+                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Estás en modo transplante");
             }
         } else {
             Mensaje ms = new Mensaje();

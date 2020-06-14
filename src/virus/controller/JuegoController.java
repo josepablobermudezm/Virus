@@ -585,6 +585,8 @@ public class JuegoController extends Controller implements Initializable {
                                                 }
                                             }
                                         }
+                                        System.out.println("EXISTE JN "+ existeJn);
+                                        System.out.println("EXISTE JP "+ existeJp);
                                         if (!existeJn || !existeJp) {
                                             System.out.println("entro 8--");
                                             padre1 = "";

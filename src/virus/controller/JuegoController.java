@@ -533,9 +533,13 @@ public class JuegoController extends Controller implements Initializable {
                                     CartaDto aux1 = listaJug1.get(0);
                                     CartaDto aux2 = listaJug2.get(0);
 
-                                    if (aux2.getColor().equals(aux1.getColor())) {
+                                    if (aux1.getTipoCarta().equals(aux2.getTipoCarta())) {
+                                        padre1 = "";
+                                        padre2 = "";
+                                        hijo1 = "";
+                                        hijo2 = "";
+                                        transplante = false;
                                         movimientoTransplanteSocket(padreAux1, hijoAux1, padreAux2, hijoAux2);
-                                        System.out.println("entro 5--");
                                     } else {
                                         System.out.println("entro 6--");
                                         Boolean existeJp = false;
@@ -559,7 +563,7 @@ public class JuegoController extends Controller implements Initializable {
                                         } else if (aux2.getTipoCarta().equals("Organo_Comodin")) {
                                             existeJp = true;
                                         }
-
+                                        
                                         Boolean existeJn = false;
                                         if (!aux1.getEstado().equals("Inmunizado")
                                                 && (!jugadorAux2.getCartas1().isEmpty() //Organo en los campos vacios
@@ -582,99 +586,6 @@ public class JuegoController extends Controller implements Initializable {
                                             existeJn = true;
                                         }
 
-
-                                        /*int contador = 0;
-                                        if (!aux2.getEstado().equals("Inmunizado")) {
-                                            if (aux2.getTipoCarta().equals("Organo_Comodin")) {
-                                                existeJp = true;
-                                            } else {
-                                                if (!jugadorAux.getCartas1().isEmpty() && !jugadorAux.getCartas1().get(0).getColor().equals(aux2.getColor())) {
-                                                    contador++;
-                                                } else {
-                                                    if (jugadorAux.getCartas1().isEmpty()) {
-                                                        contador++;
-                                                    }
-                                                }
-                                                if (!jugadorAux.getCartas2().isEmpty() && !jugadorAux.getCartas2().get(0).getColor().equals(aux2.getColor())) {
-                                                    contador++;
-                                                } else {
-                                                    if (jugadorAux.getCartas2().isEmpty()) {
-                                                        contador++;
-                                                    }
-                                                }
-                                                if (!jugadorAux.getCartas3().isEmpty() && !jugadorAux.getCartas3().get(0).getColor().equals(aux2.getColor())) {
-                                                    contador++;
-                                                } else {
-                                                    if (jugadorAux.getCartas3().isEmpty()) {
-                                                        contador++;
-                                                    }
-                                                }
-                                                if (!jugadorAux.getCartas4().isEmpty() && !jugadorAux.getCartas4().get(0).getColor().equals(aux2.getColor())) {
-                                                    contador++;
-                                                } else {
-                                                    if (jugadorAux.getCartas4().isEmpty()) {
-                                                        contador++;
-                                                    }
-                                                }
-                                                if (!jugadorAux.getCartas5().isEmpty() && !jugadorAux.getCartas5().get(0).getColor().equals(aux2.getColor())) {
-                                                    contador++;
-                                                } else {
-                                                    if (jugadorAux.getCartas5().isEmpty()) {
-                                                        contador++;
-                                                    }
-                                                }
-                                            }
-                                        }
-
-                                        if (contador == 5) {
-                                            existeJp = true;
-                                        }*/
- /*int contador2 = 0;
-                                        if (aux1.getEstado().equals("Inmunizado")) {
-                                            if (aux1.getTipoCarta().equals("Organo_Comodin")) {
-                                                existeJn = true;
-                                            } else {
-                                                if (!jugadorAux2.getCartas1().isEmpty() && !jugadorAux2.getCartas1().get(0).getColor().equals(aux1.getColor())) {
-                                                    contador2++;
-                                                } else {
-                                                    if (jugadorAux2.getCartas1().isEmpty()) {
-                                                        contador2++;
-                                                    }
-                                                }
-                                                if (!jugadorAux2.getCartas2().isEmpty() && !jugadorAux2.getCartas2().get(0).getColor().equals(aux1.getColor())) {
-                                                    contador2++;
-                                                } else {
-                                                    if (jugadorAux2.getCartas2().isEmpty()) {
-                                                        contador2++;
-                                                    }
-                                                }
-                                                if (!jugadorAux2.getCartas3().isEmpty() && !jugadorAux2.getCartas3().get(0).getColor().equals(aux1.getColor())) {
-                                                    contador2++;
-                                                } else {
-                                                    if (jugadorAux2.getCartas3().isEmpty()) {
-                                                        contador2++;
-                                                    }
-                                                }
-                                                if (!jugadorAux2.getCartas4().isEmpty() && !jugadorAux2.getCartas4().get(0).getColor().equals(aux1.getColor())) {
-                                                    contador2++;
-                                                } else {
-                                                    if (jugadorAux2.getCartas4().isEmpty()) {
-                                                        contador2++;
-                                                    }
-                                                }
-                                                if (!jugadorAux2.getCartas5().isEmpty() && !jugadorAux2.getCartas5().get(0).getColor().equals(aux1.getColor())) {
-                                                    contador2++;
-                                                } else {
-                                                    if (jugadorAux2.getCartas5().isEmpty()) {
-                                                        contador2++;
-                                                    }
-                                                }
-                                            }
-                                        }
-
-                                        if (contador2 == 5) {
-                                            existeJn = true;
-                                        }*/
                                         System.out.println("EXISTE JN " + existeJn);
                                         System.out.println("EXISTE JP " + existeJp);
                                         if (!existeJn || !existeJp) {
@@ -1507,245 +1418,15 @@ public class JuegoController extends Controller implements Initializable {
 
     public void movimientoTransplante() {
         transplante = true;
-        if (partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugador.getIP())).
+        if (partida.getJugadores().stream().
                 allMatch(x -> x.getCartas1().isEmpty()
                 && x.getCartas2().isEmpty() && x.getCartas3().isEmpty() && x.getCartas4().isEmpty()
                 && x.getCartas5().isEmpty())) {
             transplante = false;
             new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
         } else {
-            ArrayList<JugadorDto> jugadores = (ArrayList<JugadorDto>) partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugador.getIP())).collect(Collectors.toList());
-            ArrayList<CartaDto> cartasJug = new ArrayList();
-            jugadores.stream().map((jug) -> {
-                if (!jug.getCartas1().isEmpty() && !jug.getCartas1().get(0).getEstado().equals("Inmunizado")) {
-                    cartasJug.add(jug.getCartas1().get(0));
-                }
-                return jug;
-            }).map((jug) -> {
-                if (!jug.getCartas2().isEmpty() && !jug.getCartas2().get(0).getEstado().equals("Inmunizado")) {
-                    cartasJug.add(jug.getCartas2().get(0));
-                }
-                return jug;
-            }).map((jug) -> {
-                if (!jug.getCartas3().isEmpty() && !jug.getCartas3().get(0).getEstado().equals("Inmunizado")) {
-                    cartasJug.add(jug.getCartas3().get(0));
-                }
-                return jug;
-            }).map((jug) -> {
-                if (!jug.getCartas5().isEmpty() && !jug.getCartas5().get(0).getEstado().equals("Inmunizado")) {
-                    cartasJug.add(jug.getCartas5().get(0));
-                }
-                return jug;
-            }).filter((jug) -> (!jug.getCartas4().isEmpty() && !jug.getCartas4().get(0).getEstado().equals("Inmunizado"))).forEachOrdered((JugadorDto jug) -> {
-                cartasJug.add(jug.getCartas4().get(0));
-            });
-
-            ArrayList<CartaDto> cartasPropias = new ArrayList<>();
-            if (!jugador.getCartas1().isEmpty()) {
-                cartasPropias.add(jugador.getCartas1().get(0));
-            }
-            if (!jugador.getCartas2().isEmpty()) {
-                cartasPropias.add(jugador.getCartas2().get(0));
-            }
-            if (!jugador.getCartas3().isEmpty()) {
-                cartasPropias.add(jugador.getCartas3().get(0));
-            }
-            if (!jugador.getCartas4().isEmpty()) {
-                cartasPropias.add(jugador.getCartas4().get(0));
-            }
-            if (!jugador.getCartas5().isEmpty()) {
-                cartasPropias.add(jugador.getCartas5().get(0));
-            }
-            Boolean existeJp = false;
-            for (CartaDto carta : cartasPropias) {
-                for (JugadorDto jugadorAux : jugadores) {
-                    if (!carta.getEstado().equals("Inmunizado")
-                            && (!jugadorAux.getCartas1().isEmpty() //Organo en los campos vacios
-                            ? !carta.getTipoCarta().equals(jugadorAux.getCartas1().get(0).getTipoCarta())
-                            : true)
-                            && (!jugadorAux.getCartas2().isEmpty()
-                            ? !carta.getTipoCarta().equals(jugadorAux.getCartas2().get(0).getTipoCarta())
-                            : true)
-                            && (!jugadorAux.getCartas3().isEmpty()
-                            ? !carta.getTipoCarta().equals(jugadorAux.getCartas3().get(0).getTipoCarta())
-                            : true)
-                            && (!jugadorAux.getCartas4().isEmpty()
-                            ? !carta.getTipoCarta().equals(jugadorAux.getCartas4().get(0).getTipoCarta())
-                            : true)
-                            && (!jugador.getCartas5().isEmpty()
-                            ? !carta.getTipoCarta().equals(jugador.getCartas5().get(0).getTipoCarta())
-                            : true)) {
-                        existeJp = true;
-                    } else if (carta.getTipoCarta().equals("Organo_Comodin")) {
-                        existeJp = true;
-                    }
-                    /*int contador = 0;
-                    if (carta.getEstado().equals("Inmunizado")) {
-                        if (carta.getTipoCarta().equals("Organo_Comodin")) {
-                            existeJp = true;
-                        } else {
-                            if (!jugadorAux.getCartas1().isEmpty() && !jugadorAux.getCartas1().get(0).getColor().equals(carta.getColor())) {
-                                contador++;
-                            } else {
-                                if (jugadorAux.getCartas1().isEmpty()) {
-                                    contador++;
-                                }
-                            }
-                            if (!jugadorAux.getCartas2().isEmpty() && !jugadorAux.getCartas2().get(0).getColor().equals(carta.getColor())) {
-                                contador++;
-                            } else {
-                                if (jugadorAux.getCartas2().isEmpty()) {
-                                    contador++;
-                                }
-                            }
-                            if (!jugadorAux.getCartas3().isEmpty() && !jugadorAux.getCartas3().get(0).getColor().equals(carta.getColor())) {
-                                contador++;
-                            } else {
-                                if (jugadorAux.getCartas3().isEmpty()) {
-                                    contador++;
-                                }
-                            }
-                            if (!jugadorAux.getCartas4().isEmpty() && !jugadorAux.getCartas4().get(0).getColor().equals(carta.getColor())) {
-                                contador++;
-                            } else {
-                                if (jugadorAux.getCartas4().isEmpty()) {
-                                    contador++;
-                                }
-                            }
-                            if (!jugadorAux.getCartas5().isEmpty() && !jugadorAux.getCartas5().get(0).getColor().equals(carta.getColor())) {
-                                contador++;
-                            } else {
-                                if (jugadorAux.getCartas5().isEmpty()) {
-                                    contador++;
-                                }
-                            }
-                        }
-                    }
-
-                    if (contador == 5) {
-                        existeJp = true;
-                    }*/
-
- /* if (carta.getTipoCarta().equals("Organo_Comodin")) {
-                            existeJp = true;
-                        } else {
-                            if (!jugadorAux.getCartas1().isEmpty() && !jugadorAux.getCartas1().get(0).getColor().equals(carta.getColor())) {
-                                existeJp = true;
-                            }
-                            if (!jugadorAux.getCartas2().isEmpty() && !jugadorAux.getCartas2().get(0).getColor().equals(carta.getColor())) {
-                                existeJp = true;
-                            }
-                            if (!jugadorAux.getCartas3().isEmpty() && !jugadorAux.getCartas3().get(0).getColor().equals(carta.getColor())) {
-                                existeJp = true;
-                            }
-                            if (!jugadorAux.getCartas4().isEmpty() && !jugadorAux.getCartas4().get(0).getColor().equals(carta.getColor())) {
-                                existeJp = true;
-                            }
-                            if (!jugadorAux.getCartas5().isEmpty() && !jugadorAux.getCartas5().get(0).getColor().equals(carta.getColor())) {
-                                existeJp = true;
-                            }
-                        }*/
-                }
-            }
-
-            Boolean existeJn = false;
-            for (CartaDto carta : cartasJug) {
-                if (!carta.getEstado().equals("Inmunizado")
-                        && (!jugador.getCartas1().isEmpty() //Organo en los campos vacios
-                        ? !carta.getTipoCarta().equals(jugador.getCartas1().get(0).getTipoCarta())
-                        : true)
-                        && (!jugador.getCartas2().isEmpty()
-                        ? !carta.getTipoCarta().equals(jugador.getCartas2().get(0).getTipoCarta())
-                        : true)
-                        && (!jugador.getCartas3().isEmpty()
-                        ? !carta.getTipoCarta().equals(jugador.getCartas3().get(0).getTipoCarta())
-                        : true)
-                        && (!jugador.getCartas4().isEmpty()
-                        ? !carta.getTipoCarta().equals(jugador.getCartas4().get(0).getTipoCarta())
-                        : true)
-                        && (!jugador.getCartas5().isEmpty()
-                        ? !carta.getTipoCarta().equals(jugador.getCartas5().get(0).getTipoCarta())
-                        : true)) {
-                    existeJn = true;
-                } else if (carta.getTipoCarta().equals("Organo_Comodin")) {
-                    existeJn = true;
-                }
-                /*
-                int contador = 0;
-                if (carta.getEstado().equals("Inmunizado")) {
-                    if (carta.getTipoCarta().equals("Organo_Comodin")) {
-                        existeJp = true;
-                    } else {
-                        if (!jugador.getCartas1().isEmpty() && !jugador.getCartas1().get(0).getColor().equals(carta.getColor())) {
-                            contador++;
-                        } else {
-                            if (jugador.getCartas1().isEmpty()) {
-                                contador++;
-                            }
-                        }
-                        if (!jugador.getCartas2().isEmpty() && !jugador.getCartas2().get(0).getColor().equals(carta.getColor())) {
-                            contador++;
-                        } else {
-                            if (jugador.getCartas2().isEmpty()) {
-                                contador++;
-                            }
-                        }
-                        if (!jugador.getCartas3().isEmpty() && !jugador.getCartas3().get(0).getColor().equals(carta.getColor())) {
-                            contador++;
-                        } else {
-                            if (jugador.getCartas3().isEmpty()) {
-                                contador++;
-                            }
-                        }
-                        if (!jugador.getCartas4().isEmpty() && !jugador.getCartas4().get(0).getColor().equals(carta.getColor())) {
-                            contador++;
-                        } else {
-                            if (jugador.getCartas4().isEmpty()) {
-                                contador++;
-                            }
-                        }
-                        if (!jugador.getCartas5().isEmpty() && !jugador.getCartas5().get(0).getColor().equals(carta.getColor())) {
-                            contador++;
-                        } else {
-                            if (jugador.getCartas5().isEmpty()) {
-                                contador++;
-                            }
-                        }
-                    }
-                }
-
-                if (contador == 5) {
-                    existeJn = true;
-                }*/
-
- /*if (carta.getTipoCarta().equals("Organo_Comodin")) {
-                        existeJn = true;
-                    } else {
-                        if (!jugador.getCartas1().isEmpty() && !jugador.getCartas1().get(0).getColor().equals(carta.getColor())) {
-                            existeJn = true;
-                        }
-                        if (!jugador.getCartas2().isEmpty() && !jugador.getCartas2().get(0).getColor().equals(carta.getColor())) {
-                            existeJn = true;
-                        }
-                        if (!jugador.getCartas3().isEmpty() && !jugador.getCartas3().get(0).getColor().equals(carta.getColor())) {
-                            existeJn = true;
-                        }
-                        if (!jugador.getCartas4().isEmpty() && !jugador.getCartas4().get(0).getColor().equals(carta.getColor())) {
-                            existeJn = true;
-                        }
-                        if (!jugador.getCartas5().isEmpty() && !jugador.getCartas5().get(0).getColor().equals(carta.getColor())) {
-                            existeJn = true;
-                        }
-                    }*/
-            }
-
-            if (!existeJn || !existeJp) {
-                transplante = false;
-                new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
-            } else {
-                Mensaje ms = new Mensaje();
-                ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Estás en modo de Transplante, selecciona un órgano de tu mazo y otro de un jugador para realizar el transplante.");
-            }
+            Mensaje ms = new Mensaje();
+            ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Estás en modo de Transplante, selecciona un órgano de tu mazo y otro de un jugador para realizar el transplante.");
         }
     }
 
@@ -1825,72 +1506,6 @@ public class JuegoController extends Controller implements Initializable {
                         existe = true;
                     }
 
-                    /*int contador = 0;
-                    if (carta.getEstado().equals("Inmunizado")) {
-                        if (carta.getTipoCarta().equals("Organo_Comodin")) {
-                            existe = true;
-                        } else {
-                            if (!jugador.getCartas1().isEmpty() && !jugador.getCartas1().get(0).getColor().equals(carta.getColor())) {
-                                contador++;
-                            } else {
-                                if (jugador.getCartas1().isEmpty()) {
-                                    contador++;
-                                }
-                            }
-                            if (!jugador.getCartas2().isEmpty() && !jugador.getCartas2().get(0).getColor().equals(carta.getColor())) {
-                                contador++;
-                            } else {
-                                if (jugador.getCartas2().isEmpty()) {
-                                    contador++;
-                                }
-                            }
-                            if (!jugador.getCartas3().isEmpty() && !jugador.getCartas3().get(0).getColor().equals(carta.getColor())) {
-                                contador++;
-                            } else {
-                                if (jugador.getCartas3().isEmpty()) {
-                                    contador++;
-                                }
-                            }
-                            if (!jugador.getCartas4().isEmpty() && !jugador.getCartas4().get(0).getColor().equals(carta.getColor())) {
-                                contador++;
-                            } else {
-                                if (jugador.getCartas4().isEmpty()) {
-                                    contador++;
-                                }
-                            }
-                            if (!jugador.getCartas5().isEmpty() && !jugador.getCartas5().get(0).getColor().equals(carta.getColor())) {
-                                contador++;
-                            } else {
-                                if (jugador.getCartas5().isEmpty()) {
-                                    contador++;
-                                }
-                            }
-                        }
-                    }
-
-                    if (contador == 5) {
-                        existe = true;
-                    }*/
-
- /*if (carta.getTipoCarta().equals("Organo_Comodin")) {
-                            existe = true;
-                        } else {
-                            if (!jugador.getCartas1().isEmpty() && !jugador.getCartas1().get(0).getColor().equals(carta.getColor())) {
-                                existe = true;
-                            }
-                            if (!jugador.getCartas2().isEmpty() && !jugador.getCartas2().get(0).getColor().equals(carta.getColor())) {
-                                existe = true;
-                            }
-                            if (!jugador.getCartas3().isEmpty() && !jugador.getCartas3().get(0).getColor().equals(carta.getColor())) {
-                                existe = true;
-                            }
-                            if (!jugador.getCartas4().isEmpty() && !jugador.getCartas4().get(0).getColor().equals(carta.getColor())) {
-                                existe = true;
-                            }
-                            if (!jugador.getCartas5().isEmpty() && !jugador.getCartas5().get(0).getColor().equals(carta.getColor())) {
-                                existe = true;
-                            }
-                        }*/
                 }
 
                 if (!existe) {

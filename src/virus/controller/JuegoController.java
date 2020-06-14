@@ -542,19 +542,19 @@ public class JuegoController extends Controller implements Initializable {
                                         if (aux2.getTipoCarta().equals("Organo_Comodin")) {
                                             existeJp = true;
                                         } else {
-                                            if (!jugadorAux.getCartas1().isEmpty() && !jugadorAux.getCartas1().get(0).getColor().equals(aux2.getColor())) {
+                                            if (!jugadorAux.getCartas1().isEmpty() && !jugadorAux.getCartas1().get(0).getColor().equals(aux2.getColor()) && !jugadorAux.getCartas1().get(0).getTipoCarta().equals("Inmunizado")) {
                                                 existeJp = true;
                                             }
-                                            if (!jugadorAux.getCartas2().isEmpty() && !jugadorAux.getCartas2().get(0).getColor().equals(aux2.getColor())) {
+                                            if (!jugadorAux.getCartas2().isEmpty() && !jugadorAux.getCartas2().get(0).getColor().equals(aux2.getColor()) && !jugadorAux.getCartas2().get(0).getTipoCarta().equals("Inmunizado")) {
                                                 existeJp = true;
                                             }
-                                            if (!jugadorAux.getCartas3().isEmpty() && !jugadorAux.getCartas3().get(0).getColor().equals(aux2.getColor())) {
+                                            if (!jugadorAux.getCartas3().isEmpty() && !jugadorAux.getCartas3().get(0).getColor().equals(aux2.getColor()) && !jugadorAux.getCartas3().get(0).getTipoCarta().equals("Inmunizado")) {
                                                 existeJp = true;
                                             }
-                                            if (!jugadorAux.getCartas4().isEmpty() && !jugadorAux.getCartas4().get(0).getColor().equals(aux2.getColor())) {
+                                            if (!jugadorAux.getCartas4().isEmpty() && !jugadorAux.getCartas4().get(0).getColor().equals(aux2.getColor()) && !jugadorAux.getCartas4().get(0).getTipoCarta().equals("Inmunizado")) {
                                                 existeJp = true;
                                             }
-                                            if (!jugadorAux.getCartas5().isEmpty() && !jugadorAux.getCartas5().get(0).getColor().equals(aux2.getColor())) {
+                                            if (!jugadorAux.getCartas5().isEmpty() && !jugadorAux.getCartas5().get(0).getColor().equals(aux2.getColor()) && !jugadorAux.getCartas5().get(0).getTipoCarta().equals("Inmunizado")) {
                                                 existeJp = true;
                                             }
                                         }
@@ -564,19 +564,19 @@ public class JuegoController extends Controller implements Initializable {
                                             existeJn = true;
                                         } else {
                                             System.out.println("entro 7--");
-                                            if (!jugadorAux2.getCartas1().isEmpty() && !jugadorAux2.getCartas1().get(0).getColor().equals(aux1.getColor())) {
+                                            if (!jugadorAux2.getCartas1().isEmpty() && !jugadorAux2.getCartas1().get(0).getColor().equals(aux1.getColor()) && !jugadorAux2.getCartas1().get(0).getTipoCarta().equals("Inmunizado")) {
                                                 existeJn = true;
                                             }
-                                            if (!jugadorAux2.getCartas2().isEmpty() && !jugadorAux2.getCartas2().get(0).getColor().equals(aux1.getColor())) {
+                                            if (!jugadorAux2.getCartas2().isEmpty() && !jugadorAux2.getCartas2().get(0).getColor().equals(aux1.getColor()) && !jugadorAux2.getCartas2().get(0).getTipoCarta().equals("Inmunizado")) {
                                                 existeJn = true;
                                             }
-                                            if (!jugadorAux2.getCartas3().isEmpty() && !jugadorAux2.getCartas3().get(0).getColor().equals(aux1.getColor())) {
+                                            if (!jugadorAux2.getCartas3().isEmpty() && !jugadorAux2.getCartas3().get(0).getColor().equals(aux1.getColor()) && !jugadorAux2.getCartas3().get(0).getTipoCarta().equals("Inmunizado")) {
                                                 existeJn = true;
                                             }
-                                            if (!jugadorAux2.getCartas4().isEmpty() && !jugadorAux2.getCartas4().get(0).getColor().equals(aux1.getColor())) {
+                                            if (!jugadorAux2.getCartas4().isEmpty() && !jugadorAux2.getCartas4().get(0).getColor().equals(aux1.getColor()) && !jugadorAux2.getCartas4().get(0).getTipoCarta().equals("Inmunizado")) {
                                                 existeJn = true;
                                             }
-                                            if (!jugadorAux2.getCartas5().isEmpty() && !jugadorAux2.getCartas5().get(0).getColor().equals(aux1.getColor())) {
+                                            if (!jugadorAux2.getCartas5().isEmpty() && !jugadorAux2.getCartas5().get(0).getColor().equals(aux1.getColor()) && !jugadorAux2.getCartas5().get(0).getTipoCarta().equals("Inmunizado")) {
                                                 existeJn = true;
                                             }
                                         }

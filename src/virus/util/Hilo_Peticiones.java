@@ -544,7 +544,7 @@ public class Hilo_Peticiones extends Thread {
                             System.out.println("CARTA JUGADOR 2 "+ cartas2.get(0).getTipoCarta()+ " INDICE "+ jugador2+ " HIJO "+ hijo2Aux);
                             System.out.println("SIN CAMBIAR");
                             ArrayList <CartaDto> cartasAux = new ArrayList();
-                            cartas2.stream().forEach((t) -> {
+                            cartas1.stream().forEach((t) -> {
                                 cartasAux.add(t);
                             });
                             /*cartas1.stream().forEach(x->{

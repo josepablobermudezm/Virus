@@ -562,6 +562,7 @@ public class Hilo_Peticiones extends Thread {
                                     partidaDto.getJugadores().get(jugador1).getCartas5().addAll(cartas2);
                                     break;
                             }
+                            
                             switch (hijo2Aux) {
                                 case 0:
                                     partidaDto.getJugadores().get(jugador2).getCartas1().clear();
@@ -583,6 +584,18 @@ public class Hilo_Peticiones extends Thread {
                                     partidaDto.getJugadores().get(jugador2).getCartas5().clear();
                                     partidaDto.getJugadores().get(jugador2).getCartas5().addAll(cartas1);
                                     break;
+                            }
+                            
+                            if (partidaDto.getJugadores().get(jugador1).getIP().equals(jugadorDto.getIP())) {
+                                jugadorDto = partidaDto.getJugadores().get(jugador1);
+
+                                System.out.println("JUGADOR QUE HIZO LA JUGADA");
+
+                                AppContext.getInstance().set("JugadorDto", jugadorDto);
+                            } else if (partidaDto.getJugadores().get(jugador2).getIP().equals(jugadorDto.getIP())) {
+                                jugadorDto = partidaDto.getJugadores().get(jugador2);
+                                AppContext.getInstance().set("JugadorDto", jugadorDto);
+                                System.out.println("JUGADOR QUE SE LA APLICARON");
                             }
 
                             anchorPane.getChildren().forEach((t) -> {

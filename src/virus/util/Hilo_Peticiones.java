@@ -541,7 +541,7 @@ public class Hilo_Peticiones extends Thread {
                             cartas1 = cartas(partidaDto.getJugadores().get(jugador1), hijo1Aux);
                             System.out.println("CARTA JUGADOR 1 "+ cartas1.get(0).getTipoCarta()+" INDICE "+ jugador1+ " HIJO "+ hijo1Aux);
                             cartas2 = cartas(partidaDto.getJugadores().get(jugador2), hijo2Aux);
-                            System.out.println("CARTA JUGADOR 2"+ cartas2.get(0).getTipoCarta()+ "INDICE "+ jugador2+ " HIJO "+ hijo2Aux);
+                            System.out.println("CARTA JUGADOR 2 "+ cartas2.get(0).getTipoCarta()+ " INDICE "+ jugador2+ " HIJO "+ hijo2Aux);
 
                             switch (hijo1Aux) {
                                 case 0:

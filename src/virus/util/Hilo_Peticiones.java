@@ -586,6 +586,51 @@ public class Hilo_Peticiones extends Thread {
                                     break;
                             }
                             
+                            System.out.println("JUGADOR QUE HIZO EL MOVIENTO");
+                            System.out.println("LISTA 1");
+                            partidaDto.getJugadores().get(jugador1).getCartas1().stream().forEach((t) -> {
+                                System.out.println(t.getTipoCarta());
+                            });
+                            System.out.println("LISTA 2");
+                            partidaDto.getJugadores().get(jugador1).getCartas2().stream().forEach((t) -> {
+                                System.out.println(t.getTipoCarta());
+                            });
+                            System.out.println("LISTA 3");
+                            partidaDto.getJugadores().get(jugador1).getCartas3().stream().forEach((t) -> {
+                                System.out.println(t.getTipoCarta());
+                            });
+                            System.out.println("LISTA 4");
+                            partidaDto.getJugadores().get(jugador1).getCartas4().stream().forEach((t) -> {
+                                System.out.println(t.getTipoCarta());
+                            });
+                            System.out.println("LISTA 5");
+                            partidaDto.getJugadores().get(jugador1).getCartas5().stream().forEach((t) -> {
+                                System.out.println(t.getTipoCarta());
+                            });
+                            
+                            System.out.println("JUGADOR QUE RECIBIO");
+                            System.out.println("LISTA 1");
+                            partidaDto.getJugadores().get(jugador2).getCartas1().stream().forEach((t) -> {
+                                System.out.println(t.getTipoCarta());
+                            });
+                            System.out.println("LISTA 2");
+                            partidaDto.getJugadores().get(jugador2).getCartas2().stream().forEach((t) -> {
+                                System.out.println(t.getTipoCarta());
+                            });
+                            System.out.println("LISTA 3");
+                            partidaDto.getJugadores().get(jugador2).getCartas3().stream().forEach((t) -> {
+                                System.out.println(t.getTipoCarta());
+                            });
+                            System.out.println("LISTA 4");
+                            partidaDto.getJugadores().get(jugador2).getCartas4().stream().forEach((t) -> {
+                                System.out.println(t.getTipoCarta());
+                            });
+                            System.out.println("LISTA 5");
+                            partidaDto.getJugadores().get(jugador2).getCartas5().stream().forEach((t) -> {
+                                System.out.println(t.getTipoCarta());
+                            });
+                            
+                            
                             if (partidaDto.getJugadores().get(jugador1).getIP().equals(jugadorDto.getIP())) {
                                 jugadorDto = partidaDto.getJugadores().get(jugador1);
 

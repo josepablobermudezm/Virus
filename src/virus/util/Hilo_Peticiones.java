@@ -417,7 +417,7 @@ public class Hilo_Peticiones extends Thread {
                                     || jugadorAux.getCartas5().get(0).getEstado().equals("Vacunado") : false) {
                                 cont++;
                             }
-
+                            System.out.println("CONT LADRON "+ cont);
                             if (cont == 4) {
                                 mensajeRecibido = "partidaFinalizada";
                                 jugadorDto = jugadorAux;
@@ -455,6 +455,7 @@ public class Hilo_Peticiones extends Thread {
                                 default:
                                     break;
                             }
+                            
                             String IPJ1 = jugador.getIP();
                             switch (hBoxRival) {
                                 case "hvox":
@@ -657,7 +658,7 @@ public class Hilo_Peticiones extends Thread {
                                     || jug.getCartas5().get(0).getEstado().equals("Vacunado") : false) {
                                 cont3++;
                             }
-
+                            System.out.println("CONT Transplante "+ cont3);
                             if (cont3 == 4) {
                                 mensajeRecibido = "partidaFinalizada";
                                 jugadorDto = jug;

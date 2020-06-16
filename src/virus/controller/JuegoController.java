@@ -533,7 +533,7 @@ public class JuegoController extends Controller implements Initializable {
                                     CartaDto aux1 = listaJug1.get(0);
                                     CartaDto aux2 = listaJug2.get(0);
 
-                                    if (aux1.getTipoCarta().equals(aux2.getTipoCarta())) {
+                                    if (aux1.getTipoCarta().equals(aux2.getTipoCarta()) && !aux1.getEstado().equals("Inmunizado") && !aux2.getEstado().equals("Inmunizado")) {
                                         padre1 = "";
                                         padre2 = "";
                                         hijo1 = "";
@@ -1105,7 +1105,6 @@ public class JuegoController extends Controller implements Initializable {
                                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "El órgano está inmunizado");
                                                     } else {
                                                         new Mensaje().show(Alert.AlertType.WARNING, "Información de juego", "No se pueden poner cartas de distinto color");
-
                                                     }
                                                 }
                                             } else {
@@ -1373,10 +1372,11 @@ public class JuegoController extends Controller implements Initializable {
                                                 if (!modoDesechar) {
                                                     modoTratamiento = true;
                                                     errorMedicoMetodo();
+                                                    desecharCarta("desecharCarta");
                                                 } else {
                                                     new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción, porque ya desechaste cartas");
                                                 }
-                                                desecharCarta("desecharCarta");
+                                                
                                                 break;
                                             default:
                                                 modoDesechar = true;
@@ -1418,10 +1418,13 @@ public class JuegoController extends Controller implements Initializable {
 
     public void movimientoTransplante() {
         modoTransplante = true;
-        if (partida.getJugadores().stream().
-                allMatch(x -> x.getCartas1().isEmpty()
-                && x.getCartas2().isEmpty() && x.getCartas3().isEmpty() && x.getCartas4().isEmpty()
-                && x.getCartas5().isEmpty())) {
+        if (!jugador.getCartas1().isEmpty() && !jugador.getCartas2().isEmpty() && !jugador.getCartas3().isEmpty() && !jugador.getCartas4().isEmpty() && !jugador.getCartas5().isEmpty()) {
+            modoTransplante = false;
+            new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta carta no tendrá efecto porque no tienes campos disponibles");
+        } else if (partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugador.getIP())).
+                    allMatch(x -> x.getCartas1().isEmpty()
+                    && x.getCartas2().isEmpty() && x.getCartas3().isEmpty() && x.getCartas4().isEmpty()
+                    && x.getCartas5().isEmpty())) {
             modoTransplante = false;
             new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
         } else {
@@ -1505,7 +1508,6 @@ public class JuegoController extends Controller implements Initializable {
                     } else if (carta.getTipoCarta().equals("Organo_Comodin")) {
                         existe = true;
                     }
-
                 }
 
                 if (!existe) {
@@ -1527,7 +1529,7 @@ public class JuegoController extends Controller implements Initializable {
             DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
             DataInputStream entrada = new DataInputStream(socket.getInputStream());
             mensaje.writeUTF(Mensaje);
-            String mensajeRecibido = "";
+            mensajeRecibido = "";
             mensajeRecibido = entrada.readUTF();
             socket.close();
 
@@ -1536,7 +1538,7 @@ public class JuegoController extends Controller implements Initializable {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
             objectOutputStream.writeObject(cartaAux);
             socket2.close();
-            jugador.getMazo().remove(cartaAux);//removemos la carta del mazo del  jugador 
+            System.out.println("DESECHAR CARTA "+jugador.getMazo().remove(cartaAux));//removemos la carta del mazo del  jugador 
             imageViewDesechada.setImage(null);
             cartaAux = null;
             vBox.getStyleClass().clear();

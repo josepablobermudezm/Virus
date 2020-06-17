@@ -28,8 +28,8 @@ import javafx.scene.image.Image;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import virus.Virus;
-import static virus.controller.JuegoController.jugador;
 import static virus.controller.JuegoController.peticiones;
+import static virus.controller.JuegoController.jugadorActual;
 
 /**
  *

@@ -814,7 +814,7 @@ public class JuegoController extends Controller implements Initializable {
         }
     }
 
-    void moveContagio(String padre, String hijo, ArrayList<CartaDto> cartas) {
+    /*void moveContagio(String padre, String hijo, ArrayList<CartaDto> cartas) {
         if (!cartas.isEmpty()) {
             if (!cartas.get(0).getEstado().equals("Inmunizado") && !cartas.get(0).getEstado().equals("Infectado") && !cartas.get(0).getEstado().equals("Vacunado")) {
                 if ((!jugadorActual.getCartas1().isEmpty() ? jugadorActual.getCartas1().get(0).getEstado().equals("Infectado") : false)
@@ -835,7 +835,7 @@ public class JuegoController extends Controller implements Initializable {
         } else {
             new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta pila no posee cartas en ella.");
         }
-    }
+    }*/
 
     EventHandler<MouseEvent> seleccionarCarta = event -> {
         if (!findePartida) {

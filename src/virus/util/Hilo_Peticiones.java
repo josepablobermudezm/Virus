@@ -417,7 +417,7 @@ public class Hilo_Peticiones extends Thread {
                                     || jugadorAux.getCartas5().get(0).getEstado().equals("Vacunado") : false) {
                                 cont++;
                             }
-                            System.out.println("CONT LADRON "+ cont);
+                            System.out.println("CONT LADRON " + cont);
                             if (cont == 4) {
                                 mensajeRecibido = "partidaFinalizada";
                                 jugadorDto = jugadorAux;
@@ -455,7 +455,7 @@ public class Hilo_Peticiones extends Thread {
                                 default:
                                     break;
                             }
-                            
+
                             String IPJ1 = jugador.getIP();
                             switch (hBoxRival) {
                                 case "hvox":
@@ -536,15 +536,14 @@ public class Hilo_Peticiones extends Thread {
                             Integer jugador1 = hBoxJugador(padre1);
                             Integer hijo1Aux = Integer.valueOf(hijo1);
                             Integer hijo2Aux = Integer.valueOf(hijo2);
-                            
-                            
+
                             cartas1 = cartas(partidaDto.getJugadores().get(jugador1), hijo1Aux);
                             cartas2 = cartas(partidaDto.getJugadores().get(jugador2), hijo2Aux);
-                            ArrayList <CartaDto> cartasAux = new ArrayList();
+                            ArrayList<CartaDto> cartasAux = new ArrayList();
                             cartas1.stream().forEach((t) -> {
                                 cartasAux.add(t);
                             });
-                            
+
                             switch (hijo1Aux) {
                                 case 0:
                                     partidaDto.getJugadores().get(jugador1).getCartas1().clear();
@@ -567,7 +566,7 @@ public class Hilo_Peticiones extends Thread {
                                     partidaDto.getJugadores().get(jugador1).getCartas5().addAll(cartas2);
                                     break;
                             }
-                            
+
                             switch (hijo2Aux) {
                                 case 0:
                                     partidaDto.getJugadores().get(jugador2).getCartas1().clear();
@@ -590,9 +589,7 @@ public class Hilo_Peticiones extends Thread {
                                     partidaDto.getJugadores().get(jugador2).getCartas5().addAll(cartasAux);
                                     break;
                             }
-                            
-                            
-                            
+
                             if (partidaDto.getJugadores().get(jugador1).getIP().equals(jugadorDto.getIP())) {
                                 jugadorDto = partidaDto.getJugadores().get(jugador1);
                                 AppContext.getInstance().set("JugadorDto", jugadorDto);
@@ -627,7 +624,7 @@ public class Hilo_Peticiones extends Thread {
                                 paneAux1.getChildren().addAll(nodes2);
                                 paneAux2.getChildren().addAll(nodes1);
                             });
-                            
+
                             /*
                             Preguntamos si ya termino el juegoS
                              */
@@ -658,19 +655,135 @@ public class Hilo_Peticiones extends Thread {
                                     || jug.getCartas5().get(0).getEstado().equals("Vacunado") : false) {
                                 cont3++;
                             }
-                            System.out.println("CONT Transplante "+ cont3);
+                            System.out.println("CONT Transplante " + cont3);
                             if (cont3 == 4) {
                                 mensajeRecibido = "partidaFinalizada";
                                 jugadorDto = jug;
                             }
-                            
+
+                            break;
+
+                        case "Contagio":
+                            DataInputStream input3;
+                            input3 = new DataInputStream(socket.getInputStream());
+                            String padre3 = input3.readUTF();
+                            String hijo3 = input3.readUTF();
+                            String padre4 = input3.readUTF();
+                            String hijo4 = input3.readUTF();
+                            ArrayList<CartaDto> cartas3 = new ArrayList();
+                            ArrayList<CartaDto> cartas4 = new ArrayList();
+                            Integer jugador22 = hBoxJugador(padre4);
+                            Integer jugador11 = hBoxJugador(padre3);
+                            Integer hijo11Aux = Integer.valueOf(hijo3);
+                            Integer hijo22Aux = Integer.valueOf(hijo4);
+
+                            cartas3 = cartas(partidaDto.getJugadores().get(jugador11), hijo11Aux);
+                            cartas4 = cartas(partidaDto.getJugadores().get(jugador22), hijo22Aux);
+                            ArrayList<CartaDto> cartasAux1 = new ArrayList();
+                            cartas3.stream().forEach((t) -> {
+                                cartasAux1.add(t);
+                            });
+
+                            switch (hijo22Aux) {
+                                case 0:
+                                    partidaDto.getJugadores().get(jugador22).getCartas1().add(cartas3.get(cartas3.size() - 1));
+                                    break;
+                                case 1:
+                                    partidaDto.getJugadores().get(jugador22).getCartas2().add(cartas3.get(cartas3.size() - 1));
+                                    break;
+                                case 2:
+                                    partidaDto.getJugadores().get(jugador22).getCartas3().add(cartas3.get(cartas3.size() - 1));
+                                    break;
+                                case 3:
+                                    partidaDto.getJugadores().get(jugador22).getCartas4().add(cartas3.get(cartas3.size() - 1));
+                                    break;
+                                case 4:
+                                    partidaDto.getJugadores().get(jugador22).getCartas5().add(cartas3.get(cartas3.size() - 1));
+                                    break;
+                            }
+
+                            switch (hijo11Aux) {
+                                case 0:
+                                    partidaDto.getJugadores().get(jugador11).getCartas1().remove(cartas3.get(cartas3.size() - 1));
+                                    break;
+                                case 1:
+                                    partidaDto.getJugadores().get(jugador11).getCartas2().remove(cartas3.get(cartas3.size() - 1));
+                                    break;
+                                case 2:
+                                    partidaDto.getJugadores().get(jugador11).getCartas3().remove(cartas3.get(cartas3.size() - 1));
+                                    break;
+                                case 3:
+                                    partidaDto.getJugadores().get(jugador11).getCartas4().remove(cartas3.get(cartas3.size() - 1));
+                                    break;
+                                case 4:
+                                    partidaDto.getJugadores().get(jugador11).getCartas5().remove(cartas3.get(cartas3.size() - 1));
+                                    break;
+                            }
+
+                            if (partidaDto.getJugadores().get(jugador11).getIP().equals(jugadorDto.getIP())) {
+                                jugadorDto = partidaDto.getJugadores().get(jugador11);
+                                AppContext.getInstance().set("JugadorDto", jugadorDto);
+                            } else if (partidaDto.getJugadores().get(jugador22).getIP().equals(jugadorDto.getIP())) {
+                                jugadorDto = partidaDto.getJugadores().get(jugador22);
+                                AppContext.getInstance().set("JugadorDto", jugadorDto);
+                            }
+
+                            anchorPane.getChildren().forEach((t) -> {
+                                if (t.getId() != null && t.getId().equals(padre3)) {
+                                    int i2 = hijo11Aux;
+                                    paneAux1 = ((Pane) ((HBox) t).getChildren().get(i2));
+                                } else if (t.getId() != null && t.getId().equals(padre4)) {
+                                    int i3 = hijo22Aux;
+                                    paneAux2 = ((Pane) ((HBox) t).getChildren().get(i3));
+                                }
+                            });
+
+                            Platform.runLater(() -> {
+
+                                Node node = paneAux1.getChildren().get(paneAux1.getChildren().size() - 1);
+                                paneAux2.getChildren().add(node);
+                                
+                                paneAux1.getChildren().remove(paneAux1.getChildren().size() - 1);
+                            });
+
+                            int cont4 = 0;
+                            JugadorDto jugadorAux_ = partidaDto.getJugadores().get(jugador11);
+                            if ((!jugadorAux_.getCartas1().isEmpty()) ? jugadorAux_.getCartas1().get(0).getEstado().equals("Sano")
+                                    || jugadorAux_.getCartas1().get(0).getEstado().equals("Inmunizado")
+                                    || jugadorAux_.getCartas1().get(0).getEstado().equals("Vacunado") : false) {
+                                cont4++;
+                            }
+                            if ((!jugadorAux_.getCartas2().isEmpty()) ? jugadorAux_.getCartas2().get(0).getEstado().equals("Sano")
+                                    || jugadorAux_.getCartas2().get(0).getEstado().equals("Inmunizado")
+                                    || jugadorAux_.getCartas2().get(0).getEstado().equals("Vacunado") : false) {
+                                cont4++;
+                            }
+                            if ((!jugadorAux_.getCartas3().isEmpty()) ? jugadorAux_.getCartas3().get(0).getEstado().equals("Sano")
+                                    || jugadorAux_.getCartas3().get(0).getEstado().equals("Inmunizado")
+                                    || jugadorAux_.getCartas3().get(0).getEstado().equals("Vacunado") : false) {
+                                cont4++;
+                            }
+                            if ((!jugadorAux_.getCartas4().isEmpty()) ? jugadorAux_.getCartas4().get(0).getEstado().equals("Sano")
+                                    || jugadorAux_.getCartas4().get(0).getEstado().equals("Inmunizado")
+                                    || jugadorAux_.getCartas4().get(0).getEstado().equals("Vacunado") : false) {
+                                cont4++;
+                            }
+                            if ((!jugadorAux_.getCartas5().isEmpty()) ? jugadorAux_.getCartas5().get(0).getEstado().equals("Sano")
+                                    || jugadorAux_.getCartas5().get(0).getEstado().equals("Inmunizado")
+                                    || jugadorAux_.getCartas5().get(0).getEstado().equals("Vacunado") : false) {
+                                cont4++;
+                            }
+                            System.out.println("CONT Transplante " + cont4);
+                            if (cont4 == 4) {
+                                mensajeRecibido = "partidaFinalizada";
+                                jugadorDto = jugadorAux_;
+                            }
                             break;
                         default:
                             break;
 
                     }
                 }
-
                 serverSocket.close();
             } catch (IOException IO) {
                 System.out.println(IO.getMessage());

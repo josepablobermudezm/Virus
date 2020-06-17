@@ -127,6 +127,7 @@ public class JuegoController extends Controller implements Initializable {
     private boolean modoTransplante = false;
     private boolean errorMedico = false;
     private static boolean modoTratamiento = false;
+    private static boolean modoContagio = false;
 
     /**
      * Initializes the controller class.
@@ -475,7 +476,7 @@ public class JuegoController extends Controller implements Initializable {
                                 }
                                 break;
                         }
-                    } else {//transplante
+                    } else if (modoTransplante) {//transplante
                         if (hijo1.isEmpty() && padre1.isEmpty()) {
 
                             paneAuxiliar = (Pane) event.getSource();
@@ -619,6 +620,91 @@ public class JuegoController extends Controller implements Initializable {
                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No se seleccionó su propio mazo");
                             }
                         }
+                    } else if (modoContagio) {
+                        if (hijo1.isEmpty() && padre1.isEmpty()) {
+                            paneAuxiliar = (Pane) event.getSource();
+                            paneAuxiliar.getStyleClass().add("hVoxActivo2");
+                            auxPane1 = paneAuxiliar;
+                            padre1 = paneAuxiliar.getParent().getId();
+                            hijo1 = hijo(padre1);
+                        } else {
+                            paneAuxiliar = (Pane) event.getSource();
+                            paneAuxiliar.getStyleClass().add("hVoxActivo2");
+                            auxPane2 = paneAuxiliar;
+                            padre2 = paneAuxiliar.getParent().getId();
+                            hijo2 = hijo(padre2);
+                            JugadorDto jugadorAux = (partida.getJugadores().stream().filter(x -> x.getTurno()).findAny().get());
+                            String hBoxJp = padreBox(partida.getJugadores().indexOf(jugadorAux));
+                            if (padre2.equals(padre1)) {
+                                padre1 = "";
+                                padre2 = "";
+                                hijo1 = "";
+                                hijo2 = "";
+                                auxPane1.getStyleClass().add("hVoxActivo");
+                                auxPane2.getStyleClass().add("hVoxActivo");
+                                new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puede seleccionar al mismo jugador dos veces, seleccione  de nuevo");
+                            } else if ((padre1.equals(hBoxJp))) {
+                                String padreAux1 = padre1;
+                                String padreAux2 = padre2;
+                                String hijoAux1 = hijo1;
+                                String hijoAux2 = hijo2;
+                                Integer IndiceJugador2 = padreBox(padre2);
+                                Integer hijo1Aux = Integer.valueOf(hijo1);
+                                Integer hijo2Aux = Integer.valueOf(hijo2);
+
+                                JugadorDto jugadorAux2 = partida.getJugadores().get(IndiceJugador2);
+                                ArrayList<CartaDto> listaJug1 = cartasRival(jugadorAux, hijo1Aux);
+                                ArrayList<CartaDto> listaJug2 = cartasRival(jugadorAux2, hijo2Aux);
+                                if (!listaJug1.isEmpty() && !listaJug2.isEmpty()) {
+                                    CartaDto aux1;
+                                    CartaDto aux2;
+                                    if (listaJug1.size() > 1) {
+                                        aux1 = listaJug1.get(1);
+                                        aux2 = listaJug2.get(0);
+                                        if (aux1.getColor().equals(aux2.getColor()) && aux1.getTipoCarta().equals("Virus") && aux2.getEstado().equals("Sano")) {
+                                            padre1 = "";
+                                            padre2 = "";
+                                            hijo1 = "";
+                                            hijo2 = "";
+                                            //modoContagio = false;
+                                            auxPane1.getStyleClass().add("hVoxActivo");
+                                            auxPane2.getStyleClass().add("hVoxActivo");
+                                            movimientoContagioSocket(padreAux1, hijoAux1, padreAux2, hijoAux2);
+                                        } else {
+                                            padre1 = "";
+                                            padre2 = "";
+                                            hijo1 = "";
+                                            hijo2 = "";
+                                            new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puede seleccionar estas cartas.");
+                                        }
+                                    } else {
+                                        padre1 = "";
+                                        padre2 = "";
+                                        hijo1 = "";
+                                        hijo2 = "";
+                                        auxPane1.getStyleClass().add("hVoxActivo");
+                                        auxPane2.getStyleClass().add("hVoxActivo");
+                                        new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puede seleccionar un mazo vacío, no posee virus");
+                                    }
+                                } else {
+                                    padre1 = "";
+                                    padre2 = "";
+                                    hijo1 = "";
+                                    hijo2 = "";
+                                    auxPane1.getStyleClass().add("hVoxActivo");
+                                    auxPane2.getStyleClass().add("hVoxActivo");
+                                    new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puede seleccionar un mazo vacío, seleccione de nuevo");
+                                }
+                            } else {
+                                padre1 = "";
+                                padre2 = "";
+                                hijo1 = "";
+                                hijo2 = "";
+                                auxPane1.getStyleClass().add("hVoxActivo");
+                                auxPane2.getStyleClass().add("hVoxActivo");
+                                new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Debes de seleccionar primero el virus");
+                            }
+                        }
                     }
                 }
             } else {
@@ -721,6 +807,29 @@ public class JuegoController extends Controller implements Initializable {
                 }
             } else {
                 new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes robar órganos inmunizados");
+            }
+
+        } else {
+            new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta pila no posee cartas en ella.");
+        }
+    }
+
+    void moveContagio(String padre, String hijo, ArrayList<CartaDto> cartas) {
+        if (!cartas.isEmpty()) {
+            if (!cartas.get(0).getEstado().equals("Inmunizado") && !cartas.get(0).getEstado().equals("Infectado") && !cartas.get(0).getEstado().equals("Vacunado")) {
+                if ((!jugadorActual.getCartas1().isEmpty() ? jugadorActual.getCartas1().get(0).getEstado().equals("Infectado") : false)
+                        || (!jugadorActual.getCartas2().isEmpty() ? jugadorActual.getCartas1().get(0).getEstado().equals("Infectado") : false)
+                        || (!jugadorActual.getCartas3().isEmpty() ? jugadorActual.getCartas1().get(0).getEstado().equals("Infectado") : false)
+                        || (!jugadorActual.getCartas4().isEmpty() ? jugadorActual.getCartas1().get(0).getEstado().equals("Infectado") : false)
+                        || (!jugadorActual.getCartas5().isEmpty() ? jugadorActual.getCartas1().get(0).getEstado().equals("Infectado") : false)) {
+                    if () {
+                        enviarCartaLadronSocket("Contagio", padre, hijo, jugadorActual.getIP());
+                    }
+                } else {
+                    new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No tienes virus para pasar");
+                }
+            } else {
+                new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes contagear órganos inmunizados, vacunados o infectadoss");
             }
 
         } else {
@@ -1362,6 +1471,7 @@ public class JuegoController extends Controller implements Initializable {
                                             case "Contagio":
                                                 if (!modoDesechar) {
                                                     modoTratamiento = true;
+                                                    movimientoContagio();
                                                     desecharCarta("desecharCarta");
                                                 } else {
                                                     new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes realizar esta acción, porque ya desechaste cartas");
@@ -1567,6 +1677,112 @@ public class JuegoController extends Controller implements Initializable {
         }
     }
 
+    private void movimientoContagio() {
+        modoContagio = true;
+        if (!jugadorActual.getCartas1().isEmpty() && !jugadorActual.getCartas2().isEmpty() && !jugadorActual.getCartas3().isEmpty() && !jugadorActual.getCartas4().isEmpty() && !jugadorActual.getCartas5().isEmpty()) {
+            modoContagio = false;
+            new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta carta no tendrá efecto porque no tienes campos disponibles");
+        } else {
+            if (partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugadorActual.getIP())).
+                    allMatch(x -> x.getCartas1().isEmpty()
+                    && x.getCartas2().isEmpty() && x.getCartas3().isEmpty() && x.getCartas4().isEmpty()
+                    && x.getCartas5().isEmpty())) {
+                modoContagio = false;
+                new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser contagiados");
+            } else {
+                ArrayList<JugadorDto> jugadores = (ArrayList<JugadorDto>) partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugadorActual.getIP())).collect(Collectors.toList());
+
+                ArrayList<CartaDto> cartasJug = new ArrayList();
+                jugadores.stream().map((jug) -> {
+                    if (!jug.getCartas1().isEmpty() && !jug.getCartas1().get(0).getEstado().equals("Inmunizado")) {
+                        cartasJug.add(jug.getCartas1().get(0));
+                    }
+                    return jug;
+                }).map((jug) -> {
+                    if (!jug.getCartas2().isEmpty() && !jug.getCartas2().get(0).getEstado().equals("Inmunizado")) {
+                        cartasJug.add(jug.getCartas2().get(0));
+                    }
+                    return jug;
+                }).map((jug) -> {
+                    if (!jug.getCartas3().isEmpty() && !jug.getCartas3().get(0).getEstado().equals("Inmunizado")) {
+                        cartasJug.add(jug.getCartas3().get(0));
+                    }
+                    return jug;
+                }).map((jug) -> {
+                    if (!jug.getCartas5().isEmpty() && !jug.getCartas5().get(0).getEstado().equals("Inmunizado")) {
+                        cartasJug.add(jug.getCartas5().get(0));
+                    }
+                    return jug;
+                }).filter((jug) -> (!jug.getCartas4().isEmpty() && !jug.getCartas4().get(0).getEstado().equals("Inmunizado"))).forEachOrdered((jug) -> {
+                    cartasJug.add(jug.getCartas4().get(0));
+                });
+                Boolean existe2 = false;
+                if ((!jugadorActual.getCartas1().isEmpty() //Organo en los campos vacios
+                        ? jugadorActual.getCartas1().get(0).getEstado().equals("Infectado") : false)
+                        || (!jugadorActual.getCartas2().isEmpty()
+                        ? jugadorActual.getCartas1().get(0).getEstado().equals("Infectado") : false)
+                        || (!jugadorActual.getCartas3().isEmpty()
+                        ? jugadorActual.getCartas1().get(0).getEstado().equals("Infectado") : false)
+                        || (!jugadorActual.getCartas4().isEmpty()
+                        ? jugadorActual.getCartas1().get(0).getEstado().equals("Infectado") : false)
+                        || (!jugadorActual.getCartas5().isEmpty()
+                        ? jugadorActual.getCartas1().get(0).getEstado().equals("Infectado") : false)) {
+                    existe2 = true;
+                }
+
+                Boolean existe = false;
+                if (existe2) {
+                    for (CartaDto carta : cartasJug) {
+                        if (!carta.getEstado().equals("Inmunizado") && !carta.getEstado().equals("Infectado") && !carta.getEstado().equals("Vacunado")
+                                && (!jugadorActual.getCartas1().isEmpty() //Organo en los campos vacios
+                                ? carta.getEstado().equals("Sano") && (jugadorActual.getCartas1().size() > 1 ? jugadorActual.getCartas1().get(1).getColor().equals(carta.getColor()) : false)
+                                : true)
+                                || (!jugadorActual.getCartas2().isEmpty()
+                                ? carta.getEstado().equals("Sano") && (jugadorActual.getCartas2().size() > 1 ? jugadorActual.getCartas2().get(1).getColor().equals(carta.getColor()) : false)
+                                : true)
+                                || (!jugadorActual.getCartas3().isEmpty()
+                                ? carta.getEstado().equals("Sano") && (jugadorActual.getCartas3().size() > 1 ? jugadorActual.getCartas3().get(1).getColor().equals(carta.getColor()) : false)
+                                : true)
+                                || (!jugadorActual.getCartas4().isEmpty()
+                                ? carta.getEstado().equals("Sano") && (jugadorActual.getCartas4().size() > 1 ? jugadorActual.getCartas4().get(1).getColor().equals(carta.getColor()) : false)
+                                : true)
+                                || (!jugadorActual.getCartas5().isEmpty()
+                                ? carta.getEstado().equals("Sano") && (jugadorActual.getCartas5().size() > 1 ? jugadorActual.getCartas5().get(1).getColor().equals(carta.getColor()) : false)
+                                : true)) {
+                            existe = true;
+                        } else if ((carta.getTipoCarta().equals("Organo_Comodin") && carta.getEstado().equals("Sano")) || (!jugadorActual.getCartas1().isEmpty() //Organo en los campos vacios
+                                ? (jugadorActual.getCartas1().size() > 1 ? jugadorActual.getCartas1().get(1).getTipoCarta().equals("Virus_Comodin") : false)
+                                : true)
+                                || (!jugadorActual.getCartas2().isEmpty() //Organo en los campos vacios
+                                ? (jugadorActual.getCartas2().size() > 1 ? jugadorActual.getCartas2().get(1).getTipoCarta().equals("Virus_Comodin") : false)
+                                : true)
+                                || (!jugadorActual.getCartas3().isEmpty() //Organo en los campos vacios
+                                ? (jugadorActual.getCartas3().size() > 1 ? jugadorActual.getCartas3().get(1).getTipoCarta().equals("Virus_Comodin") : false)
+                                : true)
+                                || (!jugadorActual.getCartas4().isEmpty() //Organo en los campos vacios
+                                ? (jugadorActual.getCartas4().size() > 1 ? jugadorActual.getCartas4().get(1).getTipoCarta().equals("Virus_Comodin") : false)
+                                : true)
+                                || (!jugadorActual.getCartas5().isEmpty() //Organo en los campos vacios
+                                ? (jugadorActual.getCartas5().size() > 1 ? jugadorActual.getCartas5().get(1).getTipoCarta().equals("Virus_Comodin") : false)
+                                : true)) {
+                            existe = true;
+                        }
+                    }
+                }
+
+                if (!existe) {
+                    modoContagio = false;
+                    new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser contagiados");
+                } else {
+                    Mensaje ms = new Mensaje();
+                    ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Estás en modo contagio, contagia los órganos de otros jugadores");
+                }
+
+            }
+
+        }
+    }
+
     private void movientoLadron() {
         ladron = true;
         if (!jugadorActual.getCartas1().isEmpty() && !jugadorActual.getCartas2().isEmpty() && !jugadorActual.getCartas3().isEmpty() && !jugadorActual.getCartas4().isEmpty() && !jugadorActual.getCartas5().isEmpty()) {
@@ -1768,6 +1984,36 @@ public class JuegoController extends Controller implements Initializable {
             System.out.println(e.getMessage());
         }
     }
+    
+    public void movimientoContagioSocket(String padre1, String hijo1, String padre2, String hijo2) {
+        try {
+            Socket socket = new Socket(jugadorActual.getIPS(), 44440);
+            DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());
+            DataInputStream entrada = new DataInputStream(socket.getInputStream());
+            System.out.println("Connected Text!");
+            mensaje.writeUTF("Contagio");
+            String mensajeRecibido = "";
+            mensajeRecibido = entrada.readUTF();
+            System.out.println(mensajeRecibido);
+            socket.close();
+
+            Socket socket2 = new Socket(jugadorActual.getIPS(), 44440);
+            System.out.println("Connected Text!");
+            DataOutputStream mensaje2 = new DataOutputStream(socket2.getOutputStream());
+            mensaje2.writeUTF(padre1);
+            mensaje2.writeUTF(hijo1);
+            mensaje2.writeUTF(padre2);
+            mensaje2.writeUTF(hijo2);
+            System.out.println("Mensajes enviados");
+            socket2.close();
+            Mensaje ms = new Mensaje();
+            ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Contagio realizado con éxito");
+
+            modoContagio = false;
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     private void enviarCartaErrorMedicoSocket(String Mensaje, String padre) {
         try {
@@ -1818,6 +2064,7 @@ public class JuegoController extends Controller implements Initializable {
                         modoTratamiento = false;
                         jugadorActual.setTurno(false);
                         modoTransplante = false;
+                        modoContagio = false;
 
                         vBox.getStyleClass().clear();
                         vBox.getStyleClass().add("hVoxActivo");

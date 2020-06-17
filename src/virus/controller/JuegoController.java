@@ -1720,13 +1720,13 @@ public class JuegoController extends Controller implements Initializable {
                 if ((!jugadorActual.getCartas1().isEmpty() //Organo en los campos vacios
                         ? jugadorActual.getCartas1().get(0).getEstado().equals("Infectado") : false)
                         || (!jugadorActual.getCartas2().isEmpty()
-                        ? jugadorActual.getCartas1().get(0).getEstado().equals("Infectado") : false)
+                        ? jugadorActual.getCartas2().get(0).getEstado().equals("Infectado") : false)
                         || (!jugadorActual.getCartas3().isEmpty()
-                        ? jugadorActual.getCartas1().get(0).getEstado().equals("Infectado") : false)
+                        ? jugadorActual.getCartas3().get(0).getEstado().equals("Infectado") : false)
                         || (!jugadorActual.getCartas4().isEmpty()
-                        ? jugadorActual.getCartas1().get(0).getEstado().equals("Infectado") : false)
+                        ? jugadorActual.getCartas4().get(0).getEstado().equals("Infectado") : false)
                         || (!jugadorActual.getCartas5().isEmpty()
-                        ? jugadorActual.getCartas1().get(0).getEstado().equals("Infectado") : false)) {
+                        ? jugadorActual.getCartas5().get(0).getEstado().equals("Infectado") : false)) {
                     existe2 = true;
                 }
 

@@ -427,7 +427,7 @@ public class JuegoController extends Controller implements Initializable {
                         msj.show(Alert.AlertType.WARNING, "Error con carta", "No puedes realizar este movimiento");
                     }
                 } else {//Movimiento de ladron o Error Medico o transplante
-                    if (!modoTransplante) {
+                    if (!modoTransplante && !modoContagio) {
                         paneAuxiliar = (Pane) event.getSource();
                         String padre = paneAuxiliar.getParent().getId();
                         String hijoAux = hijo(padre);

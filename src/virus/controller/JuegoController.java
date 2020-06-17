@@ -622,12 +622,14 @@ public class JuegoController extends Controller implements Initializable {
                         }
                     } else if (modoContagio) {
                         if (hijo1.isEmpty() && padre1.isEmpty()) {
+                            System.out.println("PLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOK");
                             paneAuxiliar = (Pane) event.getSource();
                             paneAuxiliar.getStyleClass().add("hVoxActivo2");
                             auxPane1 = paneAuxiliar;
                             padre1 = paneAuxiliar.getParent().getId();
                             hijo1 = hijo(padre1);
                         } else {
+                            System.out.println("Kkkkkkkkkkkkkkaaaaaa");
                             paneAuxiliar = (Pane) event.getSource();
                             paneAuxiliar.getStyleClass().add("hVoxActivo2");
                             auxPane2 = paneAuxiliar;
@@ -636,6 +638,7 @@ public class JuegoController extends Controller implements Initializable {
                             JugadorDto jugadorAux = (partida.getJugadores().stream().filter(x -> x.getTurno()).findAny().get());
                             String hBoxJp = padreBox(partida.getJugadores().indexOf(jugadorAux));
                             if (padre2.equals(padre1)) {
+                                System.out.println("WIIIIIIIIIIIIIIIIIIIIIIIIIIII");
                                 padre1 = "";
                                 padre2 = "";
                                 hijo1 = "";
@@ -644,6 +647,7 @@ public class JuegoController extends Controller implements Initializable {
                                 auxPane2.getStyleClass().add("hVoxActivo");
                                 new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puede seleccionar al mismo jugador dos veces, seleccione  de nuevo");
                             } else if ((padre1.equals(hBoxJp))) {
+                                System.out.println("PASSSSSSSSSSSSSSSSSSSSSSSSSS");
                                 String padreAux1 = padre1;
                                 String padreAux2 = padre2;
                                 String hijoAux1 = hijo1;
@@ -656,12 +660,15 @@ public class JuegoController extends Controller implements Initializable {
                                 ArrayList<CartaDto> listaJug1 = cartasRival(jugadorAux, hijo1Aux);
                                 ArrayList<CartaDto> listaJug2 = cartasRival(jugadorAux2, hijo2Aux);
                                 if (!listaJug1.isEmpty() && !listaJug2.isEmpty()) {
+                                    System.out.println("PLASSSSSSSSSSSSSSSSSAPWPWPW");
                                     CartaDto aux1;
                                     CartaDto aux2;
                                     if (listaJug1.size() > 1) {
+                                        System.out.println("EOEOEOEOOOOOOOOOOOOO");
                                         aux1 = listaJug1.get(1);
                                         aux2 = listaJug2.get(0);
                                         if (aux1.getColor().equals(aux2.getColor()) && aux1.getTipoCarta().equals("Virus") && aux2.getEstado().equals("Sano")) {
+                                            System.out.println("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
                                             padre1 = "";
                                             padre2 = "";
                                             hijo1 = "";
@@ -671,6 +678,7 @@ public class JuegoController extends Controller implements Initializable {
                                             auxPane2.getStyleClass().add("hVoxActivo");
                                             movimientoContagioSocket(padreAux1, hijoAux1, padreAux2, hijoAux2);
                                         } else {
+                                            
                                             padre1 = "";
                                             padre2 = "";
                                             hijo1 = "";

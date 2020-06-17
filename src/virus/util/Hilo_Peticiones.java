@@ -741,9 +741,10 @@ public class Hilo_Peticiones extends Thread {
                             Platform.runLater(() -> {
 
                                 Node node = paneAux1.getChildren().get(paneAux1.getChildren().size() - 1);
+                                paneAux1.getChildren().remove(node);
                                 paneAux2.getChildren().add(node);
                                 
-                                paneAux1.getChildren().remove(paneAux1.getChildren().size() - 1);
+                                
                             });
 
                             int cont4 = 0;

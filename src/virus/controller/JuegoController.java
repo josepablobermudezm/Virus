@@ -1433,6 +1433,40 @@ public class JuegoController extends Controller implements Initializable {
             modoTransplante = false;
             new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No existen campos de adversarios para ser intercambiados");
         } else {
+
+            Boolean moveTratamiento = partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugadorActual.getIP())).
+                    allMatch(x -> (!x.getCartas1().isEmpty() //Organo en los campos vacios
+                    ? x.getCartas1().get(0).getEstado().equals("Inmunizado")
+                    : true)
+                    && (!x.getCartas2().isEmpty()
+                    ? x.getCartas2().get(0).getEstado().equals("Inmunizado")
+                    : true)
+                    && (!x.getCartas3().isEmpty()
+                    ? x.getCartas3().get(0).getEstado().equals("Inmunizado")
+                    : true)
+                    && (!x.getCartas4().isEmpty()
+                    ? x.getCartas4().get(0).getEstado().equals("Inmunizado")
+                    : true)
+                    && (!x.getCartas5().isEmpty()
+                    ? x.getCartas5().get(0).getEstado().equals("Inmunizado")
+                    : true));
+            
+            Boolean movePropio = (!jugadorActual.getCartas1().isEmpty() //Organo en los campos vacios
+                    ? jugadorActual.getCartas1().get(0).getEstado().equals("Inmunizado")
+                    : true)
+                    && (!jugadorActual.getCartas2().isEmpty()
+                    ? jugadorActual.getCartas2().get(0).getEstado().equals("Inmunizado")
+                    : true)
+                    && (!jugadorActual.getCartas3().isEmpty()
+                    ? jugadorActual.getCartas3().get(0).getEstado().equals("Inmunizado")
+                    : true)
+                    && (!jugadorActual.getCartas4().isEmpty()
+                    ? jugadorActual.getCartas4().get(0).getEstado().equals("Inmunizado")
+                    : true)
+                    && (!jugadorActual.getCartas5().isEmpty()
+                    ? jugadorActual.getCartas5().get(0).getEstado().equals("Inmunizado")
+                    : true);
+
             ArrayList<JugadorDto> jugadores = (ArrayList<JugadorDto>) partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugadorActual.getIP())).collect(Collectors.toList());
 
             ArrayList<CartaDto> cartasJug = new ArrayList();
@@ -1463,7 +1497,6 @@ public class JuegoController extends Controller implements Initializable {
             Boolean existe = false;
             for (CartaDto carta : cartasJug) {
                 if ((!jugadorActual.getCartas1().isEmpty() //Organo en los campos vacios
-                        //Organo en los campos vacios
                         ? carta.getTipoCarta().equals(jugadorActual.getCartas1().get(0).getTipoCarta()) && !jugadorActual.getCartas1().get(0).getTipoCarta().equals("Inmunizado")
                         : true)
                         || (!jugadorActual.getCartas2().isEmpty()
@@ -1499,121 +1532,19 @@ public class JuegoController extends Controller implements Initializable {
                     existe = true;
                 }
             }
-
-            /*Boolean existe2 = false;
-            int contador = 0;
-
-            for (JugadorDto jugador : jugadores) {
-                if (!jugador.getCartas1().isEmpty() && !jugador.getCartas1().get(0).getEstado().equals("Inmunizado")) {
-                    if ((!jugadorActual.getCartas1().isEmpty() && !jugadorActual.getCartas1().get(0).getEstado().equals("Inmunizado") //Organo en los campos vacios
-                            ? !jugador.getCartas1().get(0).getTipoCarta().equals(jugadorActual.getCartas1().get(0).getTipoCarta())
-                            : true)
-                            && (!jugadorActual.getCartas2().isEmpty() && !jugadorActual.getCartas2().get(0).getEstado().equals("Inmunizado")
-                            ? !jugador.getCartas1().get(0).getTipoCarta().equals(jugadorActual.getCartas2().get(0).getTipoCarta())
-                            : true)
-                            && (!jugadorActual.getCartas3().isEmpty() && !jugadorActual.getCartas3().get(0).getEstado().equals("Inmunizado")
-                            ? !jugador.getCartas1().get(0).getTipoCarta().equals(jugadorActual.getCartas3().get(0).getTipoCarta())
-                            : true)
-                            && (!jugadorActual.getCartas4().isEmpty() && !jugadorActual.getCartas4().get(0).getEstado().equals("Inmunizado")
-                            ? !jugador.getCartas1().get(0).getTipoCarta().equals(jugadorActual.getCartas4().get(0).getTipoCarta())
-                            : true)
-                            && (!jugadorActual.getCartas5().isEmpty() && !jugadorActual.getCartas5().get(0).getEstado().equals("Inmunizado")
-                            ? !jugador.getCartas1().get(0).getTipoCarta().equals(jugadorActual.getCartas5().get(0).getTipoCarta())
-                            : true)) {
-                        existe2 = true;
-                    } else if (jugador.getCartas1().get(0).getTipoCarta().equals("Organo_Comodin") && !jugador.getCartas1().get(0).getEstado().equals("Inmunizado")) {
-                        existe2 = true;
-                    }
-                }
-
-                if (!jugador.getCartas2().isEmpty() && !jugador.getCartas2().get(0).getEstado().equals("Inmunizado")) {
-                    if ((!jugadorActual.getCartas1().isEmpty() && !jugadorActual.getCartas1().get(0).getEstado().equals("Inmunizado") //Organo en los campos vacios
-                            ? !jugador.getCartas2().get(0).getTipoCarta().equals(jugadorActual.getCartas1().get(0).getTipoCarta())
-                            : true)
-                            && (!jugadorActual.getCartas2().isEmpty() && !jugadorActual.getCartas2().get(0).getEstado().equals("Inmunizado")
-                            ? !jugador.getCartas2().get(0).getTipoCarta().equals(jugadorActual.getCartas2().get(0).getTipoCarta())
-                            : true)
-                            && (!jugadorActual.getCartas3().isEmpty() && !jugadorActual.getCartas3().get(0).getEstado().equals("Inmunizado")
-                            ? !jugador.getCartas2().get(0).getTipoCarta().equals(jugadorActual.getCartas3().get(0).getTipoCarta())
-                            : true)
-                            && (!jugadorActual.getCartas4().isEmpty() && !jugadorActual.getCartas4().get(0).getEstado().equals("Inmunizado")
-                            ? !jugador.getCartas2().get(0).getTipoCarta().equals(jugadorActual.getCartas4().get(0).getTipoCarta())
-                            : true)
-                            && (!jugadorActual.getCartas5().isEmpty() && !jugadorActual.getCartas5().get(0).getEstado().equals("Inmunizado")
-                            ? !jugador.getCartas2().get(0).getTipoCarta().equals(jugadorActual.getCartas5().get(0).getTipoCarta())
-                            : true)) {
-                        existe2 = true;
-                    } else if (jugador.getCartas2().get(0).getTipoCarta().equals("Organo_Comodin") && !jugador.getCartas2().get(0).getEstado().equals("Inmunizado")) {
-                        existe2 = true;
-                    }
-
-                    if (!jugador.getCartas3().isEmpty() && !jugador.getCartas3().get(0).getEstado().equals("Inmunizado")) {
-                        if ((!jugadorActual.getCartas1().isEmpty() && !jugadorActual.getCartas1().get(0).getEstado().equals("Inmunizado") //Organo en los campos vacios
-                                ? !jugador.getCartas3().get(0).getTipoCarta().equals(jugadorActual.getCartas1().get(0).getTipoCarta())
-                                : true)
-                                && (!jugadorActual.getCartas2().isEmpty() && !jugadorActual.getCartas2().get(0).getEstado().equals("Inmunizado")
-                                ? !jugador.getCartas3().get(0).getTipoCarta().equals(jugadorActual.getCartas2().get(0).getTipoCarta())
-                                : true)
-                                && (!jugadorActual.getCartas3().isEmpty() && !jugadorActual.getCartas3().get(0).getEstado().equals("Inmunizado")
-                                ? !jugador.getCartas3().get(0).getTipoCarta().equals(jugadorActual.getCartas3().get(0).getTipoCarta())
-                                : true)
-                                && (!jugadorActual.getCartas4().isEmpty() && !jugadorActual.getCartas4().get(0).getEstado().equals("Inmunizado")
-                                ? !jugador.getCartas3().get(0).getTipoCarta().equals(jugadorActual.getCartas4().get(0).getTipoCarta())
-                                : true)
-                                && (!jugadorActual.getCartas5().isEmpty() && !jugadorActual.getCartas5().get(0).getEstado().equals("Inmunizado")
-                                ? !jugador.getCartas3().get(0).getTipoCarta().equals(jugadorActual.getCartas5().get(0).getTipoCarta())
-                                : true)) {
-                            existe2 = true;
-                        } else if (jugador.getCartas3().get(0).getTipoCarta().equals("Organo_Comodin") && !jugador.getCartas3().get(0).getEstado().equals("Inmunizado")) {
-                            existe2 = true;
-                        }
-                        if (!jugador.getCartas4().isEmpty() && !jugador.getCartas4().get(0).getEstado().equals("Inmunizado")) {
-                            if ((!jugadorActual.getCartas1().isEmpty() && !jugadorActual.getCartas1().get(0).getEstado().equals("Inmunizado") //Organo en los campos vacios
-                                    ? !jugador.getCartas4().get(0).getTipoCarta().equals(jugadorActual.getCartas1().get(0).getTipoCarta())
-                                    : true)
-                                    && (!jugadorActual.getCartas2().isEmpty() && !jugadorActual.getCartas2().get(0).getEstado().equals("Inmunizado")
-                                    ? !jugador.getCartas4().get(0).getTipoCarta().equals(jugadorActual.getCartas2().get(0).getTipoCarta())
-                                    : true)
-                                    && (!jugadorActual.getCartas3().isEmpty() && !jugadorActual.getCartas3().get(0).getEstado().equals("Inmunizado")
-                                    ? !jugador.getCartas4().get(0).getTipoCarta().equals(jugadorActual.getCartas3().get(0).getTipoCarta())
-                                    : true)
-                                    && (!jugadorActual.getCartas4().isEmpty() && !jugadorActual.getCartas4().get(0).getEstado().equals("Inmunizado")
-                                    ? !jugador.getCartas4().get(0).getTipoCarta().equals(jugadorActual.getCartas4().get(0).getTipoCarta())
-                                    : true)
-                                    && (!jugadorActual.getCartas5().isEmpty() && !jugadorActual.getCartas5().get(0).getEstado().equals("Inmunizado")
-                                    ? !jugador.getCartas4().get(0).getTipoCarta().equals(jugadorActual.getCartas5().get(0).getTipoCarta())
-                                    : true)) {
-                                existe2 = true;
-                            } else if (jugador.getCartas4().get(0).getTipoCarta().equals("Organo_Comodin") && !jugador.getCartas4().get(0).getEstado().equals("Inmunizado")) {
-                                existe2 = true;
-                            }
-                            if (!jugador.getCartas5().isEmpty() && !jugador.getCartas5().get(0).getEstado().equals("Inmunizado")) {
-                                if ((!jugadorActual.getCartas1().isEmpty() && !jugadorActual.getCartas1().get(0).getEstado().equals("Inmunizado") //Organo en los campos vacios
-                                        ? !jugador.getCartas5().get(0).getTipoCarta().equals(jugadorActual.getCartas1().get(0).getTipoCarta())
-                                        : true)
-                                        && (!jugadorActual.getCartas2().isEmpty() && !jugadorActual.getCartas2().get(0).getEstado().equals("Inmunizado")
-                                        ? !jugador.getCartas5().get(0).getTipoCarta().equals(jugadorActual.getCartas2().get(0).getTipoCarta())
-                                        : true)
-                                        && (!jugadorActual.getCartas3().isEmpty() && !jugadorActual.getCartas3().get(0).getEstado().equals("Inmunizado")
-                                        ? !jugador.getCartas5().get(0).getTipoCarta().equals(jugadorActual.getCartas3().get(0).getTipoCarta())
-                                        : true)
-                                        && (!jugadorActual.getCartas4().isEmpty() && !jugadorActual.getCartas4().get(0).getEstado().equals("Inmunizado")
-                                        ? !jugador.getCartas5().get(0).getTipoCarta().equals(jugadorActual.getCartas4().get(0).getTipoCarta())
-                                        : true)
-                                        && (!jugadorActual.getCartas5().isEmpty() && !jugadorActual.getCartas5().get(0).getEstado().equals("Inmunizado")
-                                        ? !jugador.getCartas5().get(0).getTipoCarta().equals(jugadorActual.getCartas5().get(0).getTipoCarta())
-                                        : true)) {
-                                    existe2 = true;
-                                } else if (jugador.getCartas5().get(0).getTipoCarta().equals("Organo_Comodin") && !jugador.getCartas5().get(0).getEstado().equals("Inmunizado")) {
-                                    existe2 = true;
-                                }
-                            }
-                        }
-                    }
-                }
-            }*/
-
-            if (!existe /*&& !existe2*/) {
+            
+            
+            if (!existe) {
+                Mensaje ms = new Mensaje();
+                ms.show(Alert.AlertType.WARNING, "Información de Juego", "No existe movimiento por lo que la carta no tendrá efecto.");
+                modoTransplante = false;
+            } else if (moveTratamiento) {
+                Mensaje ms = new Mensaje();
+                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Las cartas de tus adversarios están inmunizadas por lo que la carta no tendrá efecto.");
+                modoTransplante = false;
+            }else if(movePropio){
+                Mensaje ms = new Mensaje();
+                ms.show(Alert.AlertType.WARNING, "Información de Juego", "Tus cartas están inmunizadas por lo que la carta no tendrá efecto.");
                 modoTransplante = false;
             } else {
                 Mensaje ms = new Mensaje();
@@ -1828,8 +1759,10 @@ public class JuegoController extends Controller implements Initializable {
             mensaje2.writeUTF(hijo2);
             System.out.println("Mensajes enviados");
             socket2.close();
+            Mensaje ms = new Mensaje();
+            ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Transplante realizado con éxito");
 
-            ladron = false;
+            modoTransplante = false;
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

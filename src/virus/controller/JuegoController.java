@@ -364,7 +364,7 @@ public class JuegoController extends Controller implements Initializable {
         if (!findePartida) {
             jugadorActual = (JugadorDto) AppContext.getInstance().get("JugadorDto");
             if (jugadorActual.getTurno()) {
-                if (!ladron && !errorMedico && !modoTransplante) {
+                if (!ladron && !errorMedico && !modoTransplante && !modoContagio) {
                     if (!modoTratamiento) {
                         if (cartaAux != null) {
                             JugadorDto jugadorAux = partida.getJugadores().stream().

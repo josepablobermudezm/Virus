@@ -686,36 +686,46 @@ public class Hilo_Peticiones extends Thread {
 
                             switch (hijo22Aux) {
                                 case 0:
+                                    partidaDto.getJugadores().get(jugador22).getCartas1().get(0).setEstado("Infectado");
                                     partidaDto.getJugadores().get(jugador22).getCartas1().add(cartas3.get(cartas3.size() - 1));
                                     break;
                                 case 1:
+                                    partidaDto.getJugadores().get(jugador22).getCartas2().get(0).setEstado("Infectado");
                                     partidaDto.getJugadores().get(jugador22).getCartas2().add(cartas3.get(cartas3.size() - 1));
                                     break;
                                 case 2:
+                                    partidaDto.getJugadores().get(jugador22).getCartas3().get(0).setEstado("Infectado");
                                     partidaDto.getJugadores().get(jugador22).getCartas3().add(cartas3.get(cartas3.size() - 1));
                                     break;
                                 case 3:
+                                    partidaDto.getJugadores().get(jugador22).getCartas4().get(0).setEstado("Infectado");
                                     partidaDto.getJugadores().get(jugador22).getCartas4().add(cartas3.get(cartas3.size() - 1));
                                     break;
                                 case 4:
+                                    partidaDto.getJugadores().get(jugador22).getCartas5().get(0).setEstado("Infectado");
                                     partidaDto.getJugadores().get(jugador22).getCartas5().add(cartas3.get(cartas3.size() - 1));
                                     break;
                             }
 
                             switch (hijo11Aux) {
                                 case 0:
+                                    partidaDto.getJugadores().get(jugador11).getCartas1().get(0).setEstado("Sano");
                                     partidaDto.getJugadores().get(jugador11).getCartas1().remove(cartas3.get(cartas3.size() - 1));
                                     break;
                                 case 1:
+                                    partidaDto.getJugadores().get(jugador11).getCartas2().get(0).setEstado("Sano");
                                     partidaDto.getJugadores().get(jugador11).getCartas2().remove(cartas3.get(cartas3.size() - 1));
                                     break;
                                 case 2:
+                                    partidaDto.getJugadores().get(jugador11).getCartas3().get(0).setEstado("Sano");
                                     partidaDto.getJugadores().get(jugador11).getCartas3().remove(cartas3.get(cartas3.size() - 1));
                                     break;
                                 case 3:
+                                    partidaDto.getJugadores().get(jugador11).getCartas4().get(0).setEstado("Sano");
                                     partidaDto.getJugadores().get(jugador11).getCartas4().remove(cartas3.get(cartas3.size() - 1));
                                     break;
                                 case 4:
+                                    partidaDto.getJugadores().get(jugador11).getCartas5().get(0).setEstado("Sano");
                                     partidaDto.getJugadores().get(jugador11).getCartas5().remove(cartas3.get(cartas3.size() - 1));
                                     break;
                             }

@@ -1893,6 +1893,9 @@ public class JuegoController extends Controller implements Initializable {
             vBox2.getStyleClass().add("hVoxActivo");
             vBox3.getStyleClass().clear();
             vBox3.getStyleClass().add("hVoxActivo");
+            
+            AppContext.getInstance().set("JugadorDto", jugadorActual);
+            
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

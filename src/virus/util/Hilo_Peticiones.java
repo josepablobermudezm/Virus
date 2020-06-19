@@ -107,9 +107,7 @@ public class Hilo_Peticiones extends Thread {
                                 Platform.runLater(() -> {
                                     new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Tratamiento Guante de Látex aplicado");
                                 });
-                            } else if (carta.getTipoCarta().equals("Ladron")) {
-
-                            }
+                            } 
 
                             partidaDto.getDesechadas().add(carta);
                             Platform.runLater(() -> {
@@ -130,6 +128,7 @@ public class Hilo_Peticiones extends Thread {
                                     t.setTurno(true);
                                 }
                             });
+                            
 
                             if (jugadorDto.getIP().equals(IP)) {
                                 jugadorDto.setTurno(true);
@@ -139,6 +138,8 @@ public class Hilo_Peticiones extends Thread {
                                 });
                             } else {
                                 jugadorDto.setTurno(false);
+                                AppContext.getInstance().set("JugadorDto", jugadorDto);
+                                
                             }
                             String nombre = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IP)).
                                     findAny().get().getNombre();

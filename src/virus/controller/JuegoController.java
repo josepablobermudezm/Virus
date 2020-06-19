@@ -1674,6 +1674,7 @@ public class JuegoController extends Controller implements Initializable {
 
     public void errorMedicoMetodo() {
         errorMedico = true;
+        
         if (partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugadorActual.getIP())).
                 allMatch(x -> (x.getCartas1().isEmpty()
                 && x.getCartas2().isEmpty() && x.getCartas3().isEmpty() && x.getCartas4().isEmpty()
@@ -1687,7 +1688,7 @@ public class JuegoController extends Controller implements Initializable {
 
     private void movimientoContagio() {
         modoContagio = true;
-        if (!jugadorActual.getCartas1().isEmpty() && !jugadorActual.getCartas2().isEmpty() && !jugadorActual.getCartas3().isEmpty() && !jugadorActual.getCartas4().isEmpty() && !jugadorActual.getCartas5().isEmpty()) {
+        if (jugadorActual.getCartas1().isEmpty() && jugadorActual.getCartas2().isEmpty() && jugadorActual.getCartas3().isEmpty() && jugadorActual.getCartas4().isEmpty() && jugadorActual.getCartas5().isEmpty()) {
             modoContagio = false;
             new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta carta no tendrá efecto porque no tienes campos disponibles");
         } else {
@@ -2042,7 +2043,7 @@ public class JuegoController extends Controller implements Initializable {
             System.out.println("Mensjaes enviados");
             socket2.close();
 
-            errorMedico = false;
+            //errorMedico = false;
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

@@ -847,11 +847,13 @@ public class JuegoController extends Controller implements Initializable {
     EventHandler<MouseEvent> seleccionarCarta = event -> {
         if (!findePartida) {
             jugadorActual = (JugadorDto) AppContext.getInstance().get("JugadorDto");
-            if(jugadorActual.getMazo().size() == 3){
+            
+            /*if(jugadorActual.getMazo().size() == 3){
                 carta1 = jugadorActual.getMazo().get(0);
                 carta2 = jugadorActual.getMazo().get(1);
                 carta3 = jugadorActual.getMazo().get(2);
-            }
+            }*/
+            
             if (jugadorActual.getTurno() && !ladron) {
                 imageViewDesechada = ((ImageView) event.getSource());
                 switch (((ImageView) event.getSource()).getId()) {

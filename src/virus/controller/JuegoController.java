@@ -1891,6 +1891,9 @@ public class JuegoController extends Controller implements Initializable {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
             objectOutputStream.writeObject(cartaAux);
             socket2.close();
+            if(cartaAux.getTipoCarta().equalsIgnoreCase("Error")){
+                cartaAux = jugadorActual.getMazo().stream().filter(x->x.getTipoCarta().equals("Error")).findAny().get();
+            }
             System.out.println("DESECHAR CARTA " + jugadorActual.getMazo().remove(cartaAux));//removemos la carta del mazo del  jugador 
             imageViewDesechada.setImage(null);
             cartaAux = null;
@@ -1900,6 +1903,7 @@ public class JuegoController extends Controller implements Initializable {
             vBox2.getStyleClass().add("hVoxActivo");
             vBox3.getStyleClass().clear();
             vBox3.getStyleClass().add("hVoxActivo");
+            AppContext.getInstance().set("JugadorDto", jugadorActual);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

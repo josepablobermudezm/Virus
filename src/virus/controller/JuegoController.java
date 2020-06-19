@@ -2053,7 +2053,7 @@ public class JuegoController extends Controller implements Initializable {
             System.out.println("Mensjaes enviados");
             socket2.close();
 
-            //errorMedico = false;
+            errorMedico = false;
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

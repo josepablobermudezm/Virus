@@ -437,42 +437,42 @@ public class JuegoController extends Controller implements Initializable {
                                 if (ladron) {
                                     moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(0), iHijo));
                                 } else if (errorMedico) {
-                                    enviarCartaErrorMedicoSocket("errorMedico", padre);
+                                    errorMedicoSocket("errorMedico", padre);
                                 }
                                 break;
                             case "hvox2":
                                 if (ladron) {
                                     moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(1), iHijo));
                                 } else if (errorMedico) {
-                                    enviarCartaErrorMedicoSocket("errorMedico", padre);
+                                    errorMedicoSocket("errorMedico", padre);
                                 }
                                 break;
                             case "hvox3":
                                 if (ladron) {
                                     moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(2), iHijo));
                                 } else if (errorMedico) {
-                                    enviarCartaErrorMedicoSocket("errorMedico", padre);
+                                    errorMedicoSocket("errorMedico", padre);
                                 }
                                 break;
                             case "hvox4":
                                 if (ladron) {
                                     moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(3), iHijo));
                                 } else if (errorMedico) {
-                                    enviarCartaErrorMedicoSocket("errorMedico", padre);
+                                    errorMedicoSocket("errorMedico", padre);
                                 }
                                 break;
                             case "hvox5":
                                 if (ladron) {
                                     moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(4), iHijo));
                                 } else if (errorMedico) {
-                                    enviarCartaErrorMedicoSocket("errorMedico", padre);
+                                    errorMedicoSocket("errorMedico", padre);
                                 }
                                 break;
                             case "hbox6":
                                 if (ladron) {
                                     moveLadron(padre, hijoAux, cartasRival(partida.getJugadores().get(5), iHijo));
                                 } else if (errorMedico) {
-                                    enviarCartaErrorMedicoSocket("errorMedico", padre);
+                                    errorMedicoSocket("errorMedico", padre);
                                 }
                                 break;
                         }
@@ -527,6 +527,7 @@ public class JuegoController extends Controller implements Initializable {
                                     hijo1Aux = Integer.valueOf(hijo2);
                                     hijo2Aux = Integer.valueOf(hijo1);
                                 }
+                                
                                 JugadorDto jugadorAux2 = partida.getJugadores().get(IndiceJugador2);
                                 ArrayList<CartaDto> listaJug1 = cartasRival(jugadorAux, hijo1Aux);
                                 ArrayList<CartaDto> listaJug2 = cartasRival(jugadorAux2, hijo2Aux);
@@ -605,6 +606,7 @@ public class JuegoController extends Controller implements Initializable {
                                             auxPane1.getStyleClass().add("hVoxActivo");
                                             auxPane2.getStyleClass().add("hVoxActivo");
                                             movimientoTransplanteSocket(padreAux1, hijoAux1, padreAux2, hijoAux2);
+                                            
                                         }
                                     }
                                 } else {
@@ -677,6 +679,7 @@ public class JuegoController extends Controller implements Initializable {
                                             auxPane1.getStyleClass().add("hVoxActivo");
                                             auxPane2.getStyleClass().add("hVoxActivo");
                                             movimientoContagioSocket(padreAux1, hijoAux1, padreAux2, hijoAux2);
+                                            movimientoContagio();
                                         } else {
 
                                             padre1 = "";
@@ -724,6 +727,8 @@ public class JuegoController extends Controller implements Initializable {
             ms.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");
         }
     };
+    
+    
 
     public Integer padreBox(String box) {
         switch (box) {
@@ -821,39 +826,13 @@ public class JuegoController extends Controller implements Initializable {
             new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta pila no posee cartas en ella.");
         }
     }
+    
+    
 
-    /*void moveContagio(String padre, String hijo, ArrayList<CartaDto> cartas) {
-        if (!cartas.isEmpty()) {
-            if (!cartas.get(0).getEstado().equals("Inmunizado") && !cartas.get(0).getEstado().equals("Infectado") && !cartas.get(0).getEstado().equals("Vacunado")) {
-                if ((!jugadorActual.getCartas1().isEmpty() ? jugadorActual.getCartas1().get(0).getEstado().equals("Infectado") : false)
-                        || (!jugadorActual.getCartas2().isEmpty() ? jugadorActual.getCartas1().get(0).getEstado().equals("Infectado") : false)
-                        || (!jugadorActual.getCartas3().isEmpty() ? jugadorActual.getCartas1().get(0).getEstado().equals("Infectado") : false)
-                        || (!jugadorActual.getCartas4().isEmpty() ? jugadorActual.getCartas1().get(0).getEstado().equals("Infectado") : false)
-                        || (!jugadorActual.getCartas5().isEmpty() ? jugadorActual.getCartas1().get(0).getEstado().equals("Infectado") : false)) {
-                    if () {
-                        enviarCartaLadronSocket("Contagio", padre, hijo, jugadorActual.getIP());
-                    }
-                } else {
-                    new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No tienes virus para pasar");
-                }
-            } else {
-                new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "No puedes contagear órganos inmunizados, vacunados o infectadoss");
-            }
-
-        } else {
-            new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta pila no posee cartas en ella.");
-        }
-    }*/
     EventHandler<MouseEvent> seleccionarCarta = event -> {
         if (!findePartida) {
             jugadorActual = (JugadorDto) AppContext.getInstance().get("JugadorDto");
-            
-            /*if(jugadorActual.getMazo().size() == 3){
-                carta1 = jugadorActual.getMazo().get(0);
-                carta2 = jugadorActual.getMazo().get(1);
-                carta3 = jugadorActual.getMazo().get(2);
-            }*/
-            
+
             if (jugadorActual.getTurno() && !ladron) {
                 imageViewDesechada = ((ImageView) event.getSource());
                 switch (((ImageView) event.getSource()).getId()) {
@@ -1549,7 +1528,7 @@ public class JuegoController extends Controller implements Initializable {
 
     public void movimientoTransplante() {
         modoTransplante = true;
-        if (!jugadorActual.getCartas1().isEmpty() && !jugadorActual.getCartas2().isEmpty() && !jugadorActual.getCartas3().isEmpty() && !jugadorActual.getCartas4().isEmpty() && !jugadorActual.getCartas5().isEmpty()) {
+        if (jugadorActual.getCartas1().isEmpty() && jugadorActual.getCartas2().isEmpty() && jugadorActual.getCartas3().isEmpty() && jugadorActual.getCartas4().isEmpty() && jugadorActual.getCartas5().isEmpty()) {
             modoTransplante = false;
             new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta carta no tendrá efecto porque no tienes campos disponibles");
         } else if (partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugadorActual.getIP())).
@@ -1891,12 +1870,10 @@ public class JuegoController extends Controller implements Initializable {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
             objectOutputStream.writeObject(cartaAux);
             socket2.close();
-            if(cartaAux.getTipoCarta().equals("Error")){
-                cartaAux = jugadorActual.getMazo().stream().filter(x->x.getTipoCarta().equals("Error")).findAny().get();
-            }
-            else if(cartaAux.getTipoCarta().equals("Ladron")){
-                System.out.println("ENTRO SEGUNDO");
-                cartaAux = jugadorActual.getMazo().stream().filter(x->x.getTipoCarta().equals("Ladron")).findAny().get();
+            if (cartaAux.getTipoCarta().equals("Error")) {
+                cartaAux = jugadorActual.getMazo().stream().filter(x -> x.getTipoCarta().equals("Error")).findAny().get();
+            } else if (cartaAux.getTipoCarta().equals("Ladron")) {
+                cartaAux = jugadorActual.getMazo().stream().filter(x -> x.getTipoCarta().equals("Ladron")).findAny().get();
             }
             ;
             System.out.println("DESECHAR CARTA " + jugadorActual.getMazo().remove(cartaAux));//removemos la carta del mazo del  jugador 
@@ -1908,9 +1885,9 @@ public class JuegoController extends Controller implements Initializable {
             vBox2.getStyleClass().add("hVoxActivo");
             vBox3.getStyleClass().clear();
             vBox3.getStyleClass().add("hVoxActivo");
-            JugadorDto jugador = partida.getJugadores().stream().filter(x->x.getIP().equals(jugadorActual.getIP())).findAny().get();
+            JugadorDto jugador = partida.getJugadores().stream().filter(x -> x.getIP().equals(jugadorActual.getIP())).findAny().get();
             jugador.setMazo(jugadorActual.getMazo());
-            
+
             AppContext.getInstance().set("JugadorDto", jugadorActual);
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -2035,14 +2012,17 @@ public class JuegoController extends Controller implements Initializable {
             socket2.close();
             Mensaje ms = new Mensaje();
             ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Contagio realizado con éxito");
-
-            modoContagio = false;
+            JugadorDto jugador = partida.getJugadores().stream().filter(x->x.getIP().equals(jugadorActual.getIP())).findAny().get();
+            jugador.setMazo(jugadorActual.getMazo());
+            jugadorActual = jugador;
+            AppContext.getInstance().set("JugadorDto", jugadorActual);
+            //modoContagio = false;
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    private void enviarCartaErrorMedicoSocket(String Mensaje, String padre) {
+    private void errorMedicoSocket(String Mensaje, String padre) {
         try {
             Socket socket = new Socket(jugadorActual.getIPS(), 44440);
             DataOutputStream mensaje = new DataOutputStream(socket.getOutputStream());

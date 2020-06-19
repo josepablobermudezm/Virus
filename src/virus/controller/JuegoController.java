@@ -680,6 +680,7 @@ public class JuegoController extends Controller implements Initializable {
                                             auxPane2.getStyleClass().add("hVoxActivo");
                                             movimientoContagioSocket(padreAux1, hijoAux1, padreAux2, hijoAux2);
                                             movimientoContagio();
+                                            System.out.println("VARIABLE CONTAGIO    "+ modoContagio);
                                         } else {
 
                                             padre1 = "";
@@ -2010,8 +2011,8 @@ public class JuegoController extends Controller implements Initializable {
             mensaje2.writeUTF(hijo2);
             System.out.println("Mensajes enviados");
             socket2.close();
-            Mensaje ms = new Mensaje();
-            ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Contagio realizado con éxito");
+            /*Mensaje ms = new Mensaje();
+            ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Contagio realizado con éxito");*/
             JugadorDto jugador = partida.getJugadores().stream().filter(x->x.getIP().equals(jugadorActual.getIP())).findAny().get();
             jugador.setMazo(jugadorActual.getMazo());
             jugadorActual = jugador;

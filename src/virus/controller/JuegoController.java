@@ -1895,8 +1895,10 @@ public class JuegoController extends Controller implements Initializable {
                 cartaAux = jugadorActual.getMazo().stream().filter(x->x.getTipoCarta().equals("Error")).findAny().get();
             }
             else if(cartaAux.getTipoCarta().equals("Ladron")){
+                System.out.println("ENTRO SEGUNDO");
                 cartaAux = jugadorActual.getMazo().stream().filter(x->x.getTipoCarta().equals("Ladron")).findAny().get();
             }
+            ;
             System.out.println("DESECHAR CARTA " + jugadorActual.getMazo().remove(cartaAux));//removemos la carta del mazo del  jugador 
             imageViewDesechada.setImage(null);
             cartaAux = null;
@@ -1906,6 +1908,9 @@ public class JuegoController extends Controller implements Initializable {
             vBox2.getStyleClass().add("hVoxActivo");
             vBox3.getStyleClass().clear();
             vBox3.getStyleClass().add("hVoxActivo");
+            JugadorDto jugador = partida.getJugadores().stream().filter(x->x.getIP().equals(jugadorActual.getIP())).findAny().get();
+            jugador.setMazo(jugadorActual.getMazo());
+            
             AppContext.getInstance().set("JugadorDto", jugadorActual);
         } catch (IOException e) {
             System.out.println(e.getMessage());

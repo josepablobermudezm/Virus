@@ -360,6 +360,7 @@ public class Hilo_Peticiones extends Thread {
 
                             if (partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPActual)).findAny().get().getIP().equals(jugadorDto.getIP())) {
                                 jugadorDto = partidaDto.getJugadores().stream().filter(x -> x.getIP().equals(IPActual)).findAny().get();
+                                System.out.println("ENTRO PRIMERO");
                                 AppContext.getInstance().set("JugadorDto", jugadorDto);
                             }
 

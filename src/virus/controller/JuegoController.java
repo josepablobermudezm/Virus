@@ -847,22 +847,27 @@ public class JuegoController extends Controller implements Initializable {
     EventHandler<MouseEvent> seleccionarCarta = event -> {
         if (!findePartida) {
             jugadorActual = (JugadorDto) AppContext.getInstance().get("JugadorDto");
-            if (jugadorActual.getMazo().size() == 3) {
-                carta1 = jugadorActual.getMazo().get(0);
-                carta2 = jugadorActual.getMazo().get(1);
-                carta3 = jugadorActual.getMazo().get(2);
-            }else if(jugadorActual.getMazo().size() == 2){
-                carta1 = jugadorActual.getMazo().get(0);
-                carta2 = jugadorActual.getMazo().get(1);
-                carta3 = null;
-            }else if(jugadorActual.getMazo().size() == 1){
-                carta1 = jugadorActual.getMazo().get(0);
-                carta2 = null;
-                carta3 = null;
-            }else{
-                carta1 = null;
-                carta2 = null;
-                carta3 = null;
+            switch (jugadorActual.getMazo().size()) {
+                case 3:
+                    carta1 = jugadorActual.getMazo().get(0);
+                    carta2 = jugadorActual.getMazo().get(1);
+                    carta3 = jugadorActual.getMazo().get(2);
+                    break;
+                /*case 2:
+                    carta1 = jugadorActual.getMazo().get(0);
+                    carta2 = jugadorActual.getMazo().get(1);
+                    carta3 = null;
+                    break;
+                case 1:
+                    carta1 = jugadorActual.getMazo().get(0);
+                    carta2 = null;
+                    carta3 = null;
+                    break;
+                default:
+                    carta1 = null;
+                    carta2 = null;
+                    carta3 = null;
+                    break;*/
             }
 
             if (jugadorActual.getTurno() && !ladron) {

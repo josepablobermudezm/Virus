@@ -678,7 +678,7 @@ public class JuegoController extends Controller implements Initializable {
                                             auxPane2.getStyleClass().add("hVoxActivo");
                                             movimientoContagioSocket(padreAux1, hijoAux1, padreAux2, hijoAux2);
                                         } else {
-                                            
+
                                             padre1 = "";
                                             padre2 = "";
                                             hijo1 = "";
@@ -844,10 +844,14 @@ public class JuegoController extends Controller implements Initializable {
             new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta pila no posee cartas en ella.");
         }
     }*/
-
     EventHandler<MouseEvent> seleccionarCarta = event -> {
         if (!findePartida) {
             jugadorActual = (JugadorDto) AppContext.getInstance().get("JugadorDto");
+            if(jugadorActual.getMazo().size() == 3){
+                carta1 = jugadorActual.getMazo().get(0);
+                carta2 = jugadorActual.getMazo().get(1);
+                carta3 = jugadorActual.getMazo().get(2);
+            }
             if (jugadorActual.getTurno() && !ladron) {
                 imageViewDesechada = ((ImageView) event.getSource());
                 switch (((ImageView) event.getSource()).getId()) {
@@ -1674,7 +1678,7 @@ public class JuegoController extends Controller implements Initializable {
 
     public void errorMedicoMetodo() {
         errorMedico = true;
-        
+
         if (partida.getJugadores().stream().filter(x -> !x.getIP().equals(jugadorActual.getIP())).
                 allMatch(x -> (x.getCartas1().isEmpty()
                 && x.getCartas2().isEmpty() && x.getCartas3().isEmpty() && x.getCartas4().isEmpty()
@@ -1684,7 +1688,7 @@ public class JuegoController extends Controller implements Initializable {
         } else {
             new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Error Médico, selecciona el mazo de un jugador");
         }
-        
+
     }
 
     private void movimientoContagio() {
@@ -1787,7 +1791,6 @@ public class JuegoController extends Controller implements Initializable {
                     Mensaje ms = new Mensaje();
                     ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Estás en modo contagio, contagia los órganos de otros jugadores");
                 }
-
             }
 
         }
@@ -1994,7 +1997,7 @@ public class JuegoController extends Controller implements Initializable {
             System.out.println(e.getMessage());
         }
     }
-    
+
     public void movimientoContagioSocket(String padre1, String hijo1, String padre2, String hijo2) {
         try {
             Socket socket = new Socket(jugadorActual.getIPS(), 44440);

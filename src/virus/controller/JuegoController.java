@@ -1433,9 +1433,9 @@ public class JuegoController extends Controller implements Initializable {
                 image9.setImage(new Image("virus/resources/" + carta.getImagen()));
                 carta3 = carta;
             }
-
+            System.out.println("CARTA OBTENIDA "+ carta.getTipoCarta());
             jugadorActual.getMazo().add(carta);
-
+            AppContext.getInstance().set("JugadorDto", jugadorActual);
             //Cerramos la conexión
             socket2.close();
         } catch (UnknownHostException e) {
@@ -1882,9 +1882,21 @@ public class JuegoController extends Controller implements Initializable {
             Socket socket2 = new Socket(jugadorActual.getIPS(), 44440);
             OutputStream outputStream = socket2.getOutputStream();
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+            System.out.println("CARTA DESECHADA "+ cartaAux.getTipoCarta());
             objectOutputStream.writeObject(cartaAux);
             socket2.close();
+            System.out.println("CARTAS ANTES DE DESECHAR");
+            jugadorActual.getMazo().stream().forEach(x->{
+                System.out.println("TIPO CARTA "+ x.getTipoCarta());
+            });
+            
             System.out.println("DESECHAR CARTA " + jugadorActual.getMazo().remove(cartaAux));//removemos la carta del mazo del  jugador 
+            
+            System.out.println("CARTAS DESPUES DE DESECHAR");
+            jugadorActual.getMazo().stream().forEach(x->{
+                System.out.println("TIPO CARTA "+ x.getTipoCarta());
+            });
+            
             imageViewDesechada.setImage(null);
             cartaAux = null;
             vBox.getStyleClass().clear();
@@ -2083,6 +2095,7 @@ public class JuegoController extends Controller implements Initializable {
                         vBox2.getStyleClass().add("hVoxActivo");
                         vBox3.getStyleClass().clear();
                         vBox3.getStyleClass().add("hVoxActivo");
+                        AppContext.getInstance().set("JugadorDto", jugadorActual);
                     } catch (IOException e) {
                         System.out.println(e.getMessage());
                     }

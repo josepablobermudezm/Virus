@@ -527,7 +527,7 @@ public class JuegoController extends Controller implements Initializable {
                                     hijo1Aux = Integer.valueOf(hijo2);
                                     hijo2Aux = Integer.valueOf(hijo1);
                                 }
-                                
+
                                 JugadorDto jugadorAux2 = partida.getJugadores().get(IndiceJugador2);
                                 ArrayList<CartaDto> listaJug1 = cartasRival(jugadorAux, hijo1Aux);
                                 ArrayList<CartaDto> listaJug2 = cartasRival(jugadorAux2, hijo2Aux);
@@ -606,7 +606,7 @@ public class JuegoController extends Controller implements Initializable {
                                             auxPane1.getStyleClass().add("hVoxActivo");
                                             auxPane2.getStyleClass().add("hVoxActivo");
                                             movimientoTransplanteSocket(padreAux1, hijoAux1, padreAux2, hijoAux2);
-                                            
+
                                         }
                                     }
                                 } else {
@@ -667,9 +667,13 @@ public class JuegoController extends Controller implements Initializable {
                                     CartaDto aux2;
                                     if (listaJug1.size() > 1) {
                                         System.out.println("EOEOEOEOOOOOOOOOOOOO");
+
                                         aux1 = listaJug1.get(1);
                                         aux2 = listaJug2.get(0);
-                                        if ( (aux2.getTipoCarta().equals("Organo_Comodin") || aux1.getColor().equals(aux2.getColor())) && (aux1.getTipoCarta().equals("Virus") || aux1.getTipoCarta().equals("Virus_Comodin")) && aux2.getEstado().equals("Sano")) {
+
+                                        if ((aux2.getTipoCarta().equals("Organo_Comodin") || (aux1.getTipoCarta().equals("Virus_Comodin")))
+                                                || (aux1.getColor().equals(aux2.getColor()) && aux1.getTipoCarta().equals("Virus")) 
+                                                && aux2.getEstado().equals("Sano")) {
                                             System.out.println("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
                                             padre1 = "";
                                             padre2 = "";
@@ -680,7 +684,7 @@ public class JuegoController extends Controller implements Initializable {
                                             auxPane2.getStyleClass().add("hVoxActivo");
                                             movimientoContagioSocket(padreAux1, hijoAux1, padreAux2, hijoAux2);
                                             movimientoContagio();
-                                            System.out.println("VARIABLE CONTAGIO    "+ modoContagio);
+                                            System.out.println("VARIABLE CONTAGIO    " + modoContagio);
                                         } else {
 
                                             padre1 = "";
@@ -728,8 +732,6 @@ public class JuegoController extends Controller implements Initializable {
             ms.show(Alert.AlertType.WARNING, "Información de Juego", "La partida ya ha finalizado");
         }
     };
-    
-    
 
     public Integer padreBox(String box) {
         switch (box) {
@@ -827,8 +829,6 @@ public class JuegoController extends Controller implements Initializable {
             new Mensaje().show(Alert.AlertType.WARNING, "Información de Juego", "Esta pila no posee cartas en ella.");
         }
     }
-    
-    
 
     EventHandler<MouseEvent> seleccionarCarta = event -> {
         if (!findePartida) {
@@ -2013,7 +2013,7 @@ public class JuegoController extends Controller implements Initializable {
             socket2.close();
             /*Mensaje ms = new Mensaje();
             ms.show(Alert.AlertType.INFORMATION, "Información de Juego", "Contagio realizado con éxito");*/
-            JugadorDto jugador = partida.getJugadores().stream().filter(x->x.getIP().equals(jugadorActual.getIP())).findAny().get();
+            JugadorDto jugador = partida.getJugadores().stream().filter(x -> x.getIP().equals(jugadorActual.getIP())).findAny().get();
             jugador.setMazo(jugadorActual.getMazo());
             jugadorActual = jugador;
             AppContext.getInstance().set("JugadorDto", jugadorActual);

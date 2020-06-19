@@ -1891,7 +1891,10 @@ public class JuegoController extends Controller implements Initializable {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
             objectOutputStream.writeObject(cartaAux);
             socket2.close();
-            if(cartaAux.getTipoCarta().equalsIgnoreCase("Error")){
+            if(cartaAux.getTipoCarta().equals("Error")){
+                cartaAux = jugadorActual.getMazo().stream().filter(x->x.getTipoCarta().equals("Error")).findAny().get();
+            }
+            else if(cartaAux.getTipoCarta().equals("Ladron")){
                 cartaAux = jugadorActual.getMazo().stream().filter(x->x.getTipoCarta().equals("Error")).findAny().get();
             }
             System.out.println("DESECHAR CARTA " + jugadorActual.getMazo().remove(cartaAux));//removemos la carta del mazo del  jugador 

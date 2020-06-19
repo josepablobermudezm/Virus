@@ -1,0 +1,259 @@
+
+#Titulo{
+    -fx-text-fill: gray;
+    -fx-font-size : 100pt;
+    -jfx-focus-color: -fx-secondary;
+}
+#lbl_t_Turno{
+    -fx-font-family: "Decker";
+    /*-fx-font-family: "Arial Rounded MT Bold";*/
+    /*-fx-font-family: url("../fonts/SourceSansPro-Bold.ttf");*/
+    -fx-font-size: 10pt;
+}
+
+#H_turno{
+    -fx-background-color: #02235D;
+}
+
+.hVoxActivo{
+    -fx-border-color:white; 
+    -fx-border-width: 1; 
+    -fx-border-style: solid;
+    -fx-border-radius: 5px;
+}
+
+.hVoxActivo2{
+    -fx-border-color:#3c54ba; 
+    -fx-border-width: 2; 
+    -fx-border-style: solid;
+    -fx-border-radius: 5px;
+}
+
+.hVoxActivo:hover{
+    -fx-border-color:gray; 
+    -fx-border-width: 2; 
+    -fx-border-style: solid;
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.Label{
+    -fx-font-family: "Decker";
+    /*-fx-font-family: "Arial Rounded MT Bold";*/
+    -fx-text-fill: #384294;
+    /*-fx-font-family: url("../fonts/SourceSansPro-Bold.ttf");*/
+    -fx-font-size: 25pt;
+}
+.lbl2{
+    -fx-font-family: "Decker";
+    -fx-text-fill: white;
+    /*-fx-font-family: url("../fonts/SourceSansPro-Bold.ttf");*/
+    -fx-font-size: 25pt;
+}
+
+.lbl2:hover{
+    -fx-font-family: "Decker";
+    -fx-font-size : 27pt;
+    -fx-text-fill : black;
+}
+.lbl{
+    -fx-font-family: "Decker";
+    -fx-text-fill: gray;
+    /*-fx-font-family: url("../fonts/SourceSansPro-Bold.ttf");*/
+    -fx-font-size: 25pt;
+}
+
+.lbl1{
+    -fx-font-size : 15pt;
+    -fx-text-fill : white;
+}
+
+#fondo_juego{
+    -fx-background-size: 100% 100%; 
+    -fx-background-image: url("../resources/fondoJuego1.jpg");
+}
+
+#omg{
+    -fx-background-size: 100% 100%; 
+    -fx-background-image: url("../resources/fondoJuego1.jpg");
+}
+#cargando{
+    -fx-background-size: 100% 100%; 
+    -fx-background-image: url("../resources/carga2.jpg");
+}
+
+.lbl:hover{
+    -fx-font-family: "Decker";
+    -fx-font-size : 27pt;
+    -fx-text-fill : #65239e;
+}
+#lblSelected{
+    -fx-font-family: "Decker";
+    -fx-text-fill: white;
+    /*-fx-font-family: url("../fonts/SourceSansPro-Bold.ttf");*/
+    -fx-font-size: 27pt;
+}
+
+#lblSelected:hover{
+    -fx-font-family: "Decker";
+    -fx-font-size : 27pt;
+    -fx-text-fill : white;
+}
+.lblSmall{
+    -fx-font-family: "Decker";
+    -fx-text-fill: white;
+    /*-fx-font-family: url("../fonts/SourceSansPro-Bold.ttf");*/
+    -fx-font-size: 11pt;
+}
+.lbl4{
+    -fx-font-family: "Decker";
+    -fx-text-fill: #4955ba;
+    /*-fx-font-family: url("../fonts/SourceSansPro-Bold.ttf");*/
+    -fx-font-size: 25pt;
+}
+.lbl4:hover{
+    -fx-font-family: "Decker";
+    -fx-font-size : 25pt;
+    -fx-text-fill : white;
+}
+.anchorp{
+    -fx-border-color: #4955ba;
+    -fx-border-width: 5;
+}
+.anchorp:hover{
+    -fx-border-color: white;
+    -fx-border-width: 5;
+}
+.lbl3{
+    -fx-font-family: "Decker";
+    -fx-text-fill : white;
+    /*-fx-font-family: url("../fonts/SourceSansPro-Bold.ttf");*/
+    -fx-font-size: 25pt;
+}
+.lbl3:hover{
+    -fx-font-family: "Decker";
+    -fx-font-size : 27pt;
+    -fx-text-fill : white;
+}
+#root{
+    -fx-background-color: black;
+}
+#puntos{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : white;
+    -fx-font-size : 25pt;
+}
+/*game over*/
+.lblPac1{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : white;
+    -fx-font-size : 25pt;
+}
+.lblPac{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : white;
+    -fx-font-size : 25pt;
+}
+.lblPac:hover{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : #4955ba;
+    -fx-font-size : 25pt;
+}
+.lblIconLevel1{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : GREEN;
+    -fx-font-size : 45pt;
+}
+.lblIconLevel4{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : #3B80B8;
+    -fx-font-size : 45pt;
+}
+.lblIconLevel6{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : #02235D;
+    -fx-font-size : 45pt;
+}
+.lblIconLevel5{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : #0CF25C;
+    -fx-font-size : 45pt;
+}
+.lblIconLevel2{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : YELLOW;
+    -fx-font-size : 45pt;
+}
+.lblIconLevel3{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : #efb810;
+    -fx-font-size : 45pt;
+}
+.lblIconLevel7{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : #F22836;
+    -fx-font-size : 45pt;
+}
+.lblIconLevel8{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : #CABD5D;
+    -fx-font-size : 45pt;
+}
+.lblIconLevel9{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : #c42014;
+    -fx-font-size : 45pt;
+}
+.lblIconLevel10{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : #ffffff;
+    -fx-font-size : 45pt;
+}
+.gameover{
+    -fx-font-family: "Showcard Gothic";
+    -fx-text-fill : RED;
+    -fx-font-size : 60pt;
+}
+
+.custom-jfx-radio-button-white{
+    -fx-text-fill: black;
+    -jfx-selected-color: #0d54d1;
+}
+
+.button{
+    -fx-background-color:#042a6b;
+    -jfx-button-type: RAISED;/*raised and flat*/
+    -fx-text-fill: WHITE;
+    -jfx-rippler-fill: RED;
+}
+.button:pressed {
+    -fx-background-color: white;
+    -jfx-button-type: RAISED;/*raised and flat*/
+    -fx-text-fill: WHITE;
+    -jfx-rippler-fill: RED;
+}
+.button:hover {
+    -fx-background-color: #06388f;
+    -jfx-button-type: RAISED;/*raised and flat*/
+    -fx-text-fill: WHITE;
+    -jfx-rippler-fill: RED;
+}
+.button .jfx-rippler{
+    -jfx-rippler-fill: #577fc2;
+}
+
+.button:disabled{
+    -fx-background-color: #cccccc;
+    -jfx-button-type: RAISED;/*raised and flat*/
+    -fx-text-fill: WHITE;
+    -jfx-rippler-fill: GREEN;
+
+}
+
+.text-field{
+    -fx-prompt-text-fill: white;
+    -jfx-focus-color: white;
+    -jfx-unfocus-color: white;
+    /*-jfx-label-float: true;*/
+    -fx-text-fill: white;
+}

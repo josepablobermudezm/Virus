@@ -1895,7 +1895,7 @@ public class JuegoController extends Controller implements Initializable {
                 cartaAux = jugadorActual.getMazo().stream().filter(x->x.getTipoCarta().equals("Error")).findAny().get();
             }
             else if(cartaAux.getTipoCarta().equals("Ladron")){
-                cartaAux = jugadorActual.getMazo().stream().filter(x->x.getTipoCarta().equals("Error")).findAny().get();
+                cartaAux = jugadorActual.getMazo().stream().filter(x->x.getTipoCarta().equals("Ladron")).findAny().get();
             }
             System.out.println("DESECHAR CARTA " + jugadorActual.getMazo().remove(cartaAux));//removemos la carta del mazo del  jugador 
             imageViewDesechada.setImage(null);

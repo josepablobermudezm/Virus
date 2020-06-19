@@ -133,6 +133,7 @@ public class Hilo_Peticiones extends Thread {
 
                             if (jugadorDto.getIP().equals(IP)) {
                                 jugadorDto.setTurno(true);
+                                AppContext.getInstance().set("JugadorDto", jugadorDto);
                                 Platform.runLater(() -> {
                                     new Mensaje().show(Alert.AlertType.INFORMATION, "Información de juego", "Es tu turno");
                                 });

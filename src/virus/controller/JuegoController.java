@@ -1457,7 +1457,7 @@ public class JuegoController extends Controller implements Initializable {
             }
             System.out.println("CARTA OBTENIDA " + carta.getTipoCarta());
             jugadorActual.getMazo().add(carta);
-            AppContext.getInstance().set("JugadorDto", jugadorActual);
+            //AppContext.getInstance().set("JugadorDto", jugadorActual);
             //Cerramos la conexión
             socket2.close();
         } catch (UnknownHostException e) {
@@ -1928,7 +1928,7 @@ public class JuegoController extends Controller implements Initializable {
             vBox3.getStyleClass().clear();
             vBox3.getStyleClass().add("hVoxActivo");
 
-            AppContext.getInstance().set("JugadorDto", jugadorActual);
+          //  AppContext.getInstance().set("JugadorDto", jugadorActual);
 
         } catch (IOException e) {
             System.out.println(e.getMessage());

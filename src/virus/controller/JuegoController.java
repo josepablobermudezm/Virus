@@ -669,7 +669,7 @@ public class JuegoController extends Controller implements Initializable {
                                         System.out.println("EOEOEOEOOOOOOOOOOOOO");
                                         aux1 = listaJug1.get(1);
                                         aux2 = listaJug2.get(0);
-                                        if ( ((aux2.getTipoCarta().equals("Organo_Comodin") || (aux1.getTipoCarta().equals("Virus_Comodin"))) || (aux1.getColor().equals(aux2.getColor()) && aux1.getTipoCarta().equals("Virus"))) && aux2.getEstado().equals("Sano")) {
+                                        if ( (aux2.getTipoCarta().equals("Organo_Comodin") || aux1.getColor().equals(aux2.getColor())) && (aux1.getTipoCarta().equals("Virus") || aux1.getTipoCarta().equals("Virus_Comodin")) && aux2.getEstado().equals("Sano")) {
                                             System.out.println("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
                                             padre1 = "";
                                             padre2 = "";

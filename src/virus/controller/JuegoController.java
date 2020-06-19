@@ -1684,6 +1684,7 @@ public class JuegoController extends Controller implements Initializable {
         } else {
             new Mensaje().show(Alert.AlertType.INFORMATION, "Información de Juego", "Error Médico, selecciona el mazo de un jugador");
         }
+        
     }
 
     private void movimientoContagio() {
